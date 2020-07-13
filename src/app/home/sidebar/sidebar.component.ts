@@ -88,11 +88,11 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '一岗双责管理',
       lefticon: 'fa-angle-down',
-       link: '/home/double/insitution',
+      link: '/home/double/insitution',
       children: [
         {item: {label: '一岗双责管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/double/insitution', isHas: true},
-        // {item: {label: '一岗双责责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        // {item: {label: '责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        {item: {label: '责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/list-customization', isHas: true},
+        {item: {label: '员工责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/employee-list-file', isHas: true},
       ]
     },
     // tslint:disable-next-line:max-line-length
@@ -191,6 +191,7 @@ export class SidebarComponent implements OnInit {
   }
   // 一级导航点击事件
   public firItemClick(item): void {
+    console.log(item);
     this.barItem.forEach(val => {
       val.icon.color = '#fff';
       val.bgc = '#226AD5';
@@ -239,6 +240,7 @@ export class SidebarComponent implements OnInit {
             }
           });
         });
+        console.log(this.secItem);
       }else {
         this.secItem = [];
       }

@@ -1,0 +1,25 @@
+<div class="archives-list">
+  <div class="archives-list-title">
+     <span>
+       员工责任清单档案
+     </span>
+  </div>
+  <div class="archives-list-header">
+    <div class="archives-list-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <!--    <div class="archives-list-button">-->
+    <!--      <button pButton type="button" label="添加权限" class="ui-button-rounded" (click)="showAddarchivesListClick()"></button>-->
+    <!--      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delarchivesListInfoClick()"></button>-->
+    <!--    </div>-->
+  </div>
+  <div class="archives-list-table">
+    <app-bf-table-btn [select]="archivesListSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-bf-table-btn>
+  </div>
+  <div class="archives-list-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+</div>

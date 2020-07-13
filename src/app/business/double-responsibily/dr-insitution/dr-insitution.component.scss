@@ -1,5 +1,124 @@
-h1  {
-  position: absolute;
-  top: 50vh;
-  left: 50vw;
+.dr-institution {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      span {
+        font-size: 24px;
+        color: #ABABAB;
+      }
+      .search {
+        position: relative;
+
+      }
+    }
+    .dr-institution-search{
+      position: relative;
+      .ui-inputgroup {
+        display: inline-block;
+        margin-left: 1vw;
+        input{
+          border-radius: 20px 0 0 20px;
+          outline: none;
+        }
+        button{
+          //margin-top: 1px;
+          border-radius: 0 20px 20px 0;
+          border: 0;
+        }
+      }
+    }
+  }
+  .content {
+    width: 100%;
+    padding: 0 1vw 1vh 1vw;
+    height: 90%;
+    .list {
+      box-shadow: 0 0 8px #DEDEDE;
+      border-radius: 10px;
+      z-index: -1;
+      .dr-institution-item {
+        height: 12vh;
+        display: flex;
+        padding: 0 1vw;
+        background: #fff;
+        cursor: pointer;
+        .dr-institution-item-title {
+          flex: 4;
+          display: flex;
+          align-items: center;
+          color: #646571;
+          border-bottom: 1px solid #EAEAEA;
+          h2 {
+            flex: 1;
+            text-align: center;
+            margin-bottom: 30px;
+          }
+          .dr-institution-content {
+            flex: 14;
+            p:first-child {
+              font-size: 26px;
+              font-weight: bold;
+            }
+            p:last-child{
+              margin-top: 1.6vh;
+              font-size: 12px;
+              color: #8E97A7;
+            }
+
+          }
+        }
+        .dr-institution-btn {
+          //width: 4vw;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #EAEAEA;
+          .edit-btn {
+            text-align: center;
+            width: 4vw;
+            height: 3vh;
+            margin-bottom: 2.8vh;
+            border-radius: 20px;
+            background: #66A0FF;
+            line-height: 3vh;
+            margin-right: 2vw;
+            font-size: 14px;
+            color: #E4EEFF;
+          }
+        }
+      }
+      ::ng-deep .ui-widget {
+        border-radius: 20px;
+        color: #8D8E96;
+        height: 3vh;
+        border: 1px solid #F2F2F2;
+        background: #F8F8F8;
+      }
+      //隐藏滚动条
+      ::ng-deep .ui-scrollpanel-bar {
+        //background-color: rgba(0, 0, 0, 0);
+        //transition: background-color .3s;
+        display: none;
+      }
+      ::ng-deep .ui-scrollpanel-content{
+        //padding-right: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  ::ng-deep .ui-inputgroup .ui-widget {
+    color: #8D8E96;
+    font-size: 14px;
+    //height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    //border-right: 0;
+    border-left: 0;
+    background: #F8F8F8;
+  }
 }
