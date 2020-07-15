@@ -28,6 +28,7 @@ export class DemandReportComponent implements OnInit {
     {field: 'idCardNo', header: '身份证'},
     {field: 'factoryName', header: '厂矿'},
     {field: 'workshopName', header: '车间'},
+    {field: 'workType', header: '工种'},
     {field: 'teamName', header: '班组'},
   ]; // 表头字段
   public reportTableData: any[]; // 表体数据
