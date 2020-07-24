@@ -7,8 +7,8 @@
   <div class="archives-list-header">
     <div class="p-col" style="width: 100%">
       <div class="p-4 pull-left">
-        <input type="text" pInputText placeholder="请选择组织" (click)="this.treeDialog = true"/>
-        <input pInputText type="text" placeholder="请输入岗位" (click)="treeDialog = true" style="margin-left: 20px"/>
+        <input type="text" pInputText placeholder="请选择组织" (click)="this.treeDialog = true; "/>
+        <input pInputText type="text" placeholder="请输入岗位" (click)="treeDialog = true" style="margin-left: 20px; border: none"/>
       </div>
       <div class="p-4 pull-right">
         <button pButton type="button" label="新增" class="ui-button-rounded" (click)="clearData(); showDialog = true;"></button>
@@ -28,7 +28,7 @@
   </div>
 
 
-  <p-dialog header="新增责任清单" [(visible)]="showDialog" [style]="{width: '800px'}">
+  <p-dialog header="新增责任清单" [(visible)]="showDialog" [style]="{width: '900px'}" >
     <p-scrollPanel [style]="{width: '100%', height: '400px'}">
       <div class="body" style="padding-bottom: 30px">
         <div class="row" style="line-height: 35px;">
@@ -48,10 +48,10 @@
           </div>
         </div>
         <div style="clear: both"></div>
-        <div class="row" style="background-color: rgb(209, 224, 247); height: 50px">
+        <div class="row" style="background-color: rgb(209, 224, 247); height: 50px; line-height: 38px">
           <div>
             <div class="ui-g-8 ui-g-offset-2 text-center">
-              <input pInputText type="text" [(ngModel)]="listName" placeholder="点击输入检查清单名称" style="margin-left: 20px; width: 70%"/>
+              <input pInputText type="text" [(ngModel)]="listName" placeholder="点击输入检查清单名称" style="width: 100%"/>
             </div>
             <div class="ui-g-2">
               <span>总分：{{totalFraction}}</span>
