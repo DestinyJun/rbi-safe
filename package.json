@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4701 --open --host 0.0.0.0  --disable-host-check",
+    "start": "ng serve --port 4700 --open --host 0.0.0.0  --disable-host-check",
     "startzga": "ng serve --port 4700 --open --host 0.0.0.0  --disable-host-check -c=zga",
     "build": "ng build --prod --base-href /safe/",
     "buildTest": "ng build -c=test --base-href /safetest/",

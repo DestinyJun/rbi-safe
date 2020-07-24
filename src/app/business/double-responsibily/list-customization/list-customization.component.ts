@@ -250,6 +250,8 @@ export class ListCustomizationComponent implements OnInit {
   }
 
   public remove(form: FormGroup): void {
+    // tslint:disable-next-line:radix
+    this.totalFraction -= Number.parseInt(form.get('fraction').value);
     this.contentForms.splice(this.contentForms.indexOf(form), 1);
   }
 }
