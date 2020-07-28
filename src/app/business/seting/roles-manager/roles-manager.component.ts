@@ -214,7 +214,8 @@ export class RolesManagerComponent implements OnInit {
   }
   // 递归赛选后台给的权限id列表
   public  getTreeValue(data): void {
-    if (data !== undefined) {
+    console.log(data);
+    if (data) {
       for (let i = 0; i < data.length; i++) {
         this.roleWebPermissionCheckList.push(data[i].permissionId);
         // 追加子元素

@@ -105,4 +105,19 @@ export class SecurityRiskService {
   public updateArchivesData(pamars): Observable<any> {
     return this.http.post(`/risk/update`, pamars);
   }
+
+
+  /*--------------------------------------------------- 风险分级管控现状---------------------------------------------------*/
+  // 危害种类
+  public findHarmKind(): Observable<any> {
+    return this.http.post('/risk/findByHarmKind', '');
+  }
+  // 风险等级
+  public findByGrade(): Observable<any> {
+    return this.http.post('/risk/findByGrade', '');
+  }
+  // 风险范畴统计
+  public findByRiskCategory(): Observable<any> {
+    return this.http.post('/risk/findByRiskCategory', '');
+  }
 }

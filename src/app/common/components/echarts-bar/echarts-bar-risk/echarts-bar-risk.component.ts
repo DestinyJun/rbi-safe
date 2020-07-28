@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { graphic } from 'echarts';
+import {SecurityRiskService} from '../../../services/security-risk.service';
 
 @Component({
   selector: 'app-echarts-bar-risk',
@@ -15,9 +16,10 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
   @Input()
   public title: any;
   public option: any;
-  constructor() { }
+  constructor(
+    private srService: SecurityRiskService
+  ) { }
   ngOnInit() {
-
   }
   public hexToRgba(hex, opacity): string {
     let rgbaColor = '';
@@ -30,12 +32,20 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
     return rgbaColor;
   }
 
+
+
+
   ngOnChanges(changes: SimpleChanges): void {
-    const xAxisData = this.echartData.map(v => v.name);
+    let xAxisData: any;
+    let yAxisData1: any;
+    let yAxisData2: any;
+    if (this.echartData && this.echartData.length > 0) {
+      xAxisData = this.echartData.map( v => v.name);
 //  ["1", "2", "3", "4", "5", "6", "7", "8"]
-    const yAxisData1 = this.echartData.map(v => v.value1);
+      yAxisData1 = this.echartData.map(v => v.value1);
 // [100, 138, 350, 173, 180, 150, 180, 230]
-    const yAxisData2 = this.echartData.map(v => v.value2);
+      yAxisData2 = this.echartData.map(v => v.value2);
+    }
     this.option =  {
       title: {
         text: this.title,
@@ -82,7 +92,7 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
         type: 'category',
         boundaryGap: false,
         axisLabel: {
-          formatter: '{value}级',
+          formatter: '{value}',
           textStyle: {
             color: '#333'
           }
