@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TroubleCheckStatusService} from "../../../services/trouble-check-status.service";
 
 @Component({
   selector: 'app-echarts-bar-trouble',
@@ -8,29 +9,33 @@ import { Component, OnInit } from '@angular/core';
 export class EchartsBarTroubleComponent implements OnInit {
 
   public option: any;
-  public data = [
-    {name: '1月', value: 80},
-    {name: '2月', value: 87.8},
-    {name: '3月', value: 71},
-    {name: '4月', value: 80},
-    {name: '5月', value: 66},
-    {name: '6月', value: 80},
-    {name: '7月', value: 80},
-    {name: '8月', value: 80}
-    ];
+  public data = [];
   public min = 50;
-  constructor() { }
+  constructor(
+    private req: TroubleCheckStatusService
+  ) { }
 
   ngOnInit() {
+    this.req.findByMonth().subscribe(res => {
+      console.log(res);
+      this.data = [];
+      for (const key in res.data) {
+        this.data.push({name: key, value: res.data[key]});
+      }
+      this.data = this.data.sort((a, b ) => {
+        return this.getMonthCode(a.name) - this.getMonthCode(b.name);
+      });
+      console.log(this.data);
+      this.updateOption();
+    });
+  }
+
+  private updateOption(): void {
     // tslint:disable-next-line:one-variable-per-declaration
     const xData = [], yData = [];
     this.data.map((a, b) => {
       xData.push(a.name);
-      if (a.value === 0) {
-        yData.push(a.value + this.min);
-      } else {
-        yData.push(a.value);
-      }
+      yData.push(a.value + this.min);
     });
     this.option = {
       title: {
@@ -47,11 +52,7 @@ export class EchartsBarTroubleComponent implements OnInit {
           }
         },
         formatter: (prams) => {
-          if (prams[0].data === this.min) {
-            return '隐患数：0';
-          } else {
-            return '隐患数：' + prams[0].data;
-          }
+          return '隐患数：' + (prams[0].data - this.min);
         }
       },
       legend: {
@@ -154,6 +155,25 @@ export class EchartsBarTroubleComponent implements OnInit {
 
       ]
     };
+  }
+
+
+  private getMonthCode(str: string) {
+    switch (str) {
+      case '1月': return 1;
+      case '2月': return 2;
+      case '3月': return 4;
+      case '4月': return 8;
+      case '5月': return 16;
+      case '6月': return 32;
+      case '7月': return 64;
+      case '8月': return 128;
+      case '9月': return 258;
+      case '10月': return 512;
+      case '11月': return 1024;
+      case '12月': return 2048;
+      default: return 0;
+    }
   }
 
 }

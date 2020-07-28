@@ -89,7 +89,7 @@ export class ScsSortComponent implements OnInit {
       header: {
         data:  [
           {field: 'id', header: '序号'},
-          {field: 'subjectStoreName', header: '权限名称'},
+          {field: 'subjectStoreName', header: '题库名称'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}

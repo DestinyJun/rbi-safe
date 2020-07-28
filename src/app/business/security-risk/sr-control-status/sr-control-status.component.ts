@@ -39,7 +39,6 @@ export class SrControlStatusComponent implements OnInit {
     });
     // 风险危害种类占比
     this.srService.findHarmKind().subscribe(res => {
-      console.log(res.data);
       // 记录总数
       let tal = 0;
       for (const dataKey in res.data) {

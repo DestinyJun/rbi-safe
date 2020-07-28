@@ -15,8 +15,8 @@ import {
 } from 'primeng/primeng';
 import { ListCustomizationComponent } from './list-customization/list-customization.component';
 import { EmployeeListFileComponent } from './employee-list-file/employee-list-file.component';
-import {BasicTableModule} from "../../common/components/basic-table/basic-table.module";
-import {PaginationModule} from "../../common/components/pagination/pagination.module";
+import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
+import {PaginationModule} from '../../common/components/pagination/pagination.module';
 
 
 @NgModule({

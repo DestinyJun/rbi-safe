@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TroubleCheckStatusService} from "../../../common/services/trouble-check-status.service";
 
 @Component({
   selector: 'app-trouble-check-status',
@@ -6,17 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./trouble-check-status.component.scss']
 })
 export class TroubleCheckStatusComponent implements OnInit {
-  public lineData = [
-    {name: '一', value1: 22, value2: 24},
-    {name: '二', value1: 32, value2: 42},
-    {name: '三', value1: 33, value2: 21},
-    {name: '四', value1: 44, value2: 35},
-    {name: '五', value1: 34, value2: 41}
-  ];
+  public lineData = [];
   public lineTilte: any = '隐患等级数量统计';
-  constructor() { }
+  constructor(
+    private req: TroubleCheckStatusService
+  ) { }
 
   ngOnInit() {
+
+    this.req.findByGrade().subscribe(res => {
+        this.lineData = [];
+      for (const key in res.data) {
+        this.lineData.push({name: key, value1: res.data[key]});
+      }
+    });
+
+
   }
 
 }

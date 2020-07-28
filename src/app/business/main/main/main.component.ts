@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GeneralInfoService} from '../../../common/services/general-info.service';
 import {Router} from '@angular/router';
 import {GeneralInfoClass} from '../../../common/public/Api';
+import {SecurityRiskService} from "../../../common/services/security-risk.service";
 
 @Component({
   selector: 'app-main',
@@ -9,13 +10,7 @@ import {GeneralInfoClass} from '../../../common/public/Api';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  public lineData = [
-    {name: '一', value1: 22, value2: 24},
-    {name: '二', value1: 32, value2: 42},
-    {name: '三', value1: 33, value2: 21},
-    {name: '四', value1: 44, value2: 35},
-    {name: '五', value1: 34, value2: 41}
-  ];
+  public lineData = [];
   public lineTilte: any = '风险等级数量统计';
   public mainPieDate: any[] = [
     {name: '维修工', value: 200},
@@ -30,11 +25,28 @@ export class MainComponent implements OnInit {
   public genneralInfoData: GeneralInfoClass = new GeneralInfoClass();
   constructor(
     private builletinSrv: GeneralInfoService,
-    private router: Router
+    private router: Router,
+    private srService: SecurityRiskService
   ) {
   }
 
   ngOnInit() {
+    // 风险等级
+    this.srService.findByGrade().subscribe(res => {
+      const lineDataKey = [];
+      for (const dataKey in res.data) {
+        lineDataKey.push(dataKey);
+      }
+      this.lineData = [];
+      for (const datumKey in res.data[lineDataKey[0]]) {
+        this.lineData.push({name: datumKey, value1: res.data[lineDataKey[0]][datumKey], value2: res.data[lineDataKey[1]][datumKey]});
+      }
+      // 排序根据名称
+      this.lineData = this.lineData.sort((a, b) => {
+        return this.getZhCode(a.name) - this.getZhCode(b.name);
+      });
+    });
+
      this.initMainData();
   }
 
@@ -59,5 +71,16 @@ export class MainComponent implements OnInit {
   // 下载附件
   public downFile(e): void {
     window.open(e);
+  }
+
+  private getZhCode(str: string) {
+    switch (str) {
+      case '一级': return 1;
+      case '二级': return 2;
+      case '三级': return 4;
+      case '四级': return 6;
+      case '五级': return 16;
+      default: return 0;
+    }
   }
 }
