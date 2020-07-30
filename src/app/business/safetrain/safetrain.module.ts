@@ -65,6 +65,11 @@ import { StMyplanDetailComponent } from './st-start-study/st-learn-myplan/st-myp
 import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/scs-contents-type.component';
 import {StWrongQuestionComponent} from './st-online-exam/st-exam-list/st-wrong-question/st-wrong-question.component';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
+import { PlanAEditComponent } from './st-plan-a/plan-a-edit/plan-a-edit.component';
+import { PlanAListComponent } from './st-plan-a/plan-a-list/plan-a-list.component';
+import { PlanAProcessedComponent } from './st-plan-a/plan-a-list/plan-a-processed/plan-a-processed.component';
+import { PlanAUnprocessedComponent } from './st-plan-a/plan-a-list/plan-a-unprocessed/plan-a-unprocessed.component';
+import { StPlanAComponent } from './st-plan-a/st-plan-a.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +115,12 @@ import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dial
     StVideoLibraryComponent,
     StMyplanDetailComponent,
     ScsContentsTypeComponent,
-    StWrongQuestionComponent
+    StWrongQuestionComponent,
+    PlanAEditComponent,
+    PlanAListComponent,
+    PlanAProcessedComponent,
+    PlanAUnprocessedComponent,
+    StPlanAComponent,
   ],
     imports: [
         CommonModule,

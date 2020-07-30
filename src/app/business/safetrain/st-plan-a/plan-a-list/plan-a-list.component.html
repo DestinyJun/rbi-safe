@@ -1,0 +1,25 @@
+<div class="plain-list pl-3 pr-3">
+  <!-- 新增 -->
+  <div class="title">
+    <div class="btn" [routerLink]="['../edit']">
+      <span>+</span>
+      <span>新增教育培训计划A</span>
+    </div>
+  </div>
+  <div class="tab">
+    <p-tabView>
+      <!-- 待处理 -->
+      <p-tabPanel [header]="'待处理培训计划A'">
+        <div style="height: 76vh">
+          <app-plan-a-unprocessed></app-plan-a-unprocessed>
+        </div>
+      </p-tabPanel>
+      <!-- 已处理 -->
+      <p-tabPanel header="已处理培训计划A">
+        <div style="height: 76vh">
+          <app-plan-a-processed></app-plan-a-processed>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

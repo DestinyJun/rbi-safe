@@ -15,6 +15,9 @@ import {StStartStudyComponent} from './st-start-study/st-start-study.component';
 import {StLearnListComponent} from './st-start-study/st-learn-list/st-learn-list.component';
 import {StMyplanDetailComponent} from './st-start-study/st-learn-myplan/st-myplan-detail/st-myplan-detail.component';
 import {TaskExamGuard} from '../../common/guard/task-exam.guard';
+import {PlanAListComponent} from "./st-plan-a/plan-a-list/plan-a-list.component";
+import {PlanAEditComponent} from "./st-plan-a/plan-a-edit/plan-a-edit.component";
+import {StPlanAComponent} from "./st-plan-a/st-plan-a.component";
 
 
 const routes: Routes = [
@@ -31,6 +34,14 @@ const routes: Routes = [
           {path: '', redirectTo: 'list', pathMatch: 'full'},
           {path: 'list', component: PlainListComponent},
           {path: 'edit', component: PlainEditComponent}
+        ]
+      },
+      {
+        path: 'plainA',
+        component: StPlanAComponent,
+        children: [
+          {path: '', redirectTo: 'list', pathMatch: 'full'},
+          {path: 'list', component: PlanAListComponent}
         ]
       },
       {path: 'contentset', component: StContentSetingComponent},

@@ -1,0 +1,44 @@
+.plain-list {
+  .title {
+    display: flex;
+    align-items: center;
+    height: 10vh;
+    cursor: pointer;
+    .btn {
+      height: 6vh;
+      width: 100%;
+      border-radius: 30px;
+      box-shadow: 0 0 6px #E8E8E8;
+      display: flex;
+      color: #2D71D7;
+      align-items: center;
+      justify-content: center;
+      span:first-child {
+        font-size: 26px;
+        font-weight: bold;
+      }
+      span {
+        font-size: 16px;
+        margin-left: 1vw;
+        font-family: "微软雅黑 Light", serif, "Gill Sans", sans-serif;
+        font-weight: bold;
+        letter-spacing: 0.2rem;
+      }
+    }
+  }
+  .tab {
+    height: 80vh;
+    /deep/ .ui-tabview.ui-tabview-top .ui-tabview-nav li{
+      background-color: #AAABB0;
+      border: 1px solid #AAABB0;
+    }
+    /deep/ .ui-tabview .ui-tabview-nav li.ui-state-active{
+      background-color: #3B86FF;
+      border: 1px solid #3B86FF;
+    }
+    /deep/ .ui-tabview .ui-tabview-panels{
+      border: none;
+      padding: 0.371em 0 0 0;
+    }
+  }
+}

@@ -267,6 +267,7 @@ export class SafetrainService {
   public getProgramList(params: any): Observable<any> {
     return this.http.post(`/pagingSafeDemandReport`, params);
   }
+
   //                                    培训题库
   /*---------------------------------------------------------------------------------------------------------*/
   /**
@@ -348,5 +349,12 @@ export class SafetrainService {
    */
   public addExamInfoNoId(params: any): Observable<any> {
     return this.http.post(`/insertTrainingPlanTest`, params);
+  }
+
+  /**
+   * 教育需求数据隔离
+   */
+  public pagingSafeConditionDemandReport(params: any): Observable<any> {
+    return this.http.post(`/pagingSafeConditionDemandReport`, params);
   }
 }
