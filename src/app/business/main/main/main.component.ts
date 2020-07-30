@@ -12,13 +12,6 @@ import {SecurityRiskService} from "../../../common/services/security-risk.servic
 export class MainComponent implements OnInit {
   public lineData = [];
   public lineTilte: any = '风险等级数量统计';
-  public mainPieDate: any[] = [
-    {name: '维修工', value: 200},
-    {name: '电工', value: 50},
-    {name: '井下爆破工', value: 150},
-    {name: '焊接工', value: 80},
-    {name: '尾矿坝作业共', value: 120}
-  ];
   public mainPageNo: number = 1;
   public genneralInfoList: Array<object> = [];
   public showDetailDialog: boolean = false;

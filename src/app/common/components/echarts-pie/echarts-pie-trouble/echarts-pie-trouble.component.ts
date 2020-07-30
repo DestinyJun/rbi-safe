@@ -9,7 +9,7 @@ import {TroubleCheckStatusService} from "../../../services/trouble-check-status.
 export class EchartsPieTroubleComponent implements OnInit {
 
   public colorList: Array<any> = ['#226AD5', '#3B86FF', '#63DCAF', '#FCCF4F', '#94F6D2'];
-  @Input() public name: string = '';
+  @Input() public name: string = '隐患类型占比';
   public option: any;
   @Input() public data = [];
   public maxRadio: number;
@@ -21,6 +21,7 @@ export class EchartsPieTroubleComponent implements OnInit {
     this.req.findByType().subscribe(res => {
       let max = 0;
       let tal = 0;
+      this.data = [];
       for (const dataKey in res.data) {
         this.data.push({name:  dataKey + '的隐患', value: res.data[dataKey]});
         if (max < res.data[dataKey]) {
@@ -29,7 +30,13 @@ export class EchartsPieTroubleComponent implements OnInit {
         }
         tal += res.data[dataKey];
       }
-      this.maxRadio = Math.floor((max / tal) * 100);
+      console.log(this.data);
+      if (tal === 0) {
+        this.maxRadio = 0;
+        this.name = '全部数据为0';
+      } else {
+        this.maxRadio = Math.floor((max / tal) * 100);
+      }
       this.updateOption();
     });
   }

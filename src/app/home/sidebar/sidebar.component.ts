@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
         {item: {label: '开始学习', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '/home/strain/learn', isHas: true},
         {item: {label: '在线考试', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '/home/strain/exam', isHas: true},
         {item: {label: '我的培训档案', bgc: '#fff', ftcolor: '#8E8E8E' }, link: '/home/strain/mytrainfile', isHas: true},
-        {item: {label: '教育培训计划A',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true},
+        // {item: {label: '教育培训计划A',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true},
       ]
     },
     {
@@ -275,9 +275,9 @@ export class SidebarComponent implements OnInit {
       }
     }
 
-    if (item.label === '安全教育培训') {
-      item.children.push({item: {label: '教育培训计划A',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true});
-    }
+    // if (item.label === '安全教育培训') {
+    //   item.children.push({item: {label: '教育培训计划A',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true});
+    // }
 
   }
 
