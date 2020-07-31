@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TroubleCheckStatusService} from "../../../services/trouble-check-status.service";
+import {TroubleCheckStatusService} from '../../../services/trouble-check-status.service';
 
 @Component({
   selector: 'app-echarts-bar-trouble',

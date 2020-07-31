@@ -3,9 +3,9 @@
     <div class="taking-header">
       <div></div>
       <h3 class="text-center">正在考试</h3>
-      <div class="exam-clock">
-        <span>倒计时：{{countdownClock}}</span>
-      </div>
+<!--      <div class="exam-clock">-->
+<!--        <span>倒计时：{{countdownClock}}</span>-->
+<!--      </div>-->
     </div>
     <div class="exam-body">
       <div class="exam-paper-header">
@@ -21,13 +21,13 @@
                 <span>{{item?.score}}分</span>
               </div>
               <div class="question-select"
-                   *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                   *ngFor="let selItem of item?.safeSubjectOptionList;
                   let i=index">
                 <p-radioButton
                   [name]="'singlename' + singleindex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[singleindex].answerResults"
+                  [(ngModel)]="commpleteExamData[singleindex].answerResults"
                 ></p-radioButton>
               </div>
             </div>
@@ -40,13 +40,13 @@
                 <span>{{item?.score}}分</span>
               </div>
               <div class="question-select"
-                   *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                   *ngFor="let selItem of item?.safeSubjectOptionList;
                  let i=index">
                 <p-checkbox
                   [name]="'multiplename'+ mulIndex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + mulIndex].answerResults"
+                  [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].answerResults"
                 ></p-checkbox>
               </div>
             </div>
@@ -59,13 +59,13 @@
                 <span>{{item?.score}}分</span>
               </div>
               <div class="question-select"
-                   *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                   *ngFor="let selItem of item?.safeSubjectOptionList;
                  let i=index">
                 <p-radioButton
                   [name]="'judgmentname' + judgIndex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
+                  [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
                 ></p-radioButton>
               </div>
             </div>
@@ -84,7 +84,7 @@
                 <input
                   type="text"
                   pInputText
-                  placeholder="请输入答案" [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
+                  placeholder="请输入答案" [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
               </div>
             </div>
           </div>

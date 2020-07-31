@@ -22,6 +22,7 @@ export class PlInputComponent implements OnInit {
   public plInputOrgTreeModal: boolean = false; // 组织树模态框
   public plInputOperateFlag: any ; // 操作标识
   public plInputEs: any = Es; // 时间选择器语言本地化
+  public workType: string = null; // 时间选择器语言本地化
   public plInputPageOption: PageOption = {
     pageSize: 8, // 默认显示多少条
     totalRecord: null // 总条数
@@ -33,6 +34,7 @@ export class PlInputComponent implements OnInit {
     {field: 'factoryName', header: '厂矿'},
     {field: 'workshopName', header: '车间'},
     {field: 'teamName', header: '班组'},
+    {field: 'workType', header: '工种'},
   ]; // 表头字段
   public plInputTableData: any[]; // 表体数据
   public plInputTableSelect: any[]; // 表体数据选择
@@ -71,7 +73,7 @@ export class PlInputComponent implements OnInit {
             this.plInputOperateUpdateField = objectCopy(Object.assign({}, new TrainingFieldUpdateClass()), res.data);
             this.plInputDropdownPlaceholder = res.data.trainingTypeName;
             this.plInputOrgTreeSelectLabel = res.data.organizationName;
-            this.plInputTableSelectName = res.data.targetNameSet.join(',');
+            this.plInputTableSelectName = res.data.targetNameSet.join('\n');
           });
         }
       }
@@ -79,9 +81,16 @@ export class PlInputComponent implements OnInit {
   }
 
   //  公司人员分页
-  private plInputCompanyDataInit(pageNo, pageSize, organizationIds = '') {
+  private plInputCompanyDataInit(pageNo, pageSize, organizationIds = '', workType ?: string) {
     const organizationId = organizationIds ? organizationIds : null;
-    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize, organizationId}).subscribe((res) => {
+    workType = (this.workType && this.workType.trim() !== '') ? this.workType.trim() : null;
+    let body;
+    if (workType) {
+      body = {pageNo, pageSize, organizationId, workType};
+    } else {
+      body = {pageNo, pageSize, organizationId};
+    }
+    this.globalSrv.publicGetCompanyPerson(body).subscribe((res) => {
       this.plInputTableData = res.data.contents;
       this.plInputPageOption.totalRecord = res.data.totalRecord;
     });
@@ -115,6 +124,7 @@ export class PlInputComponent implements OnInit {
         break;
       // 筛选搜索
       case 'search':
+        this.workType = this.workType.trim() === '' ? null : this.workType.trim();
         this.plInputOrgTreeModal = false;
         this.plInputCompanyDataInit(this.plInputNowPage = 1, this.plInputPageOption.pageSize, this.plInputOrgTreeSelect.id);
         break;

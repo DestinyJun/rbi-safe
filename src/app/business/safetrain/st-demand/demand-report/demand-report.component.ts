@@ -29,6 +29,7 @@ export class DemandReportComponent implements OnInit {
     {field: 'factoryName', header: '厂矿'},
     {field: 'workshopName', header: '车间'},
     {field: 'teamName', header: '班组'},
+    {field: 'workType', header: '工种'},
   ]; // 表头字段
   public reportTableData: any[]; // 表体数据
   public reportTableSelect: any[]; // 表体数据选择

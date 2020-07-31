@@ -20,6 +20,7 @@ export class PlTrainComponent implements OnInit {
   public trainTableHeader: TableHeader[] = [
     {field: 'resourceName', header: '文件名'},
     {field: 'resourceType', header: '文件类型'},
+    {field: 'studyTime', header: '学时'},
   ]; // 表头字段
   public trainTableData: any[]; // 表体数据
   public trainNowPage: number = 1; // 当前页

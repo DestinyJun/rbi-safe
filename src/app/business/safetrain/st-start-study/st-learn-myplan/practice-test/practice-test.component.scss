@@ -1,0 +1,86 @@
+.st-taking-exam {
+  background: #fff;
+  border-radius: 2px;
+  width: auto;
+  height: 91vh;
+  margin: 7.6vh 1vw 0.6vh 19vw;
+  padding: 1vh 2vw;
+  z-index: 99999;
+  .taking-header{
+    z-index: 9999;
+    display: flex;
+    padding: 2vh 0;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 2px solid #F5F5F8;
+    h3 {
+      color: #6A6F76;
+      font-family: "微软雅黑 Light";
+    }
+    .exam-clock {
+      margin-right: -12vw;
+      background: #3B86FF;
+      padding: 0.6vh 2vw;
+      border-radius: 3px;
+      color: #fffdef;
+      span:first-child {
+        margin-right: 1vw;
+      }
+    }
+  }
+  .exam-body{
+    padding: 2vh 14vw  0 14vw;
+    .exam-paper-header {
+      text-align: center;
+      border: 1px solid #DDE0E4;
+      padding: 6px 0;
+      font-size: 14px;
+    }
+    .exam-paper-question {
+      color: #797A84;
+      margin-top: 1vh;
+      margin-bottom: 2vh;
+      .paper-question-item {
+        margin-top: 8px;
+        border: 1px solid #DDE0E4;
+        padding: 6px 12px;
+        .question-title {
+          display: flex;
+          padding: 1vh;
+          span:first-child{
+            flex: 13;
+          }
+          span:last-child{
+            flex: 1;
+          }
+        }
+        .question-select {
+          margin: 0.6vh 1vw;
+          line-height: 4vh;
+          input {
+            width: 14vw;
+            border: 1px solid #CACED5;
+          }
+        }
+
+      }
+      button {
+        background: #3B86FF;
+        color: #fff;
+        border: 0;
+        padding: 0 1vw
+      }
+    }
+    //隐藏滚动条
+    ::ng-deep .custombar .ui-scrollpanel-bar {
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color .3s;
+    }
+    ::ng-deep .custombar .ui-scrollpanel-content{
+      padding: 0 1px 18px 0;
+    }
+  }
+  ::ng-deep .ui-widget::placeholder{
+    color: #CFCFCF;
+  }
+}

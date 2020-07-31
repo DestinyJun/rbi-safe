@@ -5,7 +5,9 @@
     <span class="h5">{{title}}</span>
   </div>
   <div class="start-exam">
-    <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" label="模拟考试" iconPos="right" class="ui-button-rounded"></button>
+    <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" label="模拟考试" iconPos="right" class="ui-button-rounded"
+            (click)="startTestPaper()"
+    ></button>
   </div>
   <div class="content">
     <p-scrollPanel [style]="{width: '100%', height: '70vh'}">

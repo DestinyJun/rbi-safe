@@ -4,6 +4,8 @@ import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
 import {Es, objectCopy} from '../../../../common/public/contents';
 import {isArray} from 'util';
+import {FormControl} from "@angular/forms";
+import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 
 @Component({
   selector: 'app-archives-manage',
@@ -31,6 +33,8 @@ export class ArchivesManageComponent implements OnInit {
   public manageImportField: FormData = new FormData(); // 导入
   public manageImportFieldModal: boolean = false; // 导入模态框
   public manageEs: any = Es; // 时间选择面板本地化
+  public idCard = new FormControl(''); // 监听身份证输入框,检验是否合法
+  public idCardIsValid = true; // 身份证是否有效
   constructor(
     private safeSrv: SafetrainService,
   ) {
@@ -38,11 +42,31 @@ export class ArchivesManageComponent implements OnInit {
 
   ngOnInit() {
     this.manageDataInit(this.manageNowPage, this.managePageOption.pageSize);
+    this.idCard.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      ).subscribe(val => {
+      const value = (val + '');
+      // 检验身份证号的合法性
+      if (!val || value === '') {
+        this.idCardIsValid = true;
+      }else if (value.length > 18) { // 检查长度
+        this.idCardIsValid = false;
+      } else if (value.length === 18) {
+        const regIdCard = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+        this.idCardIsValid = regIdCard.test(value);
+      } else {
+        const regIdCard =  /^\d{1,17}\d$/;
+        this.idCardIsValid = regIdCard.test(value);
+      }
+    });
   }
 
   // 数据初始化
   private manageDataInit(pageNo, pageSize) {
     this.safeSrv.getManageList({pageNo, pageSize}).subscribe((res) => {
+      console.log(res);
       this.manageTableData = res.data.contents;
       this.managePageOption.totalRecord = res.data.totalRecord;
       this.manageOperateFlag = 'add';
@@ -69,6 +93,12 @@ export class ArchivesManageComponent implements OnInit {
       // 编辑操作初始化
       case 'update':
         this.manageOperateField = Object.assign({}, new UpdateManageFieldClass(), item);
+        for (const manageOperateFieldKey in this.manageOperateField) {
+          if (this.manageOperateField[manageOperateFieldKey]) {
+            this.manageOperateField[manageOperateFieldKey] = (this.manageOperateField[manageOperateFieldKey] + '').replace('至', ' ');
+          }
+          console.log(manageOperateFieldKey + ':' + this.manageOperateField[manageOperateFieldKey]);
+        }
         this.manageOperateModal = true;
         break;
       // 保存操作
@@ -142,5 +172,12 @@ export class ArchivesManageComponent implements OnInit {
   public managePageEvent(page) {
     this.manageNowPage = page;
     this.manageDataInit(page, this.managePageOption.pageSize);
+  }
+
+  public idCardChange(e): void {
+    const val = e.target.value.toString();
+    if (val.length < 18 || val === '') {
+      this.idCardIsValid = false;
+    }
   }
 }

@@ -141,7 +141,7 @@
       *ngIf="reportOperateFlag === 'strain'"
       [(selection)]="reportTableSelect"
       [value]="reportTableData" [columns]="reportTableHeader"
-      [scrollable]="true" scrollHeight="50vh" dataKey="id"
+      [scrollable]="true" scrollHeight="50vh" dataKey="id" [responsive]="true"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>

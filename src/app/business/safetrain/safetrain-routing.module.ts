@@ -18,6 +18,7 @@ import {TaskExamGuard} from '../../common/guard/task-exam.guard';
 import {PlanAListComponent} from "./st-plan-a/plan-a-list/plan-a-list.component";
 import {PlanAEditComponent} from "./st-plan-a/plan-a-edit/plan-a-edit.component";
 import {StPlanAComponent} from "./st-plan-a/st-plan-a.component";
+import {PracticeTestComponent} from "./st-start-study/st-learn-myplan/practice-test/practice-test.component";
 
 
 const routes: Routes = [
@@ -55,6 +56,7 @@ const routes: Routes = [
           {path: '',  redirectTo: 'list', pathMatch: 'full'},
           {path: 'list', component: StLearnListComponent},
           {path: 'detail', component: StMyplanDetailComponent},
+          {path: 'practice', component: PracticeTestComponent},
         ]},
     ]
   }

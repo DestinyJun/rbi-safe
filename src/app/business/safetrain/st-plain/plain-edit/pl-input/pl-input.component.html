@@ -161,6 +161,11 @@
           (click)="plInputOrgTreeModal=true"
         >
         </button>
+        <input
+          type="text" pInputText placeholder="请输入工种关键字筛选数据..."
+          [(ngModel)]="workType"
+          (ngModelChange)="plInputOperate('search', $event)"
+          class="ml-3" style="width:26%">
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>

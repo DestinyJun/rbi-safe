@@ -191,7 +191,7 @@ export class TroubleDetailComponent implements OnInit {
     }else {
       paraList.forEach(val => {
         this.addReport.controls[val].setValidators(null);
-        this.addReport.controls[val].setValue('');
+        // this.addReport.controls[val].setValue('');
       });
     }
   }

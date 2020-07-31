@@ -58,7 +58,8 @@
                 <span>身份证：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写身份证" [(ngModel)]="specialOperateField.idCardNo">
+                <input type="text" pInputText placeholder="请填写身份证" [formControl]="idCard" (change)="idCardChange($event)" [(ngModel)]="specialOperateField.idCardNo">
+                <span [hidden]="idCardIsValid" style="color: red">身份证号无效</span>
               </div>
             </div>
             <!--工种-->

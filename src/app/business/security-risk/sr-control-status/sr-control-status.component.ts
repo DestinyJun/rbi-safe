@@ -59,9 +59,18 @@ export class SrControlStatusComponent implements OnInit {
           });
         }
       }
+
+      let talRadio = 0;
       // 计算百分比
       this.itemTypeList.forEach((value: any) => {
-        value.num = (value.num / tal) * 100;
+        if (value.title === '其他危害') {// 这里保证相加的结果为100%
+          value.num = 100 - talRadio;
+          value.num = value.num.toFixed(2);
+        } else {
+          value.num = (value.num / tal) * 100;
+          value.num = value.num.toFixed(2);
+          talRadio += parseFloat(value.num);
+        }
       });
     });
   }

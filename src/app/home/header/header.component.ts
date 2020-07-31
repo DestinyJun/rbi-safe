@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LocalStorageService} from '../../common/services/local-storage.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
   public headerSideBarShow: boolean = false;
   public setingBar: any = [];
   constructor(
-    private localSrv: LocalStorageService
+    private localSrv: LocalStorageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -46,5 +48,6 @@ export class HeaderComponent implements OnInit {
   public setClick(): void {
     this.outEvent.emit('true');
     this.localSrv.set('isSetBar', 'true');
+    this.router.navigate(['/home/seting/user']);
   }
 }

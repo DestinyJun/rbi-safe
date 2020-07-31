@@ -18,6 +18,7 @@ export class ScsContentsComponent implements OnInit {
     {field: 'contentCategoryName', header: '内容类型'},
     {field: 'operatorName', header: '添加人'},
     {field: 'idt', header: '添加时间'},
+    {field: 'studyTime', header: '学时'},
   ]; // 表头字段
   public contentsTableData: any[]; // 表体数据
   public contentsNowPage: number = 1; // 当前页

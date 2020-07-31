@@ -16,7 +16,7 @@ import {LocalStorageService} from '../../../../common/services/local-storage.ser
 export class StTakingExamComponent implements OnInit {
   public paperId: number;
   public paparTime: number;
-  public countdownClock: any = '00:00:00';
+  public countdownClock: any = '加载中';
   public durationTime: any;
   public paperTitle: string = '';
   public singleChoiceQuestions: Array<object> = [];
@@ -27,6 +27,7 @@ export class StTakingExamComponent implements OnInit {
   public commpleteExamDataCopy: CommpleteExamData = new CommpleteExamData();
   public examWarnDialog: boolean = false;
   public moveDialog: boolean = false;
+  public questionCount = 1;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
     private route: ActivatedRoute,
@@ -65,6 +66,28 @@ export class StTakingExamComponent implements OnInit {
         this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
         this.judgmentQuestions = res.data.judgmentQuestions;
         this.completion = res.data.completion;
+        // 给全部题目之前加上题目编号
+        this.singleChoiceQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          this.questionCount++;
+        });
+        this.multipleChoiceQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          this.questionCount++;
+        });
+        this.judgmentQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          this.questionCount++;
+        });
+        this.judgmentQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          this.questionCount++;
+        });
+        this.completion.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          this.questionCount++;
+        });
+
         this.setSubMitConpleteData(this.singleChoiceQuestions);
         this.setSubMitConpleteData(this.multipleChoiceQuestions);
         this.setSubMitConpleteData(this.judgmentQuestions);
@@ -73,55 +96,15 @@ export class StTakingExamComponent implements OnInit {
       });
   }
 
-  // 设置倒计时
+  // 设置倒计时, 以秒为单位
   public  setCountdown(): void {
-    let h: any = Math.floor(this.paparTime / 60 / 60);
-    let m: any = (Math.floor(this.paparTime / 60 % 60));
-    let s: any = Number(this.paparTime % 60);
-    console.log(h);
-    // console.log(s);
-    // h = h < 10 ? '0' + h : h;
-    // m = m < 10 ? '0' + m : m;
-    s = s === 0 ? 59 : s;
     const timeOclock = setInterval(() => {
-      if (Number(s) === 0){
-        if (Number(m) === 0){
-          if (Number(h) === 0){
-            h = 0;
-            m = 0;
-            s = 0;
-            clearInterval(timeOclock);
-            this.examWarnDialog = true;
-          }else {
-            h = h - 1;
-            m = 59;
-          }
-          h = h < 10 ? '0' + h : h;
-        }else {
-          m = m - 1;
-          s = 59;
-        }
-        m = m < 10 ? '0' + m : m;
-      }else {
-        if (Number(m) === 0){
-          if (Number(h) === 0){
-            h = 0;
-            m = 0;
-            s = 0;
-            clearInterval(timeOclock);
-            this.examWarnDialog = true;
-          }else {
-            h = h - 1;
-            m = 59;
-          }
-          h = h < 10 ? '0' + h : h;
-        }else {
-          m = m < 10 ? '0' + m : m;
-          s = Number(s) - 1;
-        }
-      }
-      s = s < 10 ? '0' + s : s;
-      this.countdownClock = h + ':' + m + ':' + s;
+      if (this.paparTime === 0) {clearInterval(timeOclock); this.examWarnDialog = true; }
+      const h = Math.floor(this.paparTime / (60 * 60));
+      const m = Math.floor((this.paparTime - (h * 60 * 60)) / 60 );
+      const s = this.paparTime % 60;
+      this.paparTime = this.paparTime - 1;
+      this.countdownClock = (h < 10 ? ('0' + h) : h) + ':' + (m < 10 ? ('0' + m) : m) + ':' + (s < 10 ? ('0' + s) : s);
     }, 1000);
   }
  // 交卷
@@ -143,7 +126,7 @@ export class StTakingExamComponent implements OnInit {
        this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey, score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.subjectType === 4 ? [] : ''});
      });
   }
-  // 提交试卷
+
   public  submitPaper(): void {
     this.localSrv.set('openExam', '1');
     this.commpleteExamDataCopy = JSON.parse(JSON.stringify(this.commpleteExamData));

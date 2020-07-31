@@ -52,8 +52,9 @@
               <label class="ui-g-4 ui-md-4 label">
                 <span>受训单位：</span>
               </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText [value]="processedOperateField?.targetNameSet.join(',')" disabled>
+              <div class="ui-g-8 ui-md-8 input" style="position: relative">
+                <input type="text" style="position: absolute; top: 40%; left: 0; z-index: 999" pInputText [pTooltip]="processedOperateField?.targetNameSet.join('\n')" [value]="processedOperateField?.targetNameSet.join(',')" disabled>
+                <input type="text" style="position: absolute; top: 40%; left: 0; z-index: 1000; opacity: 0" pInputText [pTooltip]="processedOperateField?.targetNameSet.join('\n')">
               </div>
             </div>
             <div class="ui-g-6 ui-md-6">
