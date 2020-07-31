@@ -12,7 +12,7 @@
         <span>{{paperTitle}}</span>
       </div>
       <div class="exam-paper-question">
-        <p-scrollPanel  [style]="{height: '70vh', width: '100%'}" styleClass="custombar">
+        <p-scrollPanel  [style]="{height: '70vh', width: '100%'}">
           <div *ngIf="singleChoiceQuestions.length  !== 0">
             <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
             <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index;">
