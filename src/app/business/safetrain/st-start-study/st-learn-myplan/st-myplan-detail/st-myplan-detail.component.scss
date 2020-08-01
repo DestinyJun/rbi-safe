@@ -30,12 +30,14 @@
       padding: 1vh;
       text-align: left;
       margin-bottom: 1vh;
+      cursor: pointer;
 
       .item-control {
         position: absolute;
         width: 100%;
         height:100%;
         bottom: 0;
+        cursor: pointer;
 
         button {
           width: 100%;

@@ -30,7 +30,6 @@ export class StInstitutionComponent implements OnInit {
 
   // 打开文件
   public openFile(item): void {
-    console.log(item);
     this.fileName = item.label;
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
     this.openDialog = true;

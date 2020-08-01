@@ -60,8 +60,8 @@ export class PracticeTestComponent implements OnInit {
     // this.stStudySrv.getSimulationTestPaper({trainingPlanId: 5 }).subscribe(res => {
     //   console.log(res);
     // });
-
-    this.stStudySrv.getSimulationTestPaper({trainingPlanId: 5 }).subscribe(res => {
+    console.log(this.paperId);
+    this.stStudySrv.getSimulationTestPaper({trainingPlanId: this.paperId }).subscribe(res => {
       console.log(res);
       this.paperTitle = res.data.testPaperName || this.paperTitle;
       this.singleChoiceQuestions = res.data.singleChoiceQuestions;

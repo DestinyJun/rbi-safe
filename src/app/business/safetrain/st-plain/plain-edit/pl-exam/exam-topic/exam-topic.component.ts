@@ -62,7 +62,12 @@ export class ExamTopicComponent implements OnInit {
       // 确定选题
       case 'save':
         this.topicOperateModal = false;
+        this.topicTableSelect.forEach( (subject: any) => {
+          subject.safeSubject.questionBankSubjectId = subject.safeSubject.id;
+          delete subject.safeSubject.id;
+        });
         this.topicSelectList = this.topicTableSelect;
+        console.log(this.topicTableSelect);
         this.localSrv.setObject('safeTestQuestionsList', this.topicSelectList);
         break;
       // 删除操作

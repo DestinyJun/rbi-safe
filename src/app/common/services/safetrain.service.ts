@@ -85,6 +85,14 @@ export class SafetrainService {
   }
 
   /**
+   * 培训内容修改
+   * @param params
+   */
+  public updateStudyTime(params: any): Observable<any> {
+    return this.http.post(`/training/updateStudyTime`, params);
+  }
+
+  /**
    * 培训内容分类获取
    * @param params
    */

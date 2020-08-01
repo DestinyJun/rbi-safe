@@ -5,6 +5,7 @@ import {GeneralInfoClass} from '../../../common/public/Api';
 import {SecurityRiskService} from "../../../common/services/security-risk.service";
 import {graphic} from "echarts";
 import {TroubleCheckStatusService} from "../../../common/services/trouble-check-status.service";
+import Viewer from 'viewerjs';
 
 @Component({
   selector: 'app-main',
@@ -44,6 +45,12 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
+    const viewer = new Viewer(document.getElementById('image'), {
+      inline: true,
+      viewed() {
+        viewer.zoomTo(1);
+      },
+    });
 
     // 月隐患数统计
     this.req.findByMonth().subscribe(res => {
@@ -62,8 +69,9 @@ export class MainComponent implements OnInit {
 
     // 风险等级
     this.srService.findByGrade().subscribe(res => {
-      // console.log(res);
+      console.log(res);
       this.riskLevelData = res.data;
+      console.log(this.riskLevelData);
       this.updateRiskLevelOption();
     });
 
@@ -235,15 +243,40 @@ export class MainComponent implements OnInit {
     const areaOut = [];
     const areaIn = [];
 
+    const data = [];
+
     const keys = []; // 区域外，区域内
     for (const riskLevelDataKey in this.riskLevelData) {
-      keys.push(riskLevelDataKey);
+      const item = {data: [], name: ''};
+      item.name = riskLevelDataKey;
+      for (const riskLevelDatumKey in this.riskLevelData[riskLevelDataKey]) {
+        let val = this.riskLevelData[riskLevelDataKey][riskLevelDatumKey];
+        // val = val === 0 ? 1 : val;
+        const level = {name: riskLevelDatumKey, value:  val};
+        item.data.push(level);
+      }
+      // 对区域进行排序
+      item.data = item.data.sort((a, b) => {
+        return this.getZhCode(a.name) - this.getZhCode(b.name);
+      });
+      data.push(item);
     }
-    for (const levelKey in this.riskLevelData[keys[0]]) {
-      seriesName.push(levelKey);
-      areaOut.push(this.riskLevelData[keys[0]][levelKey]);
-      areaIn.push(this.riskLevelData[keys[1]][levelKey]);
-    }
+
+    data[0].data.forEach(item => {
+      seriesName.push(item.name);
+      areaOut.push(item.value);
+    });
+    data[1].data.forEach(item => {
+      areaIn.push(item.value);
+    });
+    // for (const riskLevelDataKey in this.riskLevelData) {
+    //
+    // }
+    // for (const levelKey in this.riskLevelData[keys[0]]) {
+    //   seriesName.push(levelKey);
+    //
+    //   areaIn.push(this.riskLevelData[keys[1]][levelKey]);
+    // }
 
     this.riskLevelOption = {
       title: {

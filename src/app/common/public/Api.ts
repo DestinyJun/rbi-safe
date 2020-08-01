@@ -545,6 +545,7 @@ export interface Topic {
   subjectStoreId?: any; // 所属题库ID
   subjectStoreName?: string; // 所属题库题目
   score: any; // 题目分值
+  questionBankSubjectId?: any; // 题目分值
 }
 // 题型答案
 export interface TopicAnswer {

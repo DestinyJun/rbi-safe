@@ -58,7 +58,7 @@
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
               <td style="width: 3em">
-                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                <p-tableCheckbox #checkbox [value]="rowData"></p-tableCheckbox>
               </td>
               <td>
                 <app-topic [topicListData]="rowData"></app-topic>

@@ -101,7 +101,7 @@
           </div>
           <div class="m-3 text-center">
             <button pButton  type="button" label="退出"  class="ui-button-rounded" style="margin-right: 1vw" (click)="canclePaperClik()"></button>
-            <button pButton  type="button" label="完成考试"  class="ui-button-rounded" (click)="submitPaperClik()"></button>
+            <button *ngIf="examState === 'doing'" pButton  type="button" label="完成考试"  class="ui-button-rounded" (click)="submitPaperClik()"></button>
           </div>
         </p-scrollPanel>
       </div>
