@@ -44,7 +44,7 @@ export class ArchivesManageComponent implements OnInit {
     this.manageDataInit(this.manageNowPage, this.managePageOption.pageSize);
     this.idCard.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(100),
         distinctUntilChanged()
       ).subscribe(val => {
       const value = (val + '');
@@ -57,7 +57,7 @@ export class ArchivesManageComponent implements OnInit {
         const regIdCard = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
         this.idCardIsValid = regIdCard.test(value);
       } else {
-        const regIdCard =  /^\d{1,17}\d$/;
+        const regIdCard =  /^\d{0,17}\d$/;
         this.idCardIsValid = regIdCard.test(value);
       }
     });
@@ -95,9 +95,9 @@ export class ArchivesManageComponent implements OnInit {
         this.manageOperateField = Object.assign({}, new UpdateManageFieldClass(), item);
         for (const manageOperateFieldKey in this.manageOperateField) {
           if (this.manageOperateField[manageOperateFieldKey]) {
-            this.manageOperateField[manageOperateFieldKey] = (this.manageOperateField[manageOperateFieldKey] + '').replace('至', ' ');
+            this.manageOperateField[manageOperateFieldKey] = (this.manageOperateField[manageOperateFieldKey] + '').split('至');
           }
-          console.log(manageOperateFieldKey + ':' + this.manageOperateField[manageOperateFieldKey]);
+          console.log(this.manageOperateField[manageOperateFieldKey]);
         }
         this.manageOperateModal = true;
         break;
@@ -111,6 +111,7 @@ export class ArchivesManageComponent implements OnInit {
         });
         // 修改保存
         if (this.manageOperateField.id) {
+          console.log(field);
           this.manageHttpOperate(this.safeSrv.updateManageInfo(field));
         }
         // 新增保存
@@ -179,5 +180,9 @@ export class ArchivesManageComponent implements OnInit {
     if (val.length < 18 || val === '') {
       this.idCardIsValid = false;
     }
+  }
+
+  public change(e): void {
+    console.log(this.manageOperateField.termOfValidity);
   }
 }

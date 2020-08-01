@@ -1,8 +1,12 @@
 <div style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000; background: rgba(80,80,80,0.7)">
   <div class="st-taking-exam">
-    <div class="taking-header">
-      <div></div>
-      <h3 class="text-center">正在考试</h3>
+    <div class="taking-header text-center">
+      <h3 *ngIf="examState === 'doing'">正在考试</h3>
+      <h3 *ngIf="examState === 'did'" style="color: green">
+        <span>考试结束 </span>
+        <span style="margin-left: 20px; border-bottom: 1px green solid">得分：{{result}}</span>
+        <span style="margin-left: 20px;">总分: {{totalScore}}</span>
+      </h3>
 <!--      <div class="exam-clock">-->
 <!--        <span>倒计时：{{countdownClock}}</span>-->
 <!--      </div>-->
@@ -48,6 +52,13 @@
                   [label]="selItem.option"
                   [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].answerResults"
                 ></p-checkbox>
+              </div>
+              <div *ngIf="examState === 'did'">
+                <span  *ngIf="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].rightKey === commpleteExamDataCopy[this.singleChoiceQuestions.length + mulIndex].answerResults" style="color: green">
+                  正确 得分: {{commpleteExamDataCopy[this.singleChoiceQuestions.length + mulIndex].score}}
+                </span>
+                <span *ngIf="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].rightKey !== commpleteExamDataCopy[this.singleChoiceQuestions.length + mulIndex].answerResults" style="color: red">错误</span>
+<!--                <span *ngIf="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].correct === 0">错误</span>-->
               </div>
             </div>
           </div>

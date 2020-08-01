@@ -43,7 +43,7 @@ export class ArchivesSpecialComponent implements OnInit {
     this.specialDataInit(this.specialNowPage, this.specialPageOption.pageSize);
     this.idCard.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(100),
         distinctUntilChanged()
       ).subscribe(val => {
       const value = (val + '');
@@ -56,8 +56,9 @@ export class ArchivesSpecialComponent implements OnInit {
         const regIdCard = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
         this.idCardIsValid = regIdCard.test(value);
       } else {
-        const regIdCard =  /^\d{1,17}\d$/;
+        const regIdCard =  /^\d{0,17}\d$/;
         this.idCardIsValid = regIdCard.test(value);
+        console.log(234);
       }
     });
   }

@@ -1,7 +1,7 @@
 <div class="st-myplan-detail">
-  <div class="st-myplan-detail-title">
+  <div class="st-myplan-detail-title" >
     <span class="h5" (click)="backPreviouClick()">我的培训计划</span>
-    <i class="fa fa-angle-right h4 pl-2 pr-2"></i>
+    <i class="fa fa-angle-right h4 pl-2 pr-2" style="cursor: default;"></i>
     <span class="h5">{{title}}</span>
   </div>
   <div class="start-exam">
@@ -13,17 +13,25 @@
     <p-scrollPanel [style]="{width: '100%', height: '70vh'}">
       <div class="myplan-file ui-g-12">
         <div style="font-size: 16px; padding: 1vh 0">培训资料</div>
-        <div class="item ui-g-12 ui-g-12" *ngFor="let item of fileContent" (click)="openFileClick(item)">
+        <div class="item ui-g-12 ui-g-12" *ngFor="let item of fileContent" (click)="openFileClick(item)" [pTooltip]="item.whetherStudy === 1 ? '已完成' : '未完成'">
           <span>{{item?.resourceName}}</span>
+          <span style="float: right"><i [ngStyle]="{color: item.whetherStudy === 1 ? 'green' : ''}" class="fa fa-check-circle"></i></span>
         </div>
       </div>
       <div class="myplan-video ui-g-12">
         <div class="p-2" style="font-size: 16px">培训视频</div>
         <div class="ui-g-4 ui-md-4" *ngFor="let item of videoContent">
-          <div class="item">
-            <video style="width: 100%" height="200" controls="controls">
-              <source [src]="item?.resourcePath" type="video/mp4" />
-            </video>
+          <div class="item"  [pTooltip]="item.whetherStudy === 1 ? '已完成' : '未完成'">
+            <span style="float: right"><i [ngStyle]="{color: item.whetherStudy === 1 ? 'green' : ''}" class="fa fa-check-circle"></i></span>
+            <br>
+            <div style="width: 100%; height: 200px; position: relative;">
+              <video style="width: 100%" height="200" #video>
+                <source [src]="item?.resourcePath" type="video/mp4" />
+              </video>
+              <div class="item-control" #btn>
+                <button (click)="videoPlay(btn, video, item)"><i class="fa fa-play"></i></button>
+              </div>
+            </div>
             <div>
               <span>{{item.resourceName}}</span>
             </div>

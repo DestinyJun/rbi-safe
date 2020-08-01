@@ -3,6 +3,8 @@
   .st-myplan-detail-title{
     padding: 2vh 0;
     border-bottom: 2px solid #EDEDED;
+    cursor: pointer;
+
     span, i{
       color: #85898F;
     }
@@ -28,6 +30,21 @@
       padding: 1vh;
       text-align: left;
       margin-bottom: 1vh;
+
+      .item-control {
+        position: absolute;
+        width: 100%;
+        height:100%;
+        bottom: 0;
+
+        button {
+          width: 100%;
+          height: 100%;
+          font-size: 50px;
+          color: #000000;
+          opacity: 0.4;
+        }
+      }
     }
     //隐藏滚动条
     ::ng-deep .ui-scrollpanel-bar {

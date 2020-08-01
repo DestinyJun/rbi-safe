@@ -30,7 +30,14 @@ export class StLearnMyplanComponent implements OnInit {
   public  initMyPlanData(): void {
     this.stStudySrv.getMyPlanPageInfo({pageNo: this.pageNo, pageSize: 6}).subscribe(res => {
       console.log(res);
+      // 计算百分比进度
+      res.data.contents.forEach(value => {
+        value.finishStudyTime = value.finishStudyTime || 0;
+        value.trainingDuration = value.trainingDuration || 100;
+        value.progress = Math.ceil((value.finishStudyTime / value.trainingDuration) * 100);
+      });
       this.myPlanList = res.data.contents;
+      console.log(this.myPlanList);
       this.pageOption.totalRecord = res.data.totalRecord;
       this.eventEmit.emit(res.data.totalRecord);
     });

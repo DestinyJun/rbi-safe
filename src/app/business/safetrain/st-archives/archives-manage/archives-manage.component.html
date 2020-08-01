@@ -99,7 +99,7 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #termOfValidity
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择有效期时间......"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.termOfValidity"
                   dateFormat="yy-mm-dd"
                   dataType="string"
@@ -107,6 +107,7 @@
                   [monthNavigator]="true"
                   [yearNavigator]="true"
                   yearRange="2017:2030"
+                  (click)="change($event)"
                 >
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="termOfValidity.hideOverlay()"></button>

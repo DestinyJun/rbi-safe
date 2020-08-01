@@ -41,4 +41,11 @@ export class StStartStudyService {
   public  completeSimulationTheExam(pamars): Observable<any> {
     return this.http.post(`/completeSimulationTheExam`, pamars);
   }
+
+
+  // 完成单个题目学习
+  public  addFinishStudyTime(pamars): Observable<any> {
+    return this.http.post(`/addFinishStudyTime`, pamars);
+  }
+
 }

@@ -27,6 +27,9 @@ export class PracticeTestComponent implements OnInit {
   public examWarnDialog: boolean = false;
   public moveDialog: boolean = false;
   public questionCount = 1;
+  public examState = 'doing';
+  public totalScore = '';
+  public result = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -60,8 +63,6 @@ export class PracticeTestComponent implements OnInit {
 
     this.stStudySrv.getSimulationTestPaper({trainingPlanId: 5 }).subscribe(res => {
       console.log(res);
-      this.intervalTime(res.data.endTime);
-      this.setCountdown();
       this.paperTitle = res.data.testPaperName || this.paperTitle;
       this.singleChoiceQuestions = res.data.singleChoiceQuestions;
       this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
@@ -138,14 +139,23 @@ export class PracticeTestComponent implements OnInit {
         val.answerResults =  val.answerResults.toString();
       }
     });
-    // this.commpleteExamDataCopy.forEach(value => {
-    //   value.answerResults = '1#2';
-    // });
-    console.log({simulationSafeAnswerRecords: this.commpleteExamDataCopy});
+
     this.stStudySrv.completeSimulationTheExam(JSON.stringify({simulationSafeAnswerRecords: this.commpleteExamDataCopy})).subscribe(val => {
       console.log(val);
+      this.totalScore = val.data.totalScore;
+      this.result = val.data.result;
+      // 进行得分和失分匹配
+      // val.data.simulationSafeAnswerRecords.forEach(value1 => {
+      //   this.commpleteExamData.forEach((value2: any) => {
+      //       if (value2.id === value1.id) {
+      //         value2.corrent = value1.correct + '';
+      //       }
+      //   });
+      // });
+      console.log(this.commpleteExamData);
+      this.examState = 'did';
       this.toolSrv.setToast('success', '提交成功', '考试已结束');
-      window.history.back();
+      // window.history.back();
     });
   }
   // 设置时间
