@@ -51,18 +51,17 @@ export class TroubleListComponent implements OnInit {
   ngOnInit() {
     this.globalSrv.getHidConfigData({data: [{settingType: 'HID_STATUS'}]}).subscribe(val => {
       this.hidStatusOption = setDrapdownOptionList(val.data.HID_STATUS);
-      // console.log(val);
       this.inittroubleListData();
     });
   }
 
   public inittroubleListData(): void {
     this.troubleSrv.getTroublePageDta({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
       this.troubleListContent = val.data.contents.map(v => {
          v.processingStatus = setVlaueToLabel(this.hidStatusOption, v.processingStatus );
          return v;
       });
+
       this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
       this.setTableOption(this.troubleListContent);
     });

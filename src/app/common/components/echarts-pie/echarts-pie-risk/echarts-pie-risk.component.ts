@@ -43,12 +43,15 @@ export class EchartsPieRiskComponent implements OnInit {
         title = item.name;
       }
     }
-    const radio = (max / tal) * 100;
+    let ratio = '0';
+    if (tal > 0) {
+      ratio = ((max / tal) * 100).toFixed(2);
+    }
     this.option =
       {
         title: {
           text: title,
-          subtext:  radio.toFixed(2) + '%',
+          subtext:  ratio + '%',
           textStyle: {
             fontSize: 16,
             color: '#545663',

@@ -188,11 +188,12 @@ export function setLabelToVlaue(list: Array<any>, data: string){
 
 // 给表单赋值
 export function setValueToFromValue(list: Array<string>, data: object, formGroup: FormGroup) {
+  const obj = {};
   list.forEach(val => {
-    const obj = {};
     obj[val] = data[val];
-    formGroup.patchValue(obj);
+    formGroup.patchValue({[val]: data[val]});
   });
+
 }
 
 /**

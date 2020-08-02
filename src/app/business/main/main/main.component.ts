@@ -44,13 +44,13 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    const viewer = new Viewer(document.getElementById('image'), {
-      inline: true,
-      viewed() {
-        viewer.zoomTo(1);
-      },
-    });
+    //
+    // const viewer = new Viewer(document.getElementById('image'), {
+    //   inline: true,
+    //   viewed() {
+    //     viewer.zoomTo(1);
+    //   },
+    // });
 
     // 月隐患数统计
     this.req.findByMonth().subscribe(res => {

@@ -27,9 +27,7 @@
       </p-scrollPanel>
     </div>
   </div>
-  <p-dialog header="文件查看" [(visible)]="openDialog" [style]="{width: '1024px'}" [modal]="true" [closable]="true">
-    <p-scrollPanel [style]="{width: '100%', position: 'relative', marginTop: '-60px'}">
-      <iframe [src]="fileUrl" width="800" height="600"></iframe>
-    </p-scrollPanel>
+  <p-dialog header="文件查看" [(visible)]="openDialog" [style]="{width: '1024px', overflow: 'hidden'}" [modal]="true" [closable]="true">
+    <iframe [src]="fileUrl" width="1024" height="600"></iframe>
   </p-dialog>
 </div>

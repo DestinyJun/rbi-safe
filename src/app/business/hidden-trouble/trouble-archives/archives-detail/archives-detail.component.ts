@@ -80,6 +80,7 @@ export class ArchivesDetailComponent implements OnInit {
       report: new FormControl({value: '', disabled: true}), // 验收报告
     });
     this.globalSrv.getHidConfigData({data: [{settingType: 'HID_GRADE'}, {settingType: 'HID_GRAE'}]}).subscribe(val => {
+      console.log(val);
       this.hidFradeOption = setDrapdownOptionList(val.data.HID_GRADE);
       this.getArchiveDetail();
     });
