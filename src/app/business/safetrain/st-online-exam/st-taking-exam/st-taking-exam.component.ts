@@ -98,7 +98,6 @@ export class StTakingExamComponent implements OnInit {
 
   // 设置倒计时, 以秒为单位
   public  setCountdown(): void {
-    this.paparTime = 3;
     const timeOclock = setInterval(() => {
       if (this.paparTime === 0) {clearInterval(timeOclock); this.examWarnDialog = true; }
       const h = Math.floor(this.paparTime / (60 * 60));

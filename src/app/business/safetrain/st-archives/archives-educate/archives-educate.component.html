@@ -47,11 +47,11 @@
     <p-dialog
       [modal]="true"
       [blockScroll]="true"
-      [(visible)]="educateOperateModal" [style]="{width: '70vw'}"
+      [(visible)]="educateOperateModal" [style]="{width: '80vw'}"
     >
       <p-header>{{educateOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
-      <div style="width: 100%;height: 50vh;">
-        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <div class="ui-g" *ngIf="!(educateOperateField.id)">
             <!--身份证-->
             <div class="ui-g-6 ui-md-6">

@@ -79,6 +79,15 @@
                 </p-dropdown>
               </div>
             </div>
+            <!--  学时-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-3 ui-md-3 label">
+                <span>修改学时：</span>
+              </label>
+              <div class="ui-g-9 ui-md-9 input">
+                <input type="number" style="width: 100%" pInputText placeholder="请输入学时" [(ngModel)]="studyTime">
+              </div>
+            </div>
             <!--选择文件类型-->
             <div class="ui-g-12 ui-md-12">
               <label class="ui-g-3 ui-md-3 label">
@@ -104,15 +113,6 @@
                   [showUploadButton]="false" mode="advanced" name="file" #fileUpload
                 >
                 </p-fileUpload>
-              </div>
-            </div>
-            <!--  学时-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-3 ui-md-3 label">
-                <span>修改学时：</span>
-              </label>
-              <div class="ui-g-9 ui-md-9 input">
-                <input type="number" style="width: 100%" pInputText placeholder="请输入学时" [(ngModel)]="studyTime">
               </div>
             </div>
           </div>

@@ -33,6 +33,7 @@ export class StWrongQuestionComponent implements OnInit {
         this.commpleteExamData = new CommpleteExamData();
         this.setSubMitConpleteData(res.data.contents);
         this.NumData.emit(res.data.totalRecord);
+        this.pageOption.totalRecord = res.data.totalRecord;
       });
   }
 

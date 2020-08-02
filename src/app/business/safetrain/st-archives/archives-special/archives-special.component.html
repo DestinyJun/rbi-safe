@@ -46,11 +46,11 @@
     <!--角色新增/编辑弹窗-->
     <p-dialog
       [blockScroll]="true"
-      [(visible)]="specialOperateModal" [style]="{width: '65vw'}"
+      [(visible)]="specialOperateModal" [style]="{width: '80vw'}"
     >
       <p-header>{{specialOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
-      <div style="width: 100%;height: 40vh;overflow: hidden">
-        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+      <div style="width: 100%;height: 65vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <div class="ui-g">
             <!--身份证-->
             <div class="ui-g-6 ui-md-6">
@@ -178,6 +178,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
+                  [baseZIndex]="2000"
                   yearRange="2017:2030">
                 </p-calendar>
               </div>
