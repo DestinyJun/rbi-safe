@@ -149,7 +149,7 @@ export class TroubleDetailComponent implements OnInit {
         this.ImageOptionAfter.showUploadIcon = false;
         const lists = ['governanceFunds', 'completionTime', 'completionSituation'];
         // 时间格式转换：2020.08.08转成2020-08-08
-        list.forEach(attr => {
+        lists.forEach(attr => {
           let val = res.data.hidDangerDO[attr];
           if (attr.toString().indexOf('Time') > -1 ) {
             val = val.toString().replace(/\./g, '-');

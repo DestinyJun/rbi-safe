@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-dr-insitution',
@@ -10,10 +11,13 @@ import {PublicMethodService} from '../../../common/public/public-method.service'
 export class DrInsitutionComponent implements OnInit {
   public searchData: string = '';
   public itemData = [];
-  public url = 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf';
+  public openDialog = false;
+  public fileName = '';
+  public fileUrl: SafeResourceUrl;
   constructor(
     private globalSrv: GlobalService,
     private toolSrv: PublicMethodService,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit() {
     this.globalSrv.getEducationList({systemCategoryId: 6}).subscribe((res) => {
@@ -31,8 +35,9 @@ export class DrInsitutionComponent implements OnInit {
   }
   // 打开文件
   public  openFile(item): void {
-    // this.url = item.filePath;
-    // window.open(`http://view.officeapps.live.com/op/view.aspx?src=http://${item.filePath}`);
-    window.open(item.filePath);
+    this.fileName = item.fileName;
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
+    this.openDialog = true;
+    // window.open(item.filePath);
   }
 }

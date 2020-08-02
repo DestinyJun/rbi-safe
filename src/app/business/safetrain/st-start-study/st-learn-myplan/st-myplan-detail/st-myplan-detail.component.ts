@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StStartStudyService} from '../../../../../common/services/st-start-study.service';
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-st-myplan-detail',
@@ -14,10 +15,16 @@ export class StMyplanDetailComponent implements OnInit {
   public startExamNoticeModel: boolean = false;
   public fileContent: Array<object> = [];
   public videoContent: Array<object> = [];
+
+  public fileName = '';
+  public fileUrl: SafeResourceUrl;
+  public url: SafeResourceUrl;
+  public openDialog = false;
   constructor(
     private route: ActivatedRoute,
     private stStudySrv: StStartStudyService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -48,7 +55,11 @@ export class StMyplanDetailComponent implements OnInit {
         item.whetherStudy = 1;
       });
     }
-    window.open(item.resourcePath);
+    this.fileName = item.label;
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.resourcePath);
+    this.url = item.filePath;
+    this.openDialog = true;
+    // window.open(item.resourcePath);
   }
 
   // 视频学习

@@ -71,6 +71,7 @@ import { PlanAProcessedComponent } from './st-plan-a/plan-a-list/plan-a-processe
 import { PlanAUnprocessedComponent } from './st-plan-a/plan-a-list/plan-a-unprocessed/plan-a-unprocessed.component';
 import { StPlanAComponent } from './st-plan-a/st-plan-a.component';
 import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice-test/practice-test.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -124,37 +125,38 @@ import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice
     StPlanAComponent,
     PracticeTestComponent,
   ],
-  imports: [
-    CommonModule,
-    SafetrainRoutingModule,
-    InputTextModule,
-    ButtonModule,
-    BasicTableModule,
-    ScrollPanelModule,
-    StDemandModule,
-    PaginationModule,
-    StepsModule,
-    TabViewModule,
-    DropdownModule,
-    CalendarModule,
-    FormsModule,
-    DialogModule,
-    TreeModule,
-    TableModule,
-    RadioButtonModule,
-    InputTextareaModule,
-    FileUploadModule,
-    QuestionTemplateModule,
-    CheckboxModule,
-    TooltipModule,
-    CardModule,
-    ProgressBarModule,
-    TopicModule,
-    ConfirmDialogModule,
-    SidebarModule,
-    BasicDialogModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        SafetrainRoutingModule,
+        InputTextModule,
+        ButtonModule,
+        BasicTableModule,
+        ScrollPanelModule,
+        StDemandModule,
+        PaginationModule,
+        StepsModule,
+        TabViewModule,
+        DropdownModule,
+        CalendarModule,
+        FormsModule,
+        DialogModule,
+        TreeModule,
+        TableModule,
+        RadioButtonModule,
+        InputTextareaModule,
+        FileUploadModule,
+        QuestionTemplateModule,
+        CheckboxModule,
+        TooltipModule,
+        CardModule,
+        ProgressBarModule,
+        TopicModule,
+        ConfirmDialogModule,
+        SidebarModule,
+        BasicDialogModule,
+        ReactiveFormsModule,
+        PdfViewerModule
+    ],
   providers: []
 })
 export class SafetrainModule {

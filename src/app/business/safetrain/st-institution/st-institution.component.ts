@@ -13,6 +13,7 @@ export class StInstitutionComponent implements OnInit {
   public searchData: string = '';
   public fileName = '';
   public fileUrl: SafeResourceUrl;
+  public url: SafeResourceUrl;
 
   constructor(
     private globalSrv: GlobalService,
@@ -32,6 +33,7 @@ export class StInstitutionComponent implements OnInit {
   public openFile(item): void {
     this.fileName = item.label;
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
+    this.url = item.filePath;
     this.openDialog = true;
   }
 

@@ -5,7 +5,6 @@ import {GeneralInfoClass} from '../../../common/public/Api';
 import {SecurityRiskService} from "../../../common/services/security-risk.service";
 import {graphic} from "echarts";
 import {TroubleCheckStatusService} from "../../../common/services/trouble-check-status.service";
-import Viewer from 'viewerjs';
 
 @Component({
   selector: 'app-main',

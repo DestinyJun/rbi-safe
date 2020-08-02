@@ -9,9 +9,9 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
   styleUrls: ['./sr-institution.component.scss']
 })
 export class SrInstitutionComponent implements OnInit {
-  public openDialog = false;
   public searchData: string = '';
   public itemData = [];
+  public openDialog = false;
   public fileName = '';
   public fileUrl: SafeResourceUrl;
   constructor(
@@ -35,7 +35,7 @@ export class SrInstitutionComponent implements OnInit {
   }
   // 打开文件
   public  openFile(item): void {
-    this.fileName = item.fileName;
+    this.fileName = item.label;
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
     this.openDialog = true;
     // window.open(item.filePath);

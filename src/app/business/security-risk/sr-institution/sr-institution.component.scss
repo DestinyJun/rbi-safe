@@ -122,7 +122,6 @@
     background: #F8F8F8;
   }
   ::ng-deep .ui-dialog-resizable .ui-dialog-content {
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
   }
 }

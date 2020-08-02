@@ -7,7 +7,7 @@
       </label>
       <div class="ui-g-9 ui-md-9 input inputButton">
         <button
-          [pTooltip]="plInputTableSelectName"
+          [pTooltip]="plInputTableSelectName.split(',').join('\n')"
           pButton type="button" [label]="plInputTableSelectName"
           class="ui-button-rounded"
           (click)="plInputOperate(plInputOperateFlag = 'strain')">
@@ -146,8 +146,8 @@
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th style="width: 4em">
-            选择
-            <!--<p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
+            全选
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -178,7 +178,10 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
-        <app-pagination [option]="plInputPageOption" (clickEvent)="plInputPageEvent($event)"></app-pagination>
+        <div class="ui-g">
+<!--          <div class="ui-g-6 text-left" style="color: #333333"><p-checkbox value="全选" label="全选" ></p-checkbox></div>-->
+          <div class="ui-g-12"><app-pagination style="float: right" [option]="plInputPageOption" (clickEvent)="plInputPageEvent($event)"></app-pagination></div>
+        </div>
       </ng-template>
     </p-table>
     <p-footer>

@@ -110,7 +110,6 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(['/login']);
             return EMPTY;
           } else {
-            console.log(error);
             this.toolSrv.setToast('error', '请求错误', error.body.message);
             return EMPTY;
           }
