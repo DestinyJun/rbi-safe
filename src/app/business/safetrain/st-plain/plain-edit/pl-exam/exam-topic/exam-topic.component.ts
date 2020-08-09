@@ -14,6 +14,7 @@ export class ExamTopicComponent implements OnInit {
   public topicTabActiveIndex: number = 0; // tab切换
   public topicOperateFlag: any; // 操作标识
   public topicOperateModal: boolean = false; // 模态框
+  public selectAllBox: string[] = []; // 全选元素
   public topicTableData: any[] = []; // 表体数据
   public topicTableSelect: any[] = []; // 表体数据选择
   public topicSelectList: any[] = []; // 已选择的题目
@@ -36,6 +37,7 @@ export class ExamTopicComponent implements OnInit {
     // 初始化题库选题
     this.safeSrv.searchScsQuestionSortInfo().subscribe((res) => {
       this.topicData = res.data;
+
     });
   }
 
@@ -44,6 +46,24 @@ export class ExamTopicComponent implements OnInit {
     this.safeSrv.getTopicInfo({pageNo, pageSize, subjectStoreId}).subscribe((res) => {
       this.topicTableData = res.data.contents;
       this.topicPageOption.totalRecord = res.data.totalRecord;
+
+      console.log(this.topicTableData);
+      //  判断当前表单项是否被全选
+      let f = true;
+      this.topicTableData.forEach(value => {
+        let flag = false;
+        this.topicTableSelect.forEach(value1 => {
+          if (value1.safeSubject.id === value.safeSubject.id) {
+            flag = true;
+          }
+        });
+        if (!flag) {
+          f = false;
+        }
+      });
+      if (this.topicTableSelect.length > 0) {
+        this.setCheckBox(f);
+      }
     });
   }
 
@@ -64,7 +84,6 @@ export class ExamTopicComponent implements OnInit {
         this.topicOperateModal = false;
         this.topicTableSelect.forEach( (subject: any) => {
           subject.safeSubject.questionBankSubjectId = subject.safeSubject.id;
-          delete subject.safeSubject.id;
         });
         this.topicSelectList = this.topicTableSelect;
         console.log(this.topicTableSelect);
@@ -83,5 +102,68 @@ export class ExamTopicComponent implements OnInit {
   public topicPageEvent(page) {
     this.topicNowPage = page;
     this.topicTableDataSearch(page, this.topicPageOption.pageSize, this.topicSelectId);
+  }
+
+  // 当前页的全部选择或不选择全部
+  public selectAll(e): void {
+    if (e.checked) {
+      this.setCheckBox(true);
+      // 在全选之前，如果选项已经在被选中，则不添加。没有则添加
+      this.topicTableData.forEach(value => {
+        // 是否在 plInputTableSelect 里面
+        let flag = false;
+        this.topicTableSelect.forEach(value1 => {
+          if (value1.safeSubject.id === value.safeSubject.id) {
+            flag = true;
+          }
+        });
+        if (!flag) { // 不存在则添加
+          this.topicTableSelect.push(value);
+        }
+      });
+      const newObj = [];
+      Object.assign(newObj, this.topicTableSelect);
+      this.topicTableSelect = newObj;
+    } else {
+      // 只有这样才能触发box的改变
+      this.setCheckBox(false);
+      this.topicTableData.forEach(value => {
+        this.topicTableSelect.forEach(value1 => {
+          if (value1.safeSubject.id === value.safeSubject.id) {
+            this.topicTableSelect.splice(this.topicTableSelect.indexOf(value1), 1);
+          }
+        });
+      });
+      const newObj = [];
+      Object.assign(newObj, this.topicTableSelect);
+      this.topicTableSelect = newObj;
+    }
+  }
+
+  // 单选
+  public select(e, data): void {
+    console.log(e.checked);
+    if (e.checked) {
+      this.topicTableSelect.push(data);
+    } else {
+      let i = -1;
+      this.topicTableSelect.forEach((value, index) => {
+        if (value.safeSubject.id === data.safeSubject.id) {
+          i = index;
+        }
+      });
+      if (i > -1) {
+        this.topicTableSelect.splice(i, 1);
+      }
+      this.setCheckBox(false);
+    }
+  }
+
+  public setCheckBox(checked: boolean): void {
+    if (checked) {
+      this.selectAllBox = ['selectAll'];
+    } else {
+      this.selectAllBox = [];
+    }
   }
 }

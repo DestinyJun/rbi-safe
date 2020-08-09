@@ -17,12 +17,13 @@ export class UserManagerComponent implements OnInit {
   public optionTable: any;
   public userSelect: any;
   public pageNo = 1;
+  public curUserName: string; // 当前编辑用户名，用于密码重置请求
   public userContent: any[];
   // 添加相关
   public showAddUserDialog: boolean;
   // 修改
   public showEditUserDialog: boolean;
-  public selectRolesList: any[] =[];
+  public selectRolesList: any[] = [];
   // 删除
   public id: any;
   public addUser: FormGroup;
@@ -67,7 +68,7 @@ export class UserManagerComponent implements OnInit {
   }
   public  initUserInfo(): void {
     this.setSrv.getUserInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
+      // console.log(val);
       this.userContent = val.data.contents;
       this.setTableOption(this.userContent);
       this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
@@ -92,6 +93,7 @@ export class UserManagerComponent implements OnInit {
       this.selectRolesList = e.data.sysUserRoleList;
       this.addUser.patchValue({id: e.data['id']});
       this.addUser.patchValue({companyPersonnelId: e.data['companyPersonnelId']});
+      this.curUserName = e.data.username;
       if (e.data.sysUserRoleList !== null){
         this.addUser.patchValue({sysUserRoleList: e.data.sysUserRoleList[0]['roleId']});
       }
@@ -205,5 +207,15 @@ export class UserManagerComponent implements OnInit {
           this.initUserInfo();
         });
      });
+ }
+
+ // 密码重置
+ public resetPwd(): void {
+   this.toolSrv.setConfirmation('重置密码', '重置密码', () => {
+     this.setSrv.resetPwd({username: this.curUserName}).subscribe(res => {
+       console.log(res);
+       this.toolSrv.setToast('success', '提示', '密码重置成功,重置密码为身份证后六位');
+     });
+   });
  }
 }

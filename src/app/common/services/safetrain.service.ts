@@ -313,6 +313,13 @@ export class SafetrainService {
   public addScsQuestionPageInfo(params: any): Observable<any> {
     return this.http.post(`/safeSubject/insertSafeSubject`, params);
   }
+  /**
+   * 培训题库导入
+   * @param params
+   */
+  public importSubject(params: any): Observable<any> {
+    return this.http.post(`/importSubject`, params);
+  }
   //                                    题库分类
   /*---------------------------------------------------------------------------------------------------------*/
   /**

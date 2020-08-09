@@ -38,6 +38,7 @@ export class RolesManagerComponent implements OnInit {
     {name: '0', value: 0},
     {name: '1', value: 1},
     {name: '2', value: 2},
+    {name: '3', value: 3},
   ];
   public roleWebPermissionCheckList: any = []; // 已选择的权限id列表
   public roleDropdownSelect: any;

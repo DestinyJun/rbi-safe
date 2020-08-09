@@ -43,7 +43,8 @@ export class PersonnelManagerComponent implements OnInit {
   ];
   public maritalStatusOption: Array<object> = [
     {label: '已婚', value: '已婚'},
-    {label: '未婚', value: '未婚'}
+    {label: '未婚', value: '未婚'},
+    {label: '其他', value: '其他'},
   ];
   public selectType = '';
   public orgazitionName: any;
@@ -96,7 +97,7 @@ export class PersonnelManagerComponent implements OnInit {
       name: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
 
-      maritalStatus: new FormControl('', Validators.required),
+      maritalStatus: new FormControl(''),
       nation: new FormControl('', Validators.required),
       idCardNo: new FormControl('', [Validators.pattern(/^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/)]),
       workshopName: new FormControl({value: '', disabled: true}),
@@ -106,8 +107,8 @@ export class PersonnelManagerComponent implements OnInit {
       id: new FormControl(''),
       dateOfBirth: new FormControl(''),
       degreeOfEducation: new FormControl(''),
-      position: new FormControl(''),
-      workType: new FormControl(''),
+      position: new FormControl('', Validators.required),
+      workType: new FormControl('', Validators.required),
       entryTime: new FormControl(''),
       jobNature: new FormControl(''),
       remarks: new FormControl(''),

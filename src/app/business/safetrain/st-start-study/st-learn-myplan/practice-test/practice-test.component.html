@@ -31,8 +31,14 @@
                   [name]="'singlename' + singleindex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData[singleindex].answerResults"
+                  [(ngModel)]="item.answerResults"
                 ></p-radioButton>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
               </div>
             </div>
           </div>
@@ -50,15 +56,14 @@
                   [name]="'multiplename'+ mulIndex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].answerResults"
+                  [(ngModel)]="item.answerResults"
                 ></p-checkbox>
               </div>
-              <div *ngIf="examState === 'did'">
-                <span  *ngIf="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].rightKey === commpleteExamDataCopy[this.singleChoiceQuestions.length + mulIndex].answerResults" style="color: green">
-                  正确 得分: {{commpleteExamDataCopy[this.singleChoiceQuestions.length + mulIndex].score}}
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
                 </span>
-                <span *ngIf="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].rightKey !== commpleteExamDataCopy[this.singleChoiceQuestions.length + mulIndex].answerResults" style="color: red">错误</span>
-<!--                <span *ngIf="commpleteExamData[this.singleChoiceQuestions.length + mulIndex].correct === 0">错误</span>-->
+                <span *ngSwitchDefault style="color: red">错误</span>
               </div>
             </div>
           </div>
@@ -76,8 +81,14 @@
                   [name]="'judgmentname' + judgIndex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
+                  [(ngModel)]="item.answerResults"
                 ></p-radioButton>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
               </div>
             </div>
           </div>
@@ -95,7 +106,13 @@
                 <input
                   type="text"
                   pInputText
-                  placeholder="请输入答案" [(ngModel)]="commpleteExamData[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
+                  placeholder="请输入答案" [(ngModel)]="item.answerResults[i]"/>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
               </div>
             </div>
           </div>
@@ -106,13 +123,6 @@
         </p-scrollPanel>
       </div>
     </div>
-    <p-dialog header="交卷提醒" [(visible)]="examWarnDialog" [style]="{width: '20vw'}" [modal]="true" [closable]="false">
-      考试时间已到，请立即交卷
-      <p-footer style="display: flex;justify-content: center">
-        <button type="button" pButton (click)="submitPaper()" label="提交"></button>
-        <!--      <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>-->
-      </p-footer>
-    </p-dialog>
     <p-dialog header="退出提醒" [(visible)]="moveDialog" [style]="{width: '20vw'}"   [closable]="false">
       您的考试正在进行, 您确定要离开吗? 您离开考试记录会作废。
       <p-footer style="display: flex;justify-content: center">

@@ -38,6 +38,7 @@ export class GiInfoReleaseComponent implements OnInit {
         formData.append('title', this.addInfoResease.value.title);
         formData.append('content', this.addInfoResease.value.content);
         formData.append('file', this.file);
+        console.log(formData);
         this.resealeSrv.submitinfoRelease(formData).subscribe(res => {
           this.addInfoResease.reset();
           this.file = '';

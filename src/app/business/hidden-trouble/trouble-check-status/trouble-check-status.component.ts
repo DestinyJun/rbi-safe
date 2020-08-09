@@ -16,10 +16,8 @@ export class TroubleCheckStatusComponent implements OnInit {
   ngOnInit() {
 
     this.req.findByGrade().subscribe(res => {
-        this.lineData = [];
-      for (const key in res.data) {
-        this.lineData.push({name: key, value1: res.data[key]});
-      }
+      this.lineData = res.data;
+      console.log(res);
     });
 
 

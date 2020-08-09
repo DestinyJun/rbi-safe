@@ -13,6 +13,10 @@
   .home-main{
 
   }
+
+  ::ng-deep .ui-dialog .ui-dialog-titlebar {
+    text-align: center;
+  }
 }
 @media screen and (max-width: 1200px){
   .home{

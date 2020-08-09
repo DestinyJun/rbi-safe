@@ -5,7 +5,7 @@ import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {LocalStorageService} from '../../../../../common/services/local-storage.service';
 import {ConfirmationService} from 'primeng/api';
 import {PublicMethodService} from '../../../../../common/public/public-method.service';
-import {StStartStudyService} from "../../../../../common/services/st-start-study.service";
+import {StStartStudyService} from '../../../../../common/services/st-start-study.service';
 
 @Component({
   selector: 'app-practice-test',
@@ -15,16 +15,12 @@ import {StStartStudyService} from "../../../../../common/services/st-start-study
 export class PracticeTestComponent implements OnInit {
   public paperId: number;
   public paparTime: number;
-  public countdownClock: any = '加载中';
   public durationTime: any;
   public paperTitle: string = '模拟考试试卷';
-  public singleChoiceQuestions: Array<object> = [];
-  public multipleChoiceQuestions: Array<object> = [];
-  public judgmentQuestions: Array<object> = [];
-  public completion: Array<object> = [];
-  public commpleteExamData: Array<any> = [];
-  public commpleteExamDataCopy: Array<any> = [];
-  public examWarnDialog: boolean = false;
+  public singleChoiceQuestions: Array<object> = []; // 单选
+  public multipleChoiceQuestions: Array<object> = []; // 多选
+  public judgmentQuestions: Array<object> = []; // 判断
+  public completion: Array<object> = []; // 填空
   public moveDialog: boolean = false;
   public questionCount = 1;
   public examState = 'doing';
@@ -56,10 +52,6 @@ export class PracticeTestComponent implements OnInit {
   }
 
   public  initTaskExamPaperInfo(): void {
-    // this.paperId
-    // this.stStudySrv.getSimulationTestPaper({trainingPlanId: 5 }).subscribe(res => {
-    //   console.log(res);
-    // });
     console.log(this.paperId);
     this.stStudySrv.getSimulationTestPaper({trainingPlanId: this.paperId }).subscribe(res => {
       console.log(res);
@@ -71,44 +63,27 @@ export class PracticeTestComponent implements OnInit {
       // 给全部题目之前加上题目编号
       this.singleChoiceQuestions.forEach((value: any) => {
         value.subject = this.questionCount + '. ' + value.subject;
+        value.answerResults = '';
         this.questionCount++;
       });
       this.multipleChoiceQuestions.forEach((value: any) => {
         value.subject = this.questionCount + '. ' + value.subject;
+        value.answerResults = '';
         this.questionCount++;
       });
       this.judgmentQuestions.forEach((value: any) => {
         value.subject = this.questionCount + '. ' + value.subject;
-        this.questionCount++;
-      });
-      this.judgmentQuestions.forEach((value: any) => {
-        value.subject = this.questionCount + '. ' + value.subject;
+        value.answerResults = '';
         this.questionCount++;
       });
       this.completion.forEach((value: any) => {
         value.subject = this.questionCount + '. ' + value.subject;
+        value.answerResults = [];
         this.questionCount++;
       });
-
-      this.setSubMitConpleteData(this.singleChoiceQuestions);
-      this.setSubMitConpleteData(this.multipleChoiceQuestions);
-      this.setSubMitConpleteData(this.judgmentQuestions);
-      this.setSubMitConpleteData(this.completion);
-
     });
   }
 
-  // 设置倒计时, 以秒为单位
-  public  setCountdown(): void {
-    const timeOclock = setInterval(() => {
-      if (this.paparTime === 0) {clearInterval(timeOclock); this.examWarnDialog = true; }
-      const h = Math.floor(this.paparTime / (60 * 60));
-      const m = Math.floor((this.paparTime - (h * 60 * 60)) / 60 );
-      const s = this.paparTime % 60;
-      this.paparTime = this.paparTime - 1;
-      this.countdownClock = (h < 10 ? ('0' + h) : h) + ':' + (m < 10 ? ('0' + m) : m) + ':' + (s < 10 ? ('0' + s) : s);
-    }, 1000);
-  }
   // 交卷
   public  submitPaperClik(): void {
     this.toolSrv.setConfirmation('交卷', '交卷', () => {
@@ -122,17 +97,14 @@ export class PracticeTestComponent implements OnInit {
     });
   }
 
-  public  setSubMitConpleteData(list: Array<object>): void {
-    list.forEach(val => {
-      // @ts-ignore
-      this.commpleteExamData.push({rightKey: val.rightKey, score: val.score, id: val.id, answerResults: val.subjectType === 4 ? [] : ''});
-    });
-  }
-
   public  submitPaper(): void {
     this.localSrv.set('openExam', '1');
-    this.commpleteExamDataCopy = JSON.parse(JSON.stringify(this.commpleteExamData));
-    this.commpleteExamDataCopy.forEach(val => {
+    const reqBody = [];
+    reqBody.push(...this.singleChoiceQuestions);
+    reqBody.push(...this.multipleChoiceQuestions);
+    reqBody.push(...this.judgmentQuestions);
+    reqBody.push(...this.completion);
+    reqBody.forEach(val => {
       if (Array.isArray(val.answerResults)){
         val.answerResults = val.answerResults.join('#');
       }else {
@@ -140,8 +112,7 @@ export class PracticeTestComponent implements OnInit {
       }
     });
 
-    this.stStudySrv.completeSimulationTheExam(JSON.stringify({simulationSafeAnswerRecords: this.commpleteExamDataCopy})).subscribe(val => {
-      console.log(val);
+    this.stStudySrv.completeSimulationTheExam(JSON.stringify({simulationSafeAnswerRecords: reqBody})).subscribe(val => {
       this.totalScore = val.data.totalScore;
       this.result = val.data.result;
       // 进行得分和失分匹配
@@ -152,7 +123,6 @@ export class PracticeTestComponent implements OnInit {
       //       }
       //   });
       // });
-      console.log(this.commpleteExamData);
       this.examState = 'did';
       this.toolSrv.setToast('success', '提交成功', '考试已结束');
       // window.history.back();

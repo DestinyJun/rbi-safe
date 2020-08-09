@@ -39,7 +39,7 @@ export class PlReleaseComponent implements OnInit {
     this.safeTestPaper = this.localSrv.getObject('safeTestPaper');
     // 获取考试题库
     this.safeTestQuestionsList = this.localSrv.getObject('safeTestQuestionsList');
-    console.log(this.safeTestQuestionsList);
+
     // 组合参数
     const TopicExam = [];
     this.safeTestQuestionsList.forEach((res) => {
@@ -57,7 +57,7 @@ export class PlReleaseComponent implements OnInit {
       }
       TopicExam.push(exam);
     });
-    console.log(TopicExam);
+
     this.safeTestPaper = Object.assign(this.safeTestPaper, {safeTestQuestionsList: TopicExam});
     this.releaseAddField = Object.assign(
       {},

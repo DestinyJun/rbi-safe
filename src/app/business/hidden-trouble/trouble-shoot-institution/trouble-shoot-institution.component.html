@@ -6,8 +6,8 @@
     <div class="search p-4">
       <div class="shoot-institution-search">
         <div class="ui-inputgroup" >
-          <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
-          <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+<!--          <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>-->
+<!--          <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>-->
         </div>
       </div>
     </div>
@@ -27,9 +27,9 @@
       </p-scrollPanel>
     </div>
   </div>
-  <p-dialog [header]="fileName" [(visible)]="openDialog" [style]="{width: 'calc(100% - 230px)'}" [modal]="true" [closable]="true" >
-    <p-scrollPanel [style]="{width: '100%', position: 'relative', marginTop: '-60px'}">
-      <iframe [src]="fileUrl" style="width: 100%" height="700" ></iframe>
+  <p-dialog header="{{fileName}}" [(visible)]="openDialog" [style]="{width: '80vw', height: '98vh'}" [modal]="true" [closable]="true">
+    <p-scrollPanel [style]="{width: '80vw', height: '98vh', position: 'relative', marginTop: '-60px'}">
+      <iframe [src]="fileUrl" style="width: 80vw; height: 98vh"></iframe>
     </p-scrollPanel>
   </p-dialog>
 </div>

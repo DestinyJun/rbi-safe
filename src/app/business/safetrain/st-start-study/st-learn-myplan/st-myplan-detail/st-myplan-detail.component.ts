@@ -55,7 +55,7 @@ export class StMyplanDetailComponent implements OnInit {
         item.whetherStudy = 1;
       });
     }
-    this.fileName = item.label;
+    this.fileName = item.resourceName;
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.resourcePath);
     this.url = item.filePath;
     this.openDialog = true;

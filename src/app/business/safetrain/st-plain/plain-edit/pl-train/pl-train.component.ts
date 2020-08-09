@@ -3,6 +3,7 @@ import {PageOption, TableHeader} from '../../../../../common/public/Api';
 import {SafetrainService} from '../../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
 import {LocalStorageService} from '../../../../../common/services/local-storage.service';
+import {PublicMethodService} from "../../../../../common/public/public-method.service";
 
 @Component({
   selector: 'app-pl-train',
@@ -31,9 +32,11 @@ export class PlTrainComponent implements OnInit {
   public trainAddList: any[] = [] ; // 已添加的培训资料列表
   public trainAddFileList: any[] = [] ; // 培训文件列表
   public trainAddVideoList: any[] = [] ; // 培训视频列表
+  public totalStudyTime = 0;
   constructor(
     private safeSrv: SafetrainService,
-    private localSrv: LocalStorageService
+    private localSrv: LocalStorageService,
+    private publicMethodService: PublicMethodService
   ) { }
 
   ngOnInit() {
@@ -90,6 +93,7 @@ export class PlTrainComponent implements OnInit {
       // 添加课程
       case 'add':
         this.trainTableData[index].active = 1;
+        this.totalStudyTime += item.studyTime;
         this.trainAddList.push(Object.assign({}, item, {index}));
         this.trainProxyOperate(this.trainAddList);
         break;
@@ -124,7 +128,12 @@ export class PlTrainComponent implements OnInit {
         break;
       // 下一步
       case 'next':
-        this.previousChange.emit({activeIndex: 2});
+        const trainingDuration = this.localSrv.getObject('safeTrainingNeeds').trainingDuration;
+        if (trainingDuration > this.totalStudyTime) {
+            this.publicMethodService.setToast('error', '提示', '培训时长应小于所选培训内容学时总和!');
+        } else {
+          this.previousChange.emit({activeIndex: 2});
+        }
         break;
     }
   }

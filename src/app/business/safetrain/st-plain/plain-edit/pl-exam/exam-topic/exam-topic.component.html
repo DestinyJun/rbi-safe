@@ -55,10 +55,23 @@
           [value]="topicTableData"
           [scrollable]="true" scrollHeight="100%"
         >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 4em">
+                <!--            选择-->
+                <!--<p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
+                全选
+                <p-checkbox #checkboxAll value="selectAll" [(ngModel)]="selectAllBox" (click)="selectAll(checkboxAll)"></p-checkbox>
+              </th>
+              <th>
+                题目
+              </th>
+            </tr>
+          </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-              <td style="width: 3em">
-                <p-tableCheckbox #checkbox [value]="rowData"></p-tableCheckbox>
+              <td style="width: 4em">
+                <p-tableCheckbox #checkbox [value]="rowData"  (click)="select(checkbox, rowData)"></p-tableCheckbox>
               </td>
               <td>
                 <app-topic [topicListData]="rowData"></app-topic>

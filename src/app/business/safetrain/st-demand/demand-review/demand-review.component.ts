@@ -3,7 +3,7 @@ import {PageOption, ReviewInfo, ReviewInfoClass, SpecialDay, SpecialDayClass, Sp
 import {Observable} from 'rxjs';
 import {GlobalService} from '../../../../common/services/global.service';
 import {DemandService} from '../../../../common/services/demand.service';
-import {objectCopy} from '../../../../common/public/contents';
+import {Es, objectCopy} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-demand-review',
@@ -31,6 +31,7 @@ export class DemandReviewComponent implements OnInit {
   public reviewOperateFieldCopy: SpecialField = new SpecialFieldClass(); // 状态判断用
   public reviewOperateModal: boolean = false; // 模态框
   public reviewInfoHandle: ReviewInfo = new ReviewInfoClass(); // 取消复审相关处理信息
+  public esDate: object = Es;
   public reviewDropdownOptions: any = [
     {label: '复审进行中 ', value: 1},
     {label: '复审已拒绝 ', value: 2},

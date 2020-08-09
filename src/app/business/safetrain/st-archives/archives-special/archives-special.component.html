@@ -2,10 +2,10 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">特种作业人员登记台账</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
-      <input type="text" pInputText placeholder="搜索"/>
-      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+<!--      <input type="text" pInputText placeholder="搜索"/>-->
+<!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
     </div>
-    <div class="button">
+    <div class="button" style="float: right">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="specialOperate(specialOperateFlag = 'add')"></button>
       <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="specialImportFieldModal=true"></button>
       <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="specialOperate(specialOperateFlag = 'export')"></button>

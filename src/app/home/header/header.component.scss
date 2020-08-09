@@ -4,6 +4,8 @@
   height: 100%;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+
   .title {
     background-color: #1E5EBE;
     height: 100%;
@@ -13,15 +15,20 @@
       font-weight: 600;
     }
   }
+
   .user-info {
+    position: absolute;
+    right: 10px;
     display: flex;
     align-items: center;
     height: 100%;
+
     .user, .pancel {
       height: 100%;
       display: flex;
       align-items: center;
     }
+
     .pancel {
       .setting, .remind {
         display: flex;
@@ -29,9 +36,11 @@
         cursor: pointer;
         height: 100%;
       }
+
       .remind {
         border-right: 1px solid #FFFFFF;
         position: relative;
+
         .bage {
           position: absolute;
           top: -5px;
@@ -44,21 +53,128 @@
         }
       }
     }
+
     .user {
       display: flex;
       align-items: center;
       cursor: pointer;
+
       img {
         height: 5vh;
         border-radius: 50%
       }
     }
   }
+
   .sidebar {
     position: absolute;
-    /deep/ .ui-sidebar-right{
+
+    /deep/ .ui-sidebar-right {
       top: 6vh;
       padding: 0;
     }
+  }
+
+
+  .notice {
+    //position: relative;
+    //z-index: 10000;
+    //height: 450px;
+    width: 450px;
+    background: #FFFFFF;
+    display: flex;
+    //border-radius: 10px;
+    //box-shadow: 0 0 4px #B4B4B4;
+    flex-direction: column;
+
+    .notice-title {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5E5F6B;
+      font-family: "微软雅黑 Light";
+      letter-spacing: 4px;
+      border-bottom: 1px solid #F6F6F6;
+    }
+
+    .notice-body {
+      flex: 8;
+      background: #fff;
+
+      .notice-item {
+        display: flex;
+        height: 6vh;
+        width: 100%;
+        background: #FAFAFA;
+        border-bottom: 1px solid #E8E8E8;
+
+        .item {
+          line-height: 6vh;
+          flex: 2;
+          padding-left: 15px;
+          justify-items: center;
+          font-size: 16px;
+          color: red;
+        }
+      }
+    }
+
+    .notice-footer {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3979D8;
+      text-align: center;
+      padding: 15px 0;
+
+      span {
+        font-weight: bold;
+        font-family: "微软雅黑 Light";
+        letter-spacing: 4px;
+        cursor: pointer;
+      }
+    }
+
+    //隐藏滚动条
+    //::ng-deep .ui-scrollpanel-bar {
+    //  //background-color: rgba(0, 0, 0, 0);
+    //  //transition: background-color .3s;
+    //  display: none;
+    //}
+    //::ng-deep .ui-scrollpanel-content{
+    //  padding-right: 0;
+    //}
+  }
+
+  ::ng-deep .ui-dialog {
+    border-radius: 10px;
+    box-shadow: 0 0 4px #B4B4B4;
+    background-color: #FFFFFF;
+  }
+
+
+  ::ng-deep .ui-dialog .ui-dialog-titlebar-icon span {
+    color: #5E5F6B;
+  }
+  ::ng-deep .ui-dialog .ui-dialog-titlebar {
+    border: none;
+    background-color: #FFFFFF;
+    padding: 1em;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  ::ng-deep .ui-dialog .ui-dialog-content {
+    border: none;
+    padding: 0;
+    border-radius: 0 0 10px 10px;
+  }
+
+  ::ng-deep .ui-dialog-titlebar {
+    background-color: #FFFFFF !important;
+    color: #5E5F6B !important;
+    font-size: 20px;
   }
 }

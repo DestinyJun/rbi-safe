@@ -28,7 +28,7 @@ import {
   ScrollPanelModule,
   StepsModule,
   TabViewModule, TooltipModule,
-  TreeModule, CardModule, ProgressBarModule, ConfirmDialogModule, SidebarModule
+  TreeModule, CardModule, ProgressBarModule, ConfirmDialogModule, SidebarModule, PanelModule
 } from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
@@ -71,7 +71,6 @@ import { PlanAProcessedComponent } from './st-plan-a/plan-a-list/plan-a-processe
 import { PlanAUnprocessedComponent } from './st-plan-a/plan-a-list/plan-a-unprocessed/plan-a-unprocessed.component';
 import { StPlanAComponent } from './st-plan-a/st-plan-a.component';
 import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice-test/practice-test.component';
-import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -125,38 +124,38 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
     StPlanAComponent,
     PracticeTestComponent,
   ],
-    imports: [
-        CommonModule,
-        SafetrainRoutingModule,
-        InputTextModule,
-        ButtonModule,
-        BasicTableModule,
-        ScrollPanelModule,
-        StDemandModule,
-        PaginationModule,
-        StepsModule,
-        TabViewModule,
-        DropdownModule,
-        CalendarModule,
-        FormsModule,
-        DialogModule,
-        TreeModule,
-        TableModule,
-        RadioButtonModule,
-        InputTextareaModule,
-        FileUploadModule,
-        QuestionTemplateModule,
-        CheckboxModule,
-        TooltipModule,
-        CardModule,
-        ProgressBarModule,
-        TopicModule,
-        ConfirmDialogModule,
-        SidebarModule,
-        BasicDialogModule,
-        ReactiveFormsModule,
-        PdfViewerModule
-    ],
+  imports: [
+    CommonModule,
+    SafetrainRoutingModule,
+    InputTextModule,
+    ButtonModule,
+    BasicTableModule,
+    ScrollPanelModule,
+    StDemandModule,
+    PaginationModule,
+    StepsModule,
+    TabViewModule,
+    DropdownModule,
+    CalendarModule,
+    FormsModule,
+    DialogModule,
+    TreeModule,
+    TableModule,
+    RadioButtonModule,
+    InputTextareaModule,
+    FileUploadModule,
+    QuestionTemplateModule,
+    CheckboxModule,
+    TooltipModule,
+    CardModule,
+    ProgressBarModule,
+    TopicModule,
+    ConfirmDialogModule,
+    SidebarModule,
+    BasicDialogModule,
+    ReactiveFormsModule,
+    PanelModule
+  ],
   providers: []
 })
 export class SafetrainModule {

@@ -162,6 +162,14 @@ export class SidebarComponent implements OnInit {
       children: [],
       link: '/home/seting/personnel'
     },
+    {
+      icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
+      bgc: '#226AD5',
+      label: 'App管理',
+      lefticon: '',
+      children: [],
+      link: '/home/seting/mobil'
+    },
   ];
   public isSetBar: any;
   public limitDataBar: any;
@@ -401,7 +409,7 @@ export class SidebarComponent implements OnInit {
     this.setItem.forEach(res => {
       if (this.limitDataBarTwo.length !== 0){
         this.limitDataBarTwo.forEach(v => {
-          if (v.permissionName === res.label){
+          if (v.permissionName === res.label) {
             this.barItem.push(res);
           }
         });

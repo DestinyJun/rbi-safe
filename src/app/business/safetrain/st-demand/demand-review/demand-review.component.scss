@@ -24,5 +24,10 @@
       }
     }
   }
+
+  ::ng-deep .ui-calendar,
+  ::ng-deep .ui-widget-content .ui-inputtext {
+    width: 100%;
+  }
 }
 

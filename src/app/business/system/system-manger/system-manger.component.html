@@ -6,10 +6,10 @@
   </div>
   <div class="roles-manager-header">
     <div class="roles-manager-search">
-      <div class="ui-inputgroup" >
-        <input type="text" pInputText  placeholder="搜索"/>
-        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
-      </div>
+<!--      <div class="ui-inputgroup" >-->
+<!--        <input type="text" pInputText  placeholder="搜索"/>-->
+<!--        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>-->
+<!--      </div>-->
     </div>
     <div class="roles-manager-button">
       <button pButton type="button" label="文件上传" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_browser-24px" (click)="showAddSystemDialog = true"></button>
@@ -47,7 +47,7 @@
               </div>
               <div class="ui-g-8 ui-md-8 ">
                 <div class="ui-md-12 ui-g-12 dialog-input">
-                  <p-fileUpload multiple="multiple"  chooseLabel="点击选择上传文件" [auto]="true" (onSelect)="selectFile($event)" [files]="files"></p-fileUpload>
+                  <p-fileUpload multiple="multiple" accept=".pdf"  chooseLabel="点击选择上传文件" [auto]="true" (onSelect)="selectFile($event)" [files]="files"></p-fileUpload>
 <!--                  <input pInputText type="text" formControlName="name" placeholder="请选择文件" />-->
                 </div>
               </div>

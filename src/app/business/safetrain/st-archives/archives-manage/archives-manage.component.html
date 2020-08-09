@@ -2,8 +2,8 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">主要负责人、安全生产管理人员台账</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
-      <input type="text" pInputText placeholder="搜索"/>
-      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+<!--      <input type="text" pInputText placeholder="搜索"/>-->
+<!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
     </div>
     <div class="button">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="manageOperate(manageOperateFlag = 'add')"></button>
@@ -99,8 +99,9 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #termOfValidity
-                  placeholder="点击选择有效期时间......"
-                  [locale]="manageEs" [(ngModel)]="manageOperateField.termOfValidity"
+                  placeholder="点击选择有效期, 如：2020-08-08至2020-08-15"
+                  [locale]="manageEs"
+                  [(ngModel)]='manageOperateField.termOfValidity'
                   dateFormat="yy-mm-dd"
                   dataType="string"
                   selectionMode="range"
@@ -132,7 +133,7 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #oneTrainingTime
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择时间, 如：2020-08-08至2020-08-15"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.oneTrainingTime"
                   dateFormat="yy-mm-dd"
                   dataType="string"
@@ -154,7 +155,7 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #twoTrainingTime
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择时间, 如：2020-08-08至2020-08-15"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.twoTrainingTime"
                   dateFormat="yy-mm-dd"
                   dataType="string"
@@ -177,7 +178,7 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #threeTrainingTime
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择时间, 如：2020-08-08至2020-08-15"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.threeTrainingTime"
                   dateFormat="yy-mm-dd"
                   dataType="string"

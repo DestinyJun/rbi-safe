@@ -12,16 +12,13 @@ import {TroubleCheckStatusService} from "../../../common/services/trouble-check-
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  public hiddenDangerOption: any;
-  public hiddenDangerData = [];
-  public hiddenDangerTitle: any = '月隐患数统计';
-
 
   public riskLevelOption: any;
   public riskLevelData = [];
   public riskLevelTitle: any = '风险等级数量统计';
 
 
+  public baseNum = 0.01;
 
 
   public mainPageNo: number = 1;
@@ -29,8 +26,6 @@ export class MainComponent implements OnInit {
   public showDetailDialog: boolean = false;
   public genneralInfoData: GeneralInfoClass = new GeneralInfoClass();
 
-
-  public bgColor: string = '#fff';
   public color: Array<any> = [ '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69'];
 
 
@@ -43,34 +38,10 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    //
-    // const viewer = new Viewer(document.getElementById('image'), {
-    //   inline: true,
-    //   viewed() {
-    //     viewer.zoomTo(1);
-    //   },
-    // });
-
-    // 月隐患数统计
-    this.req.findByMonth().subscribe(res => {
-      // console.log(res);
-      this.hiddenDangerData = [];
-      for (const dataKey in res.data) {
-        this.hiddenDangerData.push({name: dataKey, value: res.data[dataKey]});
-      }
-      // 排序根据名称
-      this.hiddenDangerData = this.hiddenDangerData.sort((a, b) => {
-        return this.getMonthCode(a.name) - this.getMonthCode(b.name);
-      });
-      // 画图
-      this.updateHiddenDangerOption();
-    });
 
     // 风险等级
     this.srService.findByGrade().subscribe(res => {
-      console.log(res);
       this.riskLevelData = res.data;
-      console.log(this.riskLevelData);
       this.updateRiskLevelOption();
     });
 
@@ -101,141 +72,6 @@ export class MainComponent implements OnInit {
   }
 
 
-  private updateHiddenDangerOption(): void {
-    let xAxisData: any;
-    let yAxisData: any;
-    if (this.hiddenDangerData && this.hiddenDangerData.length > 0) {
-      xAxisData = this.hiddenDangerData.map( v => v.name);
-      yAxisData = this.hiddenDangerData.map(v => v.value);
-    }
-
-    this.hiddenDangerOption =  {
-      title: {
-        text: this.hiddenDangerTitle,
-        fontSize: 12,
-        left: 20
-      },
-      backgroundColor: this.bgColor,
-      color: this.color,
-      legend: {
-        right: 10,
-        top: 10
-      },
-      tooltip: {
-        trigger: 'axis',
-        formatter: (params) => {
-          let html = '';
-          params.forEach(v => {
-            html += `<div style="color: #666;font-size: 14px;line-height: 24px">
-                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${this.color[v.componentIndex]};"></span>
-                ${v.seriesName}
-                <span style="color:${this.color[v.componentIndex]};font-weight:700;font-size: 18px">${v.value}</span>
-                件`;
-          });
-          return html;
-        },
-        extraCssText: 'background: #fff; border-radius: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);color: #333;',
-        axisPointer: {
-          type: 'shadow',
-          shadowStyle: {
-            color: '#ffffff',
-            shadowColor: 'rgba(225,225,225,1)',
-            shadowBlur: 5
-          }
-        }
-      },
-      grid: {
-        top: 50,
-        bottom: 10,
-        left: 20,
-        right: 20,
-        containLabel: true
-      },
-      xAxis: [{
-        type: 'category',
-        boundaryGap: false,
-        axisLabel: {
-          formatter: '{value}',
-          textStyle: {
-            color: '#333'
-          }
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#D9D9D9'
-          }
-        },
-        data: xAxisData
-      }],
-      yAxis: [{
-        type: 'value',
-        // name: '单位：万千瓦时',
-        axisLabel: {
-          textStyle: {
-            color: '#666'
-          }
-        },
-        nameTextStyle: {
-          color: '#666',
-          fontSize: 12,
-          lineHeight: 40
-        },
-        splitLine: {
-          lineStyle: {
-            type: 'dashed',
-            color: '#E9E9E9'
-          }
-        },
-        axisLine: {
-          show: false
-        },
-        axisTick: {
-          show: false
-        }
-      }],
-      series: [
-        {
-        name: this.hiddenDangerTitle,
-        type: 'line',
-        smooth: true,
-        // showSymbol: false,
-        symbolSize: 8,
-        zlevel: 3,
-        lineStyle: {
-          normal: {
-            color: this.color[1],
-            shadowBlur: 3,
-            shadowColor: this.hexToRgba(this.color[1], 0.5),
-            shadowOffsetY: 8
-          }
-        },
-        areaStyle: {
-          normal: {
-            color: new graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [{
-                  offset: 0,
-                  color: this.hexToRgba(this.color[1], 0.3)
-                },
-                  {
-                    offset: 1,
-                    color: this.hexToRgba(this.color[1], 0.1)
-                  }
-                ],
-                false
-            ),
-            shadowColor: this.hexToRgba(this.color[1], 0.1),
-            shadowBlur: 10
-          }
-        },
-        data: yAxisData
-      }]
-    };
-  }
-
   private updateRiskLevelOption(): void {
 
     const seriesName = [];
@@ -251,7 +87,7 @@ export class MainComponent implements OnInit {
       for (const riskLevelDatumKey in this.riskLevelData[riskLevelDataKey]) {
         let val = this.riskLevelData[riskLevelDataKey][riskLevelDatumKey];
         // val = val === 0 ? 1 : val;
-        const level = {name: riskLevelDatumKey, value:  val};
+        const level = {name: riskLevelDatumKey, value:  val + this.baseNum};
         item.data.push(level);
       }
       // 对区域进行排序
@@ -300,15 +136,15 @@ export class MainComponent implements OnInit {
             color = '#37C611';
           }
           return `${val[0].name}<br/>
-										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${val[0].data}<br/>
-										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${val[1].data}`;
+										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${val[0].data - this.baseNum}<br/>
+										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${val[1].data - this.baseNum}`;
         }
       },
       grid: [
         {
           left: '5%',
-          right: '12%',
-          bottom: 70,
+          right: '5%',
+          bottom: 30,
           top: '60px',
         },
         {
@@ -335,6 +171,12 @@ export class MainComponent implements OnInit {
         {
           type: 'value',
           gridIndex: 0,
+          min: (value) => {
+            return this.baseNum * 10;
+          },
+          max: (value) => {
+            return value.max > 10 ? value.max : 10;
+          },
           axisLine: {
             show: false,
             onZero: true
@@ -468,16 +310,6 @@ export class MainComponent implements OnInit {
     };
   }
 
-  public hexToRgba(hex, opacity): string {
-    let rgbaColor = '';
-    const reg = /^#[\da-f]{6}$/i;
-    if (reg.test(hex)) {
-      rgbaColor = `rgba(${Number('0x' + hex.slice(1, 3))},${Number(
-          '0x' + hex.slice(3, 5)
-      )},${Number('0x' + hex.slice(5, 7))},${opacity})`;
-    }
-    return rgbaColor;
-  }
 
   private getZhCode(str: string) {
     switch (str) {
@@ -490,21 +322,4 @@ export class MainComponent implements OnInit {
     }
   }
 
-  private getMonthCode(str: string) {
-    switch (str) {
-      case '1月': return 1;
-      case '2月': return 2;
-      case '3月': return 4;
-      case '4月': return 8;
-      case '5月': return 16;
-      case '6月': return 32;
-      case '7月': return 64;
-      case '8月': return 128;
-      case '9月': return 258;
-      case '10月': return 512;
-      case '11月': return 1024;
-      case '12月': return 2048;
-      default: return 0;
-    }
-  }
 }

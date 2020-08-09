@@ -4,8 +4,8 @@ import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
 import {Es, objectCopy} from '../../../../common/public/contents';
 import {isArray} from 'util';
-import {FormControl} from "@angular/forms";
-import {debounceTime, distinctUntilChanged} from "rxjs/operators";
+import {FormControl} from '@angular/forms';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-archives-manage',
@@ -95,15 +95,24 @@ export class ArchivesManageComponent implements OnInit {
         this.manageOperateField = Object.assign({}, new UpdateManageFieldClass(), item);
         for (const manageOperateFieldKey in this.manageOperateField) {
           if (this.manageOperateField[manageOperateFieldKey]) {
-            this.manageOperateField[manageOperateFieldKey] = (this.manageOperateField[manageOperateFieldKey] + '').split('至');
+            // 2020-08-03 - 2020-08-15
+            this.manageOperateField[manageOperateFieldKey] = (this.manageOperateField[manageOperateFieldKey] + '').replace('至', ' - ');
           }
-          console.log(this.manageOperateField[manageOperateFieldKey]);
         }
+        console.log(this.manageOperateField);
         this.manageOperateModal = true;
         break;
       // 保存操作
       case 'save':
         const field = objectCopy(this.manageOperateField, this.manageOperateField);
+        field
+        for (const manageOperateFieldKey in field) {
+          if (field[manageOperateFieldKey]) {
+            // 2020-08-03 - 2020-08-15
+            field[manageOperateFieldKey] = (field[manageOperateFieldKey] + '').replace(' - ', '至');
+            field[manageOperateFieldKey] = (field[manageOperateFieldKey] + '').replace(',', '至');
+          }
+        }
         Object.keys(field).forEach((key) => {
           if (isArray(field[key])) {
             field[key] = field[key].join('至');

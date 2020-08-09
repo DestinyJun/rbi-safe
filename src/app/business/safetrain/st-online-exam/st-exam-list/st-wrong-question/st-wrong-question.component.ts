@@ -34,13 +34,14 @@ export class StWrongQuestionComponent implements OnInit {
         this.setSubMitConpleteData(res.data.contents);
         this.NumData.emit(res.data.totalRecord);
         this.pageOption.totalRecord = res.data.totalRecord;
+        this.wrongQuestionList = [];
       });
   }
 
   public  setSubMitConpleteData(list: Array<object>): void {
     list.forEach(val => {
       // @ts-ignore
-      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#') , subjectType: val.subjectType, safeTestQuestionOptionsList: val.safeTestQuestionOptionsList, subject: val.subject,  score: val.score, id: val.id, answerResults: []});
+      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#') , subjectType: val.subjectType, safeSubjectOptions: val.safeSubjectOptions, subject: val.subject,  score: val.score, id: val.id, answerResults: []});
     });
   }
 

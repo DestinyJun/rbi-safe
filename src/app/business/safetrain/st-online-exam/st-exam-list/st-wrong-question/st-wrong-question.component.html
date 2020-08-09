@@ -17,7 +17,7 @@
           </div>
           <div *ngIf="item.subjectType === 1">
             <div class="question-select"
-                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                 *ngFor="let selItem of item?.safeSubjectOptions;
                        let i=index">
               <p-radioButton
                 [name]="'single' + singleindex"
@@ -29,7 +29,7 @@
           </div>
           <div *ngIf="item.subjectType === 2">
             <div class="question-select"
-                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                 *ngFor="let selItem of item?.safeSubjectOptions;
                        let i=index">
               <p-checkbox
                 [name]="'multiple'+ singleindex"
@@ -41,7 +41,7 @@
           </div>
           <div *ngIf="item.subjectType === 3">
             <div class="question-select"
-                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                 *ngFor="let selItem of item?.safeSubjectOptions;
                        let i=index">
               <p-radioButton
                 [name]="'judgment' + singleindex"

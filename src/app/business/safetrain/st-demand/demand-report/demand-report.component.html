@@ -7,7 +7,7 @@
       </label>
       <div class="ui-g-9 ui-md-9 input inputButton">
         <button
-          [pTooltip]="reportTableSelectName"
+          [pTooltip]="reportTableSelectName.split(',').join('\n')"
           pButton type="button" [label]="reportTableSelectName"
           class="ui-button-rounded"
           (click)="reportOperate(reportOperateFlag = 'strain')">
@@ -146,8 +146,10 @@
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th style="width: 4em">
-            选择
+<!--            选择-->
             <!--<p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
+            全选
+            <p-checkbox #checkboxAll value="selectAll" [(ngModel)]="selectAllBox" (click)="selectAll(checkboxAll)"></p-checkbox>
           </th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -170,7 +172,7 @@
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
           <td style="width: 4em;text-align: center">
-            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            <p-tableCheckbox #checkbox [value]="rowData"  (click)="select(checkbox, rowData)"></p-tableCheckbox>
           </td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis;" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
@@ -190,7 +192,7 @@
     [modal]="true"
     [(visible)]="reportOrgTreeModal" [blockScroll]="true"
     [contentStyle]="{width: '30vw',height: '30vh'}">
-    <p-header>请选择组织培训单位进行数据筛选</p-header>
+    <p-header>请根据组织培训单位进行受训人员选择</p-header>
     <p-scrollPanel [style]="{width: '100%', height: '250px'}">
       <p-tree
         [style]="{width: '100%'}"

@@ -122,6 +122,14 @@
     <div class="ui-g-12 ui-md-12 text-center">
       <button pButton label="下一步" style="width: auto" (click)="plInputOperate('add')"></button>
     </div>
+<!--    <h3>Preselection</h3>-->
+<!--    <div class="p-grid" style="width:250px;margin-bottom:10px">-->
+<!--      <div class="p-col-12"><p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories" inputId="technology"></p-checkbox></div>-->
+<!--      <div class="p-col-12"><p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories" inputId="finance"></p-checkbox></div>-->
+<!--      <div class="p-col-12"><p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories" inputId="sports"></p-checkbox></div>-->
+<!--      <div class="p-col-12"><p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories" inputId="entertainment"></p-checkbox></div>-->
+<!--    </div>-->
+
   </div>
   <!--弹窗-->
   <p-dialog
@@ -147,7 +155,7 @@
         <tr>
           <th style="width: 4em">
             全选
-<!--            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
+            <p-checkbox #checkboxAll value="selectAll" [(ngModel)]="selectAllBox" (click)="selectAll(checkboxAll)"></p-checkbox>
           </th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -170,7 +178,7 @@
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
           <td style="width: 4em;text-align: center">
-            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            <p-tableCheckbox #checkbox [value]="rowData" (click)="select(checkbox, rowData)"></p-tableCheckbox>
           </td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis;" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
@@ -193,7 +201,7 @@
     [modal]="true"
     [(visible)]="plInputOrgTreeModal" [blockScroll]="true"
     [contentStyle]="{width: '30vw',height: '30vh'}">
-    <p-header>请选择组织培训单位进行数据筛选</p-header>
+    <p-header>请根据组织培训单位进行受训人员选择</p-header>
     <p-scrollPanel [style]="{width: '100%', height: '250px'}">
       <p-tree
         [style]="{width: '100%'}"

@@ -118,4 +118,13 @@
   ::ng-deep .ui-dialog-resizable .ui-dialog-content {
     overflow: hidden;
   }
+
+  /*隐藏滚动条*/
+  ::ng-deep .ui-scrollpanel-bar {
+    display: none !important;
+  }
+
+  ::ng-deep .ui-dialog .ui-dialog-content {
+    padding: 0;
+  }
 }

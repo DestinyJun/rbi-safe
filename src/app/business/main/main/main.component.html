@@ -1,12 +1,11 @@
 <div class="main pt-3">
   <div class="top">
     <div class="items p-2">
-<!--      <app-echarts-bar-risk [title]="hiddenDangerTilte" [echartData]="lineData"></app-echarts-bar-risk>-->
-      <div style="width: 100%; height: 100%" echarts [options]="hiddenDangerOption"></div>
+      <div echarts style="width: 100%; height: 100%" [options]="riskLevelOption"  class="echarts-bar-trouble"></div>
     </div>
     <div class="items p-2">
-      <div echarts style="width: 100%; height: 100%" [options]="riskLevelOption"  class="echarts-bar-trouble"></div>
-<!--      <app-echarts-bar-trouble></app-echarts-bar-trouble>-->
+<!--      <div style="width: 100%; height: 100%" echarts [options]="hiddenDangerOption"></div>-->
+      <app-echarts-bar-trouble></app-echarts-bar-trouble>
     </div>
     <div class="items p-2">
       <span class="title">隐患类型占比</span>

@@ -6,6 +6,7 @@ import {RolesManagerComponent} from './roles-manager/roles-manager.component';
 import {LimitsManagerComponent} from './limits-manager/limits-manager.component';
 import {OrganizationManagerComponent} from './organization-manager/organization-manager.component';
 import {PersonnelManagerComponent} from './personnel-manager/personnel-manager.component';
+import {MobilAppManagerComponent} from "./mobil-app-manager/mobil-app-manager.component";
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       {path: 'limit', component: LimitsManagerComponent},
       {path: 'orgazition', component: OrganizationManagerComponent},
       {path: 'personnel', component: PersonnelManagerComponent},
+      {path: 'mobil', component: MobilAppManagerComponent},
     ]
   }
 ];

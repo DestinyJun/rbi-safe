@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TroubleCheckStatusService} from '../../../services/trouble-check-status.service';
+import {graphic} from "echarts";
 
 @Component({
   selector: 'app-echarts-bar-trouble',
@@ -8,155 +9,179 @@ import {TroubleCheckStatusService} from '../../../services/trouble-check-status.
 })
 export class EchartsBarTroubleComponent implements OnInit {
 
-  public option: any;
-  public data = [];
-  public min = 50;
+  public hiddenDangerOption: any;
+  public hiddenDangerData = [];
+  public hiddenDangerTitle: any = '月隐患数统计';
+
+  public bgColor: string = '#fff';
+  public color: Array<any> = [ '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69'];
+
   constructor(
     private req: TroubleCheckStatusService
   ) { }
 
   ngOnInit() {
+    // 月隐患数统计
     this.req.findByMonth().subscribe(res => {
-      console.log(res);
-      this.data = [];
-      for (const key in res.data) {
-        this.data.push({name: key, value: res.data[key]});
+      // console.log(res);
+      this.hiddenDangerData = [];
+      for (const dataKey in res.data) {
+        this.hiddenDangerData.push({name: dataKey, value: res.data[dataKey]});
       }
-      this.data = this.data.sort((a, b ) => {
+      // 排序根据名称
+      this.hiddenDangerData = this.hiddenDangerData.sort((a, b) => {
         return this.getMonthCode(a.name) - this.getMonthCode(b.name);
       });
-      console.log(this.data);
-      this.updateOption();
+      // 画图
+      this.updateHiddenDangerOption();
     });
   }
 
-  private updateOption(): void {
-    // tslint:disable-next-line:one-variable-per-declaration
-    const xData = [], yData = [];
-    this.data.map((a, b) => {
-      xData.push(a.name);
-      yData.push(a.value + this.min);
-    });
-    this.option = {
+  private updateHiddenDangerOption(): void {
+    let xAxisData: any;
+    let yAxisData: any;
+    if (this.hiddenDangerData && this.hiddenDangerData.length > 0) {
+      xAxisData = this.hiddenDangerData.map( v => v.name);
+      yAxisData = this.hiddenDangerData.map(v => v.value);
+    }
+
+    this.hiddenDangerOption =  {
       title: {
-        text: '月隐患数统计'
+        text: this.hiddenDangerTitle,
+        fontSize: 12,
+        left: 20
       },
-      backgroundColor: '#fff',
-      color: ['#3398DB'],
+      backgroundColor: this.bgColor,
+      color: this.color,
+      legend: {
+        right: 10,
+        top: 10
+      },
       tooltip: {
         trigger: 'axis',
-        axisPointer: {
-          type: 'line',
-          lineStyle: {
-            opacity: 0
-          }
+        formatter: (params) => {
+          let html = '';
+          params.forEach(v => {
+            html += `<div style="color: #666;font-size: 14px;line-height: 24px">
+                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${this.color[v.componentIndex]};"></span>
+                ${v.axisValueLabel}
+                <span style="color:${this.color[v.componentIndex]};font-weight:700;font-size: 18px">${v.value}</span>
+                件`;
+          });
+          return html;
         },
-        formatter: (prams) => {
-          return '隐患数：' + (prams[0].data - this.min);
+        extraCssText: 'background: #fff; border-radius: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);color: #333;',
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: '#ffffff',
+            shadowColor: 'rgba(225,225,225,1)',
+            shadowBlur: 5
+          }
         }
       },
-      legend: {
-        data: ['直接访问', '背景'],
-        show: false
-      },
       grid: {
-        left: '0%',
-        right: '0%',
-        bottom: '5%',
-        top: '7%',
-        height: '85%',
-        containLabel: true,
-        z: 22
+        top: 50,
+        bottom: 10,
+        left: 20,
+        right: 20,
+        containLabel: true
       },
       xAxis: [{
         type: 'category',
-        gridIndex: 0,
-        data: xData,
-        axisTick: {
-          show: false,
-          alignWithLabel: true
-        },
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#0c3b71'
+        boundaryGap: false,
+        axisLabel: {
+          formatter: '{value}',
+          textStyle: {
+            color: '#333'
           }
         },
-        axisLabel: {
-          color: 'rgb(170,170,170)',
-          fontSize: 16
-        }
+        axisLine: {
+          lineStyle: {
+            color: '#D9D9D9'
+          }
+        },
+        data: xAxisData
       }],
       yAxis: [{
         type: 'value',
-        gridIndex: 0,
+        // name: '单位：万千瓦时',
+        axisLabel: {
+          textStyle: {
+            color: '#666'
+          }
+        },
+        nameTextStyle: {
+          color: '#666',
+          fontSize: 12,
+          lineHeight: 40
+        },
         splitLine: {
+          lineStyle: {
+            type: 'dashed',
+            color: '#E9E9E9'
+          }
+        },
+        axisLine: {
           show: false
         },
         axisTick: {
           show: false
-        },
-        min: this.min,
-        max: 100,
-        axisLine: {
-          show: false,
-          lineStyle: {
-            color: '#0c3b71'
-          }
-        },
-        axisLabel: {
-          show: false,
-          color: 'rgb(170,170,170)',
-          formatter: '{value} %'
         }
-      },
+      }],
+      series: [
         {
-          type: 'value',
-          gridIndex: 0,
-          min: this.min,
-          max: 100,
-          splitNumber: 10,
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          splitArea: {
-            show: true,
-            areaStyle: {
-              color: ['rgba(250,250,250,0.0)', 'rgba(250,250,250,0.05)']
+          name: this.hiddenDangerTitle,
+          type: 'line',
+          smooth: true,
+          // showSymbol: false,
+          symbolSize: 8,
+          zlevel: 3,
+          lineStyle: {
+            normal: {
+              color: this.color[1],
+              shadowBlur: 3,
+              shadowColor: this.hexToRgba(this.color[1], 0.5),
+              shadowOffsetY: 8
             }
-          }
-        }
-      ],
-      series: [{
-        name: '合格率',
-        type: 'bar',
-        barWidth: '20%',
-        xAxisIndex: 0,
-        yAxisIndex: 0,
-        itemStyle: {
-          normal: {
-            barBorderRadius: 20,
-            color: '#9DC3FF'
-          }
-        },
-        data: yData,
-        zlevel: 11
-
-      },
-
-      ]
+          },
+          areaStyle: {
+            normal: {
+              color: new graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [{
+                  offset: 0,
+                  color: this.hexToRgba(this.color[1], 0.3)
+                },
+                  {
+                    offset: 1,
+                    color: this.hexToRgba(this.color[1], 0.1)
+                  }
+                ],
+                false
+              ),
+              shadowColor: this.hexToRgba(this.color[1], 0.1),
+              shadowBlur: 10
+            }
+          },
+          data: yAxisData
+        }]
     };
   }
 
+  public hexToRgba(hex, opacity): string {
+    let rgbaColor = '';
+    const reg = /^#[\da-f]{6}$/i;
+    if (reg.test(hex)) {
+      rgbaColor = `rgba(${Number('0x' + hex.slice(1, 3))},${Number(
+        '0x' + hex.slice(3, 5)
+      )},${Number('0x' + hex.slice(5, 7))},${opacity})`;
+    }
+    return rgbaColor;
+  }
 
   private getMonthCode(str: string) {
     switch (str) {

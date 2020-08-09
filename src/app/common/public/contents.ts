@@ -159,7 +159,8 @@ export function  setDrapdownOptionList(list: Array<any>): any {
  * @param formData formdata对象
  */
 export function setImageToFromData(data: FormGroup , label: string, formData: FormData) {
-  if (data.value[label] !== ''){
+  console.log(data);
+  if (data.value[label] && data.value[label] !== ''){
     data.value[label].forEach(val => {
       formData.append(label, val);
     });

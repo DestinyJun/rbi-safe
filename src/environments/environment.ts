@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   url_safe: 'http://139.9.153.27:8090/security-platform',
   // url_safe: 'http://192.168.28.222:8090/security-platform', // 杨师兄
+  // url_safe: 'http://192.168.28.5:8090/security-platform', // 松达
   // url_safe: 'http://120.77.171.73:8090/security-platform',
-  // url_safe: 'http://120.77.171.73:8090/security-platform'
   // url_safe: 'http://192.168.28.18:8090/security-platform'  // 谢青的ip
 };
 
