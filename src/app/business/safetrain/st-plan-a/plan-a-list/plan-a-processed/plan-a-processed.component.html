@@ -1,0 +1,128 @@
+<div class="pt-processed">
+  <div class="header pt-2 pb-2">
+<!--    <div class="ui-inputgroup">-->
+<!--      <input type="text" pInputText placeholder="搜索"/>-->
+<!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
+<!--    </div>-->
+  </div>
+  <div class="content">
+    <p-table
+      [value]="processedTableData" [columns]="processedTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field] == '2'?'已处理':rowData[col.field] == '3'?'已拒绝': rowData[col.field] == '1'?'申请中':rowData[col.field]}}
+          </td>
+          <td class="text-center">
+            <button
+              pButton label="查看详情" class="ui-button-rounded ui-button-pink"
+              (click)="processedOperate(processedOperateFlag = 'detail', rowData)">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="processedPageOption" (clickEvent)="processedPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--查看详情-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="processedOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>计划详情</p-header>
+      <div style="width: 100%;height: 40vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>受训单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.targetNameSet.join(',')" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>日常培训类别：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.trainingTypeName" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>培训内容：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.trainingContent" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>培训时长：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.trainingDuration" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织培训单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.organizationName" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织开始时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.startTime" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织结束时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="processedOperateField?.endTime" disabled>
+              </div>
+            </div>
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>处理状态：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText [value]="
+                processedOperateField?.processingStatus == '2'?
+                '已处理':processedOperateField?.processingStatus == '3'?
+                '已拒绝': processedOperateField?.processingStatus == '1'?
+                '申请中':processedOperateField?.processingStatus" disabled>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="关闭" class="ui-button-pink" (click)="processedOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
+

@@ -15,18 +15,20 @@ import {LocalStorageService} from '../../../../common/services/local-storage.ser
 })
 export class StTakingExamComponent implements OnInit {
   public paperId: number;
+  public personnelTrainingRecordId: number;
   public paparTime: number;
-  public countdownClock: any = '00:00:00';
+  public countdownClock: any = '加载中';
+  public countdownTen: any = '10';
   public durationTime: any;
   public paperTitle: string = '';
-  public singleChoiceQuestions: Array<object> = [];
-  public multipleChoiceQuestions: Array<object> = [];
-  public judgmentQuestions: Array<object> = [];
-  public completion: Array<object> = [];
-  public commpleteExamData: CommpleteExamData = new CommpleteExamData();
-  public commpleteExamDataCopy: CommpleteExamData = new CommpleteExamData();
+  public singleChoiceQuestions: Array<object> = []; // 单选
+  public multipleChoiceQuestions: Array<object> = []; // 多选
+  public judgmentQuestions: Array<object> = []; // 判断
+  public completion: Array<object> = []; // 填空
   public examWarnDialog: boolean = false;
   public moveDialog: boolean = false;
+  public questionCount = 1;
+  private timeOclock;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
     private route: ActivatedRoute,
@@ -50,7 +52,7 @@ export class StTakingExamComponent implements OnInit {
       // this.paparTime = new Date();
       this.durationTime = Number(val.time);
       console.log(this.durationTime);
-      this.commpleteExamData.personnelTrainingRecordId = Number(val.personnelTrainingRecordId);
+      this.personnelTrainingRecordId = Number(val.personnelTrainingRecordId);
     });
     this.localSrv.set('openExam', '0');
     this.initTaskExamPaperInfo();
@@ -58,6 +60,7 @@ export class StTakingExamComponent implements OnInit {
 
   public  initTaskExamPaperInfo(): void {
       this.stOnlineExamSrv.getExamInfo({id: this.paperId}).subscribe(res => {
+        console.log(res);
         this.intervalTime(res.data.endTime);
         this.setCountdown();
         this.paperTitle = res.data.testPaperName;
@@ -65,63 +68,60 @@ export class StTakingExamComponent implements OnInit {
         this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
         this.judgmentQuestions = res.data.judgmentQuestions;
         this.completion = res.data.completion;
-        this.setSubMitConpleteData(this.singleChoiceQuestions);
-        this.setSubMitConpleteData(this.multipleChoiceQuestions);
-        this.setSubMitConpleteData(this.judgmentQuestions);
-        this.setSubMitConpleteData(this.completion);
-
+        // 给全部题目之前加上题目编号
+        this.singleChoiceQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          value.answerResults = '';
+          this.questionCount++;
+        });
+        this.multipleChoiceQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          value.answerResults = '';
+          this.questionCount++;
+        });
+        this.judgmentQuestions.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          value.answerResults = '';
+          this.questionCount++;
+        });
+        this.completion.forEach((value: any) => {
+          value.subject = this.questionCount + '. ' + value.subject;
+          value.answerResults = [];
+          this.questionCount++;
+        });
       });
   }
 
-  // 设置倒计时
+  // 设置倒计时, 以秒为单位
   public  setCountdown(): void {
-    let h: any = Math.floor(this.paparTime / 60 / 60);
-    let m: any = (Math.floor(this.paparTime / 60 % 60));
-    let s: any = Number(this.paparTime % 60);
-    console.log(h);
-    // console.log(s);
-    // h = h < 10 ? '0' + h : h;
-    // m = m < 10 ? '0' + m : m;
-    s = s === 0 ? 59 : s;
-    const timeOclock = setInterval(() => {
-      if (Number(s) === 0){
-        if (Number(m) === 0){
-          if (Number(h) === 0){
-            h = 0;
-            m = 0;
-            s = 0;
-            clearInterval(timeOclock);
-            this.examWarnDialog = true;
-          }else {
-            h = h - 1;
-            m = 59;
+
+    // this.paparTime = 10;
+
+    this.timeOclock = setInterval(() => {
+      this.paparTime = this.paparTime - 1;
+      const h = Math.floor(this.paparTime / (60 * 60));
+      const m = Math.floor((this.paparTime - (h * 60 * 60)) / 60 );
+      const s = this.paparTime % 60;
+      this.countdownClock = (h < 10 ? ('0' + h) : h) + ':' + (m < 10 ? ('0' + m) : m) + ':' + (s < 10 ? ('0' + s) : s);
+
+
+      if (this.paparTime === 0) {
+        this.paparTime = 10;
+        this.examWarnDialog = true;
+        clearInterval(this.timeOclock);
+        this.timeOclock = null;
+        // 提示十秒钟之后自动提交
+        this.timeOclock = setInterval(() => {
+          if (this.paparTime === 0) {
+            this.submitPaper();
+            clearInterval(this.timeOclock);
+            this.timeOclock = null;
           }
-          h = h < 10 ? '0' + h : h;
-        }else {
-          m = m - 1;
-          s = 59;
-        }
-        m = m < 10 ? '0' + m : m;
-      }else {
-        if (Number(m) === 0){
-          if (Number(h) === 0){
-            h = 0;
-            m = 0;
-            s = 0;
-            clearInterval(timeOclock);
-            this.examWarnDialog = true;
-          }else {
-            h = h - 1;
-            m = 59;
-          }
-          h = h < 10 ? '0' + h : h;
-        }else {
-          m = m < 10 ? '0' + m : m;
-          s = Number(s) - 1;
-        }
+          const s1 = this.paparTime % 60;
+          this.paparTime = this.paparTime - 1;
+          this.countdownTen = s1;
+        }, 1000);
       }
-      s = s < 10 ? '0' + s : s;
-      this.countdownClock = h + ':' + m + ':' + s;
     }, 1000);
   }
  // 交卷
@@ -133,6 +133,9 @@ export class StTakingExamComponent implements OnInit {
   public  canclePaperClik(): void {
     this.toolSrv.setConfirmation('退出', '退出', () => {
       this.localSrv.set('openExam', '1');
+      if (this.timeOclock) {
+        clearInterval(this.timeOclock);
+      }
       window.history.back();
     });
   }
@@ -140,21 +143,30 @@ export class StTakingExamComponent implements OnInit {
   public  setSubMitConpleteData(list: Array<object>): void {
      list.forEach(val => {
        // @ts-ignore
-       this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey, score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.subjectType === 4 ? [] : ''});
+       this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey, questionBankSubjectId: val.questionBankSubjectId, score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.subjectType === 4 ? [] : ''});
      });
   }
-  // 提交试卷
+
   public  submitPaper(): void {
     this.localSrv.set('openExam', '1');
-    this.commpleteExamDataCopy = JSON.parse(JSON.stringify(this.commpleteExamData));
-    this.commpleteExamDataCopy.safeAnswerRecordList.forEach(val => {
-      if (Array.isArray(val.answerResults)){
-        val.answerResults = val.answerResults.join('#');
-      }else {
-        val.answerResults =  val.answerResults.toString();
-      }
+    const data = [];
+    const reqData = [];
+    data.push(...this.singleChoiceQuestions);
+    data.push(...this.multipleChoiceQuestions);
+    data.push(...this.judgmentQuestions);
+    data.push(...this.completion);
+    data.forEach((val: any) => {
+      reqData.push({rightKey: val.rightKey,
+        questionBankSubjectId: val.questionBankSubjectId,
+        score: val.score, testPapreId: val.testPapreId,
+        testUestionsId: val.id,
+        answerResults: Array.isArray(val.answerResults) ? val.answerResults.join('#') : val.answerResults});
     });
-    this.stOnlineExamSrv.completeExamInfo(this.commpleteExamDataCopy).subscribe(val => {
+    const reqBody = {
+      personnelTrainingRecordId: this.personnelTrainingRecordId,
+      safeAnswerRecordList: reqData
+    };
+    this.stOnlineExamSrv.completeExamInfo(reqBody).subscribe(val => {
       this.toolSrv.setToast('success', '提交成功', '考试已结束');
       window.history.back();
     });

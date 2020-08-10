@@ -76,6 +76,7 @@ export class ShootReportComponent implements OnInit {
       report: new FormControl(''), // 验收报告
     });
     this.initShootReportData();
+    console.log(this.addReport);
   }
 
   // 初始化下拉框信息
@@ -96,6 +97,7 @@ export class ShootReportComponent implements OnInit {
   }
   // 选择图片文件
   public  selectImageFile(e, data): void {
+    console.log(e);
      this.imageFiles = e.value.files;
      const formVaue = {};
      formVaue[data] =  this.imageFiles;
@@ -108,6 +110,14 @@ export class ShootReportComponent implements OnInit {
       this.formData = new FormData();
       setImageToFromData(this.addReport, 'beforeImg', this.formData);
       setImageToFromData(this.addReport, 'afterImg', this.formData);
+      // 判断是否上报处理
+      if (this.addReport.get('ifDeal').value === '否') {
+        // 清楚数据
+        const paraList = ['governanceFunds', 'completionTime', 'completionSituation', 'afterImg', 'plan', 'report'];
+        paraList.forEach(val => {
+          this.addReport.controls[val].setValue('');
+        });
+      }
       const subMitDta = JSON.parse(JSON.stringify(this.addReport.value));
       subMitDta.troubleshootingTime = this.datePipe.transform( subMitDta.troubleshootingTime, 'yyyy-MM-dd');
       if (subMitDta.completionTime){
@@ -118,7 +128,7 @@ export class ShootReportComponent implements OnInit {
         this.shootSrv.addReportData(this.formData).subscribe(val => {
           this.resetAllData();
           this.isHandle = false;
-          // this.toolSrv.setToast('')
+          this.toolSrv.setToast('info', '提示', '上报整改成功');
         });
       });
     }else {
@@ -144,21 +154,25 @@ export class ShootReportComponent implements OnInit {
     if ( e === 1){
       // 如果是处理 则设置处理的参数未必填
       paraList.forEach(val => {
-        if (val !== 'plan' && val !== 'report')
-        this.addReport.controls[val].setValidators(Validators.required);
+        if (val !== 'plan' && val !== 'report') {
+          this.addReport.controls[val].setValidators(Validators.required);
+        }
       });
     }else {
       paraList.forEach(val => {
         this.addReport.controls[val].setValidators(null);
-        this.addReport.controls[val].setValue('');
+        this.addReport.controls[val].setErrors(null);
       });
     }
+    console.log(this.addReport);
   }
 
   private resetAllData(): void {
     this.addReport.reset();
     this.ImageClear.clearImage();
-    // this.ImageClearAfter.clearImage();
+    if (this.ImageClearAfter) {
+      this.ImageClearAfter.clearImage();
+    }
   }
 
   public dataTreeSureClick(): void {
@@ -172,7 +186,7 @@ export class ShootReportComponent implements OnInit {
   private setDataConvertToFromData(data): void{
     for (const key in data){
       if (key === 'plan' || key === 'report'){
-        this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '': this.addReportFile));
+        this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '' : this.addReportFile));
       }else if (key === 'hidType') {
         this.formData.append('hidTypeThing', '');
         this.formData.append('hidTypePerson', '');

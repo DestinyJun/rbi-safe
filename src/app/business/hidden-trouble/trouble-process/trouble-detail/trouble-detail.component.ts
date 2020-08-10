@@ -107,12 +107,22 @@ export class TroubleDetailComponent implements OnInit {
   // 获取详情数据
   public  getTroubleDetail(): void {
     this.troubleSrv.getTroubleDetailByCode({hidDangerCode: this.code}).subscribe(res => {
+
       this.btnList = this.btnTotalList = res.data.botton;
       this.processingStatus = res.data.hidDangerDO.processingStatus;
       const list = ['troubleshootingTime',  'hidDangerContent', 'hidDangerGrade',
         'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName',
         'rectificationOpinions', 'rectificationEvaluate'];
-      setValueToFromValue(list, res.data.hidDangerDO, this.addReport);
+
+      // 时间格式转换：2020.08.08转成2020-08-08
+      list.forEach(attr => {
+        let val = res.data.hidDangerDO[attr];
+        if (attr.toString().indexOf('Time') > -1) {
+          val = val.toString().replace(/\./g, '-');
+        }
+        this.addReport.patchValue({[attr]: val});
+      });
+      console.log(res);
       // 隐患类型
       this.specifiedRectificationTime = res.data.hidDangerDO.specifiedRectificationTime;
       const typeList = [];
@@ -138,7 +148,14 @@ export class TroubleDetailComponent implements OnInit {
         });
         this.ImageOptionAfter.showUploadIcon = false;
         const lists = ['governanceFunds', 'completionTime', 'completionSituation'];
-        setValueToFromValue(lists, res.data.hidDangerDO, this.addReport);
+        // 时间格式转换：2020.08.08转成2020-08-08
+        lists.forEach(attr => {
+          let val = res.data.hidDangerDO[attr];
+          if (attr.toString().indexOf('Time') > -1 ) {
+            val = val.toString().replace(/\./g, '-');
+          }
+          this.addReport.patchValue({[attr]: val});
+        });
         this.setFileInfo(res.data.hidDangerDO);
       }
       // else {
@@ -191,7 +208,7 @@ export class TroubleDetailComponent implements OnInit {
     }else {
       paraList.forEach(val => {
         this.addReport.controls[val].setValidators(null);
-        this.addReport.controls[val].setValue('');
+        // this.addReport.controls[val].setValue('');
       });
     }
   }

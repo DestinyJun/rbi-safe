@@ -3,6 +3,8 @@ import {AddEducateFieldClass, EducateField, PageOption, TableHeader, UpdateEduca
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
 import {Es} from '../../../../common/public/contents';
+import {FormControl} from "@angular/forms";
+import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 
 @Component({
   selector: 'app-archives-educate',
@@ -30,12 +32,33 @@ export class ArchivesEducateComponent implements OnInit {
   public educateImportField: FormData = new FormData(); // 导入
   public educateImportFieldModal: boolean = false; // 导入模态框
   public educateEs: any = Es; // 时间选择面板本地化
+  public idCard = new FormControl(''); // 监听身份证输入框,检验是否合法
+  public idCardIsValid = true; // 身份证是否有效
   constructor(
     private safeSrv: SafetrainService,
   ) { }
 
   ngOnInit() {
     this.educateDataInit(this.educateNowPage, this.educatePageOption.pageSize);
+    this.idCard.valueChanges
+      .pipe(
+        debounceTime(100),
+        distinctUntilChanged()
+      ).subscribe(val => {
+        const value = (val + '');
+        // 检验身份证号的合法性
+        if (!val || value === '') {
+          this.idCardIsValid = true;
+        }else if (value.length > 18) { // 检查长度
+          this.idCardIsValid = false;
+        } else if (value.length === 18) {
+          const regIdCard = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+          this.idCardIsValid = regIdCard.test(value);
+        } else {
+          const regIdCard =  /^\d{0,17}\d$/;
+          this.idCardIsValid = regIdCard.test(value);
+        }
+    });
   }
   // 数据初始化
   private educateDataInit(pageNo, pageSize) {
@@ -135,5 +158,12 @@ export class ArchivesEducateComponent implements OnInit {
   public educatePageEvent(page) {
     this.educateNowPage = page;
     this.educateDataInit(page, this.educatePageOption.pageSize);
+  }
+
+  public idCardChange(e): void {
+    const val = e.target.value.toString();
+    if (val.length < 18 || val === '') {
+      this.idCardIsValid = false;
+    }
   }
 }

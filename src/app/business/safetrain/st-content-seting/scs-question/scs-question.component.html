@@ -2,10 +2,10 @@
 <!--  <h2 class="title text-center pt-3 pb-3 text-littleGray">培训内容</h2>-->
   <div class="scs-question-header">
     <div class="scs-question-search">
-      <div class="ui-inputgroup" >
-        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
-        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
-      </div>
+<!--      <div class="ui-inputgroup" >-->
+<!--        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>-->
+<!--        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>-->
+<!--      </div>-->
     </div>
     <div class="scs-question-button">
       <button pButton type="button" label="上传题库" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_browser-24px" (click)="showUploadFileClick()"></button>
@@ -160,7 +160,7 @@
           </div>
           <div class="ui-g-8 ui-md-8 ">
             <div class="ui-md-12 ui-g-12 dialog-input">
-              <input pInputText type="text" placeholder="请输入题库"/>
+              <p-dropdown dropdownIcon="pi pi-caret-down" [options]="sortQuestionOption" placeholder="请选择题库" [(ngModel)]="addQuestion.subjectStoreId"></p-dropdown>
             </div>
           </div>
         </div>
@@ -177,6 +177,9 @@
                 name="file"
                 chooseLabel="点击选择上传文件"
                 [auto]="true"
+                #file
+                accept=".xlsx,*.xls"
+                (change)="selectFile(file)"
                ></p-fileUpload>
             </div>
           </div>
@@ -185,8 +188,25 @@
     </div>
     <p-footer>
       <button class="dialog-btn" (click)="showUploadFileDialog = false;resetAllData()">取消</button>
-      <button class="dialog-btn" (click)="addLimitInfoClick()">确认选择</button>
+      <button class="dialog-btn" (click)="addSubjectSetClick()">确认选择</button>
     </p-footer>
+  </p-dialog>
+  <p-dialog header="导入完成信息"
+            [(visible)]="uploadSubjectFinishDialog"
+            [style]="{width: '700px'}">
+    <div class="text-center">
+      <span class="h4">导入题目总数：{{finishData.data.totalNumber}}</span>
+      <span class="h4" style="margin-left: 50px">成功导入题目数：{{finishData.data.realNumber}}</span>
+    </div>
+    <p-scrollPanel [style]="{width: '100%', height: '80vh'}">
+        <div *ngFor="let log of finishData.data.log">
+          <div class="panel">
+            <span><span style="margin-right: 20px">编号：{{log.code}} </span>结果：<span [ngStyle]="{color: log.result === '成功' ? 'green' : 'red'}">{{log.result}}</span></span>
+            <p>题目: {{log.subject}}</p>
+            <p>结果原因：{{log.reason}}</p>
+          </div>
+        </div>
+    </p-scrollPanel>
   </p-dialog>
   <p-dialog header="添加单个条目" [(visible)]="showAddSingleQuestionDialog" [style]="{width: '700px'}">
     <div class="ui-g ui-md ui-fiuld text-center">

@@ -1,0 +1,138 @@
+<div style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000; background: rgba(80,80,80,0.7)">
+  <div class="st-taking-exam">
+    <div class="taking-header text-center">
+      <h3 *ngIf="examState === 'doing'">正在考试</h3>
+      <h3 *ngIf="examState === 'did'" style="color: green">
+        <span>考试结束 </span>
+        <span style="margin-left: 20px; border-bottom: 1px green solid">得分：{{result}}</span>
+        <span style="margin-left: 20px;">总分: {{totalScore}}</span>
+      </h3>
+<!--      <div class="exam-clock">-->
+<!--        <span>倒计时：{{countdownClock}}</span>-->
+<!--      </div>-->
+    </div>
+    <div class="exam-body">
+      <div class="exam-paper-header">
+        <span>{{paperTitle}}</span>
+      </div>
+      <div class="exam-paper-question">
+        <p-scrollPanel  [style]="{height: '70vh', width: '100%'}">
+          <div *ngIf="singleChoiceQuestions.length  !== 0">
+            <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index;">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.safeSubjectOptionList;
+                  let i=index">
+                <p-radioButton
+                  [name]="'singlename' + singleindex"
+                  [value]="i+1"
+                  [label]="selItem.option"
+                  [(ngModel)]="item.answerResults"
+                ></p-radioButton>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="multipleChoiceQuestions.length  !== 0">
+            <h3 class="m-2">多选题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  multipleChoiceQuestions;let mulIndex = index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.safeSubjectOptionList;
+                 let i=index">
+                <p-checkbox
+                  [name]="'multiplename'+ mulIndex"
+                  [value]="i+1"
+                  [label]="selItem.option"
+                  [(ngModel)]="item.answerResults"
+                ></p-checkbox>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="judgmentQuestions.length !== 0">
+            <h3 class="m-2">判断题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  judgmentQuestions; let judgIndex = index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.safeSubjectOptionList;
+                 let i=index">
+                <p-radioButton
+                  [name]="'judgmentname' + judgIndex"
+                  [value]="i+1"
+                  [label]="selItem.option"
+                  [(ngModel)]="item.answerResults"
+                ></p-radioButton>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="completion.length  !== 0">
+            <h3 class="m-2">填空题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  completion; let comIndex = index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <!--              <span style="flex: 6">{{item.subject}}</span>-->
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.rightKey.split('#');
+                 let i=index">
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="请输入答案" [(ngModel)]="item.answerResults[i]"/>
+              </div>
+              <div *ngIf="examState === 'did'" [ngSwitch]="item.rightKey === item.answerResults">
+                <span  *ngSwitchCase="true" style="color: green">
+                  正确 得分: {{item.score}}
+                </span>
+                <span *ngSwitchDefault style="color: red">错误</span>
+              </div>
+            </div>
+          </div>
+          <div class="m-3 text-center">
+            <button pButton  type="button" label="退出"  class="ui-button-rounded" style="margin-right: 1vw" (click)="canclePaperClik()"></button>
+            <button *ngIf="examState === 'doing'" pButton  type="button" label="完成考试"  class="ui-button-rounded" (click)="submitPaperClik()"></button>
+          </div>
+        </p-scrollPanel>
+      </div>
+    </div>
+    <p-dialog header="退出提醒" [(visible)]="moveDialog" [style]="{width: '20vw'}"   [closable]="false">
+      您的考试正在进行, 您确定要离开吗? 您离开考试记录会作废。
+      <p-footer style="display: flex;justify-content: center">
+        <button type="button" pButton label="确认"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="moveDialog=false"  label="取消" class="ui-button-secondary"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
+
+
+
+

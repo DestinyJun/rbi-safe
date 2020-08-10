@@ -1,1 +1,35 @@
-<h1>待开发中.....</h1>
+<div class="dr-institution">
+  <div class="header">
+    <div class="title p-4">
+      <span class="text-gray h3">一岗双责管理制度</span>
+    </div>
+    <div class="search p-4">
+      <div class="dr-institution-search">
+<!--        <div class="ui-inputgroup" >-->
+<!--          <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>-->
+<!--          <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="list">
+      <p-scrollPanel [style]="{width: '100%', height: '74vh'}">
+        <div class="dr-institution-item" *ngFor="let item of itemData" (click)="openFile(item)">
+          <div class="dr-institution-item-title">
+            <h2>{{item.num}}</h2>
+            <div class="dr-institution-content">
+              <p>{{item.label}}</p>
+              <p>最近编辑时间：{{item.time}}</p>
+            </div>
+          </div>
+        </div>
+      </p-scrollPanel>
+    </div>
+  </div>
+  <p-dialog header="{{fileName}}" [(visible)]="openDialog" [style]="{width: '80vw', height: '98vh'}" [modal]="true" [closable]="true">
+    <p-scrollPanel [style]="{width: '80vw', height: '98vh', position: 'relative', marginTop: '-60px'}">
+      <iframe [src]="fileUrl" style="width: 80vw; height: 98vh"></iframe>
+    </p-scrollPanel>
+  </p-dialog>
+</div>

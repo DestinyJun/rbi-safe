@@ -1,11 +1,11 @@
-<div style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000; background: rgba(80,80,80,0.7)">
+<div
+  style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000; background: rgba(80,80,80,0.7)">
   <div class="st-taking-exam">
     <div class="taking-header">
       <div></div>
       <h3 class="text-center">正在考试</h3>
       <div class="exam-clock">
-        <span>倒计时</span>
-        <span>{{countdownClock}}</span>
+        <span>倒计时：{{countdownClock}}</span>
       </div>
     </div>
     <div class="exam-body">
@@ -13,10 +13,10 @@
         <span>{{paperTitle}}</span>
       </div>
       <div class="exam-paper-question">
-        <p-scrollPanel  [style]="{height: '70vh', width: '100%'}" styleClass="custombar">
+        <p-scrollPanel [style]="{height: '70vh', width: '100%'}">
           <div *ngIf="singleChoiceQuestions.length  !== 0">
             <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
-            <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index">
+            <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index;">
               <div class="question-title">
                 <span>{{item.subject}}?</span>
                 <span>{{item?.score}}分</span>
@@ -28,7 +28,7 @@
                   [name]="'singlename' + singleindex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[singleindex].answerResults"
+                  [(ngModel)]="item.answerResults"
                 ></p-radioButton>
               </div>
             </div>
@@ -47,7 +47,7 @@
                   [name]="'multiplename'+ mulIndex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + mulIndex].answerResults"
+                  [(ngModel)]="item.answerResults"
                 ></p-checkbox>
               </div>
             </div>
@@ -66,7 +66,7 @@
                   [name]="'judgmentname' + judgIndex"
                   [value]="i+1"
                   [label]="selItem.option"
-                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
+                  [(ngModel)]="item.answerResults"
                 ></p-radioButton>
               </div>
             </div>
@@ -85,29 +85,35 @@
                 <input
                   type="text"
                   pInputText
-                  placeholder="请输入答案" [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
+                  placeholder="请输入答案"
+                  [(ngModel)]="item.answerResults[i]"/>
               </div>
             </div>
           </div>
           <div class="m-3 text-center">
-            <button pButton  type="button" label="退出"  class="ui-button-rounded" style="margin-right: 1vw" (click)="canclePaperClik()"></button>
-            <button pButton  type="button" label="完成考试"  class="ui-button-rounded" (click)="submitPaperClik()"></button>
+            <button pButton type="button" label="退出" class="ui-button-rounded" style="margin-right: 1vw"
+                    (click)="canclePaperClik()"></button>
+            <button pButton type="button" label="完成考试" class="ui-button-rounded" (click)="submitPaperClik()"></button>
           </div>
         </p-scrollPanel>
       </div>
     </div>
-    <p-dialog header="交卷提醒" [(visible)]="examWarnDialog" [style]="{width: '20vw'}" [baseZIndex]="10000" [modal]="true" [closable]="false">
-      考试时间已到，请立即交卷
+    <p-dialog header="交卷提醒" [(visible)]="examWarnDialog" [style]="{width: '20vw'}" [modal]="true" [closable]="false">
+      <div class="text-center">
+        <span> 考试时间已到，请立即交卷</span> <br>
+        <span>倒计时{{this.countdownTen}}s自动交卷</span>
+      </div>
       <p-footer style="display: flex;justify-content: center">
         <button type="button" pButton (click)="submitPaper()" label="提交"></button>
         <!--      <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>-->
       </p-footer>
     </p-dialog>
-    <p-dialog header="退出提醒" [(visible)]="moveDialog" [style]="{width: '20vw'}"   [closable]="false">
+    <p-dialog header="退出提醒" [(visible)]="moveDialog" [style]="{width: '20vw'}" [closable]="false">
       您的考试正在进行, 您确定要离开吗? 您离开考试记录会作废。
       <p-footer style="display: flex;justify-content: center">
         <button type="button" pButton label="确认"></button>
-        <button type="button" pButton icon="pi pi-times" (click)="moveDialog=false"  label="取消" class="ui-button-secondary"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="moveDialog=false" label="取消"
+                class="ui-button-secondary"></button>
       </p-footer>
     </p-dialog>
   </div>

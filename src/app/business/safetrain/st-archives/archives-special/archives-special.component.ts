@@ -3,6 +3,8 @@ import { PageOption, SpecialField, SpecialFieldClass, TableHeader} from '../../.
 import {Observable} from 'rxjs';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Es, objectCopy} from '../../../../common/public/contents';
+import {debounceTime, distinctUntilChanged} from "rxjs/operators";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-archives-special',
@@ -30,6 +32,8 @@ export class ArchivesSpecialComponent implements OnInit {
   public specialImportField: FormData = new FormData(); // 导入
   public specialImportFieldModal: boolean = false; // 导入模态框
   public specialEs: any = Es; // 时间选择面板本地化
+  public idCard = new FormControl(''); // 监听身份证输入框,检验是否合法
+  public idCardIsValid = true; // 身份证是否有效
   constructor(
     private safeSrv: SafetrainService,
   ) {
@@ -37,6 +41,26 @@ export class ArchivesSpecialComponent implements OnInit {
 
   ngOnInit() {
     this.specialDataInit(this.specialNowPage, this.specialPageOption.pageSize);
+    this.idCard.valueChanges
+      .pipe(
+        debounceTime(100),
+        distinctUntilChanged()
+      ).subscribe(val => {
+      const value = (val + '');
+      // 检验身份证号的合法性
+      if (!val || value === '') {
+        this.idCardIsValid = true;
+      }else if (value.length > 18) { // 检查长度
+        this.idCardIsValid = false;
+      } else if (value.length === 18) {
+        const regIdCard = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+        this.idCardIsValid = regIdCard.test(value);
+      } else {
+        const regIdCard =  /^\d{0,17}\d$/;
+        this.idCardIsValid = regIdCard.test(value);
+        console.log(234);
+      }
+    });
   }
 
   // 数据初始化
@@ -134,5 +158,12 @@ export class ArchivesSpecialComponent implements OnInit {
   public specialPageEvent(page) {
     this.specialNowPage = page;
     this.specialDataInit(page, this.specialPageOption.pageSize);
+  }
+
+  public idCardChange(e): void {
+    const val = e.target.value.toString();
+    if (val.length < 18 || val === '') {
+      this.idCardIsValid = false;
+    }
   }
 }

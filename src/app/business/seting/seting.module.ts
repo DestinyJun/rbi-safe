@@ -21,6 +21,7 @@ import {DialogModule} from 'primeng/dialog';
 import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, MessagesModule, RadioButtonModule, ScrollPanelModule, TooltipModule, TreeModule, TreeTableModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {AppConfig, init_app} from '../../common/services/app.config';
+import {MobilAppManagerComponent} from './mobil-app-manager/mobil-app-manager.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {AppConfig, init_app} from '../../common/services/app.config';
     RolesManagerComponent,
     PersonnelManagerComponent,
     LimitsManagerComponent,
+    MobilAppManagerComponent
   ],
   imports: [
     CommonModule,

@@ -13,7 +13,7 @@ import { PlTrainComponent } from './st-plain/plain-edit/pl-train/pl-train.compon
 import { PlExamComponent } from './st-plain/plain-edit/pl-exam/pl-exam.component';
 import { PlReleaseComponent } from './st-plain/plain-edit/pl-release/pl-release.component';
 import {PlInputComponent} from './st-plain/plain-edit/pl-input/pl-input.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -28,7 +28,7 @@ import {
   ScrollPanelModule,
   StepsModule,
   TabViewModule, TooltipModule,
-  TreeModule, CardModule, ProgressBarModule, ConfirmDialogModule, SidebarModule
+  TreeModule, CardModule, ProgressBarModule, ConfirmDialogModule, SidebarModule, PanelModule
 } from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
@@ -65,6 +65,12 @@ import { StMyplanDetailComponent } from './st-start-study/st-learn-myplan/st-myp
 import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/scs-contents-type.component';
 import {StWrongQuestionComponent} from './st-online-exam/st-exam-list/st-wrong-question/st-wrong-question.component';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
+import { PlanAEditComponent } from './st-plan-a/plan-a-edit/plan-a-edit.component';
+import { PlanAListComponent } from './st-plan-a/plan-a-list/plan-a-list.component';
+import { PlanAProcessedComponent } from './st-plan-a/plan-a-list/plan-a-processed/plan-a-processed.component';
+import { PlanAUnprocessedComponent } from './st-plan-a/plan-a-list/plan-a-unprocessed/plan-a-unprocessed.component';
+import { StPlanAComponent } from './st-plan-a/st-plan-a.component';
+import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice-test/practice-test.component';
 
 @NgModule({
   declarations: [
@@ -110,38 +116,46 @@ import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dial
     StVideoLibraryComponent,
     StMyplanDetailComponent,
     ScsContentsTypeComponent,
-    StWrongQuestionComponent
+    StWrongQuestionComponent,
+    PlanAEditComponent,
+    PlanAListComponent,
+    PlanAProcessedComponent,
+    PlanAUnprocessedComponent,
+    StPlanAComponent,
+    PracticeTestComponent,
   ],
-    imports: [
-        CommonModule,
-        SafetrainRoutingModule,
-        InputTextModule,
-        ButtonModule,
-        BasicTableModule,
-        ScrollPanelModule,
-        StDemandModule,
-        PaginationModule,
-        StepsModule,
-        TabViewModule,
-        DropdownModule,
-        CalendarModule,
-        FormsModule,
-        DialogModule,
-        TreeModule,
-        TableModule,
-        RadioButtonModule,
-        InputTextareaModule,
-        FileUploadModule,
-        QuestionTemplateModule,
-        CheckboxModule,
-        TooltipModule,
-        CardModule,
-        ProgressBarModule,
-        TopicModule,
-        ConfirmDialogModule,
-        SidebarModule,
-        BasicDialogModule
-    ],
+  imports: [
+    CommonModule,
+    SafetrainRoutingModule,
+    InputTextModule,
+    ButtonModule,
+    BasicTableModule,
+    ScrollPanelModule,
+    StDemandModule,
+    PaginationModule,
+    StepsModule,
+    TabViewModule,
+    DropdownModule,
+    CalendarModule,
+    FormsModule,
+    DialogModule,
+    TreeModule,
+    TableModule,
+    RadioButtonModule,
+    InputTextareaModule,
+    FileUploadModule,
+    QuestionTemplateModule,
+    CheckboxModule,
+    TooltipModule,
+    CardModule,
+    ProgressBarModule,
+    TopicModule,
+    ConfirmDialogModule,
+    SidebarModule,
+    BasicDialogModule,
+    ReactiveFormsModule,
+    PanelModule
+  ],
   providers: []
 })
 export class SafetrainModule {

@@ -85,6 +85,14 @@ export class SafetrainService {
   }
 
   /**
+   * 培训内容修改
+   * @param params
+   */
+  public updateStudyTime(params: any): Observable<any> {
+    return this.http.post(`/training/updateStudyTime`, params);
+  }
+
+  /**
    * 培训内容分类获取
    * @param params
    */
@@ -267,6 +275,7 @@ export class SafetrainService {
   public getProgramList(params: any): Observable<any> {
     return this.http.post(`/pagingSafeDemandReport`, params);
   }
+
   //                                    培训题库
   /*---------------------------------------------------------------------------------------------------------*/
   /**
@@ -303,6 +312,13 @@ export class SafetrainService {
    */
   public addScsQuestionPageInfo(params: any): Observable<any> {
     return this.http.post(`/safeSubject/insertSafeSubject`, params);
+  }
+  /**
+   * 培训题库导入
+   * @param params
+   */
+  public importSubject(params: any): Observable<any> {
+    return this.http.post(`/importSubject`, params);
   }
   //                                    题库分类
   /*---------------------------------------------------------------------------------------------------------*/
@@ -348,5 +364,12 @@ export class SafetrainService {
    */
   public addExamInfoNoId(params: any): Observable<any> {
     return this.http.post(`/insertTrainingPlanTest`, params);
+  }
+
+  /**
+   * 教育需求数据隔离
+   */
+  public pagingSafeConditionDemandReport(params: any): Observable<any> {
+    return this.http.post(`/pagingSafeConditionDemandReport`, params);
   }
 }

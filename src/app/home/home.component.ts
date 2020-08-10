@@ -3,6 +3,7 @@ import {PublicMethodService} from '../common/public/public-method.service';
 import {Route, Router} from '@angular/router';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {HeaderComponent} from './header/header.component';
+import {GeneralInfoService} from "../common/services/general-info.service";
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private toolSrv: PublicMethodService,
     private router: Router,
+
   ) { }
 
   ngOnInit() {

@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {LoginService} from '../common/services/login.service';
 import {PublicMethodService} from '../common/public/public-method.service';
 import {LocalStorageService} from '../common/services/local-storage.service';
+import {GeneralInfoService} from "../common/services/general-info.service";
 
 @Component({
   selector: 'app-login',

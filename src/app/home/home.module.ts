@@ -8,7 +8,7 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {NoticeModule} from '../common/components/notice/notice.module';
 import {FormsModule} from '@angular/forms';
-import {ButtonModule, DialogModule, SidebarModule} from 'primeng/primeng';
+import {ButtonModule, DialogModule, ScrollPanelModule, SidebarModule} from 'primeng/primeng';
 import { HeaderSidebarComponent } from './header/header-sidebar/header-sidebar.component';
 
 
@@ -19,15 +19,16 @@ import { HeaderSidebarComponent } from './header/header-sidebar/header-sidebar.c
     SidebarComponent,
     HeaderSidebarComponent
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    InputTextModule,
-    NoticeModule,
-    FormsModule,
-    SidebarModule,
-    ButtonModule,
-    DialogModule
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        InputTextModule,
+        NoticeModule,
+        FormsModule,
+        SidebarModule,
+        ButtonModule,
+        DialogModule,
+        ScrollPanelModule
+    ]
 })
 export class HomeModule { }

@@ -80,7 +80,7 @@
           </div>
           <div class="ui-g-8 ui-md-8 dialog-input">
             <div class="ui-inputgroup" style="position: relative">
-              <input type="text" pInputText placeholder="请选择通知书附件" formControlName="file" disabled>
+              <input type="text" pInputText placeholder="请选择附件" formControlName="file" disabled>
               <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
               <input type="file" style="position: absolute;width:100%;cursor: pointer;right: 2.357em;height: 34px;opacity: 0" (change)="selectFile($event)">
               <button *ngIf="editRateNow.value.file" pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #3B86FF" (click)="downLoadFile()"></button>

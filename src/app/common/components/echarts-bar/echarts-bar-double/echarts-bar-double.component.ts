@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {GeneralInfoService} from "../../../services/general-info.service";
 
 @Component({
   selector: 'app-echarts-bar-double',
@@ -8,13 +9,32 @@ import {Component, OnInit} from '@angular/core';
 export class EchartsBarDoubleComponent implements OnInit {
   public option: any;
 
-  constructor() {
+  constructor(private builletinSrv: GeneralInfoService) {
   }
 
   ngOnInit() {
-    const seriesName = ['岗位员工\n安全培训', '外来人员\n安全培训', '应急救援\n培训', '受限空间\n作业培训', '全员安全持证\n复审培训', '相关方\n安全培训', '岗位员工\n安全培训'];
-    const threshold = [60, 90, 50, 70, 85, 95, 55];
-    const avgTime = [55, 80, 45, 44, 38, 72, 63];
+
+    // const seriesName = ['岗位员工\n安全培训', '外来人员\n安全培训', '应急救援\n培训', '受限空间\n作业培训', '全员安全持证\n复审培训', '相关方\n安全培训', '岗位员工\n安全培训'];
+    // const threshold = [60, 90, 50, 70, 85, 95, 55];
+    // const avgTime = [55, 80, 45, 44, 38, 72, 63];
+
+    const seriesName = [];
+    const threshold = [];
+    const avgTime = [];
+    const baseNum = 0.01;
+
+    this.builletinSrv.getAver(null).subscribe(res => {
+      console.log(res);
+      res.data.forEach(value => {
+        seriesName.push(value.trainingContent);
+        avgTime.push((value.average + baseNum).toFixed(3));
+        threshold.push((value.averageClassHours + baseNum).toFixed(3));
+      });
+      this.updateOption(seriesName, threshold, avgTime, baseNum);
+    });
+  }
+
+  private updateOption(seriesName, threshold, avgTime, baseNum): void {
     this.option = {
       title: {
         text: '安全管理培训计划',
@@ -38,17 +58,17 @@ export class EchartsBarDoubleComponent implements OnInit {
             color = '#37C611';
           }
           return `${val[0].name}<br/>
-										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${val[0].data}<br/>
-										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${val[1].data}`;
+										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${parseFloat((val[0].data - baseNum).toFixed(3))}<br/>
+										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${parseFloat((val[1].data - baseNum).toFixed(3))}`;
         }
       },
       grid: [
         {
-        left: '5%',
-        right: '12%',
-        bottom: 70,
-        top: '60px',
-      },
+          left: '5%',
+          right: '12%',
+          bottom: 70,
+          top: '60px',
+        },
         {
           bottom: 70,
           left: '11%', // 为了让第2个grid显示在2个柱状图中间，中间相隔百分比为100/14
@@ -71,22 +91,28 @@ export class EchartsBarDoubleComponent implements OnInit {
       },
       yAxis: [
         {
-        type: 'value',
-        gridIndex: 0,
-        axisLine: {
-          show: false,
-          onZero: true
+          type: 'value',
+          gridIndex: 0,
+          min: (value) => {
+            return baseNum * 10;
+          },
+          max: (value) => {
+            return value.max > 10 ? value.max : 10;
+          },
+          axisLine: {
+            show: false,
+            onZero: true
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            show: false,
+          },
+          axisLabel: {
+            show: false,
+          }
         },
-        axisTick: {
-          show: false,
-        },
-        splitLine: {
-          show: false,
-        },
-        axisLabel: {
-          show: false,
-        }
-      },
         {
           type: 'value',
           gridIndex: 1,

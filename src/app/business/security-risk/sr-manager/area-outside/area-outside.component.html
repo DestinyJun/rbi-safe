@@ -69,7 +69,7 @@
               <label ><span style="color: #FF8A9A">*</span>暴露于风险的人员、设备信息:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
-              <input pInputText type="text" placeholder="请输入危害名称" formControlName="exposeInfo"/>
+              <input pInputText type="text" placeholder="请输入暴露于风险的人员、设备信息" formControlName="exposeInfo"/>
             </div>
           </div>
         </div>
@@ -99,21 +99,21 @@
               <label><span style="color: #FF8A9A">*</span>后果:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input">
-              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="consequence"  placeholder="请输入后果" (onChange)="calcRiskValue()"></p-spinner>
+              <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcRiskValue()" placeholder="请选择后果" [options]="consequenceValues" formControlName="consequence"></p-dropdown>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
             <div class="ui-g-1 ui-md-1 right">
               <label><span style="color: #FF8A9A">*</span>暴露:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input">
-              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="expose"  placeholder="请输入暴露" (onChange)="calcRiskValue()"></p-spinner>
+              <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcRiskValue()" placeholder="请选择暴露" [options]="exposeValues" formControlName="expose"></p-dropdown>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
             <div class="ui-g-1 ui-md-1 right">
               <label><span style="color: #FF8A9A">*</span>可能性:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input">
-              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="possibility"  placeholder="请输入可能性"  (onChange)="calcRiskValue()"></p-spinner>
+              <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcRiskValue()" placeholder="请选择可能性" [options]="possibilityValues" formControlName="possibility"></p-dropdown>
             </div>
           </div>
           <div class="ui-g-12 ui-md-12 center">
@@ -149,15 +149,15 @@
               <label><span style="color: #FF8A9A">*</span>控制措施的有效性:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
-              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="measuresEffective"  placeholder="请输入控制措施的有效性" (onChange)="calcMeasuresResult()"></p-spinner>
+              <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcMeasuresResult()" placeholder="请选择控制措施的有效性" [options]="measuresEffectiveValues" formControlName="measuresEffective"></p-dropdown>
             </div>
           </div>
           <div class="ui-g-12 ui-md-12 center">
             <div class="ui-g-1 ui-md-1 right">
-              <label><span style="color: #FF8A9A">*</span>措施成本:</label>
+              <label><span style="color: #FF8A9A">*</span>措施的成本因素:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
-              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="measuresCost"  placeholder="请输入措施成本"  (onChange)="calcMeasuresResult()"></p-spinner>
+              <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcMeasuresResult()" placeholder="请选择措施的成本因素" [options]="measuresCostValues" formControlName="measuresCost"></p-dropdown>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
             <div class="ui-g-1 ui-md-1 right">

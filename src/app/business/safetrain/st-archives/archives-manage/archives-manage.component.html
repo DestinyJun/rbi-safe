@@ -2,8 +2,8 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">主要负责人、安全生产管理人员台账</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
-      <input type="text" pInputText placeholder="搜索"/>
-      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+<!--      <input type="text" pInputText placeholder="搜索"/>-->
+<!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
     </div>
     <div class="button">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="manageOperate(manageOperateFlag = 'add')"></button>
@@ -46,11 +46,11 @@
     <!--新增/编辑弹窗-->
     <p-dialog
       [blockScroll]="true"
-      [(visible)]="manageOperateModal" [style]="{width: '65vw'}"
+      [(visible)]="manageOperateModal" [style]="{width: '80vw'}"
     >
       <p-header>{{manageOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
-      <div style="width: 100%;height: 56vh;overflow: hidden">
-        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+      <div style="width: 100%;height: 65vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <!--基础字段-->
           <div class="ui-g">
             <!--身份证-->
@@ -59,7 +59,8 @@
                 <span>身份证：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写身份证" [(ngModel)]="manageOperateField.idCardNo">
+                <input type="text" pInputText placeholder="请填写身份证" [formControl]="idCard" (change)="idCardChange($event)" [(ngModel)]="manageOperateField.idCardNo">
+                <span [hidden]="idCardIsValid" style="color: red">身份证号无效</span>
               </div>
             </div>
             <!--组织名-->
@@ -98,14 +99,17 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #termOfValidity
-                  placeholder="点击选择时间......"
-                  [locale]="manageEs" [(ngModel)]="manageOperateField.termOfValidity"
+                  placeholder="点击选择有效期, 如：2020-08-08至2020-08-15"
+                  [locale]="manageEs"
+                  [(ngModel)]='manageOperateField.termOfValidity'
                   dateFormat="yy-mm-dd"
                   dataType="string"
                   selectionMode="range"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="2017:2030"
+                  (click)="change($event)"
+                >
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="termOfValidity.hideOverlay()"></button>
                   </p-footer>
@@ -129,7 +133,7 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #oneTrainingTime
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择时间, 如：2020-08-08至2020-08-15"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.oneTrainingTime"
                   dateFormat="yy-mm-dd"
                   dataType="string"
@@ -151,7 +155,7 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #twoTrainingTime
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择时间, 如：2020-08-08至2020-08-15"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.twoTrainingTime"
                   dateFormat="yy-mm-dd"
                   dataType="string"
@@ -174,14 +178,15 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
                   #threeTrainingTime
-                  placeholder="点击选择时间......"
+                  placeholder="点击选择时间, 如：2020-08-08至2020-08-15"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.threeTrainingTime"
                   dateFormat="yy-mm-dd"
                   dataType="string"
                   selectionMode="range"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="2017:2030"
+                >
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="threeTrainingTime.hideOverlay()"></button>
                   </p-footer>

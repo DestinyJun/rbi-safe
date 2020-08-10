@@ -33,9 +33,11 @@ export class AuthInterceptor implements HttpInterceptor {
     `/statusEvaluation/add`,
     `/seriousDanger/updateSeriousDanger`,
     `/notice/add`,
+    `/importSubject`,
     `/training/importAdmin`,
     `/training/importSpecialTrainings`,
-    `/safeFourLevel/excelImport`
+    `/safeFourLevel/excelImport`,
+    `/sendNewApp`
   ]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,

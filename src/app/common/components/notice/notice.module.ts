@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoticeComponent } from './notice.component';
-import {ScrollPanelModule} from 'primeng/primeng';
+import {ButtonModule, DialogModule, ScrollPanelModule} from 'primeng/primeng';
 
 
 
@@ -10,9 +10,11 @@ import {ScrollPanelModule} from 'primeng/primeng';
     exports: [
         NoticeComponent
     ],
-    imports: [
-      CommonModule,
-      ScrollPanelModule
-    ]
+  imports: [
+    CommonModule,
+    ScrollPanelModule,
+    DialogModule,
+    ButtonModule
+  ]
 })
 export class NoticeModule { }

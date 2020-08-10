@@ -33,4 +33,19 @@ export class StStartStudyService {
   public  getMyPlanInfoById(pamars): Observable<any> {
     return this.http.post(`/getLearningContentById`, pamars);
   }
+
+  // 测试考试
+  public  getSimulationTestPaper(pamars): Observable<any> {
+    return this.http.post(`/getSimulationTestPaper`, pamars);
+  }
+  public  completeSimulationTheExam(pamars): Observable<any> {
+    return this.http.post(`/completeSimulationTheExam`, pamars);
+  }
+
+
+  // 完成单个题目学习
+  public  addFinishStudyTime(pamars): Observable<any> {
+    return this.http.post(`/addFinishStudyTime`, pamars);
+  }
+
 }

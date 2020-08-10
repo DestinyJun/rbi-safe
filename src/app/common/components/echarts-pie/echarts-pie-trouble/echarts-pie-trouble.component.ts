@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {TroubleCheckStatusService} from "../../../services/trouble-check-status.service";
 
 @Component({
   selector: 'app-echarts-pie-trouble',
@@ -8,20 +9,43 @@ import {Component, Input, OnInit} from '@angular/core';
 export class EchartsPieTroubleComponent implements OnInit {
 
   public colorList: Array<any> = ['#226AD5', '#3B86FF', '#63DCAF', '#FCCF4F', '#94F6D2'];
-  @Input() public name: any = '物的隐患';
+  @Input() public name: string = '隐患类型占比';
   public option: any;
-  @Input() public data = [
-    {name: '物的隐患', value: 200},
-    {name: '人的隐患', value: 50},
-    {name: '管理的隐患', value: 50},
-  ];
-  constructor() { }
+  @Input() public data = [];
+  public maxRadio: number;
+  constructor(
+    private req: TroubleCheckStatusService
+  ) { }
 
   ngOnInit() {
+    this.req.findByType().subscribe(res => {
+      let max = 0;
+      let tal = 0;
+      this.data = [];
+      for (const dataKey in res.data) {
+        this.data.push({name:  dataKey + '的隐患', value: res.data[dataKey]});
+        if (max < res.data[dataKey]) {
+          max = res.data[dataKey];
+          this.name = dataKey + '的隐患';
+        }
+        tal += res.data[dataKey];
+      }
+      console.log(this.data);
+      if (tal === 0) {
+        this.maxRadio = 0;
+        this.name = '全部数据为0';
+      } else {
+        this.maxRadio = Math.floor((max / tal) * 100);
+      }
+      this.updateOption();
+    });
+  }
+
+  private updateOption(): void {
     this.option = {
       title: {
         text: this.name,
-        subtext: '30%',
+        subtext: this.maxRadio + '%',
         textStyle: {
           fontSize: 14,
           color: '#545663',
@@ -32,7 +56,7 @@ export class EchartsPieTroubleComponent implements OnInit {
           color: '#5797FF'
         },
         textAlign: 'center',
-        left: '33%',
+        left: '34.5%',
         top: '50%'
       },
       tooltip: {

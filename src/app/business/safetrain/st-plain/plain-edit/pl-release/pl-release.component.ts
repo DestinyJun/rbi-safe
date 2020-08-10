@@ -39,10 +39,12 @@ export class PlReleaseComponent implements OnInit {
     this.safeTestPaper = this.localSrv.getObject('safeTestPaper');
     // 获取考试题库
     this.safeTestQuestionsList = this.localSrv.getObject('safeTestQuestionsList');
+
     // 组合参数
     const TopicExam = [];
     this.safeTestQuestionsList.forEach((res) => {
       const exam = objectCopy(Object.assign({}, new TopicExamClass(), {safeTestQuestionOptionsList: []}), res.safeSubject);
+      exam.questionBankSubjectId = res.safeSubject.questionBankSubjectId;
       exam.safeTestQuestionOptionsList = [];
       if (res.safeSubjectOptionList !== null) {
         if (res.safeSubjectOptionList.length && res.safeSubject.subjectType !== 4) {
@@ -55,6 +57,7 @@ export class PlReleaseComponent implements OnInit {
       }
       TopicExam.push(exam);
     });
+
     this.safeTestPaper = Object.assign(this.safeTestPaper, {safeTestQuestionsList: TopicExam});
     this.releaseAddField = Object.assign(
       {},
@@ -70,6 +73,7 @@ export class PlReleaseComponent implements OnInit {
       // 上一步
       case 'previous':
         this.previousChange.emit({activeIndex: 2});
+        console.log(this.releaseAddField);
         break;
       // 确认发布
       case 'sure':

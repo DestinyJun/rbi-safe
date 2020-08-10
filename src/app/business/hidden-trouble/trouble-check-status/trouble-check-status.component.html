@@ -1,18 +1,18 @@
 <div class="check-status">
   <div class="content">
     <div class="bar-chart">
-      <app-echarts-bar-trouble></app-echarts-bar-trouble>
+      <app-echarts-bar-risk [echartData]="lineData" [title]="lineTilte"></app-echarts-bar-risk>
     </div>
     <div class="pie-chart">
       <div class="pie-title">
         <span>隐患类型占比</span>
-        <span>查看详情</span>
+<!--        <span>查看详情</span>-->
       </div>
       <app-echarts-pie-trouble></app-echarts-pie-trouble>
     </div>
   </div>
   <div class="line-chart">
-    <app-echarts-bar-risk [echartData]="lineData" [title]="lineTilte"></app-echarts-bar-risk>
+    <app-echarts-bar-trouble></app-echarts-bar-trouble>
   </div>
 </div>
 

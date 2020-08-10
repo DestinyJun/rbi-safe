@@ -1,0 +1,58 @@
+<div class="gi-info-release" style="padding: 20px">
+  <!--导航定位-->
+  <div class="ui-g ui-g ui-fluid ui-md">
+    <div class="ui-g-12 ui-md-12" *ngIf="appInfo">
+      <h3>当前app版本信息</h3><br>
+      <p>更新内容: <span>{{appInfo.updateContent}}</span></p><br>
+      <p>当前版本：<span>{{appInfo.version}}</span></p><br>
+      <p>更新时间：<span>{{appInfo.idt}}</span></p><br>
+      <p>源文件：<span><a style="margin-left: 10px; cursor: pointer" (click)="download(appInfo.appPath)">点击下载</a></span></p><br>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <button pButton type="button" style="width: 100px" label="更新版本" class="ui-button-rounded" (click)="showDialog = true;"></button>
+    </div>
+  </div>
+  <p-dialog [(visible)]="showDialog">
+    <div class="gi-info-release-title text-center" style="margin-bottom: 30px">
+      <span class="h5">app新版本上传</span>
+    </div>
+    <div class="contents">
+      <form [formGroup]="addInfo">
+        <div class="ui-g ui-fluid ui-md">
+          <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>版本:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入标题" formControlName="version"/>
+            </div>
+          </div>
+
+          <div class="ui-md-12 ui-g-12">
+            <div class="ui-g-1 ui-md-1 right">
+              <label ><span style="color: #FF8A9A">*</span>更新内容:</label>
+            </div>
+            <div class="ui-g-10 ui-md-10">
+              <textarea [rows]="10" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="updateContent"></textarea>
+            </div>
+          </div>
+          <div class="ui-md-12 ui-g-12" style="line-height: 3vh">
+            <div class="ui-g-1 ui-md-1 right">
+              <label >文件:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <div class="ui-inputgroup" style="position: relative">
+                <input type="text" pInputText placeholder="请选择apk文件" formControlName="file" >
+                <button pButton type="button" icon="pi pi-file" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
+                <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" accept=".apk" (change)="selectFile($event)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="footer">
+        <button pButton type="button" style="width: 100px" label="提交" class="ui-button-rounded" (click)="submitClick()"></button>
+      </div>
+    </div>
+  </p-dialog>
+</div>

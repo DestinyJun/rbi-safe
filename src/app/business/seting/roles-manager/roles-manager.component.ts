@@ -38,6 +38,7 @@ export class RolesManagerComponent implements OnInit {
     {name: '0', value: 0},
     {name: '1', value: 1},
     {name: '2', value: 2},
+    {name: '3', value: 3},
   ];
   public roleWebPermissionCheckList: any = []; // 已选择的权限id列表
   public roleDropdownSelect: any;
@@ -214,7 +215,8 @@ export class RolesManagerComponent implements OnInit {
   }
   // 递归赛选后台给的权限id列表
   public  getTreeValue(data): void {
-    if (data !== undefined) {
+    console.log(data);
+    if (data) {
       for (let i = 0; i < data.length; i++) {
         this.roleWebPermissionCheckList.push(data[i].permissionId);
         // 追加子元素

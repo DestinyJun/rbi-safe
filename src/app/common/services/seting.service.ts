@@ -31,6 +31,11 @@ export class SetingService {
     return this.http.post(`/company_personnel/delete`, pamars);
   }
 
+  // 密码重置
+  public resetPwd(pamars): Observable<any> {
+    return this.http.post(`/resetPwd`, pamars);
+  }
+
   // 更新公司人员信息
   public updatePersonnelInfo(pamars): Observable<any> {
     return this.http.post(`/company_personnel/update`, pamars);
@@ -133,5 +138,13 @@ export class SetingService {
   // 根据id查询权限
   public  queryPermissionInfoById(pamars): Observable<any> {
     return this.http.post(`/sysPermission/findSysPermissionById`, pamars);
+  }
+
+  // 上传APp
+  public  sendNewApp(pamars): Observable<any> {
+    return this.http.post(`/sendNewApp`, pamars);
+  }
+  public  findNewAppMessage(pamars): Observable<any> {
+    return this.http.post(`/findNewAppMessage`, pamars);
   }
 }

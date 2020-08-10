@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-notice',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notice.component.scss']
 })
 export class NoticeComponent implements OnInit {
+
+  @Output() noticeState = new EventEmitter();
 
   public eventNum = 7;
   public noticeItem = [
@@ -19,6 +21,10 @@ export class NoticeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public close(): void {
+    this.noticeState.emit(false);
   }
 
 }

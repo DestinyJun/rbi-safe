@@ -3,7 +3,7 @@
     <div class="img-upload">
       <i class="iconfont iconOutline1" style=""></i>
       <span>上传图片</span>
-      <input type="file"  multiple="multiple"  accept="image/*" (change)="selectImage($event)">
+      <input type="file" id="files"  multiple="multiple"  accept="image/*" (change)="selectImage($event)">
     </div>
   </div>
   <div class="ui-md-1 ui-g-1" style="text-align: center;position: relative" *ngFor="let item of filePath, let i = index">

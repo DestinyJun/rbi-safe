@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { graphic } from 'echarts';
+import {SecurityRiskService} from '../../../services/security-risk.service';
 
 @Component({
   selector: 'app-echarts-bar-risk',
@@ -15,188 +16,223 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
   @Input()
   public title: any;
   public option: any;
-  constructor() { }
+  public baseNum = 0.01;
+  constructor(
+    private srService: SecurityRiskService
+  ) { }
   ngOnInit() {
 
   }
-  public hexToRgba(hex, opacity): string {
-    let rgbaColor = '';
-    const reg = /^#[\da-f]{6}$/i;
-    if (reg.test(hex)) {
-      rgbaColor = `rgba(${Number('0x' + hex.slice(1, 3))},${Number(
-        '0x' + hex.slice(3, 5)
-      )},${Number('0x' + hex.slice(5, 7))},${opacity})`;
-    }
-    return rgbaColor;
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const xAxisData = this.echartData.map(v => v.name);
-//  ["1", "2", "3", "4", "5", "6", "7", "8"]
-    const yAxisData1 = this.echartData.map(v => v.value1);
-// [100, 138, 350, 173, 180, 150, 180, 230]
-    const yAxisData2 = this.echartData.map(v => v.value2);
-    this.option =  {
+    console.log(this.echartData);
+    this.updateRiskLevelOption();
+  }
+  // public hexToRgba(hex, opacity): string {
+  //   let rgbaColor = '';
+  //   const reg = /^#[\da-f]{6}$/i;
+  //   if (reg.test(hex)) {
+  //     rgbaColor = `rgba(${Number('0x' + hex.slice(1, 3))},${Number(
+  //       '0x' + hex.slice(3, 5)
+  //     )},${Number('0x' + hex.slice(5, 7))},${opacity})`;
+  //   }
+  //   return rgbaColor;
+  // }
+  //
+  //
+
+
+
+  private updateRiskLevelOption(): void {
+
+    const x = [];
+    const y = [];
+
+    console.log(this.echartData);
+    for (const key in this.echartData) {
+      x.push(this.echartData[key] + this.baseNum);
+      y.push(key);
+    }
+
+    this.option = {
       title: {
         text: this.title,
-        fontSize: 12,
-        left: 20
-      },
-      backgroundColor: this.bgColor,
-      color: this.color,
-      legend: {
-        right: 10,
-        top: 10
+        left: 26,
+        top: 26,
+        textStyle: {
+          color: '#4D4F5C',
+          fontSize: 18,
+        }
       },
       tooltip: {
         trigger: 'axis',
-        formatter: (params) => {
-          let html = '';
-          params.forEach(v => {
-            html += `<div style="color: #666;font-size: 14px;line-height: 24px">
-                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${this.color[v.componentIndex]};"></span>
-                ${v.seriesName}
-                <span style="color:${this.color[v.componentIndex]};font-weight:700;font-size: 18px">${v.value}</span>
-                件`;
-          });
-          return html;
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
         },
-        extraCssText: 'background: #fff; border-radius: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);color: #333;',
-        axisPointer: {
-          type: 'shadow',
-          shadowStyle: {
-            color: '#ffffff',
-            shadowColor: 'rgba(225,225,225,1)',
-            shadowBlur: 5
+        formatter: (val) => {
+          let color = '';
+          if ((val[0].axisValue === 'E' || val[0].axisValue === 'G') && val[0].value > x[val[0].dataIndex]) {
+            color = '#FCE149';
+          } else {
+            color = '#37C611';
           }
+          return `<span style="color:${color};">   ● </span>${val[0].name} : ${Math.ceil(val[0].data - this.baseNum)}<br/>`;
         }
       },
-      grid: {
-        top: 50,
-        bottom: 10,
-        left: 20,
-        right: 20,
-        containLabel: true
+      grid: [
+        {
+          left: '5%',
+          right: '5%',
+          bottom: 30,
+          top: '30px',
+        },
+        {
+          bottom: 30,
+          left: '5%', // 为了让第2个grid显示在2个柱状图中间，中间相隔百分比为100/14
+          right: '5%',
+          height: 0,  //  不显示第2个grid的图表，只显示label
+          // show: true,
+        }
+      ],
+      legend: {
+        data: ['区域内', '区域外'],
+        right: '10%',
+        top: '3%',
+        textStyle: {
+          color: '#AAAAAA'
+        },
+        itemWidth: 16,
+        itemHeight: 16,
+        borderRadius: 10,  // borderRadius最大为宽高最小值的一半，即为5
+        itemGap: 30
       },
+      yAxis: [
+        {
+          type: 'value',
+          min: (value) => {
+            return this.baseNum * 10;
+          },
+          max: (value) => {
+            return value.max > 10 ? value.max : 10;
+          },
+          gridIndex: 0,
+          axisLine: {
+            show: false,
+            onZero: true
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            show: false,
+          },
+          axisLabel: {
+            show: false,
+          }
+        },
+        {
+          type: 'value',
+          gridIndex: 1,
+          axisLine: {
+            show: false,
+            onZero: true
+          },
+          splitLine: {
+            show: false,
+          },
+          axisLabel: {
+            show: false,
+          },
+        }
+      ],
       xAxis: [{
         type: 'category',
-        boundaryGap: false,
-        axisLabel: {
-          formatter: '{value}级',
-          textStyle: {
-            color: '#333'
-          }
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#D9D9D9'
-          }
-        },
-        data: xAxisData
-      }],
-      yAxis: [{
-        type: 'value',
-        // name: '单位：万千瓦时',
-        axisLabel: {
-          textStyle: {
-            color: '#666'
-          }
-        },
-        nameTextStyle: {
-          color: '#666',
-          fontSize: 12,
-          lineHeight: 40
-        },
-        splitLine: {
-          lineStyle: {
-            type: 'dashed',
-            color: '#E9E9E9'
-          }
-        },
-        axisLine: {
-          show: false
-        },
+        gridIndex: 0,
         axisTick: {
           show: false
+        },
+        axisLine: {
+          show: false,
+          align: 'center',
+          lineStyle: {
+            color: '#A3',
+            fontSize: '14px'
+          }
+        },
+        axisLabel: {
+          show: true,
+          color: '#A7A7A7',
+        },
+        data: y,
+        zlevel: 2
+      },
+        {
+          type: 'category',
+          gridIndex: 1,
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: '#A3B4E5',
+              fontSize: '14px'
+            }
+          },
+          zlevel: 1,
+          axisTick: {
+            show: false,
+          },
+          axisLabel: {
+            show: false,
+
+          },
+          data: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  //  必须写data数据
         }
-      }],
-      series: [{
-        name: '区域内',
-        type: 'line',
-        smooth: true,
-        // showSymbol: false,/
-        symbolSize: 8,
-        zlevel: 3,
-        lineStyle: {
-          normal: {
-            color: this.color[0],
-            shadowBlur: 3,
-            shadowColor: this.hexToRgba(this.color[0], 0.5),
-            shadowOffsetY: 8
-          }
+      ],
+      series: [
+        {
+          name: this.title,
+          type: 'bar',
+          barWidth: 10,
+          barGap: '40%', // 不同系列的柱间距离  为barWidth的 1.5倍
+          // barCateGoryGap: 40,  //同一系列的柱间距离，默认为类目间距的20%，可设固定值
+          itemStyle: {
+            normal: {
+              color: '#63DCAF',
+              barBorderRadius: 11,
+            }
+          },
+          label: {
+            normal: {
+              show: false,
+              position: 'top',
+              fontSize: 11,
+              color: '#48FAB1',
+              formatter: (val) => {
+                return `${val.value}s`;
+              }
+            }
+          },
+          data: x,
+          xAxisIndex: 0,
+          yAxisIndex: 0
         },
-        areaStyle: {
-          normal: {
-            color: new graphic.LinearGradient(
-              0,
-              0,
-              0,
-              1,
-              [{
-                offset: 0,
-                color: this.hexToRgba(this.color[0], 0.3)
-              },
-                {
-                  offset: 1,
-                  color: this.hexToRgba(this.color[0], 0.1)
-                }
-              ],
-              false
-            ),
-            shadowColor: this.hexToRgba(this.color[0], 0.1),
-            shadowBlur: 10
-          }
-        },
-        data: yAxisData1
-      }, {
-        name: '区域外',
-        type: 'line',
-        smooth: true,
-        // showSymbol: false,
-        symbolSize: 8,
-        zlevel: 3,
-        lineStyle: {
-          normal: {
-            color: this.color[1],
-            shadowBlur: 3,
-            shadowColor: this.hexToRgba(this.color[1], 0.5),
-            shadowOffsetY: 8
-          }
-        },
-        areaStyle: {
-          normal: {
-            color: new graphic.LinearGradient(
-              0,
-              0,
-              0,
-              1,
-              [{
-                offset: 0,
-                color: this.hexToRgba(this.color[1], 0.3)
-              },
-                {
-                  offset: 1,
-                  color: this.hexToRgba(this.color[1], 0.1)
-                }
-              ],
-              false
-            ),
-            shadowColor: this.hexToRgba(this.color[1], 0.1),
-            shadowBlur: 10
-          }
-        },
-        data: yAxisData2
-      }]
+        {
+          type: 'bar',
+          xAxisIndex: 1, //  表示第2个grid的数据
+          yAxisIndex: 1
+        }
+      ]
     };
+  }
+
+
+  private getZhCode(str: string) {
+    switch (str) {
+      case 'Ⅰ': return 1;
+      case 'Ⅱ': return 2;
+      case 'Ⅲ': return 4;
+      case 'Ⅳ': return 6;
+      case 'Ⅴ': return 16;
+      default: return 0;
+    }
   }
 }

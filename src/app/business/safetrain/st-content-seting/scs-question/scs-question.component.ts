@@ -54,6 +54,8 @@ export class ScsQuestionComponent implements OnInit {
   public showUploadFileDialog: boolean;
   // 修改xiangguan
   public showAddSingleQuestionDialog: boolean;
+  // 上传题库文件
+  public file: any;
   // 搜索相关
   public searchData: any;
   public showQuesType = 1;
@@ -69,6 +71,14 @@ export class ScsQuestionComponent implements OnInit {
   public dataTrees: OragizationTree[];
   public dataTree: OragizationTree;
   public treeDialog: boolean;
+  public uploadSubjectFinishDialog: boolean;
+  public finishData = {
+    data: {
+      totalNumber: 4,
+      realNumber: 4,
+      log: []
+    }
+  };
   constructor(
     private themeSrv: ThemeService,
     private safeSrv: SafetrainService,
@@ -217,6 +227,12 @@ export class ScsQuestionComponent implements OnInit {
   // 显示上传文件弹窗
   public  showUploadFileClick(): void {
     this.showUploadFileDialog = true;
+    this.getQuestionSortInfoConfig();
+  }
+
+  public selectFile(e): void {
+    console.log(e);
+    this.file = e.files[0];
   }
 
   public  resetAllData(): void {
@@ -232,8 +248,23 @@ export class ScsQuestionComponent implements OnInit {
     this.addQuestion = new AddQuestion();
     this.changeQuestion = new ChangeQuestion();
   }
-  // 添加权限
-  public  addLimitInfoClick(): void {
+  // 添加题库
+  public  addSubjectSetClick(): void {
+    console.log(this.addQuestion.subjectStoreId);
+    console.log(this.file);
+    if (!this.addQuestion.subjectStoreId || !this.file) {
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
+    } else {
+      const formData = new FormData();
+      formData.append('id', this.addQuestion.subjectStoreId);
+      formData.append('file', this.file);
+      this.safeSrv.importSubject(formData).subscribe(res => {
+        console.log(res);
+        this.finishData = res;
+        this.uploadSubjectFinishDialog = true;
+        this.showUploadFileDialog = false;
+      });
+    }
   }
   // 添加单个试题
   public  AddQuestionSingleInfoClick(): void {

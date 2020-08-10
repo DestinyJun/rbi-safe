@@ -22,6 +22,7 @@ export class StOnlineExamService {
   // 完成考试
   public  completeExamInfo(pamars): Observable<any>  {
     return this.Http.post(`/completeTheExam`, pamars);
+
   }
 
   // 查看考试详情

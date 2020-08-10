@@ -1,79 +1,11 @@
-.notice {
-  height: 450px;
-  width: 450px;
-  background: #FFFFFF;
-  border-radius: 10px;
-  display: flex;
-  box-shadow: 0 0 4px #B4B4B4;
-  flex-direction: column;
-  z-index: 99999;
-  .notice-title {
-    flex: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #5E5F6B;
-    font-family: "微软雅黑 Light";
-    letter-spacing: 4px;
-    border-bottom: 1px solid #F6F6F6 ;
-  }
-  .notice-body{
-    flex: 8;
-    background: #fff;
+.notice-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
 
-    .notice-item {
-      display: flex;
-      height: 6vh;
-      width: 100%;
-      border-bottom: 1px solid #E8E8E8;
-      .item-left {
-        line-height: 6vh;
-        flex: 2;
-        text-align: center;
-        .left-num {
-          font-weight: bold;
-          color: #7AA4E4;
-        }
-      }
-      .item-right{
-        flex: 10;
-        padding: 0.7vh 0;
-        .item-font-title{
-          font-size: 16px;
-          color: #45556F;
-          font-family: '微软雅黑 Light';
-          font-weight: bold;
-          letter-spacing: 2px
-        }
-        .item-right-time{
-          margin-top: 2px;
-          color: #B0B0BB;
-          font-size: 12px;
-        }
-      }
-    }
-  }
-  .notice-footer{
-    flex: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3979D8;
-    text-align: center;
-    span{
-      font-weight: bold;
-      font-family: "微软雅黑 Light";
-      letter-spacing: 4px;
-    }
-  }
-  //隐藏滚动条
-  ::ng-deep .ui-scrollpanel-bar {
-    //background-color: rgba(0, 0, 0, 0);
-    //transition: background-color .3s;
-    display: none;
-  }
-  ::ng-deep .ui-scrollpanel-content{
-    padding-right: 0;
-  }
+
 }
 
