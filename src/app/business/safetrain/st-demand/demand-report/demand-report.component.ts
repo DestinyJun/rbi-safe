@@ -15,6 +15,7 @@ export class DemandReportComponent implements OnInit {
   public reportOrgTree: OrgTree[] = []; // 树配置项
   public reportOrgTreeSelect: OrgTree = {}; // 树选择
   public selectAllBox: string[] = []; // 全选元素
+  public selectBoxes = []; // 全选元素
   public reportOperateField: TrainingField = new TrainingFieldAddClass(); // 操作字段
   public reportOperateModal: boolean = false; // 模态框
   public reportOrgTreeModal: boolean = false; // 组织树模态框
@@ -69,11 +70,14 @@ export class DemandReportComponent implements OnInit {
     const organizationId = organizationIds ? organizationIds : null;
     this.globalSrv.publicGetCompanyPerson({pageNo, pageSize, organizationId, workType}).subscribe((res) => {
       this.reportTableData = res.data.contents;
+      this.selectBoxes = [];
       this.reportPageOption.totalRecord = res.data.totalRecord;
-
+      this.reportTableData.forEach(value => {
+        this.selectBoxes.push([0]);
+      });
       //  判断当前表单项是否被全选
       let f = true;
-      this.reportTableData.forEach(value => {
+      this.reportTableData.forEach((value, index) => {
         let flag = false;
         this.reportTableSelect.forEach(value1 => {
           if (value1.id === value.id) {
@@ -82,6 +86,9 @@ export class DemandReportComponent implements OnInit {
         });
         if (!flag) {
           f = false;
+          this.selectBoxes[index] = [0];
+        } else {
+          this.selectBoxes[index] = [0];
         }
       });
       if (this.reportTableSelect.length > 0) {
@@ -127,6 +134,14 @@ export class DemandReportComponent implements OnInit {
         } else {
           this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
         }
+        console.log(this.reportWorkType , this.reportOrgTreeSelect.id);
+        // if (this.reportWorkType && this.reportOrgTreeSelect.id) {
+        //   this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id, this.reportWorkType);
+        // } else if (this.reportWorkType && this.reportWorkType !== '') {
+        //   this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, '', this.reportWorkType);
+        // } else {
+        //   this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+        // }
         this.reportOrgTreeModal = false;
         break;
     }
@@ -135,15 +150,21 @@ export class DemandReportComponent implements OnInit {
   // 分页操作
   public reportPageEvent(page) {
     this.reportNowPage = page;
-    if (this.reportWorkType && this.reportOrgTreeSelect.id) {
-      this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id, this.reportWorkType);
-    } else if (this.reportWorkType) {
-      this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, '', this.reportWorkType);
-    }else if (this.reportOrgTreeSelect.id) {
-      this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
-    } else {
-      this.reportCompanyDataInit(page, this.reportPageOption.pageSize);
-    }
+    // if (this.reportWorkType && this.reportOrgTreeSelect.id) {
+    //   this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id, this.reportWorkType);
+    // } else if (this.reportWorkType) {
+    //   this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, '', this.reportWorkType);
+    // }else if (this.reportOrgTreeSelect.id) {
+    //   this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+    // } else {
+    //   this.reportCompanyDataInit(page, this.reportPageOption.pageSize);
+    // }
+    // this.reportNowPage = page;
+    // if (this.reportOrgTreeSelect.id) {
+    //   this.reportCompanyDataInit(this.reportNowPage, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+    //   return;
+    // }
+    this.reportCompanyDataInit(page, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id, this.reportWorkType);
   }
 
   //
@@ -155,6 +176,7 @@ export class DemandReportComponent implements OnInit {
   public selectAll(e): void {
     if (e.checked) {
       this.setCheckBox(true);
+      this.selectBoxes = this.selectBoxes.map(val => val = [1]);
       // 在全选之前，如果选项已经在被选中，则不添加。没有则添加
       this.reportTableData.forEach(value => {
         // 是否在 plInputTableSelect 里面
@@ -168,12 +190,13 @@ export class DemandReportComponent implements OnInit {
           this.reportTableSelect.push(value);
         }
       });
-      const newObj = [];
-      Object.assign(newObj, this.reportTableSelect);
-      this.reportTableSelect = newObj;
+      // const newObj = [];
+      // Object.assign(newObj, this.reportTableSelect);
+      // this.reportTableSelect = newObj;
     } else {
       // 只有这样才能触发box的改变
       this.setCheckBox(false);
+      this.selectBoxes = this.selectBoxes.map(val => val = [0]);
       this.reportTableData.forEach(value => {
         this.reportTableSelect.forEach(value1 => {
           if (value.id === value1.id) {
@@ -181,9 +204,9 @@ export class DemandReportComponent implements OnInit {
           }
         });
       });
-      const newObj = [];
-      Object.assign(newObj, this.reportTableSelect);
-      this.reportTableSelect = newObj;
+      // const newObj = [];
+      // Object.assign(newObj, this.reportTableSelect);
+      // this.reportTableSelect = newObj;
     }
   }
 

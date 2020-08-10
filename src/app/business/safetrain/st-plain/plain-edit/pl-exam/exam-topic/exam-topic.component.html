@@ -51,7 +51,7 @@
       <p-header>请选择题目</p-header>
       <div style="width: 100%; height: 70vh;overflow: hidden">
         <p-table
-          [(selection)]="topicTableSelect"
+          [selection]="topicTableSelect"
           [value]="topicTableData"
           [scrollable]="true" scrollHeight="100%"
         >
@@ -68,10 +68,11 @@
               </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <ng-template pTemplate="body" let-rowData let-columns="columns"  let-rowIndex="rowIndex">
             <tr>
               <td style="width: 4em">
-                <p-tableCheckbox #checkbox [value]="rowData"  (click)="select(checkbox, rowData)"></p-tableCheckbox>
+                <p-checkbox #checkbox [value]="1" [(ngModel)]="selectBoxes[rowIndex]" (click)="select(checkbox, rowData)"></p-checkbox>
+<!--                <p-tableCheckbox #checkbox [value]="rowData"  (click)="select(checkbox, rowData)"></p-tableCheckbox>-->
               </td>
               <td>
                 <app-topic [topicListData]="rowData"></app-topic>

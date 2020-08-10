@@ -131,21 +131,21 @@ export class ArchivesSpecialComponent implements OnInit {
             width: '900',
             dialog: true,
             title: '上传记录',
-            totalNumber: value.totalNumber,
-            realNumber: value.realNumber,
+            totalNumber: value.failSize,
+            realNumber: value.successSize,
             uploadOption: {
                 width: '100%',
                 tableHeader: {
                     data: [
                         {field: 'code', header: '序号'},
-                        {field: 'roomCode', header: '房间编号'},
+                        // {field: 'roomCode', header: '房间编号'},
                         {field: 'result', header: '结果'},
-                        {field: 'remarks', header: '备注'},
+                        {field: 'reason', header: '备注'},
                     ],
                     style: { background: '#F4F4F4', color: '#000', height: '6vh'}
                 },
                 tableContent: {
-                    data: value.log,
+                    data: value.failTecord,
                     styleone: { color: '#000', height: '2vw', textAlign: 'center'},
                     styletwo: { color: '#000', height: '2vw', textAlign: 'center'}
                 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   OrgTree,
   PageOption,
@@ -24,6 +24,7 @@ export class PlInputComponent implements OnInit {
   public plInputOrgTree: OrgTree[] = []; // 树配置项
   public plInputOrgTreeSelect: OrgTree = {}; // 树选择
   public selectAllBox: string[] = []; // 全选元素
+  public selectBoxes = []; // 全选元素
   public plInputOperateUpdateField: TrainingField = new TrainingFieldUpdateClass(); // 操作字段
   public plInputOperateModal: boolean = false; // 模态框
   public plInputOrgTreeModal: boolean = false; // 组织树模态框
@@ -55,7 +56,8 @@ export class PlInputComponent implements OnInit {
     private globalSrv: GlobalService,
     private safeSrv: SafetrainService,
     private routeInfo: ActivatedRoute,
-    private localSrv: LocalStorageService
+    private localSrv: LocalStorageService,
+    private ref: ChangeDetectorRef
   ) {
   }
 
@@ -82,6 +84,7 @@ export class PlInputComponent implements OnInit {
       (params) => {
         if (params.id) {
           this.safeSrv.getReportsInfo({id: params.id}).subscribe((res) => {
+            console.log(res);
             this.plInputOperateUpdateField = objectCopy(Object.assign({}, new TrainingFieldUpdateClass()), res.data);
             this.plInputDropdownPlaceholder = res.data.trainingTypeName;
             this.plInputOrgTreeSelectLabel = res.data.organizationName;
@@ -104,10 +107,14 @@ export class PlInputComponent implements OnInit {
     }
     this.globalSrv.publicGetCompanyPerson(body).subscribe((res) => {
       this.plInputTableData = res.data.contents;
+      this.selectBoxes = [];
+      this.plInputTableData.forEach(value => {
+        this.selectBoxes.push([0]);
+      });
       this.plInputPageOption.totalRecord = res.data.totalRecord;
       //  判断当前表单项是否被全选
       let f = true;
-      this.plInputTableData.forEach(value => {
+      this.plInputTableData.forEach((value, index) => {
         let flag = false;
         this.plInputTableSelect.forEach(value1 => {
           if (value1.id === value.id) {
@@ -116,6 +123,9 @@ export class PlInputComponent implements OnInit {
         });
         if (!flag) {
           f = false;
+          this.selectBoxes[index] = [0];
+        } else {
+          this.selectBoxes[index] = [1];
         }
       });
       if (this.plInputTableSelect.length > 0) {
@@ -148,6 +158,9 @@ export class PlInputComponent implements OnInit {
         this.plInputOperateModal = false;
         if (this.plInputTableSelect) {
           this.plInputTableSelectName = this.plInputTableSelect.map((res) => res.name).join(',');
+          if (this.plInputTableSelectName.length === 0) {
+            this.plInputTableSelectName = '请选择受训单位人员';
+          }
         }
         break;
       // 筛选搜索
@@ -169,36 +182,19 @@ export class PlInputComponent implements OnInit {
   // 分页操作
   public plInputPageEvent(page) {
     this.plInputNowPage = page;
-    if (this.plInputOrgTreeSelect.id) {
-      this.plInputCompanyDataInit(this.plInputNowPage, this.plInputPageOption.pageSize, this.plInputOrgTreeSelect.id);
-      return;
-    }
-    this.plInputCompanyDataInit(page, this.plInputPageOption.pageSize);
+    // if (this.plInputOrgTreeSelect.id) {
+    //   this.plInputCompanyDataInit(this.plInputNowPage, this.plInputPageOption.pageSize, this.plInputOrgTreeSelect.id);
+    //   return;
+    // }
+    this.plInputCompanyDataInit(page, this.plInputPageOption.pageSize, this.plInputOrgTreeSelect.id, this.workType);
   }
 
   // 当前页的全部选择或不选择全部
   public selectAll(e): void {
     if (e.checked) {
       this.setCheckBox(true);
+      this.selectBoxes = this.selectBoxes.map(val => val = [1]);
       // 在全选之前，如果选项已经在被选中，则不添加。没有则添加
-      this.plInputTableData.forEach(value => {
-        // 是否在 plInputTableSelect 里面
-        let flag = false;
-        this.plInputTableSelect.forEach(value1 => {
-          if (value.id === value1.id) {
-            flag = true;
-          }
-        });
-        if (!flag) { // 不存在则添加
-          this.plInputTableSelect.push(value);
-        }
-      });
-      const newObj = [];
-      Object.assign(newObj, this.plInputTableSelect);
-      this.plInputTableSelect = newObj;
-    } else {
-      // 只有这样才能触发box的改变
-      this.setCheckBox(false);
       this.plInputTableData.forEach(value => {
         this.plInputTableSelect.forEach(value1 => {
           if (value.id === value1.id) {
@@ -206,17 +202,30 @@ export class PlInputComponent implements OnInit {
           }
         });
       });
-      const newObj = [];
-      Object.assign(newObj, this.plInputTableSelect);
-      this.plInputTableSelect = newObj;
+      this.plInputTableSelect.push(...this.plInputTableData);
+    } else {
+      // 如果是修改，则删掉之前的记录
+
+      // 只有这样才能触发box的改变
+      this.setCheckBox(false);
+      this.selectBoxes = this.selectBoxes.map(val => val = [0]);
+      this.plInputTableData.forEach(value => {
+        this.plInputTableSelect.forEach(value1 => {
+          if (value.id === value1.id) {
+            this.plInputTableSelect.splice(this.plInputTableSelect.indexOf(value1), 1);
+          }
+        });
+      });
     }
+    console.log(this.selectBoxes);
+    console.log(this.plInputTableSelect);
   }
 
   // 单选
   public select(e, data): void {
-    console.log(e.checked);
     if (e.checked) {
       this.plInputTableSelect.push(data);
+      console.log(this.plInputTableSelect);
     } else {
       let i = -1;
       this.plInputTableSelect.forEach((value, index) => {
@@ -229,7 +238,10 @@ export class PlInputComponent implements OnInit {
       }
       this.setCheckBox(false);
     }
+    console.log(this.selectBoxes);
+    console.log(this.plInputTableSelect);
   }
+
 
   public setCheckBox(checked: boolean): void {
     if (checked) {

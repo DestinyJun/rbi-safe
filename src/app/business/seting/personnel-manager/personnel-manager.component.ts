@@ -208,7 +208,7 @@ export class PersonnelManagerComponent implements OnInit {
   // 重置搜索数据
   public  resetSearchData(): void {
      for (const key in this.searchData) {
-       if (key !== 'pageSize' && key !== 'pageNo') {
+       if (key !== 'pageSize' && key !== 'pageNo' && key !== 'organizationId') {
          this.searchData[key] = '';
        }
      }
@@ -362,6 +362,7 @@ export class PersonnelManagerComponent implements OnInit {
     console.log(this.dataTree);
     this.treeDialog = false;
     if (this.treeFlag === 'search') {
+      this.searchData.pageNo = this.pageNo = 1;
       this.orgazitionName = this.dataTree.label;
       this.searchData.organizationId = this.dataTree.value;
       this.initPersonnelData();
