@@ -97,6 +97,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: any) => {
+        console.log(error);
         if (error.status === 500) {
           this.router.navigate(['/error'], {
             queryParams: {
