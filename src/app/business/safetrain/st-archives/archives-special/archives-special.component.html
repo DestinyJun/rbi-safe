@@ -95,7 +95,7 @@
                 <span>理论成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写理论成绩" [(ngModel)]="specialOperateField.theoreticalAchievements">
+                <input type="text" pInputText placeholder="请填写理论成绩" [(ngModel)]="specialOperateField.theoreticalAchievements">
               </div>
             </div>
             <!--实际成绩-->
@@ -104,7 +104,7 @@
                 <span>实际成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写实际成绩" [(ngModel)]="specialOperateField.actualResults">
+                <input type="text" pInputText placeholder="请填写实际成绩" [(ngModel)]="specialOperateField.actualResults">
               </div>
             </div>
             <!--操作证号-->
@@ -161,7 +161,7 @@
                 <span>第一次复审成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写复审成绩" [(ngModel)]="specialOperateField.oneReviewResults">
+                <input type="text" pInputText placeholder="请填写复审成绩" [(ngModel)]="specialOperateField.oneReviewResults">
               </div>
             </div>
             <!--第一次复审时间-->
@@ -189,7 +189,7 @@
                 <span>第二次复审成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.oneReviewResults)" [(ngModel)]="specialOperateField.towReviewResults">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.oneReviewResults)" [(ngModel)]="specialOperateField.towReviewResults">
               </div>
             </div>
             <!--第二次复审时间-->
@@ -218,7 +218,7 @@
                 <span>第三次复审成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.towReviewResults)" [(ngModel)]="specialOperateField.threeReviewResults">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.towReviewResults)" [(ngModel)]="specialOperateField.threeReviewResults">
               </div>
             </div>
             <!--第三次复审时间-->
@@ -247,7 +247,7 @@
                 <span>第四次复审成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.threeReviewResults)" [(ngModel)]="specialOperateField.fourReviewResults">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.threeReviewResults)" [(ngModel)]="specialOperateField.fourReviewResults">
               </div>
             </div>
             <!--第四次复审时间-->
@@ -276,7 +276,7 @@
                 <span>第五次复审成绩：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.fourReviewResults)" [(ngModel)]="specialOperateField.fiveReviewResults">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.fourReviewResults)" [(ngModel)]="specialOperateField.fiveReviewResults">
               </div>
             </div>
             <!--第五次复审时间-->

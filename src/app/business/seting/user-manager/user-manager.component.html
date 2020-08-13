@@ -6,8 +6,13 @@
   </div>
   <div class="user-manager-header">
     <div class="user-manager-search">
+      <input type="text" pInputText  placeholder="请选择组织"  [(ngModel)]="orgazitionName" (click)="showOrgazationTree()"/>
       <div class="ui-inputgroup" >
-        <input type="text" pInputText  placeholder="搜索"/>
+        <input type="text" pInputText  placeholder="请输入角色名" [(ngModel)]="roleName"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn"  (click)="searchDataClick()"></button>
+      </div>
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="请输入姓名"  [(ngModel)]="userName" />
         <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
       </div>
     </div>
@@ -113,6 +118,25 @@
       <button class="dialog-btn" (click)="resetPwd()">密码重置</button>
       <button class="dialog-btn" (click)="showEditUserDialog = false;resetAllData()">取消</button>
       <button class="dialog-btn" (click)="updateUserInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+
+  <!--组织树结构-->
+  <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [modal]="true" [width]="350" [height]="400">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+          <p-tree
+            [value]="dataTrees"
+            [(selection)]="dataTree"
+            selectionMode="single">
+          </p-tree>
+        </p-scrollPanel>
+      </div>
+    </div>
+    <p-footer>
+      <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>
+      <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>
     </p-footer>
   </p-dialog>
 </div>

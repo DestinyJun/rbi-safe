@@ -327,7 +327,7 @@
       </div>
       <p-footer>
         <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>
-        <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>
+        <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick(); treeFlag === 'search'" >确认选择</button>
       </p-footer>
     </p-dialog>
   </div>

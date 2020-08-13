@@ -3,6 +3,7 @@ import {PageOption} from '../../../../../common/public/Api';
 import {Subscription} from 'rxjs';
 import {StOnlineExamService} from '../../../../../common/services/st-online-exam.service';
 import {Router} from '@angular/router';
+import {PublicMethodService} from "../../../../../common/public/public-method.service";
 
 @Component({
   selector: 'app-st-no-exam',
@@ -44,7 +45,8 @@ export class StNoExamComponent implements OnInit {
   public personnelTrainingRecordId: number;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
-    private router: Router
+    private router: Router,
+    private toolSrv: PublicMethodService,
   ) {
   }
   ngOnInit() {
@@ -53,6 +55,7 @@ export class StNoExamComponent implements OnInit {
 
   public  initNoExamData(): void {
     this.stOnlineExamSrv.getOnlineExamOPageInfo({pageSize: 10, pageNo: this.pageNo, processingStatus: 1}).subscribe(res => {
+      console.log(res);
       this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
       if (res.data.contents){
         this.noExamContent = res.data.contents.map(v => {
@@ -76,12 +79,17 @@ export class StNoExamComponent implements OnInit {
 
  // 点击开始考试
   public  showNoticeModelClick(e): void {
-    // console.log(e.id);
-    this.id = e.id;
-    this.time = e.duration.slice(0, e.duration.length - 2);
-    this.personnelTrainingRecordId = e.personnelTrainingRecordId;
-    this.content = e.examNotes;
-    this.startExamNoticeModel = true;
+    console.log(e);
+    // e.flag = 0;
+    if (!e.flag) {
+      this.toolSrv.setToast('warn', '考试提示', '未完成学习，不能进行考试');
+    } else {
+      this.id = e.id;
+      this.time = e.duration.slice(0, e.duration.length - 2);
+      this.personnelTrainingRecordId = e.personnelTrainingRecordId;
+      this.content = e.examNotes;
+      this.startExamNoticeModel = true;
+    }
   }
 
   public judgeTimeIsOrInPeriod(beginDateStr, endDateStr): boolean {

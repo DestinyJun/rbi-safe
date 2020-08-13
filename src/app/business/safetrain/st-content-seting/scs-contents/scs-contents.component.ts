@@ -64,6 +64,7 @@ export class ScsContentsComponent implements OnInit {
       this.contentsOperateModal = false;
       this.contentsDataInit(this.contentsNowPage, this.contentsPageOption.pageSize);
       // this.contentsOperateField  = new FormData();
+      this.toolSrv.setToast('success', '提示', '操作成功');
     });
   }
 
@@ -96,11 +97,12 @@ export class ScsContentsComponent implements OnInit {
         break;
       // 保存操作
       case 'save':
-        this.contentsOperateField.append('contentCategoryId', this.contentsClassifySelected.id);
-        this.contentsOperateField.append('file', item.files[0]);
-        this.contentsOperateField.append('resourceType', `${this.contentsFileSelected}`);
-        this.contentsOperateField.append('studyTime', `${this.studyTime}`);
-        this.contentsHttpOperate(this.safeSrv.addScsContentsInfo(this.contentsOperateField));
+        const formData = new FormData();
+        formData.append('contentCategoryId', this.contentsClassifySelected.id);
+        formData.append('file', item.files[0]);
+        formData.append('resourceType', `${this.contentsFileSelected}`);
+        formData.append('studyTime', `${this.studyTime}`);
+        this.contentsHttpOperate(this.safeSrv.addScsContentsInfo(formData));
         break;
       // 删除操作
       case 'del':

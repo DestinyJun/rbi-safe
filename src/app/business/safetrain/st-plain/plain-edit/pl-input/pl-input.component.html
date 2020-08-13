@@ -146,7 +146,7 @@
     </p-scrollPanel>
     <p-table
       *ngIf="plInputOperateFlag === 'strain'"
-      [(selection)]="plInputTableSelect"
+      [selection]="plInputTableSelect"
       [value]="plInputTableData" [columns]="plInputTableHeader"
       [scrollable]="true" scrollHeight="50vh"
       dataKey="id"
@@ -156,6 +156,7 @@
           <th style="width: 4em">
             全选
             <p-checkbox #checkboxAll value="selectAll" [(ngModel)]="selectAllBox" (click)="selectAll(checkboxAll)"></p-checkbox>
+<!--            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
           </th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -175,10 +176,12 @@
           (ngModelChange)="plInputOperate('search', $event)"
           class="ml-3" style="width:26%">
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
         <tr>
           <td style="width: 4em;text-align: center">
-            <p-tableCheckbox #checkbox [value]="rowData" (click)="select(checkbox, rowData)"></p-tableCheckbox>
+            <p-checkbox #checkbox [value]="1" [(ngModel)]="selectBoxes[rowIndex]" (click)="select(checkbox, rowData)"></p-checkbox>
+<!--            <p-tableCheckbox #checkbox [value]="rowData" (click)="select(checkbox, rowData)"></p-tableCheckbox>-->
+<!--            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>-->
           </td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis;" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}

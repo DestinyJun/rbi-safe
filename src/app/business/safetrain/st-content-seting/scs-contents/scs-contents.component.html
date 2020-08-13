@@ -109,7 +109,7 @@
               </label>
               <div class="ui-g-9 ui-md-9 input">
                 <p-fileUpload
-                  chooseLabel="点击选择上传文件" cancelLabel="清空" accept="{{((contentsFileSelected === '视频') ? '.mp4' : '.pdf')}}"
+                  chooseLabel="点击选择上传文件" cancelLabel="清空" accept="{{((contentsFileSelected === '视频') ? '.mp4' : '.pdf')}}" [multiple]="false"
                   [showUploadButton]="false" mode="advanced" name="file" #fileUpload
                 >
                 </p-fileUpload>

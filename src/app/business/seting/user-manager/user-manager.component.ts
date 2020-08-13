@@ -6,6 +6,7 @@ import {PublicMethodService} from '../../../common/public/public-method.service'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {GlobalService} from '../../../common/services/global.service';
+import {OragizationTree, TreeNode} from "../../../common/public/Api";
 
 @Component({
   selector: 'app-user-manager',
@@ -17,6 +18,9 @@ export class UserManagerComponent implements OnInit {
   public optionTable: any;
   public userSelect: any;
   public pageNo = 1;
+  public organizationId: number;
+  public roleName: string;
+  public userName: string;
   public curUserName: string; // 当前编辑用户名，用于密码重置请求
   public userContent: any[];
   // 添加相关
@@ -36,6 +40,11 @@ export class UserManagerComponent implements OnInit {
   public rolesList = [];
   public pageOption: any;
   public themeSub: Subscription;
+  public treeDialog: any;
+  public orgazitionName: any;
+  public dataTrees: OragizationTree[];
+  public dataTree: OragizationTree;
+  private treeFlag: any;
   constructor(
       private themeSrv: ThemeService,
       private setSrv: SetingService,
@@ -64,10 +73,12 @@ export class UserManagerComponent implements OnInit {
       companyPersonnelId: new FormControl('')
     });
     this.initUserInfo();
+    this.getOrgazitonTree();
     this.getRolesInfoList();
   }
   public  initUserInfo(): void {
-    this.setSrv.getUserInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
+    const body  = {pageNo: this.pageNo, pageSize: 10, userName: this.userName || '', roleName: this.roleName || '', organizationId: this.organizationId || ''};
+    this.setSrv.getUserInfoPageData(body).subscribe(val => {
       // console.log(val);
       this.userContent = val.data.contents;
       this.setTableOption(this.userContent);
@@ -130,6 +141,7 @@ export class UserManagerComponent implements OnInit {
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
+    this.initUserInfo();
   }
   // Paging event (分页事件)
   public  clickEvent(e): void {
@@ -218,4 +230,46 @@ export class UserManagerComponent implements OnInit {
      });
    });
  }
+
+  // 获取树结构
+  public  getOrgazitonTree(): void {
+    this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
+      if (value.data) {
+        this.dataTrees = this.initializeTree(value.data);
+      } else {
+        this.toolSrv.setToast('error', '操作', '组织数据获取失败');
+      }
+    });
+  }
+
+  // Tree structure initialization
+  public initializeTree(data): any {
+    const oneChild = [];
+    for (let i = 0; i < data.length; i++) {
+      const childnode: TreeNode = {};
+      childnode.value = data[i].id;
+      childnode.label = data[i].organizationName;
+      // childnode.level = data[i].level;
+      childnode.selectable = true;
+      if (data[i].chiled != null && data[i].chiled.length !== 0 ) {
+        childnode.children = this.initializeTree(data[i].chiled);
+      } else {
+        childnode.children = [];
+      }
+      oneChild.push(childnode);
+    }
+    return oneChild;
+  }
+
+  // 显示树结构
+  public  showOrgazationTree(): void {
+    this.treeDialog = true;
+  }
+
+  public dataTreeSureClick(): void {
+    this.treeDialog = false;
+    this.orgazitionName = this.dataTree.label;
+    this.organizationId = this.dataTree.value;
+    this.initUserInfo();
+  }
 }

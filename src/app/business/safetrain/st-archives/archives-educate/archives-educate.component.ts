@@ -138,9 +138,9 @@ export class ArchivesEducateComponent implements OnInit {
         tableHeader: {
           data: [
             {field: 'code', header: '序号'},
-            {field: 'roomCode', header: '房间编号'},
+            // {field: 'roomCode', header: '房间编号'},
             {field: 'result', header: '结果'},
-            {field: 'remarks', header: '备注'},
+            {field: 'reason', header: '备注'},
           ],
           style: { background: '#F4F4F4', color: '#000', height: '6vh'}
         },
