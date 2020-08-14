@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalService} from '../../../common/services/global.service';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-st-institution',
@@ -17,7 +18,8 @@ export class StInstitutionComponent implements OnInit {
 
   constructor(
     private globalSrv: GlobalService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {
   }
 
@@ -35,6 +37,7 @@ export class StInstitutionComponent implements OnInit {
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
     this.url = item.filePath;
     this.openDialog = true;
+    // this.router.navigate(['/pdf-view']);
   }
 
   // 搜索文件

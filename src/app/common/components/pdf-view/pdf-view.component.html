@@ -1,0 +1,22 @@
+<p-dialog header="{{fileName}}" [showHeader]="showHeader" [(visible)]="display" [style]="{width: '100vw', height: '100vh'}" [modal]="true" [closable]="true" (onHide)="hide($event)">
+  <p-scrollPanel [style]="{width: '100vw', height: '100vh', position: 'relative'}">
+<!--    <iframe [src]="fileUrl" style="width: 100vw; height: 98vh"></iframe>-->
+<!--    <pdf-viewer [src]="fileUrl"-->
+<!--                style="display: block; width: 100vw; height: 100vh;"-->
+<!--                [show-all]="true"-->
+<!--                [stick-to-page]="true"-->
+<!--                [page]="1"-->
+<!--                [zoom]="1"-->
+<!--                [original-size]="true"-->
+<!--    ></pdf-viewer>-->
+<!--    <pdf-viewer [src]="fileUrl" [original-size]="false">-->
+    <pdf-viewer
+      [src]="fileUrl"
+      class="pdf-viewer"
+    >
+    </pdf-viewer>
+<!--    <pdf-viewer [src]="src"-->
+<!--                [original-size]="false"-->
+<!--    ></pdf-viewer>-->
+  </p-scrollPanel>
+</p-dialog>

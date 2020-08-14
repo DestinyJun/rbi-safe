@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -43,4 +43,15 @@ export class GeneralInfoService {
   public  administratorReviewNotice(pamars): Observable<any> {
     return this.http.post(`/administratorReview/notice`, pamars);
   }
+
+  // 根据资料id查资料路径
+  public  trainingFindByMaterialId(pamars, token): Observable<any> {
+    const headers: HttpHeaders = new HttpHeaders();
+    const headerOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'accessToken': token})};
+    headers.set('Content-type', 'application/json; charset=UTF-8')
+      .set('accessToken', token);
+    console.log(headers);
+    return this.http.post(`/training/findByMaterialId`, pamars, headerOption);
+  }
+
 }

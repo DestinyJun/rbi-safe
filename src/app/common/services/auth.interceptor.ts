@@ -10,8 +10,10 @@ import {LocalStorageService} from './local-storage.service';
 import {Store} from '@ngrx/store';
 import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
+import {Location} from "@angular/common";
 // import {environment} from '../../../environments/environment.zga';
 const DEFAULTTIMEOUT = 100000000;
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   public clonedRequest: any; // 重置请求参数
@@ -37,14 +39,16 @@ export class AuthInterceptor implements HttpInterceptor {
     `/training/importAdmin`,
     `/training/importSpecialTrainings`,
     `/safeFourLevel/excelImport`,
-    `/sendNewApp`
+    `/sendNewApp`,
+    `/training/findByMaterialId`,
   ]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
     private router: Router,
     private localSessionStorage: LocalStorageService,
     private toolSrv: PublicMethodService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    public location: Location
   ) {
   }
 
@@ -61,7 +65,15 @@ export class AuthInterceptor implements HttpInterceptor {
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (this.isSkipUrl(req.url)) {
+    if (req.url.includes('/training/findByMaterialId')) {
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+      });
+      console.log(this.clonedRequest);
+    } else if (req.url.includes('/usr/work')) {
+      this.clonedRequest = req;
+    }else if (this.isSkipUrl(req.url)) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
@@ -84,9 +96,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
+        console.log(event);
         this.store.dispatch({type: 'true'});
         if (event.status === 200) {
-          if (this.skipState.includes(event.body.status)) {
+          if (this.skipState.includes(event.body.status) || event.url.includes('/usr/work')) {
             // this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
           } else {
@@ -107,8 +120,7 @@ export class AuthInterceptor implements HttpInterceptor {
             }
           });
           return EMPTY;
-        }
-        if (error.status === 200) {
+        }else if (error.status === 200) {
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;

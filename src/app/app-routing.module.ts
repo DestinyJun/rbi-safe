@@ -10,6 +10,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'home', loadChildren: './home/home.module#HomeModule', data: {preload: true}, canActivate: [LoginGuard]},
+  {path: 'pdf-view', loadChildren: () => import('./common/components/pdf-view/pdf-view.module').then(m => m.PdfViewModule), data: {preload: true}},
   {path: 'error', component: ErrorComponent},
   {path: '**', component: ErrorComponent},
 ];
