@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GeneralInfoService} from "../../services/general-info.service";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {Location} from "@angular/common";
@@ -16,7 +16,10 @@ export class PdfViewComponent implements OnInit {
   public display = true;
   public showHeader = true;
   public src = 'http://139.9.153.27/usr/work/wx/safeMaterial/安全文化_安全科技与科学安全生产观_徐德蜀.pdf';
-
+  public totalPage = 1;
+  public curPage = 1;
+  // @ts-ignore
+  @ViewChild('fileView') fileView: any;
   constructor(
     private generalInfo: GeneralInfoService,
     private sanitizer: DomSanitizer,
@@ -31,7 +34,8 @@ export class PdfViewComponent implements OnInit {
     if (navigator.platform !== 'Win32') {
       this.showHeader = false;
     }
-    console.log(navigator);
+    console.log(this.fileView);
+    this.fileView.onProgress.emit({loaded: 1, total: 100});
   }
 
   public hide(e): void {
@@ -87,5 +91,15 @@ export class PdfViewComponent implements OnInit {
     });
   }
 
+  public getProgress(e): void {
+    this.curPage = e;
+  }
+  public afterLoadComplete(e): void {
+    this.totalPage = e._pdfInfo.numPages;
+  }
+
+  pageRendered(e: CustomEvent) {
+    console.log('(page-rendered)', e);
+  }
 
 }

@@ -176,7 +176,7 @@ export class AuthInterceptor implements HttpInterceptor {
       tap((event: any) => {
         this.store.dispatch({type: 'true'});
         if (event.status === 200) {
-          if (this.skipState.includes(event.body.status)) {
+          if (this.skipState.includes(event.body.status)  || event.url.includes('/usr/work')) {
             // this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
           } else {

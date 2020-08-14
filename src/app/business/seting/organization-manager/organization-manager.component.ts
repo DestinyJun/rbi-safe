@@ -25,6 +25,8 @@ export class OrganizationManagerComponent implements OnInit {
   public pageOption: any;
   public orgazitionContent: any;
   public themeSub: Subscription;
+  // 搜索条件
+  public organizationName = '';
   public pageNo = 1;
   // 添加相关
   public addOragization: FormGroup;
@@ -67,7 +69,7 @@ export class OrganizationManagerComponent implements OnInit {
   }
 
   initOrgazitonInfo() {
-    this.setSrv.getOrgazitionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
+    this.setSrv.getOrgazitionInfoPageData({pageNo: this.pageNo, pageSize: 10, organizationName: this.organizationName}).subscribe(val => {
       this.orgazitionContent = val.data.contents;
       this.setTableOption(this.orgazitionContent);
       this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
@@ -117,6 +119,8 @@ export class OrganizationManagerComponent implements OnInit {
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
+    this.pageNo = 1;
+    this.initOrgazitonInfo();
   }
 
   // Paging event (分页事件)

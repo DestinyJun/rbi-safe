@@ -7,7 +7,7 @@
   <div class="organization-manager-header">
     <div class="organization-manager-search">
       <div class="ui-inputgroup" >
-        <input type="text" pInputText  placeholder="搜索"/>
+        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="organizationName"/>
         <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
       </div>
     </div>

@@ -10,9 +10,14 @@
 <!--                [original-size]="true"-->
 <!--    ></pdf-viewer>-->
 <!--    <pdf-viewer [src]="fileUrl" [original-size]="false">-->
+    <div style="position: absolute; top: 10px; left: 0; z-index: 1; color: red; width: 100%;padding-left: 20px">{{curPage}}/{{totalPage}}</div>
     <pdf-viewer
+      #fileView
       [src]="fileUrl"
       class="pdf-viewer"
+      [fit-to-page]="true"
+      (pageChange)="getProgress($event)"
+      (after-load-complete)="afterLoadComplete($event)"
     >
     </pdf-viewer>
 <!--    <pdf-viewer [src]="src"-->
