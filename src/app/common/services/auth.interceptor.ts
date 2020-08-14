@@ -143,7 +143,15 @@ export class AuthInterceptor implements HttpInterceptor {
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (this.isSkipUrl(req.url)) {
+    if (req.url.includes('/training/findByMaterialId')) {
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+      });
+      console.log(this.clonedRequest);
+    } else if (req.url.includes('/usr/work')) {
+      this.clonedRequest = req;
+    }else if (this.isSkipUrl(req.url)) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers

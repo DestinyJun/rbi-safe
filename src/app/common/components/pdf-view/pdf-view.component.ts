@@ -28,7 +28,6 @@ export class PdfViewComponent implements OnInit {
   ngOnInit() {
     this.parsePath();
     // 判断是手机端还是PC端
-    alert(navigator.platform);
     if (navigator.platform !== 'Win32') {
       this.showHeader = false;
     }
