@@ -24,6 +24,7 @@ export class AreaWithinComponent implements OnInit {
   public riskKindOption: Array<object> = [];
   public riskCategoryOption: Array<object> = [];
   public addWidthin: AddSRRisk = new AddSRRisk();
+  public noRequiredControls = ['adviceMeasures', 'measuresEffective', 'measuresCost', 'measuresResult', 'measuresUse', 'picture'];
   public ImageOption = {
     files: [],
     showUploadIcon: true,
@@ -46,7 +47,7 @@ export class AreaWithinComponent implements OnInit {
   ngOnInit() {
     const data = {};
     for (const key in this.addWidthin){
-      if (key !== 'picture'){
+      if (this.noRequiredControls.indexOf(key) < 0){
         data[key] =  new FormControl('', Validators.required);
       }else {
         data[key] =  new FormControl('');
