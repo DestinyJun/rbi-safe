@@ -6,28 +6,38 @@ import { GeneralInfoComponent } from './general-info/general-info.component';
 import { GiBulletinBoardComponent } from './gi-bulletin-board/gi-bulletin-board.component';
 import { GiInfoReleaseComponent } from './gi-info-release/gi-info-release.component';
 import {NgxValidatorModule} from '@why520crazy/ngx-validator';
-import {ButtonModule, DialogModule, InputTextareaModule, InputTextModule, ScrollPanelModule} from 'primeng/primeng';
+import {
+    ButtonModule,
+    CalendarModule,
+    DialogModule,
+    InputTextareaModule,
+    InputTextModule,
+    ScrollPanelModule
+} from 'primeng/primeng';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import {ReactiveFormsModule} from '@angular/forms';
+import { DailyOperationReportingComponent } from './daily-operation-reporting/daily-operation-reporting.component';
 
 
 @NgModule({
   declarations: [
     GeneralInfoComponent,
     GiBulletinBoardComponent,
-    GiInfoReleaseComponent
+    GiInfoReleaseComponent,
+    DailyOperationReportingComponent
   ],
-  imports: [
-    CommonModule,
-    GeneralInfoRoutingModule,
-    NgxValidatorModule,
-    ScrollPanelModule,
-    PaginationModule,
-    InputTextModule,
-    ButtonModule,
-    DialogModule,
-    InputTextareaModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        GeneralInfoRoutingModule,
+        NgxValidatorModule,
+        ScrollPanelModule,
+        PaginationModule,
+        InputTextModule,
+        ButtonModule,
+        DialogModule,
+        InputTextareaModule,
+        ReactiveFormsModule,
+        CalendarModule
+    ]
 })
 export class GeneralInfoModule { }

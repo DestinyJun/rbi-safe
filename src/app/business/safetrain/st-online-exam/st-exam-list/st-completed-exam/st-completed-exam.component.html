@@ -19,8 +19,11 @@
           <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
             {{rowData[col.field]}}
           </td>
-          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
-            <button pButton  type="button"  [label]="rowData[col.field]"   class="ui-button-rounded" (click)="detailClick(rowData)"></button>
+          <td  class="text-center" style="height: 5vh;"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <div style="width: 160px;">
+              <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" [label]="'重新考试'" iconPos="right" class="ui-button-rounded" (click)="showNoticeModelClick(rowData)" [disabled]="!judgeTimeIsOrInPeriod(rowData.startTime, rowData.endTime)"></button>
+              <button pButton  type="button"  [label]="rowData[col.field]"   class="ui-button-rounded" (click)="detailClick(rowData)"></button>
+            </div>
           </td>
         </tr>
       </ng-template>
@@ -227,4 +230,19 @@
       </div>
     </div>
   </p-sidebar>
+
+  <p-dialog header="" [(visible)]="startExamNoticeModel" [modal]="true">
+    <p-header>
+      <span class="h3">考试须知</span>
+    </p-header>
+    <div class="ui-md ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <span style="text-indent: 2em">{{content}}</span>
+      </div>
+    </div>
+    <p-footer>
+      <button pButton  class="ui-button-rounded" label="取消" type="button" (click)="startExamNoticeModel = false;"></button>
+      <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" label="开始考试" iconPos="right" class="ui-button-rounded" (click)="startExamClick()"></button>
+    </p-footer>
+  </p-dialog>
 </div>

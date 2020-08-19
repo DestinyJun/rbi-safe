@@ -14,7 +14,6 @@ export class StNoExamComponent implements OnInit {
   @Output()
   public eventNum: EventEmitter<any> = new EventEmitter<any>();
   public startExamNoticeModel: boolean = false;
-  public time: number = 0;
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
@@ -38,10 +37,11 @@ export class StNoExamComponent implements OnInit {
     { field: 'operating', header: '操作' },
   ];
   public noExamContent: Array<object> = [];
-  public content: any;
   public themeSub: Subscription;
   public pageNo: number = 1;
+  public content: any;
   public id: number;
+  public time: number = 0;
   public personnelTrainingRecordId: number;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,

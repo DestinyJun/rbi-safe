@@ -88,7 +88,15 @@ export class ArchiveWithinComponent implements OnInit {
     totalRecord: ''
   };
   public esDate = Es;
-
+  public file: any;
+  public fileName = '';
+  public uploadSubjectFinishDialog = false;
+  public fileDialog = false;
+  public finishData = {
+    'totalNumber': 0,
+    'realNumber': 0,
+    'log': []
+  };
   constructor(
     private toolSrv: PublicMethodService,
     private secRiskSrv: SecurityRiskService,
@@ -295,4 +303,36 @@ export class ArchiveWithinComponent implements OnInit {
       });
     }
   }
+
+  public openImport(): void  {
+    this.fileDialog = true;
+  }
+
+
+  public  selectFile(e): void {
+    this.fileName = e.files[0].name;
+    this.file = e.files[0];
+  }
+
+  public  submitClick(): void {
+    if (this.file){
+      this.toolSrv.setConfirmation('导入', '导入', () => {
+        const formData = new FormData();
+        formData.append('file', this.file);
+        console.log(formData);
+        this.secRiskSrv.riskExcelImportInside(formData).subscribe(res => {
+          console.log(res);
+          this.toolSrv.setToast('info', '提示', '操作成功');
+          this.finishData = res.data;
+          this.file = null;
+          this.fileName = '';
+          this.uploadSubjectFinishDialog = true;
+          this.fileDialog = false;
+        });
+      });
+    }else {
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
+    }
+  }
+
 }

@@ -54,4 +54,9 @@ export class GeneralInfoService {
     return this.http.post(`/training/findByMaterialId`, pamars, headerOption);
   }
 
+  // 生产运营日报
+  public complainProductionFindAll(params: any): Observable<any> {
+    return this.http.post('http://192.168.28.236:8099/complain/production/findAll', params);
+  }
+
 }

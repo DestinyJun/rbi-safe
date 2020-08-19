@@ -15,7 +15,6 @@ export class PdfViewComponent implements OnInit {
   public fileUrl: string | PDFSource | ArrayBuffer;
   public display = true;
   public showHeader = true;
-  public src = 'http://139.9.153.27/usr/work/wx/safeMaterial/安全文化_安全科技与科学安全生产观_徐德蜀.pdf';
   public totalPage = 1;
   public curPage = 1;
   // @ts-ignore
@@ -34,29 +33,11 @@ export class PdfViewComponent implements OnInit {
     if (navigator.platform !== 'Win32') {
       this.showHeader = false;
     }
-    console.log(this.fileView);
     this.fileView.onProgress.emit({loaded: 1, total: 100});
   }
 
   public hide(e): void {
     window.history.back();
-  }
-
-  loadPdf() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://139.9.153.27/usr/work/wx/safeMaterial/安全文化_安全科技与科学安全生产观_徐德蜀.pdf', true);
-    xhr.responseType = 'blob';
-
-    xhr.onload = (e: any) => {
-      console.log(xhr);
-      if (xhr.status === 200) {
-        console.log(xhr);
-        const blob = new Blob([xhr.response], {type: 'application/pdf'});
-        this.fileUrl = URL.createObjectURL(blob);
-      }
-    };
-
-    xhr.send();
   }
 
   public parsePath(): void {

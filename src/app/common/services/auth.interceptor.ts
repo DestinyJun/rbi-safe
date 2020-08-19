@@ -37,11 +37,30 @@ export class AuthInterceptor implements HttpInterceptor {
     `/notice/add`,
     `/importSubject`,
     `/training/importAdmin`,
+    `/healthExamine/excelImport`,
+    `/diseaseProtection/excelImport`,
+    `/occHealthMaintain/excelImport`,
+    `/occHealthEquipment/excelImport`,
+    `/health_project/excelImport`,
+    `/occHealthEndanger/excelImport`,
+    `/diseaseFactors/excelImport`,
+    `/dailyMonitoring/excelImport`,
+    `/regularMonitoring/excelImport`,
+    `/statusEvaluation/excelImport`,
+    `/health_project/excelwrite`,
+    `/statusEvaluation/excelwrite`,
+    `/regularMonitoring/excelwrite`,
+    `/dailyMonitoring/excelwrite`,
+    '/risk/excelImport_inside',
+    '/risk/excelImport_outside',
     `/training/importSpecialTrainings`,
     `/safeFourLevel/excelImport`,
     `/sendNewApp`,
     `/training/findByMaterialId`,
   ]; // 无需验证的请求地址
+  public skipUrlPre = [
+    `http://192.168.28.236:8099/complain/production/findAll`,
+  ]; // 跳过不需要验证且不加前缀的请求
   constructor(
     private globalService: GlobalService,
     private router: Router,
@@ -65,15 +84,17 @@ export class AuthInterceptor implements HttpInterceptor {
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (req.url.includes('/training/findByMaterialId')) {
+    if (this.skipUrlPre.indexOf(req.url) > -1) {
+      this.clonedRequest = req;
+    } else if (req.url.includes('/training/findByMaterialId')) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
       });
-      console.log(this.clonedRequest);
     } else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
     }else if (this.isSkipUrl(req.url)) {
+      console.log(req.url);
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
@@ -143,7 +164,9 @@ export class AuthInterceptor implements HttpInterceptor {
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (req.url.includes('/training/findByMaterialId')) {
+    if (this.skipUrlPre.indexOf(req.url) > -1) {
+      this.clonedRequest = req;
+    } else if (req.url.includes('/training/findByMaterialId')) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers

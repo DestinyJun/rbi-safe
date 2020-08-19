@@ -65,6 +65,24 @@
         </div>
       </div>
     </div>
+    <!--考试次数-->
+    <div class="ui-g-12 ui-md-12">
+      <label class="ui-g-3 ui-md-3 label">
+        <span>考试次数：</span>
+      </label>
+      <div class="ui-g-9 ui-md-9 input">
+        <input
+          [disabled]="ruleDisabled"
+          type="number" pInputText placeholder="请填写考试次数"
+          name="title" #title="ngModel"
+          required [(ngModel)]="ruleOperateField.frequency">
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger mt-2">
+          <div *ngIf="title.errors.required">
+            考试次数必须填写
+          </div>
+        </div>
+      </div>
+    </div>
     <!--考试名称-->
     <div class="ui-g-12 ui-md-12">
       <label class="ui-g-3 ui-md-3 label">

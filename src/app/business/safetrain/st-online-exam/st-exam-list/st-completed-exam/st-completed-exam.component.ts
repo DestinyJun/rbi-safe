@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CommpleteExamData, PageOption} from '../../../../../common/public/Api';
 import {Subscription} from 'rxjs';
 import {StOnlineExamService} from '../../../../../common/services/st-online-exam.service';
+import {PublicMethodService} from "../../../../../common/public/public-method.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-st-completed-exam',
   templateUrl: './st-completed-exam.component.html',
@@ -16,6 +18,7 @@ export class StCompletedExamComponent implements OnInit {
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
   public showDetail: any;
+  public startExamNoticeModel: boolean = false;
   public singleChoiceQuestions: Array<object> = [];
   public multipleChoiceQuestions: Array<object> = [];
   public judgmentQuestions: Array<object> = [];
@@ -25,6 +28,10 @@ export class StCompletedExamComponent implements OnInit {
     totalRecord: 10,
     pageSize: 10
   };
+  public content: any;
+  public id: number;
+  public time: number = 0;
+  public personnelTrainingRecordId: number;
   public pageNo: number = 1;
   public completedExamTitle: Array<object>  = [
     { field: 'id', header: '试卷id' },
@@ -39,7 +46,9 @@ export class StCompletedExamComponent implements OnInit {
   ];
   public completedExamContent: Array<object> = [];
   constructor(
-    private stOnlineExamSrv: StOnlineExamService
+    private stOnlineExamSrv: StOnlineExamService,
+    private toolSrv: PublicMethodService,
+    private router: Router,
   ) {
   }
   public themeSub: Subscription;
@@ -82,6 +91,32 @@ export class StCompletedExamComponent implements OnInit {
       this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#') , score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.answerResults.split('#') : ''});
     });
     console.log(this.commpleteExamData);
+  }
+
+  // 点击开始考试
+  public  showNoticeModelClick(e): void {
+    console.log(e);
+    // e.flag = 0;
+    if (!e.flag) {
+      this.toolSrv.setToast('warn', '考试提示', '未完成学习，不能进行考试');
+    } else {
+      this.id = e.id;
+      this.time = e.duration.slice(0, e.duration.length - 2);
+      this.personnelTrainingRecordId = e.personnelTrainingRecordId;
+      this.content = e.examNotes;
+      this.startExamNoticeModel = true;
+    }
+  }
+// 确认开始考试
+  public  startExamClick(): void {
+    this.router.navigate(['/home/strain/exam/tasking'], {queryParams: {id: this.id, time: this.time, personnelTrainingRecordId: this.personnelTrainingRecordId}});
+  }
+  public judgeTimeIsOrInPeriod(beginDateStr, endDateStr): boolean {
+    // tslint:disable-next-line:one-variable-per-declaration
+    const curDate = new Date(),
+      beginDate = new Date(beginDateStr),
+      endDate = new Date(endDateStr);
+    return curDate >= beginDate && curDate <= endDate;
   }
 
 }
