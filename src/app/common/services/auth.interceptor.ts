@@ -59,7 +59,7 @@ export class AuthInterceptor implements HttpInterceptor {
     `/training/findByMaterialId`,
   ]; // 无需验证的请求地址
   public skipUrlPre = [
-    `http://192.168.28.236:8099/complain/production/findAll`,
+    `http://192.168.28.236:8000/complain/production/findAll`,
   ]; // 跳过不需要验证且不加前缀的请求
   constructor(
     private globalService: GlobalService,
@@ -86,12 +86,14 @@ export class AuthInterceptor implements HttpInterceptor {
     this.store.dispatch({type: 'false'});
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
-    } else if (req.url.includes('/training/findByMaterialId')) {
-      this.clonedRequest = req.clone({
-        url: environment.url_safe + req.url,
-        headers: req.headers
-      });
-    } else if (req.url.includes('/usr/work')) {
+    }
+    // else if (req.url.includes('/training/findByMaterialId')) {
+    //   this.clonedRequest = req.clone({
+    //     url: environment.url_safe + req.url,
+    //     headers: req.headers
+    //   });
+    // }
+    else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
     }else if (this.isSkipUrl(req.url)) {
       console.log(req.url);
@@ -107,11 +109,16 @@ export class AuthInterceptor implements HttpInterceptor {
           .set('Content-type', 'application/json; charset=UTF-8')
       });
     } else {
+      // 判断是否有请求头，没有则使用本地token
+      let accessToken = req.headers.get('accessToken');
+      if (!accessToken) { // 请求中没有token就使用本地的token
+        accessToken = this.localSessionStorage.get('token');
+      }
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
-          .set('accessToken', this.localSessionStorage.get('token'))
+          .set('accessToken', accessToken)
       });
     }
     return next.handle(this.clonedRequest).pipe(

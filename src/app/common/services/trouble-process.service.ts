@@ -59,4 +59,8 @@ export class TroubleProcessService {
   public getTroubleArchiveDetailByCode(pamars): Observable<any>  {
     return this.http.post(`/hid/findFinishDetailByCode`, pamars);
   }
+  // 隐患档案导出
+  public hidExcelwrite(): Observable<any>  {
+    return this.http.post(`/hid/excelwrite`, null);
+  }
 }

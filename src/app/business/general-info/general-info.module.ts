@@ -1,22 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { GeneralInfoRoutingModule } from './general-info-routing.module';
-import { GeneralInfoComponent } from './general-info/general-info.component';
-import { GiBulletinBoardComponent } from './gi-bulletin-board/gi-bulletin-board.component';
-import { GiInfoReleaseComponent } from './gi-info-release/gi-info-release.component';
+import {GeneralInfoRoutingModule} from './general-info-routing.module';
+import {GeneralInfoComponent} from './general-info/general-info.component';
+import {GiBulletinBoardComponent} from './gi-bulletin-board/gi-bulletin-board.component';
+import {GiInfoReleaseComponent} from './gi-info-release/gi-info-release.component';
 import {NgxValidatorModule} from '@why520crazy/ngx-validator';
 import {
-    ButtonModule,
-    CalendarModule,
-    DialogModule,
-    InputTextareaModule,
-    InputTextModule,
-    ScrollPanelModule
+  ButtonModule,
+  CalendarModule,
+  DialogModule,
+  InputTextareaModule,
+  InputTextModule,
+  ScrollPanelModule
 } from 'primeng/primeng';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import {ReactiveFormsModule} from '@angular/forms';
-import { DailyOperationReportingComponent } from './daily-operation-reporting/daily-operation-reporting.component';
+import {DailyOperationReportingComponent} from './daily-operation-reporting/daily-operation-reporting.component';
 
 
 @NgModule({
@@ -26,18 +26,22 @@ import { DailyOperationReportingComponent } from './daily-operation-reporting/da
     GiInfoReleaseComponent,
     DailyOperationReportingComponent
   ],
-    imports: [
-        CommonModule,
-        GeneralInfoRoutingModule,
-        NgxValidatorModule,
-        ScrollPanelModule,
-        PaginationModule,
-        InputTextModule,
-        ButtonModule,
-        DialogModule,
-        InputTextareaModule,
-        ReactiveFormsModule,
-        CalendarModule
-    ]
+  imports: [
+    CommonModule,
+    GeneralInfoRoutingModule,
+    NgxValidatorModule,
+    ScrollPanelModule,
+    PaginationModule,
+    InputTextModule,
+    ButtonModule,
+    DialogModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
+    CalendarModule
+  ],
+  exports: [
+    DailyOperationReportingComponent
+  ]
 })
-export class GeneralInfoModule { }
+export class GeneralInfoModule {
+}

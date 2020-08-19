@@ -18,11 +18,13 @@
 
   .tables {
     border: 1px #333333 solid;
+    min-width: 910px;
 
     td {
       text-align: center;
       border-top: 1px #333333 solid;
       border-right: 1px #333333 solid;
+      min-height: 20px;
     }
 
     .table:nth-child(1) {
@@ -32,6 +34,11 @@
         }
         td:last-child {
           border-right:none;
+        }
+      }
+      tr:last-child {
+        td {
+          border-bottom: none;
         }
       }
     }
@@ -44,6 +51,11 @@
           border-right:none;
         }
       }
+      tr:last-child {
+        td {
+          border-bottom: none;
+        }
+      }
     }
     .table:nth-child(3) {
       tr {
@@ -54,6 +66,11 @@
           border-right:none;
         }
       }
+      tr:last-child {
+        td {
+          border-bottom: none;
+        }
+      }
     }
     .table:nth-child(4) {
       tr {
@@ -61,11 +78,21 @@
           border-right:none;
         }
       }
+      tr:last-child {
+        td {
+          border-bottom: none;
+        }
+      }
     }
     .table:nth-child(5) {
       tr {
         td:last-child {
           border-right:none;
+        }
+      }
+      tr:last-child {
+        td {
+          border-bottom: none;
         }
       }
     }

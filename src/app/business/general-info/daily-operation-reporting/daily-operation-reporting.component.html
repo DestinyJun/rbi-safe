@@ -25,7 +25,7 @@
             <td colspan="8">矿业生产</td>
           </tr>
           <tr>
-            <td rowspan="2" colspan="2">名称</td>
+            <td colspan="2" rowspan="2">名称</td>
             <td rowspan="2">月计划</td>
             <td colspan="2">当日</td>
             <td colspan="2">月累计</td>
@@ -38,7 +38,7 @@
             <td style="border-right: 0.5px #333333 solid;">交库量</td>
           </tr>
           <tr>
-            <td rowspan="6">自<br>采<br>矿<br>（t）</td>
+            <td rowspan="5">自<br>采<br>矿<br>（t）</td>
             <td>猫场</td>
             <td>{{zck ? zck.mc.monthPlan : ''}}</td>
             <td>{{zck ? zck.mc.dailyOre : ''}}</td>
@@ -75,7 +75,7 @@
             <td>{{zck ? zck.cch.schedule : ''}}</td>
           </tr>
           <tr>
-            <td rowspan="2">合计</td>
+            <td>合计</td>
             <td>{{zck ? zck.monthPlanTotal : ''}}</td>
             <td>{{zck ? zck.dailyOreTotal : ''}}</td>
             <td>{{zck ? zck.dailyReferOreTotal : ''}}</td>
@@ -95,7 +95,7 @@
             <td>进度超/次</td>
           </tr>
           <tr>
-            <td rowspan="4">外<br>销<br>矿<br>（t）</td>
+            <td rowspan="6">外<br>销<br>矿<br>（t）</td>
             <td>华锦</td>
             <td>{{wxk ? wxk.hj.monthPlan : ''}}</td>
             <td>{{wxk ? wxk.hj.daily : ''}}</td>
@@ -103,18 +103,32 @@
             <td>{{wxk ? wxk.hj.schedule : ''}}</td>
           </tr>
           <tr>
-            <td style="border-left: none">高精矿</td>
-            <td>{{wxk ? wxk.gjk.monthPlan : ''}}</td>
-            <td>{{wxk ? wxk.gjk.daily : ''}}</td>
-            <td>{{wxk ? wxk.gjk.month : ''}}</td>
-            <td>{{wxk ? wxk.gjk.schedule : ''}}</td>
+            <td style="border-left: none">高精粉矿</td>
+            <td rowspan="2">{{wxk ? wxk.gjfk.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.gjfk.daily : ''}}</td>
+            <td>{{wxk ? wxk.gjfk.month : ''}}</td>
+            <td rowspan="2">{{wxk ? wxk.gjfk.schedule : ''}}</td>
           </tr>
           <tr>
-            <td style="border-left: none">其他</td>
-            <td>{{wxk ? wxk.qt.monthPlan : ''}}</td>
-            <td>{{wxk ? wxk.qt.daily : ''}}</td>
-            <td>{{wxk ? wxk.qt.month : ''}}</td>
-            <td>{{wxk ? wxk.qt.schedule : ''}}</td>
+            <td style="border-left: none">高精块矿</td>
+<!--            <td>{{wxk ? wxk.gjk.monthPlan : ''}}</td>-->
+            <td>{{wxk ? wxk.gjk.daily : ''}}</td>
+            <td style="border-right: 1px #333333 solid;">{{wxk ? wxk.gjk.month : ''}}</td>
+<!--            <td>{{wxk ? wxk.gjk.schedule : ''}}</td>-->
+          </tr>
+          <tr>
+            <td style="border-left: none">山西新材料</td>
+            <td>{{wxk ? wxk.sxxcl.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.sxxcl.daily : ''}}</td>
+            <td>{{wxk ? wxk.sxxcl.month : ''}}</td>
+            <td>{{wxk ? wxk.sxxcl.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td style="border-left: none">云南文山</td>
+            <td>{{wxk ? wxk.ynws.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.ynws.daily : ''}}</td>
+            <td>{{wxk ? wxk.ynws.month : ''}}</td>
+            <td>{{wxk ? wxk.ynws.schedule : ''}}</td>
           </tr>
           <tr>
             <td style="border-left: none">合计</td>

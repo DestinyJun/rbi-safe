@@ -46,17 +46,13 @@ export class GeneralInfoService {
 
   // 根据资料id查资料路径
   public  trainingFindByMaterialId(pamars, token): Observable<any> {
-    const headers: HttpHeaders = new HttpHeaders();
     const headerOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'accessToken': token})};
-    headers.set('Content-type', 'application/json; charset=UTF-8')
-      .set('accessToken', token);
-    console.log(headers);
     return this.http.post(`/training/findByMaterialId`, pamars, headerOption);
   }
 
   // 生产运营日报
   public complainProductionFindAll(params: any): Observable<any> {
-    return this.http.post('http://192.168.28.236:8099/complain/production/findAll', params);
+    return this.http.post('http://192.168.28.236:8000/complain/production/findAll', params);
   }
 
 }
