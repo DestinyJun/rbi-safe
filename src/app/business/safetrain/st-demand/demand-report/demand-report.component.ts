@@ -88,7 +88,7 @@ export class DemandReportComponent implements OnInit {
           f = false;
           this.selectBoxes[index] = [0];
         } else {
-          this.selectBoxes[index] = [0];
+          this.selectBoxes[index] = [1];
         }
       });
       if (this.reportTableSelect.length > 0) {
