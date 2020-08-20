@@ -314,37 +314,35 @@
       </div>
     </div>
     <div class="ui-g-12">
-      <table class="table" border="0" cellspacing="0" cellpadding="0" style="width: 100%">
-        <tr>
-<!--          drwgdl	是	当日外购电量-->
-<!--          wgdlylj	是	外购电量月累计-->
-<!--          ksjxscl	是	矿山水处理-->
-<!--          zyjs	是	计事-->
-          <td>动力供应</td>
-          <td>当日外购电量(万kwh)</td>
-          <td>{{zj ? zj.drwgdl : ''}}</td>
-          <td>外购电量月累计(万kwh)</td>
-          <td>{{zj ? zj.wgdlylj : ''}}</td>
-          <td>环保</td>
-          <td>矿山井下处理</td>
-          <td>{{zj ? zj.ksjxscl : ''}}</td>
-        </tr>
-        <tr>
-          <td colspan="8">
-            <span class="h5" style="font-weight: bold; padding: 6px 0;display: inline-block">重&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="8">
-            <div style="min-height: 60px; text-align: start; display: block">
+      <div  class="table" style="width: 100%;">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
+          <tr>
+            <td>动力供应</td>
+            <td>当日外购电量(万kwh)</td>
+            <td>{{zj ? zj.drwgdl : ''}}</td>
+            <td>外购电量月累计(万kwh)</td>
+            <td>{{zj ? zj.wgdlylj : ''}}</td>
+            <td>环保</td>
+            <td>矿山井下处理</td>
+            <td>{{zj ? zj.ksjxscl : ''}}</td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <span class="h5" style="font-weight: bold; padding: 6px 0;display: inline-block">重&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <div style="min-height: 60px; text-align: start; display: block">
 
               <pre style="font-size: 16px">
                 {{zj ? zj.zyjs : ''}}
               </pre>
-            </div>
-          </td>
-        </tr>
-      </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>
