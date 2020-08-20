@@ -38,7 +38,8 @@ export class ListCustomizationComponent implements OnInit {
   public totalFraction = 0;
   // 多个响应式表单
   public contentForms: Array<FormGroup> = [];
-
+  // 记录分数
+  public scores = [];
   constructor(
     private themeSrv: ThemeService,
     private req: ListCustomizationService,
@@ -186,11 +187,13 @@ export class ListCustomizationComponent implements OnInit {
   }
 
   public clearData(): void {
-    this.contentForms = [];
+    this.contentForms.splice(0);
     this.listName = null;
     this.position = null;
     this.dataTree = null;
+    this.id = null;
     this.totalFraction = 0;
+    this.scores.splice(0);
   }
 
   public resetAllData(): void {
@@ -204,6 +207,8 @@ export class ListCustomizationComponent implements OnInit {
     newform = this.fb.group(content);
     this.contentForms.push(newform);
     this['form' + this.contentForms.length] = newform;
+    // 增加一项纪录分数标识
+    this.scores.push(0);
   }
 
   public save(dataTree): void {
@@ -245,13 +250,17 @@ export class ListCustomizationComponent implements OnInit {
   }
 
   public getFraction(e): void {
-    // tslint:disable-next-line:radix
-    this.totalFraction += Number.parseInt(e.target.value);
+    this.totalFraction = 0;
+    this.scores.forEach(score => {
+      this.totalFraction += Number(score);
+    });
   }
 
   public remove(form: FormGroup): void {
     // tslint:disable-next-line:radix
     this.totalFraction -= Number.parseInt(form.get('fraction').value);
-    this.contentForms.splice(this.contentForms.indexOf(form), 1);
+    const i = this.contentForms.indexOf(form);
+    this.contentForms.splice(i, 1);
+    this.scores.splice(i, 1);
   }
 }

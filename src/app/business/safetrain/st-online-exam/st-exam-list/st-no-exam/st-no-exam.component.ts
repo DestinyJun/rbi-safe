@@ -60,7 +60,7 @@ export class StNoExamComponent implements OnInit {
       if (res.data.contents){
         this.noExamContent = res.data.contents.map(v => {
           v.processingStatus = '未完成';
-          v.duration = v.duration ? v.duration + '分钟' : '';
+          v.duration = v.duration ? v.duration : '';
           v.operating = '开始考试';
           return v;
         });
@@ -85,7 +85,8 @@ export class StNoExamComponent implements OnInit {
       this.toolSrv.setToast('warn', '考试提示', '未完成学习，不能进行考试');
     } else {
       this.id = e.id;
-      this.time = e.duration.slice(0, e.duration.length - 2);
+      // this.time = e.duration.slice(0, e.duration.length - 2);
+      this.time = e.duration;
       this.personnelTrainingRecordId = e.personnelTrainingRecordId;
       this.content = e.examNotes;
       this.startExamNoticeModel = true;

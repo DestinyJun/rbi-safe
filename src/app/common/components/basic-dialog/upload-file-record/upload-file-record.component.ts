@@ -12,7 +12,7 @@ export class UploadFileRecordComponent implements OnInit {
     width: any,
     dialog: boolean,
     title: any,
-    totalNumber: any,
+    failSize: any,
     realNumber: any
     uploadOption: any,
   };

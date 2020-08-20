@@ -48,9 +48,10 @@ export class StTakingExamComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(val => {
+      console.log(val);
       this.paperId = val.id;
       // this.paparTime = new Date();
-      this.durationTime = Number(val.time);
+      this.durationTime = Number(val.time.toString().replace('分钟', ''));
       console.log(this.durationTime);
       this.personnelTrainingRecordId = Number(val.personnelTrainingRecordId);
     });

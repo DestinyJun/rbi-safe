@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
+import {LocalStorageService} from '../../../../common/services/local-storage.service';
 
 @Component({
   selector: 'app-st-exam-list',
@@ -12,7 +13,15 @@ export class StExamListComponent implements OnInit {
   public noExamNum: number =  0;
   public noWrongNum: number =  0;
   public themeSub: Subscription;
+
+  constructor(
+    private storage: LocalStorageService
+  ) {
+  }
+
   ngOnInit() {
+    // 恢复现场
+    this.index = Number(this.storage.get('st-exam-list-active')) || 0;
   }
 
 
@@ -29,6 +38,12 @@ export class StExamListComponent implements OnInit {
     setTimeout(() => {
       this.noWrongNum = e;
     }, 10);
+  }
+
+  public activeIndexChange(e): void {
+    // 保存现场
+    this.storage.set('st-exam-list-active', e);
+    console.log(e);
   }
 
 }

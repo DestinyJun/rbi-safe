@@ -47,4 +47,6 @@ export class HomeComponent implements OnInit {
   public show(): void {
       this.headerCilde.showNotice = false;
   }
+
+
 }

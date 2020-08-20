@@ -133,7 +133,7 @@
           </div>
           <div class="ui-g-2 ui-md-2 dialog-input" >
             <p-radioButton name="groupname1" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" (onClick)="selectHandleType(1)" formControlName="ifDeal" [disabled]="this.btnList.length === 0"></p-radioButton>
-            <p-radioButton name="groupname1" value="否" label="否" (onClick)="selectHandleType(0)" formControlName="ifDeal" [disabled]="addReport.get('ifDeal').value === '是' || this.btnList.length === 0"></p-radioButton>
+            <p-radioButton name="groupname1" value="否" label="否" (onClick)="selectHandleType(0)" formControlName="ifDeal" [disabled]="(addReport.get('ifDeal').value === '是' && initIsHandle) || this.btnList.length === 0"></p-radioButton>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">

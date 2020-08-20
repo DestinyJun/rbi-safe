@@ -187,6 +187,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.isSetBar = this.localSrv.get('isSetBar');
     this.limitDataBar = this.localSrv.getObject('limitData');
+    console.log(this.isSetBar, this.limitDataBar);
     this.limitDataBar.forEach(v => {
       if (v.permissionName === '系统设置'){
         this.limitDataBarTwo = v.sysPermissionList;

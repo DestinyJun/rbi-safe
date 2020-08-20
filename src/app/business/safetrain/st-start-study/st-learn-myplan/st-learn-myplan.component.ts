@@ -35,6 +35,7 @@ export class StLearnMyplanComponent implements OnInit {
         value.finishStudyTime = value.finishStudyTime || 0;
         value.trainingDuration = value.trainingDuration || 100;
         value.progress = Math.ceil((value.finishStudyTime / value.trainingDuration) * 100);
+        value.progress = value.progress >= 100 ? 100 : value.progress;
       });
       this.myPlanList = res.data.contents;
       console.log(this.myPlanList);

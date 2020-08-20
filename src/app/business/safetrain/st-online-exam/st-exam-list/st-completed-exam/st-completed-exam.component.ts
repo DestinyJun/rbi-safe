@@ -72,7 +72,9 @@ export class StCompletedExamComponent implements OnInit {
     this.initCompleteExamData();
   }
   public  detailClick(e): void {
+    console.log(e);
     this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, personnelTrainingRecordId: e.personnelTrainingRecordId}).subscribe(res => {
+      console.log(res);
       this.singleChoiceQuestions = res.data.singleChoiceQuestions;
       this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
       this.judgmentQuestions = res.data.judgmentQuestions;
@@ -101,7 +103,8 @@ export class StCompletedExamComponent implements OnInit {
       this.toolSrv.setToast('warn', '考试提示', '未完成学习，不能进行考试');
     } else {
       this.id = e.id;
-      this.time = e.duration.slice(0, e.duration.length - 2);
+      // this.time = e.duration.slice(0, e.duration.length - 2);
+      this.time = e.duration;
       this.personnelTrainingRecordId = e.personnelTrainingRecordId;
       this.content = e.examNotes;
       this.startExamNoticeModel = true;

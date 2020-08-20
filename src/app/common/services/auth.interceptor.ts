@@ -59,7 +59,7 @@ export class AuthInterceptor implements HttpInterceptor {
     `/training/findByMaterialId`,
   ]; // 无需验证的请求地址
   public skipUrlPre = [
-    `http://192.168.28.236:8000/complain/production/findAll`,
+    `http://10.40.1.121:8000/complain/production/findAll`,
   ]; // 跳过不需要验证且不加前缀的请求
   constructor(
     private globalService: GlobalService,

@@ -22,6 +22,10 @@ export class DailyOperationReportingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // 获取前一天的日期
+    const timeStamp = new Date().getTime() - 24 * 60 * 60 * 1000;
+    this.date = new Date(timeStamp);
+    this.getData(this.date);
   }
 
   public getData(e): void {

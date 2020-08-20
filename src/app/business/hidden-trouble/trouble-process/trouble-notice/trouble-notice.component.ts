@@ -39,6 +39,7 @@ export class TroubleNoticeComponent implements OnInit {
       this.time = this.datePipe.transform(val.time, 'yyyy-MM-dd');
     });
     const rectificationOpinion = this.localSrv.get('rectificationOpinions');
+    console.log(rectificationOpinion);
     this.addNotice = this.fb.group({
       correctorId: new FormControl('', Validators.required),
       hidDangerCode: new FormControl(this.code, Validators.required),
@@ -46,7 +47,7 @@ export class TroubleNoticeComponent implements OnInit {
       hidTypePerson: new FormControl(''),
       hidTypeThing: new FormControl(''),
       hidDangerGrade: new FormControl(this.grade),
-      rectificationOpinions: new FormControl({value: rectificationOpinion, disabled: rectificationOpinion !== 'null'}, Validators.required),
+      rectificationOpinions: new FormControl({value: rectificationOpinion !== 'null' ? rectificationOpinion : '', disabled: rectificationOpinion !== 'null'}, Validators.required),
       specifiedRectificationTime: new FormControl({value: this.time, disabled: this.time}, Validators.required),
     });
     this.getCorrector();
