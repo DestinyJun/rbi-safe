@@ -14,7 +14,6 @@ export class StNoExamComponent implements OnInit {
   @Output()
   public eventNum: EventEmitter<any> = new EventEmitter<any>();
   public startExamNoticeModel: boolean = false;
-  public time: number = 0;
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
@@ -38,10 +37,11 @@ export class StNoExamComponent implements OnInit {
     { field: 'operating', header: '操作' },
   ];
   public noExamContent: Array<object> = [];
-  public content: any;
   public themeSub: Subscription;
   public pageNo: number = 1;
+  public content: any;
   public id: number;
+  public time: number = 0;
   public personnelTrainingRecordId: number;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
@@ -60,7 +60,7 @@ export class StNoExamComponent implements OnInit {
       if (res.data.contents){
         this.noExamContent = res.data.contents.map(v => {
           v.processingStatus = '未完成';
-          v.duration = v.duration ? v.duration + '分钟' : '';
+          v.duration = v.duration ? v.duration : '';
           v.operating = '开始考试';
           return v;
         });
@@ -85,7 +85,8 @@ export class StNoExamComponent implements OnInit {
       this.toolSrv.setToast('warn', '考试提示', '未完成学习，不能进行考试');
     } else {
       this.id = e.id;
-      this.time = e.duration.slice(0, e.duration.length - 2);
+      // this.time = e.duration.slice(0, e.duration.length - 2);
+      this.time = e.duration;
       this.personnelTrainingRecordId = e.personnelTrainingRecordId;
       this.content = e.examNotes;
       this.startExamNoticeModel = true;

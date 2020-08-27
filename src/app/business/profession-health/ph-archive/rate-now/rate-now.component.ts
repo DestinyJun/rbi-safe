@@ -38,6 +38,14 @@ export class RateNowComponent implements OnInit {
     totalRecord: ''
   };
   public esDate = Es;
+  public fileName = '';
+  public uploadSubjectFinishDialog = false;
+  public fileDialog = false;
+  public finishData = {
+    'successSize': 0,
+    'failSize': 0,
+    'failTecord': []
+  };
   public pathFile: any;
   public file: any;
   constructor(
@@ -160,4 +168,42 @@ export class RateNowComponent implements OnInit {
     window.open(this.pathFile);
   }
 
+
+
+  public export(): void {
+    this.phealthSrv.statusEvaluationExcelwrite().subscribe(res => {
+      window.open(res.data.path);
+    });
+  }
+
+  public openImport(): void  {
+    this.fileDialog = true;
+  }
+
+
+  public  selectFile1(e): void {
+    this.fileName = e.files[0].name;
+    this.file = e.files[0];
+  }
+
+  public  submitClick(): void {
+    if (this.file){
+      this.toolSrv.setConfirmation('导入', '导入', () => {
+        const formData = new FormData();
+        formData.append('file', this.file);
+        console.log(formData);
+        this.phealthSrv.statusEvaluationExcelImport(formData).subscribe(res => {
+          console.log(res);
+          this.toolSrv.setToast('info', '提示', '操作成功');
+          this.finishData = res.data;
+          this.file = null;
+          this.fileName = '';
+          this.uploadSubjectFinishDialog = true;
+          this.fileDialog = false;
+        });
+      });
+    }else {
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
+    }
+  }
 }

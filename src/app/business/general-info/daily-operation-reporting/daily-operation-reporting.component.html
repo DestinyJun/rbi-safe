@@ -1,0 +1,348 @@
+<div class="main">
+  <div class="ui-g-12 text-center">
+    <div>
+      <span class="title h5" style="font-weight: bold">中国铝业贵州分公司生产运营日报</span>
+<!--      <span style="float: right">Q/CHALCO-GZ 04 JL0303-2019</span>-->
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div style="position: relative; height: 40px; line-height: 40px">
+      <span class="time">
+        日期：
+        <p-calendar inputId="basic" [(ngModel)]="date" [dateFormat]="'yy-mm-dd'" (onSelect)="getData($event)" [locale]="esDate" placeholder="请选择时间"></p-calendar>
+      </span>
+<!--      <span class="marcher">值班调度：张麻子</span>-->
+    </div>
+  </div>
+  <div class="ui-g-12 tables">
+    <div class="ui-g-12 text-center">
+      <span class="h5" style="padding: 6px 0; display: inline-block;font-weight: bold">矿业生产及销售情况</span>
+    </div>
+    <div class="ui-g-12">
+      <div class="table" style="width: 55%; height: 230px; display: inline-block">
+        <table cellspacing="0" cellpadding="0" style="width: 100%; height: 100%">
+          <tr>
+            <td colspan="8">矿业生产</td>
+          </tr>
+          <tr>
+            <td colspan="2" rowspan="2">名称</td>
+            <td rowspan="2">月计划</td>
+            <td colspan="2">当日</td>
+            <td colspan="2">月累计</td>
+            <td rowspan="2">交库进度超/次</td>
+          </tr>
+          <tr>
+            <td>出矿量</td>
+            <td>交库量</td>
+            <td>出矿量</td>
+            <td style="border-right: 0.5px #333333 solid;">交库量</td>
+          </tr>
+          <tr>
+            <td rowspan="5">自<br>采<br>矿<br>（t）</td>
+            <td>猫场</td>
+            <td>{{zck ? zck.mc.monthPlan : ''}}</td>
+            <td>{{zck ? zck.mc.dailyOre : ''}}</td>
+            <td>{{zck ? zck.mc.dailyReferOre : ''}}</td>
+            <td>{{zck ? zck.mc.monthOre : ''}}</td>
+            <td>{{zck ? zck.mc.monthReferOre : ''}}</td>
+            <td>{{zck ? zck.mc.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>麦坝</td>
+            <td>{{zck ? zck.mb.monthPlan : ''}}</td>
+            <td>{{zck ? zck.mb.dailyOre : ''}}</td>
+            <td>{{zck ? zck.mb.dailyReferOre : ''}}</td>
+            <td>{{zck ? zck.mb.monthOre : ''}}</td>
+            <td>{{zck ? zck.mb.monthReferOre : ''}}</td>
+            <td>{{zck ? zck.mb.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>坛罐窑</td>
+            <td>{{zck ? zck.tgj.monthPlan : ''}}</td>
+            <td>{{zck ? zck.tgj.dailyOre : ''}}</td>
+            <td>{{zck ? zck.tgj.dailyReferOre : ''}}</td>
+            <td>{{zck ? zck.tgj.monthOre : ''}}</td>
+            <td>{{zck ? zck.tgj.monthReferOre : ''}}</td>
+            <td>{{zck ? zck.tgj.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>长冲河</td>
+            <td>{{zck ? zck.cch.monthPlan : ''}}</td>
+            <td>{{zck ? zck.cch.dailyOre : ''}}</td>
+            <td>{{zck ? zck.cch.dailyReferOre : ''}}</td>
+            <td>{{zck ? zck.cch.monthOre : ''}}</td>
+            <td>{{zck ? zck.cch.monthReferOre : ''}}</td>
+            <td>{{zck ? zck.cch.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>合计</td>
+            <td>{{zck ? zck.monthPlanTotal : ''}}</td>
+            <td>{{zck ? zck.dailyOreTotal : ''}}</td>
+            <td>{{zck ? zck.dailyReferOreTotal : ''}}</td>
+            <td>{{zck ? zck.monthOreTotal : ''}}</td>
+            <td>{{zck ? zck.monthReferOreTotal : ''}}</td>
+            <td>{{zck ? zck.scheduleTotal : ''}}</td>
+          </tr>
+        </table>
+      </div>
+      <div  class="table" style="width: 45%; height: 230px; display: inline-block">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%;  height: 100%">
+          <tr>
+            <td colspan="2">名称</td>
+            <td>月计划</td>
+            <td>当日</td>
+            <td>月累计</td>
+            <td>进度超/次</td>
+          </tr>
+          <tr>
+            <td rowspan="6">外<br>销<br>矿<br>（t）</td>
+            <td>华锦</td>
+            <td>{{wxk ? wxk.hj.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.hj.daily : ''}}</td>
+            <td>{{wxk ? wxk.hj.month : ''}}</td>
+            <td>{{wxk ? wxk.hj.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td style="border-left: none">高精粉矿</td>
+            <td rowspan="2">{{wxk ? wxk.gjfk.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.gjfk.daily : ''}}</td>
+            <td>{{wxk ? wxk.gjfk.month : ''}}</td>
+            <td rowspan="2">{{wxk ? wxk.gjfk.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td style="border-left: none">高精块矿</td>
+<!--            <td>{{wxk ? wxk.gjk.monthPlan : ''}}</td>-->
+            <td>{{wxk ? wxk.gjk.daily : ''}}</td>
+            <td style="border-right: 1px #333333 solid;">{{wxk ? wxk.gjk.month : ''}}</td>
+<!--            <td>{{wxk ? wxk.gjk.schedule : ''}}</td>-->
+          </tr>
+          <tr>
+            <td style="border-left: none">山西新材料</td>
+            <td>{{wxk ? wxk.sxxcl.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.sxxcl.daily : ''}}</td>
+            <td>{{wxk ? wxk.sxxcl.month : ''}}</td>
+            <td>{{wxk ? wxk.sxxcl.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td style="border-left: none">云南文山</td>
+            <td>{{wxk ? wxk.ynws.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.ynws.daily : ''}}</td>
+            <td>{{wxk ? wxk.ynws.month : ''}}</td>
+            <td>{{wxk ? wxk.ynws.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td style="border-left: none">合计</td>
+            <td>{{wxk ? wxk.monthPlanTotal : ''}}</td>
+            <td>{{wxk ? wxk.dailyTotal : ''}}</td>
+            <td>{{wxk ? wxk.monthTotal : ''}}</td>
+            <td>{{wxk ? wxk.scheduleTotal : ''}}</td>
+          </tr>
+          <tr>
+            <td colspan="2">剥离量(m2)</td>
+            <td>{{wxk ? wxk.bll.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.bll.daily : ''}}</td>
+            <td>{{wxk ? wxk.bll.month : ''}}</td>
+            <td>{{wxk ? wxk.bll.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td colspan="2">开拓量(m2)</td>
+            <td>{{wxk ? wxk.ktl.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.ktl.daily : ''}}</td>
+            <td>{{wxk ? wxk.ktl.month : ''}}</td>
+            <td>{{wxk ? wxk.ktl.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td colspan="2">采切量(m2)</td>
+            <td>{{wxk ? wxk.cql.monthPlan : ''}}</td>
+            <td>{{wxk ? wxk.cql.daily : ''}}</td>
+            <td>{{wxk ? wxk.cql.month : ''}}</td>
+            <td>{{wxk ? wxk.cql.schedule : ''}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div  class="table"  style="width: 55%; height: 240px; display: inline-block">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; height: 100%">
+          <tr>
+            <td colspan="7">
+              <span class="h5" style="font-weight: bold; display: inline-block; padding: 6px 0">合金生产</span>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="2">名称</td>
+            <td rowspan="2">月计划</td>
+            <td colspan="2">当日</td>
+            <td colspan="2">月累计</td>
+            <td rowspan="2">进度超/次</td>
+          </tr>
+          <tr>
+            <td>生产量</td>
+            <td>交库量</td>
+            <td>生产量</td>
+            <td style="border-right: 1px #333333 solid;">交库量</td>
+          </tr>
+          <tr>
+            <td>合金棒</td>
+            <td>{{hjsc ? hjsc.hjb.monthPlan : ''}}</td>
+            <td>{{hjsc ? hjsc.hjb.daily : ''}}</td>
+            <td>{{hjsc ? hjsc.hjb.dailyRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.hjb.month : ''}}</td>
+            <td>{{hjsc ? hjsc.hjb.monthRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.hjb.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>扁锭</td>
+            <td>{{hjsc ? hjsc.bd.monthPlan : ''}}</td>
+            <td>{{hjsc ? hjsc.bd.daily : ''}}</td>
+            <td>{{hjsc ? hjsc.bd.dailyRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.bd.month : ''}}</td>
+            <td>{{hjsc ? hjsc.bd.monthRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.bd.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>线杆</td>
+            <td>{{hjsc ? hjsc.xg.monthPlan : ''}}</td>
+            <td>{{hjsc ? hjsc.xg.daily : ''}}</td>
+            <td>{{hjsc ? hjsc.xg.dailyRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.xg.month : ''}}</td>
+            <td>{{hjsc ? hjsc.xg.monthRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.xg.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>铸造铝合金</td>
+            <td>{{hjsc ? hjsc.zzlhj.monthPlan : ''}}</td>
+            <td>{{hjsc ? hjsc.zzlhj.daily : ''}}</td>
+            <td>{{hjsc ? hjsc.zzlhj.dailyRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.zzlhj.month : ''}}</td>
+            <td>{{hjsc ? hjsc.zzlhj.monthRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.zzlhj.schedule : ''}}</td>
+          </tr>
+          <tr>
+            <td>精铝</td>
+            <td>{{hjsc ? hjsc.jl.monthPlan : ''}}</td>
+            <td>{{hjsc ? hjsc.jl.daily : ''}}</td>
+            <td>{{hjsc ? hjsc.jl.dailyRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.jl.month : ''}}</td>
+            <td>{{hjsc ? hjsc.jl.monthRefer : ''}}</td>
+            <td>{{hjsc ? hjsc.jl.schedule : ''}}</td>
+          </tr>
+<!--          <tr>-->
+<!--            <td>其他铝产品</td>-->
+<!--            <td>11</td>-->
+<!--            <td>11</td>-->
+<!--            <td>11</td>-->
+<!--            <td>12</td>-->
+<!--            <td>13</td>-->
+<!--            <td>14</td>-->
+<!--          </tr>-->
+          <tr>
+            <td>合计</td>
+            <td>{{hjsc ? hjsc.monthPlanTotal : ''}}</td>
+            <td>{{hjsc ? hjsc.dailyTotal : ''}}</td>
+            <td>{{hjsc ? hjsc.dailyReferTotal : ''}}</td>
+            <td>{{hjsc ? hjsc.monthTotal : ''}}</td>
+            <td>{{hjsc ? hjsc.monthReferTotal : ''}}</td>
+            <td>{{hjsc ? hjsc.scheduleTotal : ''}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="table" style="width: 45%; height: 240px; display: inline-block">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; height: 100%">
+          <tr>
+            <td colspan="5" >
+              <span class="h5" style="font-weight: bold; padding: 6px 0;display: inline-block">铝产品发运及库存情况</span>
+            </td>
+          </tr>
+          <tr>
+            <td>名称</td>
+            <td>月计划</td>
+            <td>当日</td>
+            <td>月累计</td>
+            <td>库存</td>
+          </tr>
+          <tr>
+            <td>合金棒</td>
+            <td>{{lcp ? lcp.hjb.monthPlan : ''}}</td>
+            <td>{{lcp ? lcp.hjb.daily : ''}}</td>
+            <td>{{lcp ? lcp.hjb.month : ''}}</td>
+            <td>{{lcp ? lcp.hjb.stock : ''}}</td>
+          </tr>
+          <tr>
+            <td>扁锭</td>
+            <td>{{lcp ? lcp.bd.monthPlan : ''}}</td>
+            <td>{{lcp ? lcp.bd.daily : ''}}</td>
+            <td>{{lcp ? lcp.bd.month : ''}}</td>
+            <td>{{lcp ? lcp.bd.stock : ''}}</td>
+          </tr>
+          <tr>
+            <td>线杆</td>
+            <td>{{lcp ? lcp.xg.monthPlan : ''}}</td>
+            <td>{{lcp ? lcp.xg.daily : ''}}</td>
+            <td>{{lcp ? lcp.xg.month : ''}}</td>
+            <td>{{lcp ? lcp.xg.stock : ''}}</td>
+          </tr>
+          <tr>
+            <td>铸造铝合金</td>
+            <td>{{lcp ? lcp.zzlhj.monthPlan : ''}}</td>
+            <td>{{lcp ? lcp.zzlhj.daily : ''}}</td>
+            <td>{{lcp ? lcp.zzlhj.month : ''}}</td>
+            <td>{{lcp ? lcp.zzlhj.stock : ''}}</td>
+          </tr>
+          <tr>
+            <td>精铝</td>
+            <td>{{lcp ? lcp.jl.monthPlan : ''}}</td>
+            <td>{{lcp ? lcp.jl.daily : ''}}</td>
+            <td>{{lcp ? lcp.jl.month : ''}}</td>
+            <td>{{lcp ? lcp.jl.stock : ''}}</td>
+          </tr>
+<!--          <tr>-->
+<!--            <td>其他铝产品</td>-->
+<!--            <td>{{lcp ? lcp.qt.monthPlan : ''}}</td>-->
+<!--            <td>{{lcp ? lcp.qt.daily : ''}}</td>-->
+<!--            <td>{{lcp ? lcp.qt.month : ''}}</td>-->
+<!--            <td>{{lcp ? lcp.qt.stock : ''}}</td>-->
+<!--          </tr>-->
+          <tr>
+            <td>合计</td>
+            <td>{{lcp ? lcp.monthPlanTotal : ''}}</td>
+            <td>{{lcp ? lcp.dailyTotal : ''}}</td>
+            <td>{{lcp ? lcp.monthTotal : ''}}</td>
+            <td>{{lcp ? lcp.stockTotal : ''}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div  class="table" style="width: 100%;">
+        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
+          <tr>
+            <td>动力供应</td>
+            <td>当日外购电量(万kwh)</td>
+            <td>{{zj ? zj.drwgdl : ''}}</td>
+            <td>外购电量月累计(万kwh)</td>
+            <td>{{zj ? zj.wgdlylj : ''}}</td>
+            <td>环保</td>
+            <td>矿山井下处理</td>
+            <td>{{zj ? zj.ksjxscl : ''}}</td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <span class="h5" style="font-weight: bold; padding: 6px 0;display: inline-block">重&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <div style="min-height: 60px; text-align: start; display: block">
+
+              <pre style="font-size: 16px">
+                {{zj ? zj.zyjs : ''}}
+              </pre>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

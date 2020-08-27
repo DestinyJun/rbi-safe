@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {StStartStudyService} from '../../../../../common/services/st-start-study.service';
 import {PageOption} from '../../../../../common/public/Api';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-st-file-library',
@@ -18,8 +19,12 @@ export class StFileLibraryComponent implements OnInit, OnChanges {
     totalRecord: 10,
     pageSize: 10
   };
+  public openDialog = false;
+  public fileName = '';
+  public fileUrl: SafeResourceUrl;
   constructor(
-    private stStudySrv: StStartStudyService
+    private stStudySrv: StStartStudyService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
@@ -37,7 +42,11 @@ export class StFileLibraryComponent implements OnInit, OnChanges {
   }
   // 打开文件
   public  openFileClick(e): void {
-      window.open(e.resourcePath);
+    console.log(e);
+    this.fileName = e.contentCategoryName;
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(e.resourcePath);
+    this.openDialog = true;
+      // window.open(e.resourcePath);
   }
 
   public  clickEvent(e): void {

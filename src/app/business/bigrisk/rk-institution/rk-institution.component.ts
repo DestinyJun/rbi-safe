@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-rk-institution',
@@ -18,7 +19,8 @@ export class RkInstitutionComponent implements OnInit {
   constructor(
     private globalSrv: GlobalService,
     private toolSrv: PublicMethodService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
   ngOnInit() {
     this.globalSrv.getEducationList({systemCategoryId: 3}).subscribe((res) => {
@@ -36,9 +38,10 @@ export class RkInstitutionComponent implements OnInit {
   }
   // 打开文件
   public  openFile(item): void {
-    this.fileName = item.label;
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
-    this.openDialog = true;
+    // this.fileName = item.label;
+    // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.filePath);
+    // this.openDialog = true;
+    // this.router.navigate(['/home/pdf-view']);
     // window.open(item.filePath);
   }
 

@@ -131,7 +131,7 @@ export class ArchivesSpecialComponent implements OnInit {
             width: '900',
             dialog: true,
             title: '上传记录',
-            totalNumber: value.failSize,
+          failSize: value.failSize,
             realNumber: value.successSize,
             uploadOption: {
                 width: '100%',

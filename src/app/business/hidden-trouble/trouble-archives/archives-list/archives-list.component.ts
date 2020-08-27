@@ -122,4 +122,10 @@ export class ArchivesListComponent implements OnInit {
     this.archivesListSelect = [];
   }
 
+  public export(): void {
+    this.archivesSrv.hidExcelwrite().subscribe(res => {
+      window.open(res.data.path);
+    });
+  }
+
 }

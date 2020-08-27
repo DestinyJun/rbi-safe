@@ -5,6 +5,8 @@ import {SystemService} from '../../../common/services/system.service';
 import {PageOption} from '../../../common/public/Api';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PublicMethodService} from '../../../common/public/public-method.service';
+import {Router} from "@angular/router";
+import {LocalStorageService} from "../../../common/services/local-storage.service";
 
 @Component({
   selector: 'app-system-manger',
@@ -34,6 +36,8 @@ export class SystemMangerComponent implements OnInit {
     private systemSrv: SystemService,
     private toolSrv: PublicMethodService,
     private fb: FormBuilder,
+    private router: Router,
+    private localStorageSrv: LocalStorageService,
   ) {
     this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
       value => {
@@ -73,8 +77,9 @@ export class SystemMangerComponent implements OnInit {
         this.delSystemFiles(e.data.id);
       });
     }else {
-      // console.log();
-      window.open(e.data.filePath);
+      console.log(e);
+      // window.open(e.data.filePath);
+      this.router.navigate(['/pdf-view']);
     }
   }
   // set table data （设置列表数据）

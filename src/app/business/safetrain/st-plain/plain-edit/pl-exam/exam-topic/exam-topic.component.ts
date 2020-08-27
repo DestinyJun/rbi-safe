@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SafetrainService} from '../../../../../../common/services/safetrain.service';
 import {PageOption} from '../../../../../../common/public/Api';
 import {LocalStorageService} from '../../../../../../common/services/local-storage.service';
+import {PublicMethodService} from '../../../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-exam-topic',
@@ -24,9 +25,34 @@ export class ExamTopicComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public topicNowPage: number = 1; // 当前页
+  // 随机生成试卷的配置项
+  public randomProSubjectOption = {
+    singleSubject: {
+      subjectType: '1',
+      subjectStoreId: '',
+      number: '',
+    },
+    multiSubject: {
+      subjectType: '2',
+      subjectStoreId: '',
+      number: '',
+    },
+    judgeSubject: {
+      subjectType: '3',
+      subjectStoreId: '',
+      number: '',
+    },
+    completionSubject: {
+      subjectType: '4',
+      subjectStoreId: '',
+      number: '',
+    },
+  };
+  public storeOption: Array<any> = [];
   constructor(
     private safeSrv: SafetrainService,
-    private localSrv: LocalStorageService
+    private localSrv: LocalStorageService,
+    private publicMethod: PublicMethodService,
   ) { }
 
   ngOnInit() {
@@ -38,7 +64,9 @@ export class ExamTopicComponent implements OnInit {
     // 初始化题库选题
     this.safeSrv.searchScsQuestionSortInfo().subscribe((res) => {
       this.topicData = res.data;
-
+      this.topicData.forEach(value => {
+        this.storeOption.push({label: value.subjectStoreName, value: value.id});
+      });
     });
   }
 
@@ -169,6 +197,71 @@ export class ExamTopicComponent implements OnInit {
       this.selectAllBox = ['selectAll'];
     } else {
       this.selectAllBox = [];
+    }
+  }
+
+  public toggleTopicTab(index: number): void {
+    if (this.topicTabActiveIndex !== index) {
+      this.publicMethod.setConfirmation('清空题目', '退出当前模式', () => {
+        this.topicTabActiveIndex = index;
+        this.topicTableSelect = [];
+        this.setCheckBox(false);
+      });
+    }
+  }
+
+  public randomProExam(): void {
+    if (this.storeOptionValid(this.randomProSubjectOption)) {
+      const params = {
+        testPaperTemplates: []
+      };
+      params.testPaperTemplates.push(this.randomProSubjectOption.completionSubject);
+      params.testPaperTemplates.push(this.randomProSubjectOption.singleSubject);
+      params.testPaperTemplates.push(this.randomProSubjectOption.multiSubject);
+      params.testPaperTemplates.push(this.randomProSubjectOption.judgeSubject);
+      this.safeSrv.getRandomTestPaper(params).subscribe(res => {
+        const subData: Array<any> = res.data;
+        // 按题型排序
+        console.log(subData);
+        this.topicTableSelect = [];
+        // tslint:disable-next-line:radix
+        // this.topicTableSelect = subData.sort((a, b) => a.subjectType - b.subjectType);
+        subData.forEach( (subject: any) => {
+          this.topicTableSelect.push({safeSubject: subject, safeSubjectOptionList: subject.safeSubjectOptionList});
+        });
+        this.topicTableSelect.forEach( (subject: any) => {
+          subject.safeSubject.questionBankSubjectId = subject.safeSubject.id;
+        });
+        this.topicSelectList = this.topicTableSelect;
+        console.log(this.topicTableSelect);
+        this.localSrv.setObject('safeTestQuestionsList', this.topicSelectList);
+      });
+    } else {
+      this.publicMethod.setToast('error', '提示', '数据没有填写完整');
+    }
+  }
+
+  // 校验该对象的字段有否有值为空的字段
+  private storeOptionValid(randomProSubjectOption: any): boolean {
+    let ret = true;
+    if (randomProSubjectOption || randomProSubjectOption === '') {
+      const varType = Object.prototype.toString.call(randomProSubjectOption).slice(8, -1);
+      console.log(varType);
+      if (varType === 'Object' || varType === 'Array') {
+        // tslint:disable-next-line:forin
+        for (const randomProSubjectOptionKey in randomProSubjectOption) {
+          ret = ret && this.storeOptionValid(randomProSubjectOption[randomProSubjectOptionKey]);
+        }
+      }
+      return ret;
+    }
+    return false;
+  }
+
+  public storeOptionChange(e): void {
+    // tslint:disable-next-line:forin
+    for (const randomProSubjectOptionKey in this.randomProSubjectOption) {
+      this.randomProSubjectOption[randomProSubjectOptionKey].subjectStoreId = e.value;
     }
   }
 }

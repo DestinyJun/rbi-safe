@@ -418,6 +418,8 @@ export class TrainingFieldAddClass implements TrainingField {
   constructor() {
     this.processingStatus = '1';
   }
+
+  frequency: string;
 }
 export class TrainingFieldUpdateClass implements TrainingField {
   id: any;
@@ -446,6 +448,7 @@ export interface ExamRuleField {
   startTime: string; // 考试开始时间
   endTime: string; // 考试结束时间
   duration: number; // 考试时长
+  frequency: number; // 考试次数
   testPaperName: string; // 考试名称
   examNotes: string; // 考试须知
 }
@@ -455,6 +458,7 @@ export class ExamRuleFieldClass implements ExamRuleField{
   endTime: string;
   startTime: string;
   testPaperName: string;
+  frequency: number;
 }
 
 // 获取公司人员查询参数接口

@@ -397,4 +397,55 @@ export class ProfessHealthService {
   public  delDiseaseEquimentData(pamars): Observable<any> {
     return this.http.post(`/diseaseProtection/delete`, pamars);
   }
+
+
+  /****文件导入接口**************************************************************************/
+  public healthExamineExcelImport(pamars): Observable<any> {
+    return this.http.post(`/healthExamine/excelImport`, pamars);
+  }
+  public diseaseProtectionExcelImport(pamars): Observable<any> {
+    return this.http.post(`/diseaseProtection/excelImport`, pamars);
+  }
+  public occHealthMaintainExcelImport(pamars): Observable<any> {
+    return this.http.post(`/occHealthMaintain/excelImport`, pamars);
+  }
+  public occHealthEquipmentExcelImport(pamars): Observable<any> {
+    return this.http.post(`/occHealthEquipment/excelImport`, pamars);
+  }
+  // ‘三同时’表文件导入
+  public healthProjectExcelImport(pamars): Observable<any> {
+    return this.http.post(`/health_project/excelImport`, pamars);
+  }
+  // 接触职业病危害因素汇总表文件导入
+  public occHealthEndangerExcelImport(pamars): Observable<any> {
+    return this.http.post(`/occHealthEndanger/excelImport`, pamars);
+  }
+  public diseaseFactorsExcelImport(pamars): Observable<any> {
+    return this.http.post(`/diseaseFactors/excelImport`, pamars);
+  }
+
+  public dailyMonitoringExcelImport(pamars): Observable<any> {
+    return this.http.post(`/dailyMonitoring/excelImport`, pamars);
+  }
+  public regularMonitoringExcelImport(pamars): Observable<any> {
+    return this.http.post(`/regularMonitoring/excelImport`, pamars);
+  }
+  public statusEvaluationExcelImport(pamars): Observable<any> {
+    return this.http.post(`/statusEvaluation/excelImport`, pamars);
+  }
+
+  //
+  public healthProjectExcelwrite(params?: any): Observable<any> {
+    return this.http.post(`/health_project/excelwrite`, params);
+  }
+  public statusEvaluationExcelwrite(params?: any): Observable<any> {
+    return this.http.post(`/statusEvaluation/excelwrite`, params);
+  }
+  public regularMonitoringExcelwrite(params?: any): Observable<any> {
+    return this.http.post(`/regularMonitoring/excelwrite`, params);
+  }
+  public dailyMonitoringExcelwrite(params?: any): Observable<any> {
+    return this.http.post(`/dailyMonitoring/excelwrite`, params);
+  }
+
 }

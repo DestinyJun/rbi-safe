@@ -120,4 +120,12 @@ export class SecurityRiskService {
   public findByRiskCategory(): Observable<any> {
     return this.http.post('/risk/findByRiskCategory', '');
   }
+
+  /*****文件导入*********************************/
+  public riskExcelImportInside(params): Observable<any> {
+    return this.http.post('/risk/excelImport_inside', params);
+  }
+  public riskExcelImportOutside(params): Observable<any> {
+    return this.http.post('/risk/excelImport_outside', params);
+  }
 }

@@ -372,4 +372,10 @@ export class SafetrainService {
   public pagingSafeConditionDemandReport(params: any): Observable<any> {
     return this.http.post(`/pagingSafeConditionDemandReport`, params);
   }
+  /**
+   *  随机试卷获取
+   */
+  public getRandomTestPaper(params: any): Observable<any> {
+    return this.http.post(`/getRandomTestPaper`, params);
+  }
 }

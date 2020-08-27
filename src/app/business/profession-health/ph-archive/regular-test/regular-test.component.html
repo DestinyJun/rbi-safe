@@ -3,6 +3,8 @@
     <div class="regular-test-search">
     </div>
     <div class="regular-test-button">
+      <button pButton type="button" label="导入" class="ui-button-rounded" (click)="openImport()"></button>
+      <button pButton type="button" label="导出" class="ui-button-rounded" (click)="export()"></button>
       <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showEditRegularTestDialog = true"></button>
       <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreRegularTestClick()"></button>
     </div>
@@ -93,5 +95,36 @@
       <button class="dialog-btn" (click)="showEditRegularTestDialog = false;">取消</button>
       <button class="dialog-btn" (click)="sureEditRegularTestClick()">确认选择</button>
     </p-footer>
+  </p-dialog>
+  <p-dialog header="文件导入" [(visible)]="fileDialog" [style]="{width: '500px'}">
+    <div style="height: 100px; text-align: center; padding-top: 20px">
+      <span style="width: 60px; display: inline-block">附件:</span>
+      <div style="position: relative; display: inline-block; width: 200px;  height: 27px;" >
+        <input type="text" style="width: 100%; height: 100%; padding: 0 6px" placeholder="请选择附件" [value]="fileName" >
+        <input type="file" #file style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0" (change)="selectFile1(file)">
+      </div>
+    </div>
+    <div style="text-align: center">
+      <p-button label="确认" class="" (click)="submitClick()"></p-button>
+      <!--      <button class="dialog-btn" ></button>-->
+    </div>
+  </p-dialog>
+  <p-dialog header="导入完成信息"
+            [(visible)]="uploadSubjectFinishDialog"
+            [style]="{width: '700px'}">
+    <div class="text-center">
+      <span class="h4">导入总数：{{finishData.failSize + finishData.successSize}}</span>
+      <span class="h4" style="margin-left: 30px">成功数：{{finishData.successSize}}</span>
+      <span class="h4" style="margin-left: 30px">失败数：{{finishData.failSize}}</span>
+    </div>
+    <p-scrollPanel [style]="{width: '100%', height: '80vh'}">
+      <div *ngFor="let fail of finishData.failTecord">
+        <div class="panel">
+          <span><span style="margin-right: 20px">编号：{{fail.code}} </span>结果：<span [ngStyle]="{color: 'red'}">{{fail.result}}</span></span>
+          <!--          <p>题目: {{log.subject}}</p>-->
+          <p>结果原因：{{fail.reason}}</p>
+        </div>
+      </div>
+    </p-scrollPanel>
   </p-dialog>
 </div>

@@ -4,6 +4,7 @@ import {LocalStorageService} from '../../../../../common/services/local-storage.
 import {objectCopy} from '../../../../../common/public/contents';
 import {SafetrainService} from '../../../../../common/services/safetrain.service';
 import {Router} from '@angular/router';
+import {PublicMethodService} from '../../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-pl-release',
@@ -21,7 +22,8 @@ export class PlReleaseComponent implements OnInit {
   constructor(
     private localSrv: LocalStorageService,
     private safeSrv: SafetrainService,
-    private router: Router
+    private router: Router,
+    private publicSrv: PublicMethodService
   ) {
   }
 
@@ -77,21 +79,61 @@ export class PlReleaseComponent implements OnInit {
         break;
       // 确认发布
       case 'sure':
-        if (this.releaseAddField.safeTrainingNeeds.id) {
-          this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
-            if (window.confirm('发布成功！')) {
-              this.router.navigate(['/home/strain/plain/list']);
-            }
-          });
-        } else {
+        if (!this.releaseAddField.safeTrainingNeeds.id) {
           delete this.releaseAddField.safeTrainingNeeds.id;
-          this.safeSrv.addExamInfoNoId(this.releaseAddField).subscribe(() => {
-            if (window.confirm('发布成功！')) {
+        }
+        // 提交之前验证参数是否全部填充
+        if (this.validObject(this.releaseAddField)) {
+          if (this.releaseAddField.safeTrainingNeeds.id) {
+            this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
+              this.publicSrv.setToast('success', '提示', '编辑成功');
               this.router.navigate(['/home/strain/plain/list']);
-            }
-          });
+              // 清空本地缓存
+              this.localSrv.remove('safeTrainingNeeds');
+              this.localSrv.remove('safeDataPlanList');
+              this.localSrv.remove('safeTestPaper');
+              this.localSrv.remove('safeTestQuestionsList');
+              // if (window.confirm('发布成功！')) {
+              //   this.router.navigate(['/home/strain/plain/list']);
+              // }
+            });
+          } else {
+            this.safeSrv.addExamInfoNoId(this.releaseAddField).subscribe(() => {
+              this.publicSrv.setToast('success', '提示', '发布成功');
+              this.router.navigate(['/home/strain/plain/list']);
+              // 清空本地缓存
+              this.localSrv.remove('safeTrainingNeeds');
+              this.localSrv.remove('safeDataPlanList');
+              this.localSrv.remove('safeTestPaper');
+              this.localSrv.remove('safeTestQuestionsList');
+              // if (window.confirm('发布成功！')) {
+              //   this.router.navigate(['/home/strain/plain/list']);
+              // }
+            });
+          }
+        } else {
+          console.log(this.releaseAddField);
+          this.publicSrv.setToast('error', '提示', '数据不完整，请检查');
         }
         break;
     }
+  }
+
+
+  // 递归判断对象是否有空值
+  private validObject(obj: any): boolean {
+    let ret = true; // 默认对象有效
+    // 拿到数据类型
+    const type = Object.prototype.toString.call(obj).slice(8, -1);
+    if (type === 'Object' || type === 'Array') {
+      for (const objKey in obj) {
+        if (objKey !== 'safeTestQuestionsList') {
+          ret  = ret && this.validObject(obj[objKey]);
+        }
+      }
+    } else {
+      if (!obj || obj === '') {ret =  false; }
+    }
+    return ret;
   }
 }

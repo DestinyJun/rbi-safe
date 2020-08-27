@@ -14,4 +14,9 @@
   <div class="learn-pagination">
     <app-pagination (clickEvent)="clickEvent($event)" [option]="pageOption"></app-pagination>
   </div>
+  <p-dialog header="{{fileName}}" [(visible)]="openDialog" [style]="{width: '80vw', height: '98vh'}" [modal]="true" [closable]="true">
+    <p-scrollPanel [style]="{width: '80vw', height: '98vh', position: 'relative', marginTop: '-60px'}">
+      <iframe [src]="fileUrl" style="width: 80vw; height: 98vh"></iframe>
+    </p-scrollPanel>
+  </p-dialog>
 </div>

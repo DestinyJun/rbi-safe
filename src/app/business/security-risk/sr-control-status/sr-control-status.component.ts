@@ -162,8 +162,8 @@ export class SrControlStatusComponent implements OnInit {
             color = '#37C611';
           }
           return `${val[0].name}<br/>
-										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${val[0].data - this.baseNum}<br/>
-										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${val[1].data - this.baseNum}`;
+										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${Math.ceil(val[0].data - this.baseNum)}<br/>
+										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${Math.ceil(val[1].data - this.baseNum)}`;
         }
       },
       grid: [

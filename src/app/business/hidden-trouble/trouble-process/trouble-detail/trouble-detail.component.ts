@@ -35,7 +35,8 @@ export class TroubleDetailComponent implements OnInit {
   public imageFiles: Array<File> = [];
   public addPlanFile: any;
   public addReportFile: any;
-  public isHandle: boolean = false;
+  public isHandle: boolean = false; // 是否处理
+  public initIsHandle: boolean = false; // 是否处理
   public specifiedRectificationTime: any;
   public esDate: any = Es;
   public code: any;
@@ -122,6 +123,8 @@ export class TroubleDetailComponent implements OnInit {
         }
         this.addReport.patchValue({[attr]: val});
       });
+      // 判断是否处理
+      this.initIsHandle = res.data.hidDangerDO.ifDeal === '是';
       console.log(res);
       // 隐患类型
       this.specifiedRectificationTime = res.data.hidDangerDO.specifiedRectificationTime;

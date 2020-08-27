@@ -1,5 +1,5 @@
 <div class="st-exam-list">
-  <p-tabView [activeIndex]="index">
+  <p-tabView [activeIndex]="index" (activeIndexChange)="activeIndexChange($event)">
     <p-tabPanel [header]="'未完成考试(' + noExamNum + ')'">
       <app-st-no-exam (eventNum)="getLength($event)"></app-st-no-exam>
     </p-tabPanel>

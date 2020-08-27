@@ -110,6 +110,7 @@ export class SidebarComponent implements OnInit {
         {item: {label: '信息公告栏', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/genneral/board', isHas: true},
         // {item: {label: '生产调度信息展示', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '公共信息发布', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/genneral/release', isHas: true},
+        {item: {label: '生产运营日报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/genneral/operation-reporting', isHas: true},
       ]
     }
   ];
@@ -186,6 +187,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.isSetBar = this.localSrv.get('isSetBar');
     this.limitDataBar = this.localSrv.getObject('limitData');
+    console.log(this.isSetBar, this.limitDataBar);
     this.limitDataBar.forEach(v => {
       if (v.permissionName === '系统设置'){
         this.limitDataBarTwo = v.sysPermissionList;

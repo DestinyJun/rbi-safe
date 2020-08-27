@@ -2,8 +2,8 @@
   <div class="ui-g">
     <div class="ui-g-4 ui-md-4 menu">
       <div class="title">
-        <p [ngClass]="{'active': topicTabActiveIndex === 0}" (click)="topicTabActiveIndex=0">题库选择</p>
-<!--        <p [ngClass]="{'active': topicTabActiveIndex === 1}" (click)="topicTabActiveIndex=1">自定义新增</p>-->
+        <p [ngClass]="{'active': topicTabActiveIndex === 0}" (click)="toggleTopicTab(0)">题库选择</p>
+        <p [ngClass]="{'active': topicTabActiveIndex === 1}" (click)="toggleTopicTab(1)">自定义新增</p>
       </div>
       <div class="list">
         <p-tabView [activeIndex]="topicTabActiveIndex">
@@ -19,7 +19,51 @@
             </p-scrollPanel>
           </p-tabPanel>
           <p-tabPanel>
-            待开发中......
+            <!--            待开发中......-->
+            <div class="ui-g-12">
+              <div class="ui-g-3"><span style="float: right">题库选择：</span></div>
+              <div class="ui-g-9">
+                <span style="float: left">
+                  <p-dropdown dropdownIcon="pi pi-caret-down" #dropdown placeholder="请选择题库" [options]="storeOption"
+                              (click)="storeOptionChange(dropdown)"></p-dropdown>
+                </span>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-3"><span style="float: right">单选题：</span></div>
+              <div class="ui-g-9">
+                <span style="float: left">
+                  <input [(ngModel)]="randomProSubjectOption.singleSubject.number" pInputText type="number">
+                </span>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-3"><span style="float: right">多选题：</span></div>
+              <div class="ui-g-9">
+                <span style="float: left">
+                  <input [(ngModel)]="randomProSubjectOption.multiSubject.number" pInputText type="number">
+                </span>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-3"><span style="float: right">判断题：</span></div>
+              <div class="ui-g-9">
+                <span style="float: left">
+                  <input [(ngModel)]="randomProSubjectOption.judgeSubject.number" pInputText type="number">
+                </span>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-3"><span style="float: right">填空题：</span></div>
+              <div class="ui-g-9">
+                <span style="float: left">
+                  <input [(ngModel)]="randomProSubjectOption.completionSubject.number" pInputText type="number">
+                </span>
+              </div>
+            </div>
+            <div class="ui-g-12 text-center">
+              <button pButton label="开始生成" style="width: auto" (click)="randomProExam()"></button>
+            </div>
           </p-tabPanel>
         </p-tabView>
       </div>
@@ -61,18 +105,20 @@
                 <!--            选择-->
                 <!--<p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
                 全选
-                <p-checkbox #checkboxAll value="selectAll" [(ngModel)]="selectAllBox" (click)="selectAll(checkboxAll)"></p-checkbox>
+                <p-checkbox #checkboxAll value="selectAll" [(ngModel)]="selectAllBox"
+                            (click)="selectAll(checkboxAll)"></p-checkbox>
               </th>
               <th>
                 题目
               </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns"  let-rowIndex="rowIndex">
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
             <tr>
               <td style="width: 4em">
-                <p-checkbox #checkbox [value]="1" [(ngModel)]="selectBoxes[rowIndex]" (click)="select(checkbox, rowData)"></p-checkbox>
-<!--                <p-tableCheckbox #checkbox [value]="rowData"  (click)="select(checkbox, rowData)"></p-tableCheckbox>-->
+                <p-checkbox #checkbox [value]="1" [(ngModel)]="selectBoxes[rowIndex]"
+                            (click)="select(checkbox, rowData)"></p-checkbox>
+                <!--                <p-tableCheckbox #checkbox [value]="rowData"  (click)="select(checkbox, rowData)"></p-tableCheckbox>-->
               </td>
               <td>
                 <app-topic [topicListData]="rowData"></app-topic>

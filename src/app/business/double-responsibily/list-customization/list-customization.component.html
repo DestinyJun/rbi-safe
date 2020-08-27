@@ -70,7 +70,7 @@
                   <input style="height: 60px" pInputText type="text" formControlName="content" placeholder="点击输入检查内容"/>
                 </div>
                 <div class="ui-g-2 text-center">
-                  <input style="height: 60px; width: 100px" (change)="getFraction($event)" pInputText type="text" formControlName="fraction" placeholder="输入分数"/>
+                  <input style="height: 60px; width: 100px" (change)="getFraction($event)" [(ngModel)]="scores[i]" pInputText type="text" formControlName="fraction" placeholder="输入分数"/>
                 </div>
                 <div class="ui-g-1">
                   <button style="font-size: 12px; background-color: #d77373" pButton type="button" label="删除"

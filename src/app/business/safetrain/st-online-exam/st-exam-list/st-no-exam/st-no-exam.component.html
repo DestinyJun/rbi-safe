@@ -14,7 +14,7 @@
             {{rowData[col.field]}}
           </td>
           <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
-            <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" [label]="rowData[col.field]" iconPos="right" class="ui-button-rounded" (click)="showNoticeModelClick(rowData)" [disabled]="!judgeTimeIsOrInPeriod(rowData.startTime, rowData.endTime)"></button>
+            <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" [label]="'开始考试'" iconPos="right" class="ui-button-rounded" (click)="showNoticeModelClick(rowData)" [disabled]="!judgeTimeIsOrInPeriod(rowData.startTime, rowData.endTime)"></button>
           </td>
         </tr>
       </ng-template>

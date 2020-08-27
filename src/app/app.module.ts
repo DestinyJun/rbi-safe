@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {GeneralInfoModule} from "./business/general-info/general-info.module";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     BrowserAnimationsModule,
     HttpClientModule,
     ConfirmDialogModule,
+    GeneralInfoModule,
     // 加入状态管理器
     StoreModule.forRoot({loadhidden: counterReducer}),
     ToastModule,

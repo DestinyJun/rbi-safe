@@ -25,6 +25,7 @@ export class AreaOutsideComponent implements OnInit {
   public addOutside: AddOuidSRRisk = new AddOuidSRRisk();
   public riskKindOption: Array<object> = [];
   public riskCategoryOption: Array<object> = [];
+  public noRequiredControls = ['adviceMeasures', 'measuresEffective', 'measuresCost', 'measuresResult', 'measuresUse', 'picture'];
   public ImageOption = {
     files: [],
     showUploadIcon: true,
@@ -47,7 +48,7 @@ export class AreaOutsideComponent implements OnInit {
   ngOnInit() {
     const data = {};
     for (const key in this.addOutside){
-      if (key !== 'picture'){
+      if (this.noRequiredControls.indexOf(key) < 0){
         data[key] =  new FormControl('', Validators.required);
       }else {
         data[key] =  new FormControl('');

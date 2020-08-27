@@ -170,14 +170,14 @@
           </div>
           <div class="ui-g-12 ui-md-12 center">
             <div class="ui-g-1 ui-md-1 right">
-              <label><span style="color: #FF8A9A">*</span>建议采取的控制措施:</label>
+              <label>建议采取的控制措施:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <input pInputText type="text" placeholder="请输入建议采取的控制措施" formControlName="adviceMeasures"/>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
             <div class="ui-g-1 ui-md-1 right">
-              <label><span style="color: #FF8A9A">*</span>控制措施的有效性:</label>
+              <label>控制措施的有效性:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcMeasuresResult()" placeholder="请选择控制措施的有效性" [options]="measuresEffectiveValues" formControlName="measuresEffective"></p-dropdown>
@@ -185,14 +185,14 @@
           </div>
           <div class="ui-g-12 ui-md-12 center">
             <div class="ui-g-1 ui-md-1 right">
-              <label><span style="color: #FF8A9A">*</span>措施的成本因素:</label>
+              <label>措施的成本因素:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <p-dropdown dropdownIcon="pi pi-caret-down" (onChange)="calcMeasuresResult()" placeholder="请选择措施的成本因素" [options]="measuresCostValues" formControlName="measuresCost"></p-dropdown>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
             <div class="ui-g-1 ui-md-1 right">
-              <label><span style="color: #FF8A9A">*</span>控制措施判断结果:</label>
+              <label>控制措施判断结果:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <input pInputText type="text" placeholder="请输入控制措施判断结果" disabled formControlName="measuresResult"/>
@@ -200,7 +200,7 @@
           </div>
           <div class="ui-g-12 ui-md-12 center">
             <div class="ui-g-1 ui-md-1 right">
-              <label><span style="color: #FF8A9A">*</span>措施的采纳:</label>
+              <label>措施的采纳:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <p-radioButton name="groupnamep" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" formControlName="measuresUse"></p-radioButton>
