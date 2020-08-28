@@ -1,0 +1,17 @@
+<div class="ph-archive">
+  <p-scrollPanel [style]="{height: '100%'}">
+    <div class="tabMenu">
+      <div class="tab-item" *ngFor="let item of tabitem">
+        <a class="item-content" (click)="tabItemClick(item)">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+          <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+        </a>
+      </div>
+    </div>
+    <div class="ph-archive-body">
+      <app-my-checklist *ngIf="simbol === 'my-checklist'"></app-my-checklist>
+      <app-pending-checklist *ngIf="simbol === 'pending-checklist'"></app-pending-checklist>
+
+    </div>
+  </p-scrollPanel>
+</div>

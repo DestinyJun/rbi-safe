@@ -93,6 +93,7 @@ export class SidebarComponent implements OnInit {
       children: [
         {item: {label: '一岗双责管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/double/insitution', isHas: true},
         {item: {label: '责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/list-customization', isHas: true},
+        {item: {label: '责任清单填写', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/checklist-make', isHas: true},
         {item: {label: '员工责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/employee-list-file', isHas: true},
       ]
     },
@@ -187,7 +188,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.isSetBar = this.localSrv.get('isSetBar');
     this.limitDataBar = this.localSrv.getObject('limitData');
-    console.log(this.isSetBar, this.limitDataBar);
     this.limitDataBar.forEach(v => {
       if (v.permissionName === '系统设置'){
         this.limitDataBarTwo = v.sysPermissionList;
@@ -202,7 +202,6 @@ export class SidebarComponent implements OnInit {
   }
   // 一级导航点击事件
   public firItemClick(item): void {
-    console.log(item);
     this.barItem.forEach(val => {
       val.icon.color = '#fff';
       val.bgc = '#226AD5';
@@ -241,7 +240,6 @@ export class SidebarComponent implements OnInit {
           limitdata = v.sysPermissionList;
         }
       });
-      // if (item.label)
       if (item.children.length !== 0){
         this.secItem = [];
         item.children.forEach(val => {
@@ -251,7 +249,6 @@ export class SidebarComponent implements OnInit {
             }
           });
         });
-        console.log(this.secItem);
       }else {
         this.secItem = [];
       }
@@ -284,11 +281,6 @@ export class SidebarComponent implements OnInit {
         this.localSrv.set('isSetBar', 'false');
       }
     }
-
-    // if (item.label === '安全教育培训') {
-    //   item.children.push({item: {label: '教育培训计划A',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true});
-    // }
-
   }
 
   // 设置中间内容离左边
@@ -336,7 +328,6 @@ export class SidebarComponent implements OnInit {
       this.barItem.forEach(val => {
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {
-            // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
             val.bgc = '#4E88DE';
             val.icon.color = '#FCCF4F';
           } else {
@@ -345,7 +336,6 @@ export class SidebarComponent implements OnInit {
           }
         } else {
           if (val.link.slice(0,   val.link.lastIndexOf('/')) === this.router.url.slice(0 , this.router.url.lastIndexOf('/'))) {
-            console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
             val.bgc = '#4E88DE';
             val.icon.color = '#FCCF4F';
             this.secItem = val.children;
@@ -372,7 +362,6 @@ export class SidebarComponent implements OnInit {
       this.barItem.forEach(val => {
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {
-            // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
             val.bgc = '#4E88DE';
             val.icon.color = '#FCCF4F';
           } else {
@@ -398,11 +387,26 @@ export class SidebarComponent implements OnInit {
     this.barItem = [];
     this.fistItem.forEach(res => {
       this.limitDataBar.forEach(v => {
-        if (v.permissionName === res.label){
+        if (v.permissionName === res.label){ // 一级菜单比较成功了，再接着比较二级菜单
           this.barItem.push(res);
+          if (res.label === '综合信息') {
+            console.log(res);
+            console.log(v);
+          }
+          // res.children = [];
+          const barChildItem = [];
+          v.sysPermissionList.forEach(cChild => {
+            res.children.forEach((resChild: any) => {
+              if (cChild.permissionName === resChild.item.label) { // 二级菜单比较成功了
+                barChildItem.push(resChild);
+              }
+            });
+          });
+          res.children = barChildItem;
         }
       });
     });
+    console.log(this.barItem);
     this.barItem.unshift(this.fistItem[0]);
   }
 

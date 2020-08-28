@@ -96,6 +96,7 @@ export class AreaOutsideComponent implements OnInit {
           this.secRiskSrv.addOutSideAreaRisk(formData).subscribe(res => {
             this.addOutsideRisk.reset();
             this.ImageClear.clearImage();
+            this.toolSrv.setToast('success', '提示', '提交成功');
           });
         });
       }else {

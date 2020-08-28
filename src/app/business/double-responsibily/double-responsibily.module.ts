@@ -17,6 +17,13 @@ import { ListCustomizationComponent } from './list-customization/list-customizat
 import { EmployeeListFileComponent } from './employee-list-file/employee-list-file.component';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
+import {CheckListMakeComponent} from './check-list-make/check-list-make.component';
+import {MyChecklistComponent} from './check-list-make/my-checklist/my-checklist.component';
+import {PendingChecklistComponent} from './check-list-make/pending-checklist/pending-checklist.component';
+import {TableModule} from 'primeng/table';
+import { MyChecklistAddComponent } from './check-list-make/my-checklist/my-checklist-add/my-checklist-add.component';
+import { PendingCheckDetailComponent } from './check-list-make/pending-checklist/pending-check-detail/pending-check-detail.component';
+import { MyCheckListDetailComponent } from './check-list-make/my-checklist/my-check-list-detail/my-check-list-detail.component';
 
 
 @NgModule({
@@ -24,21 +31,28 @@ import {PaginationModule} from '../../common/components/pagination/pagination.mo
     DoubleResponsibilyComponent,
     DrInsitutionComponent,
     ListCustomizationComponent,
-    EmployeeListFileComponent
+    EmployeeListFileComponent,
+    CheckListMakeComponent,
+    MyChecklistComponent,
+    PendingChecklistComponent,
+    MyChecklistAddComponent,
+    PendingCheckDetailComponent,
+    MyCheckListDetailComponent,
   ],
-  imports: [
-    CommonModule,
-    DoubleResponsibilyRoutingModule,
-    FormsModule,
-    ScrollPanelModule,
-    BasicTableModule,
-    PaginationModule,
-    ButtonModule,
-    DropdownModule,
-    InputTextModule,
-    DialogModule,
-    ReactiveFormsModule,
-    TreeModule
-  ]
+    imports: [
+        CommonModule,
+        DoubleResponsibilyRoutingModule,
+        FormsModule,
+        ScrollPanelModule,
+        BasicTableModule,
+        PaginationModule,
+        ButtonModule,
+        DropdownModule,
+        InputTextModule,
+        DialogModule,
+        ReactiveFormsModule,
+        TreeModule,
+        TableModule
+    ]
 })
 export class DoubleResponsibilyModule { }

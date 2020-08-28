@@ -3,6 +3,7 @@ import {OrgTree, PageOption, TableHeader, TrainingField, TrainingFieldAddClass} 
 import {Es, orgInitializeTree} from '../../../../common/public/contents';
 import {GlobalService} from '../../../../common/services/global.service';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
+import {PublicMethodService} from "../../../../common/public/public-method.service";
 
 @Component({
   selector: 'app-demand-report',
@@ -42,10 +43,21 @@ export class DemandReportComponent implements OnInit {
   constructor(
     private globalSrv: GlobalService,
     private safeSrv: SafetrainService,
+    private publicSrc: PublicMethodService
   ) {
   }
 
   ngOnInit() {
+    const bj = {
+      a : 1,
+      b : '2',
+      cc: {
+        r: '12'
+      }
+    };
+    this.clearObject(bj);
+    console.log(bj);
+
     this.reportDataInit();
   }
 
@@ -102,17 +114,27 @@ export class DemandReportComponent implements OnInit {
     switch (flag) {
       // 添加操作初始化
       case 'add':
-        if (this.reportDropdownSelected && this.reportOrgTreeSelect && this.reportTableSelect) {
-          this.reportOperateField.trainingTypeId = this.reportDropdownSelected.id;
-          this.reportOperateField.organizationTrainingDepartmentId = this.reportOrgTreeSelect.id;
-          this.reportOperateField.targetSet = this.reportTableSelect.map((res) => res.id).join(',');
+        this.reportOperateField.trainingTypeId = this.reportDropdownSelected ? this.reportDropdownSelected.id : '';
+        this.reportOperateField.organizationTrainingDepartmentId = this.reportOrgTreeSelect ? this.reportOrgTreeSelect.id : '';
+        this.reportOperateField.targetSet = this.reportTableSelect.map((res) => res.id).join(',');
+        console.log(JSON.stringify(this.reportOperateField));
+        if (this.validObject(this.reportOperateField)) {
           this.safeSrv.addReportsInfo(this.reportOperateField).subscribe(() => {
-            this.reportOperateField = new TrainingFieldAddClass();
-            window.alert('提交成功');
+            this.publicSrc.setToast('success', '提示', '提交成功');
+            this.reportDropdownSelected = null;
+            this.reportTableSelectName = '请选择受训单位人员';
+            this.clearObject(this.reportOperateField);
+            this.clearObject(this.reportDropdownSelected);
+            this.clearObject(this.reportOrgTreeSelect);
+            this.reportTableSelect = [];
+            this.setCheckBox(false);
+            for (let i = 0; i < this.selectBoxes.length; i++) {
+              this.selectBoxes[i] = 0;
+            }
           });
           break;
         }
-        window.alert('请把参数填写完整');
+        this.publicSrc.setToast('error', '提示', '请把参数填写完整');
         break;
       case 'tree':
         this.reportOperateModal = true;
@@ -235,5 +257,38 @@ export class DemandReportComponent implements OnInit {
     } else {
       this.selectAllBox = [];
     }
+  }
+
+  // 递归
+  private clearObject(obj: any): void {
+    // 拿到数据类型
+    const type = Object.prototype.toString.call(obj).slice(8, -1);
+    if (type === 'Object' || type === 'Array') {
+      // tslint:disable-next-line:forin
+      for (const objKey in obj) {
+        const type1 = Object.prototype.toString.call(obj[objKey]).slice(8, -1);
+        if (type1 === 'Object' || type === 'Array') {
+          this.clearObject(obj[objKey]);
+        } else {
+          obj[objKey] = null;
+        }
+      }
+    }
+  }
+
+  // 递归判断对象是否有空值
+  private validObject(obj: any): boolean {
+    let ret = true; // 默认对象有效
+    // 拿到数据类型
+    const type = Object.prototype.toString.call(obj).slice(8, -1);
+    if (type === 'Object' || type === 'Array') {
+      // tslint:disable-next-line:forin
+      for (const objKey in obj) {
+        ret  = ret && this.validObject(obj[objKey]);
+      }
+    } else {
+      if (!obj || obj === '') {ret =  false; }
+    }
+    return ret;
   }
 }
