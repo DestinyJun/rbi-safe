@@ -18,18 +18,9 @@
     }
     .gi-bulletin-board-search{
       position: relative;
-      .ui-inputgroup {
-        display: inline-block;
-        margin-left: 1vw;
-        input{
-          border-radius: 20px 0 0 20px;
-          outline: none;
-        }
-        button{
-          //margin-top: 1px;
-          border-radius: 0 20px 20px 0;
-          border: 0;
-        }
+
+      button {
+        margin-left: 10px;
       }
     }
   }
@@ -72,32 +63,32 @@
 
           }
         }
-        .gi-bulletin-board-btn {
-          //width: 4vw;
-          display: flex;
-          align-items: center;
-          border-bottom: 1px solid #EAEAEA;
-          .edit-btn {
-            text-align: center;
-            width: 4vw;
-            height: 3vh;
-            margin-bottom: 2.8vh;
-            border-radius: 20px;
-            background: #66A0FF;
-            line-height: 3vh;
-            margin-right: 2vw;
-            font-size: 14px;
-            color: #E4EEFF;
-          }
-        }
+        //.gi-bulletin-board-btn {
+        //  //width: 4vw;
+        //  display: flex;
+        //  align-items: center;
+        //  border-bottom: 1px solid #EAEAEA;
+        //  .edit-btn {
+        //    text-align: center;
+        //    width: 4vw;
+        //    height: 3vh;
+        //    margin-bottom: 2.8vh;
+        //    border-radius: 20px;
+        //    background: #66A0FF;
+        //    line-height: 3vh;
+        //    margin-right: 2vw;
+        //    font-size: 14px;
+        //    color: #E4EEFF;
+        //  }
+        //}
       }
-      ::ng-deep .ui-widget {
-        border-radius: 20px;
-        color: #8D8E96;
-        height: 3vh;
-        border: 1px solid #F2F2F2;
-        background: #F8F8F8;
-      }
+      //::ng-deep .ui-widget {
+      //  border-radius: 20px;
+      //  color: #8D8E96;
+      //  height: 3vh;
+      //  border: 1px solid #F2F2F2;
+      //  background: #F8F8F8;
+      //}
       //隐藏滚动条
       ::ng-deep .ui-scrollpanel-bar {
         //background-color: rgba(0, 0, 0, 0);

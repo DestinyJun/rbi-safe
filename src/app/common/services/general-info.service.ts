@@ -20,6 +20,10 @@ export class GeneralInfoService {
     return this.http.post(`/notice/findByPage`, pamars);
   }
 
+  public  noticeDeleteByIds(pamars): Observable<any> {
+    return this.http.post(`/notice/deleteByIds`, pamars);
+  }
+
   public  submitinfoRelease(pamars): Observable<any> {
     return this.http.post(`/notice/add`, pamars);
   }
