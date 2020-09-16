@@ -22,7 +22,7 @@ export class GiInfoReleaseComponent implements OnInit {
     this.addInfoResease = this.fb.group({
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required),
-      file: new FormControl('', Validators.required),
+      file: new FormControl(''),
     });
   }
   public  selectFile(e): void {

@@ -26,6 +26,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.toolSrv.setTheme();
+
+    // const a = {
+    //   duration: '',
+    //   endTime: '',
+    //   examNotes: '',
+    //   frequency: '',
+    //   safeTestQuestionsList: [],
+    //   startTime: '',
+    //   testPaperName: '',
+    // };
+    // console.log(this.empty(a));
   }
 
   public SideBarWidth(e): void {
@@ -47,6 +58,8 @@ export class HomeComponent implements OnInit {
   public show(): void {
       this.headerCilde.showNotice = false;
   }
+
+
 
 
 }

@@ -25,7 +25,7 @@ export class BfTableBtnComponent implements OnInit, OnChanges {
     tableList?: TableeBtn[];
   };
   @Output()
-  public detail = new EventEmitter<Object>();
+  public detail = new EventEmitter<any>();
   @Output()
   public selectData =  new EventEmitter<number>();
   @Input()

@@ -37,11 +37,24 @@ export class PlReleaseComponent implements OnInit {
     this.safeTrainingNeeds = this.localSrv.getObject('safeTrainingNeeds');
     // 获取培训内容id列表
     this.safeDataPlanList = this.localSrv.getObject('safeDataPlanList');
+    this.safeDataPlanList = this.validObject(this.safeDataPlanList) ? this.safeDataPlanList : null;
     // 获取考试规则
+    const testPaper = {
+      examNotes: '',
+      testPaperName: '',
+      startTime: '',
+      endTime: '',
+      duration: '',
+      frequency: '',
+    };
     this.safeTestPaper = this.localSrv.getObject('safeTestPaper');
+    this.safeTestPaper = Object.assign(testPaper, this.safeTestPaper);
     // 获取考试题库
     this.safeTestQuestionsList = this.localSrv.getObject('safeTestQuestionsList');
-
+    const type = Object.prototype.toString.call(this.safeTestQuestionsList).slice(8, -1);
+    if (type === 'Object') {
+      this.safeTestQuestionsList = [];
+    }
     // 组合参数
     const TopicExam = [];
     this.safeTestQuestionsList.forEach((res) => {
@@ -79,41 +92,56 @@ export class PlReleaseComponent implements OnInit {
         break;
       // 确认发布
       case 'sure':
-        if (!this.releaseAddField.safeTrainingNeeds.id) {
+        console.log(this.releaseAddField);
+        if (this.releaseAddField && !this.releaseAddField.safeTrainingNeeds.id) {
           delete this.releaseAddField.safeTrainingNeeds.id;
         }
         // 提交之前验证参数是否全部填充
-        if (this.validObject(this.releaseAddField)) {
-          if (this.releaseAddField.safeTrainingNeeds.id) {
-            this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
-              this.publicSrv.setToast('success', '提示', '编辑成功');
-              this.router.navigate(['/home/strain/plain/list']);
-              // 清空本地缓存
-              this.localSrv.remove('safeTrainingNeeds');
-              this.localSrv.remove('safeDataPlanList');
-              this.localSrv.remove('safeTestPaper');
-              this.localSrv.remove('safeTestQuestionsList');
-              // if (window.confirm('发布成功！')) {
-              //   this.router.navigate(['/home/strain/plain/list']);
-              // }
-            });
-          } else {
-            this.safeSrv.addExamInfoNoId(this.releaseAddField).subscribe(() => {
-              this.publicSrv.setToast('success', '提示', '发布成功');
-              this.router.navigate(['/home/strain/plain/list']);
-              // 清空本地缓存
-              this.localSrv.remove('safeTrainingNeeds');
-              this.localSrv.remove('safeDataPlanList');
-              this.localSrv.remove('safeTestPaper');
-              this.localSrv.remove('safeTestQuestionsList');
-              // if (window.confirm('发布成功！')) {
-              //   this.router.navigate(['/home/strain/plain/list']);
-              // }
-            });
-          }
+        let flag = true;
+        flag = (flag && this.validObject(this.safeTrainingNeeds));
+        if (!flag) {
+          this.publicSrv.setToast('error', '提示', '基础设置数据不完整，请检查');
+          return;
+        }
+        flag = flag && (this.validObject(this.safeDataPlanList) || this.validObject(this.releaseAddField.safeTestPaper));
+        if (!flag) {
+          this.publicSrv.setToast('error', '提示', '培训内容设置或考试项目设置数据不完整，请检查');
+          return;
+        }
+        // 判断对象是否为空
+        if (!this.releaseAddField.safeDataPlanList) {
+          delete this.releaseAddField.safeDataPlanList;
+        }
+
+        if (this.empty(this.releaseAddField.safeTestPaper)) {
+          delete this.releaseAddField.safeTestPaper;
+        }
+        if (this.releaseAddField.safeTrainingNeeds.id) {
+          this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
+            this.publicSrv.setToast('success', '提示', '编辑成功');
+            this.router.navigate(['/home/strain/plain/list']);
+            // 清空本地缓存
+            this.localSrv.remove('safeTrainingNeeds');
+            this.localSrv.remove('safeDataPlanList');
+            this.localSrv.remove('safeTestPaper');
+            this.localSrv.remove('safeTestQuestionsList');
+            // if (window.confirm('发布成功！')) {
+            //   this.router.navigate(['/home/strain/plain/list']);
+            // }
+          });
         } else {
-          console.log(this.releaseAddField);
-          this.publicSrv.setToast('error', '提示', '数据不完整，请检查');
+          this.safeSrv.addExamInfoNoId(this.releaseAddField).subscribe(() => {
+            this.publicSrv.setToast('success', '提示', '发布成功');
+            this.router.navigate(['/home/strain/plain/list']);
+            // 清空本地缓存
+            this.localSrv.remove('safeTrainingNeeds');
+            this.localSrv.remove('safeDataPlanList');
+            this.localSrv.remove('safeTestPaper');
+            this.localSrv.remove('safeTestQuestionsList');
+            // if (window.confirm('发布成功！')) {
+            //   this.router.navigate(['/home/strain/plain/list']);
+            // }
+          });
         }
         break;
     }
@@ -126,14 +154,45 @@ export class PlReleaseComponent implements OnInit {
     // 拿到数据类型
     const type = Object.prototype.toString.call(obj).slice(8, -1);
     if (type === 'Object' || type === 'Array') {
+      if (type === 'Object' && Object.keys(obj).length === 0) { // 判断是否为{}
+        return false;
+      }
+      if (type === 'Array' && obj.length === 0) { // 判断是否为[]
+        return false;
+      }
       for (const objKey in obj) {
         if (objKey !== 'safeTestQuestionsList') {
-          ret  = ret && this.validObject(obj[objKey]);
+          ret = ret && this.validObject(obj[objKey]);
         }
       }
     } else {
-      if (!obj || obj === '') {ret =  false; }
+      if (!obj || obj === '') {
+        ret = false;
+      }
     }
     return ret;
   }
+
+  private empty(obj: any): boolean {
+    let ret = true; // 默认对象有效
+    // 拿到数据类型
+    const type = Object.prototype.toString.call(obj).slice(8, -1);
+    if (type === 'Object' || type === 'Array') {
+      if (type === 'Array' && obj.length > 0) { // 判断是否为[]
+        ret = false;
+      }
+      for (const objKey in obj) {
+        ret = ret && this.empty(obj[objKey]);
+        if (!ret) {
+          break;
+        }
+      }
+    } else {
+      if (obj && obj !== '') {
+        ret = false;
+      }
+    }
+    return ret;
+  }
+
 }

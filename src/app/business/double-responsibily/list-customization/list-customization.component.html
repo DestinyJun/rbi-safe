@@ -11,6 +11,7 @@
 <!--        <input pInputText type="text" placeholder="请输入岗位" style="margin-left: 20px; border: none; border: 1px #B3B3B3 solid"/>-->
       </div>
       <div class="p-4 pull-right">
+        <button pButton type="button" label="删除" class="ui-button-rounded" (click)="delete();"></button>
         <button pButton type="button" label="新增" class="ui-button-rounded" (click)="clearData(); showDialog = true;"></button>
       </div>
     </div>
@@ -20,8 +21,8 @@
     <!--    </div>-->
   </div>
   <div class="archives-list-table">
-    <app-bf-table-btn [select]="archivesListSelect" (selectData)="selectData($event)" [option]="optionTable"
-                      (detail)="DetailClick($event)"></app-bf-table-btn>
+    <app-check-table-btn [select]="archivesListSelect"  (selectData)="selectData($event)" [option]="optionTable"
+                      (detail)="DetailClick($event)"></app-check-table-btn>
   </div>
   <div class="archives-list-pagination">
     <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>

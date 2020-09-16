@@ -5,20 +5,25 @@
     </div>
     <div class="search p-4">
       <div class="gi-bulletin-board-search">
-<!--        <div class="ui-inputgroup" >-->
-<!--          <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>-->
-<!--          <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>-->
-<!--        </div>-->
+        <button pButton *ngIf="!isOperateState" pRipple type="button" label="批量操作" class="p-button-danger" (click)="operate(1)"></button>
+        <div *ngIf="isOperateState">
+          <button pButton pRipple type="button" label="全选" class="p-button-danger" (click)="selectAll()"></button>
+          <button pButton pRipple type="button" label="删除" class="p-button-danger" (click)="delete()"></button>
+          <button pButton pRipple type="button" label="关闭操作" class="p-button-danger" (click)="operate(0)"></button>
+        </div>
       </div>
     </div>
   </div>
   <div class="content">
     <div class="list">
       <p-scrollPanel [style]="{width: '100%', height: '74vh'}">
-        <div class="gi-bulletin-board-item" *ngFor="let item of itemData" (click)="detailClick(item)">
+        <div class="gi-bulletin-board-item" *ngFor="let item of itemData" >
           <div class="gi-bulletin-board-item-title">
-            <h2>{{item.num}}</h2>
-            <div class="gi-bulletin-board-content">
+            <div style="margin-bottom: 30px">
+              <p-checkbox #checkbox *ngIf="isOperateState" [(ngModel)]="item.checked" (click)="selectItem(checkbox, item)" value="1" inputId="ny"></p-checkbox>
+            </div>
+            <h2>{{item.num}}{{item.checked}}</h2><br>
+            <div class="gi-bulletin-board-content" (click)="detailClick(item)">
               <p>{{item.title}}</p>
               <p>最近编辑时间：{{item.time}}</p>
             </div>

@@ -1,0 +1,51 @@
+.ph-archive {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding: 1vh 2vw;
+  .tabMenu {
+    height: 6vh;
+    border-bottom: 2px solid #EDEDED;
+    line-height: 6vh;
+    .tab-item {
+      display: inline-block;
+      margin-right: 4vw;
+      .item-content {
+        //display: inline-block;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        cursor: pointer;
+        //align-items: center;
+        span:first-child {
+          font-size: 16px;
+          padding: 0 18px;
+        }
+        span:last-child{
+          margin-top: -2px;
+          display: inline-block;
+          width: 100%;
+          height: 2px;
+        }
+      }
+    }
+
+  }
+  .ph-archive-body {
+    margin-top: 1vh;
+    height: 92%;
+    width: 100%;
+    //background: #ee9900;
+  }
+
+  ::ng-deep .ui-radiobutton .ui-radiobutton-box{
+    border: 2px solid #C8DDFF;
+  }
+  /*隐藏滚动条*/
+  ::ng-deep .ui-scrollpanel-bar {
+    display: none;
+  }
+  ::ng-deep .ui-scrollpanel-content{
+    padding: 0 2vw;
+  }
+}

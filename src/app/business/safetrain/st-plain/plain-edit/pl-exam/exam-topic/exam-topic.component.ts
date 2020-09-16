@@ -30,22 +30,22 @@ export class ExamTopicComponent implements OnInit {
     singleSubject: {
       subjectType: '1',
       subjectStoreId: '',
-      number: '',
+      number: 0,
     },
     multiSubject: {
       subjectType: '2',
       subjectStoreId: '',
-      number: '',
+      number: 0,
     },
     judgeSubject: {
       subjectType: '3',
       subjectStoreId: '',
-      number: '',
+      number: 0,
     },
     completionSubject: {
       subjectType: '4',
       subjectStoreId: '',
-      number: '',
+      number: 0,
     },
   };
   public storeOption: Array<any> = [];
@@ -211,7 +211,8 @@ export class ExamTopicComponent implements OnInit {
   }
 
   public randomProExam(): void {
-    if (this.storeOptionValid(this.randomProSubjectOption)) {
+    const storeId = this.randomProSubjectOption.singleSubject.subjectStoreId;
+    if (storeId) {
       const params = {
         testPaperTemplates: []
       };
@@ -223,11 +224,20 @@ export class ExamTopicComponent implements OnInit {
         const subData: Array<any> = res.data;
         // 按题型排序
         console.log(subData);
-        this.topicTableSelect = [];
+        // this.topicTableSelect = [];
         // tslint:disable-next-line:radix
         // this.topicTableSelect = subData.sort((a, b) => a.subjectType - b.subjectType);
         subData.forEach( (subject: any) => {
-          this.topicTableSelect.push({safeSubject: subject, safeSubjectOptionList: subject.safeSubjectOptionList});
+          // 判断是否有重复
+          let flag = false;
+          this.topicTableSelect.forEach(sub => {
+            if (subject.id === sub.safeSubject.id) {
+              flag = true;
+            }
+          });
+          if (!flag) {
+            this.topicTableSelect.push({safeSubject: subject, safeSubjectOptionList: subject.safeSubjectOptionList});
+          }
         });
         this.topicTableSelect.forEach( (subject: any) => {
           subject.safeSubject.questionBankSubjectId = subject.safeSubject.id;

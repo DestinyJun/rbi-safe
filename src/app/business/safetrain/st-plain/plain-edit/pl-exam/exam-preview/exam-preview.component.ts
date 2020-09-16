@@ -24,7 +24,7 @@ export class ExamPreviewComponent implements OnInit {
     // 获取考试标题
     this.previewTitle = this.localSrv.getObject('safeTestPaper').testPaperName;
     // 获取题库
-    this.previewList = this.localSrv.getObject('safeTestQuestionsList');
+    this.previewList = this.localSrv.getObject('safeTestQuestionsList') || [];
     console.log(this.previewList);
   }
 

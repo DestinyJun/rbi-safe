@@ -30,6 +30,7 @@ export class ListCustomizationComponent implements OnInit {
   public dataTree: OragizationTree;
   public showDialog: boolean = false;
   public pageNo = 1;
+  public deleteParams = {data: []};
   public pageOption: any;
   public treeDialog: boolean;
   public listName: string;
@@ -40,6 +41,7 @@ export class ListCustomizationComponent implements OnInit {
   public contentForms: Array<FormGroup> = [];
   // 记录分数
   public scores = [];
+
   constructor(
     private themeSrv: ThemeService,
     private req: ListCustomizationService,
@@ -71,7 +73,10 @@ export class ListCustomizationComponent implements OnInit {
 
   public selectData(e): void {
     this.archivesListSelect = e;
-    console.log(e);
+    this.deleteParams.data = [];
+    e.forEach(item => {
+      this.deleteParams.data.push({id: item.id});
+    });
   }
 
   public DetailClick(e): void {
@@ -107,14 +112,14 @@ export class ListCustomizationComponent implements OnInit {
       // height: ''
       header: {
         data: [
-          {field: 'name',	header: '清单名称'},
-          {field: 'position',	header: '岗位'},
-          {field: 'organizationName',	header: '组织名'},
-          {field: 'companyName',	header: '分公司'},
-          {field: 'factoryName',	header: '厂矿'},
-          {field: 'workshopName',	header: '车间'},
-          {field: 'className',	header: '班组'},
-          {field: null,	header: '检查详情'},
+          {field: 'name', header: '清单名称'},
+          {field: 'position', header: '岗位'},
+          {field: 'organizationName', header: '组织名'},
+          {field: 'companyName', header: '分公司'},
+          {field: 'factoryName', header: '厂矿'},
+          {field: 'workshopName', header: '车间'},
+          {field: 'className', header: '班组'},
+          {field: null, header: '检查详情'},
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
       },
@@ -127,7 +132,7 @@ export class ListCustomizationComponent implements OnInit {
           height: '3vw'
         },
       },
-      type: 3,
+      type: 2,
       tableList: [{label: '详情', color: this.table.detailBtn[0]}]
     };
   }
@@ -215,10 +220,10 @@ export class ListCustomizationComponent implements OnInit {
     const data = {
       name: this.listName,
       position: this.position,
-      organizationId:  dataTree.value,
+      organizationId: dataTree.value,
       organizationName: dataTree.label,
       contentArry: [],
-      id : this.id
+      id: this.id
     };
     // 验证全部表单是否为空
     this.contentForms.forEach(form => {
@@ -262,5 +267,19 @@ export class ListCustomizationComponent implements OnInit {
     const i = this.contentForms.indexOf(form);
     this.contentForms.splice(i, 1);
     this.scores.splice(i, 1);
+  }
+
+  public delete(): void {
+    if (this.deleteParams.data.length > 0) {
+      this.toolSrv.setConfirmation('删除', '删除', () => {
+        this.req.delete(this.deleteParams).subscribe(res => {
+          this.toolSrv.setToast('success', '提示', '删除成功');
+          this.initarchivesListData();
+          this.deleteParams.data = [];
+        });
+      });
+    } else {
+      this.toolSrv.setToast('warn', '提示', '请选择要删除的数据');
+    }
   }
 }

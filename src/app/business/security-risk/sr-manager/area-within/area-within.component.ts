@@ -94,6 +94,7 @@ export class AreaWithinComponent implements OnInit {
           }
           this.secRiskSrv.addWithInAreaRisk(formData).subscribe(res => {
             this.addWithinRisk.reset();
+            this.toolSrv.setToast('success', '提示', '提交成功');
             this.ImageClear.clearImage();
             // this.
           });
