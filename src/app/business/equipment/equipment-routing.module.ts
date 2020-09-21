@@ -1,0 +1,26 @@
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {EquipmentComponent} from './equipment.component';
+import {EquipmentSpecialComponent} from './equipment-special/equipment-special.component';
+import {EquipmentSafeComponent} from './equipment-safe/equipment-safe.component';
+import {EquipmentOtherComponent} from './equipment-other/equipment-other.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: EquipmentComponent,
+    children: [
+      {path: '', redirectTo: 'safe', pathMatch: 'full'},
+      {path: 'safe', component: EquipmentSafeComponent},
+      {path: 'special', component: EquipmentSpecialComponent},
+      {path: 'other', component: EquipmentOtherComponent},
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class EquipmentRoutingModule {
+}

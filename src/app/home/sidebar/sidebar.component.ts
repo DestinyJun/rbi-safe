@@ -41,6 +41,18 @@ export class SidebarComponent implements OnInit {
       ]
     },
     {
+      icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
+      bgc: '#226AD5',
+      label: '设备设施管理',
+      lefticon: 'fa-angle-down',
+      link: '/home/equipment',
+      children: [
+        {item: {label: '安全设备设施', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/equipment/safe', isHas: true},
+        {item: {label: '特种设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/special', isHas: true},
+        {item: {label: '其他设备设施',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/other', isHas: true},
+      ]
+    },
+    {
       icon: {class: 'iconOutline-2', fontsize: '16px',  color: '#fff'},
       bgc: '#226AD5',
       label: '安全风险管控',
@@ -186,6 +198,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.fistItem);
     this.isSetBar = this.localSrv.get('isSetBar');
     this.limitDataBar = this.localSrv.getObject('limitData');
     this.limitDataBar.forEach(v => {
@@ -249,10 +262,12 @@ export class SidebarComponent implements OnInit {
             }
           });
         });
+        console.log(this.secItem);
       }else {
         this.secItem = [];
       }
-    } else {
+    }
+    else {
       // 判断为设置导航，首页点击时导航切换
       if (item.label === '首页') {
         this.isSetBar = 'false';
@@ -389,25 +404,25 @@ export class SidebarComponent implements OnInit {
       this.limitDataBar.forEach(v => {
         if (v.permissionName === res.label){ // 一级菜单比较成功了，再接着比较二级菜单
           this.barItem.push(res);
-          if (res.label === '综合信息') {
-            console.log(res);
-            console.log(v);
-          }
+          if (res.label === '综合信息') {}
           // res.children = [];
           const barChildItem = [];
-          v.sysPermissionList.forEach(cChild => {
-            res.children.forEach((resChild: any) => {
-              if (cChild.permissionName === resChild.item.label) { // 二级菜单比较成功了
-                barChildItem.push(resChild);
-              }
+          if (v.sysPermissionList) {
+            v.sysPermissionList.forEach(cChild => {
+              res.children.forEach((resChild: any) => {
+                if (cChild.permissionName === resChild.item.label) { // 二级菜单比较成功了
+                  barChildItem.push(resChild);
+                }
+              });
             });
-          });
+          }
           res.children = barChildItem;
         }
       });
     });
-    console.log(this.barItem);
-    this.barItem.unshift(this.fistItem[0]);
+    // this.barItem.unshift(this.fistItem[0]);
+    // console.log(this.fistItem);
+    // console.log(this.barItem);
   }
 
   public  setSetingBar(): void {

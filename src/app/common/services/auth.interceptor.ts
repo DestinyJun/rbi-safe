@@ -96,7 +96,6 @@ export class AuthInterceptor implements HttpInterceptor {
     else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
     }else if (this.isSkipUrl(req.url)) {
-      console.log(req.url);
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
@@ -124,7 +123,6 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
-        console.log(event);
         this.store.dispatch({type: 'true'});
         if (event.status === 200) {
           if (this.skipState.includes(event.body.status) || event.url.includes('/usr/work')) {
@@ -138,7 +136,6 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: any) => {
-        console.log(error);
         if (error.status === 500) {
           this.router.navigate(['/error'], {
             queryParams: {
@@ -178,7 +175,6 @@ export class AuthInterceptor implements HttpInterceptor {
         url: environment.url_safe + req.url,
         headers: req.headers
       });
-      console.log(this.clonedRequest);
     } else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
     }else if (this.isSkipUrl(req.url)) {

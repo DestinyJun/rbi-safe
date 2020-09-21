@@ -4,7 +4,7 @@ import {HomeComponent} from './home.component';
 
 
 const routes: Routes = [
-{path: '', component: HomeComponent, children: [
+  {path: '', component: HomeComponent, children: [
     {
       path: 'main',
       loadChildren: () => import('../business/main/main.module').then(m => m.MainModule)
@@ -53,8 +53,14 @@ const routes: Routes = [
       path: 'double',
       loadChildren: () => import('../business/double-responsibily/double-responsibily.module').then(m => m.DoubleResponsibilyModule),
       data: {preload: true}
+    },
+    {
+      path: 'equipment',
+      loadChildren: () => import('../business/equipment/equipment.module').then(m => m.EquipmentModule),
+      data: {preload: true}
     }
-] }];
+] }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

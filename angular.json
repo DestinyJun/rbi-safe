@@ -41,7 +41,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/safe",
+              "outputPath": "dist/safe-mine",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
