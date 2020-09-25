@@ -58,6 +58,11 @@ const routes: Routes = [
       path: 'equipment',
       loadChildren: () => import('../business/equipment/equipment.module').then(m => m.EquipmentModule),
       data: {preload: true}
+    },
+    {
+      path: 'accident',
+      loadChildren: () => import('../business/accident/accident.module').then(m => m.AccidentModule),
+      data: {preload: true}
     }
 ] }
 ];

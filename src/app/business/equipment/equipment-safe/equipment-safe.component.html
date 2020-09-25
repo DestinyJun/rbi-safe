@@ -1,3 +1,186 @@
 <div class="equipment-safe">
-  <span>安全设备设施管理</span>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">安全设备设施管理</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--      <input type="text" pInputText placeholder="搜索"/>-->
+      <!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增设备" class="ui-button-rounded" (click)="eqSafeOperate(eqSafeOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="eqSafeOperate(eqSafeOperateFlag = 'multiple')"></button>
+<!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+<!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="eqSafeTableData"
+      [columns]="eqSafeTableHeader"
+      [(selection)]="eqSafeTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="eqSafeOperate(eqSafeOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eqSafeOperate(eqSafeOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="eqSafePageOption" (clickEvent)="eqSafePageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="eqSafeOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{eqSafeOperateFlag === 'update' ? '设备编辑' : '设备添加'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--组织培训单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="eqSafeOrgTreeSelect.label?eqSafeOrgTreeSelect.label:eqSafeOrgTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="eqSafeOperate(eqSafeOperateFlag = 'tree')">
+                </button>
+              </div>
+            </div>
+            <!--类型-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>类型：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填类型" [(ngModel)]="eqSafeOperateField.type">
+              </div>
+            </div>
+            <!--主要设备设施-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>主要设备设施：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填主要设备设施" [(ngModel)]="eqSafeOperateField.majorEquipment">
+              </div>
+            </div>
+            <!--型号及规格-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>型号及规格：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填型号及规格" [(ngModel)]="eqSafeOperateField.modelAndSpecification">
+              </div>
+            </div>
+            <!--单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填单位" [(ngModel)]="eqSafeOperateField.unit">
+              </div>
+            </div>
+            <!--数量-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>数量：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填数量" [(ngModel)]="eqSafeOperateField.number">
+              </div>
+            </div>
+            <!--安装位置-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>安装位置：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填安装位置" [(ngModel)]="eqSafeOperateField.position">
+              </div>
+            </div>
+            <!--运行状况-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>运行状况：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="eqSafeDropdownPlaceholder"
+                  [options]="eqSafeDropdownOptions" [(ngModel)]="eqSafeDropdownSelected"
+                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+          <!--备注-->
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="eqSafeOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="eqSafeOperate(eqSafeOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eqSafeOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="eqSafeOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="eqSafeOrgTree"
+          [(selection)]="eqSafeOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="eqSafeOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
 </div>

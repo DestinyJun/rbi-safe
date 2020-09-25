@@ -1,3 +1,297 @@
 <div class="equipment-special">
-  <span>特种设备管理</span>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">特种设备管理</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--      <input type="text" pInputText placeholder="搜索"/>-->
+      <!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增设备" class="ui-button-rounded" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'multiple')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="eqSpecialTableData"
+      [columns]="eqSpecialTableHeader"
+      [(selection)]="eqSpecialTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="eqSpecialOperate(eqSpecialOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eqSpecialOperate(eqSpecialOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="eqSpecialPageOption" (clickEvent)="eqSpecialPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="eqSpecialOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{eqSpecialOperateFlag === 'update' ? '设备编辑' : '设备添加'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--组织培训单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="eqSpecialOrgTreeSelect.label?eqSpecialOrgTreeSelect.label:eqSpecialOrgTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="eqSpecialOperate(eqSpecialOperateFlag = 'tree')">
+                </button>
+              </div>
+            </div>
+            <!--投用时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>投用时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #calendarOperationTime
+                  placeholder="点击选择时间......"
+                  [locale]="eqSpecialEs" [(ngModel)]="eqSpecialOperateField.operationTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="true"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarOperationTime.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
+            <!--检验日期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>检验日期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #calendarInspectionDate
+                  placeholder="点击选择时间......"
+                  [locale]="eqSpecialEs" [(ngModel)]="eqSpecialOperateField.inspectionDate"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="true"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarInspectionDate.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
+            <!--下次检验时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>下次检验时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #calendarNextInspectionDate
+                  placeholder="点击选择时间......"
+                  [locale]="eqSpecialEs" [(ngModel)]="eqSpecialOperateField.nextInspectionDate"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="true"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarNextInspectionDate.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
+            <!--设备名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>设备名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填设备名称" [(ngModel)]="eqSpecialOperateField.equipmentName">
+              </div>
+            </div>
+            <!--特种参数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>主要设备设施：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填特种参数" [(ngModel)]="eqSpecialOperateField.specialParameters">
+              </div>
+            </div>
+            <!--出厂编号-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>出厂编号：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填出厂编号" [(ngModel)]="eqSpecialOperateField.factoryNumber">
+              </div>
+            </div>
+            <!--检验周期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>检验周期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填检验周期" [(ngModel)]="eqSpecialOperateField.inspectionPeriod">
+              </div>
+            </div>
+            <!--使用证号-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>使用证号：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填使用证号" [(ngModel)]="eqSpecialOperateField.licenseNo">
+              </div>
+            </div>
+            <!--安装位置-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>安装位置：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填安装位置" [(ngModel)]="eqSpecialOperateField.position">
+              </div>
+            </div>
+            <!--注册单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>注册单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填注册单位" [(ngModel)]="eqSpecialOperateField.registeredUnit">
+              </div>
+            </div>
+            <!--制造单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>制造单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填制造单位" [(ngModel)]="eqSpecialOperateField.manufacturer">
+              </div>
+            </div>
+            <!--检验单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>检验单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填检验单位" [(ngModel)]="eqSpecialOperateField.inspectionUnit">
+              </div>
+            </div>
+            <!--设备代码-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>设备代码：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填设备代码" [(ngModel)]="eqSpecialOperateField.equipmentCode">
+              </div>
+            </div>
+            <!--报告编号-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>报告编号：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填报告编号" [(ngModel)]="eqSpecialOperateField.reportNo">
+              </div>
+            </div>
+            <!--运行状况-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>运行状况：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="eqSpecialDropdownPlaceholder"
+                  [options]="eqSpecialDropdownOptions" [(ngModel)]="eqSpecialDropdownSelected"
+                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+          <!--备注-->
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="eqSpecialOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eqSpecialOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="eqSpecialOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="eqSpecialOrgTree"
+          [(selection)]="eqSpecialOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="eqSpecialOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
 </div>

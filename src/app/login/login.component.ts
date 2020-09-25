@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
   public loginClick(): void {
     if (this.username !== '' && this.password !== '') {
       this.loginSrv.login({username: this.username, password: this.password}).subscribe(val => {
-        console.log(val);
         this.localSrv.set('token', val.token);
         this.localSrv.set('username', this.username);
         this.localSrv.setObject('limitData', val.data);

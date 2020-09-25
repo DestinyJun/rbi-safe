@@ -70,4 +70,12 @@ export class GlobalService {
   public publicGetCompanyPerson(params?: CompanyPersonParams): Observable<any> {
     return this.http.post('/company_personnel/query/page', params);
   }
+
+  /**
+   * 获取安全事故下拉列表
+   * @param params
+   */
+  public publicGetAccidentTypeList(params): Observable<any> {
+    return this.http.post('/accident/getTypes', params);
+  }
 }

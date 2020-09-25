@@ -1,3 +1,136 @@
 <div class="equipment-other">
-  <span>其他设备管理</span>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">其他设备管理</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--      <input type="text" pInputText placeholder="搜索"/>-->
+      <!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增设备" class="ui-button-rounded" (click)="eqOtherOperate(eqOtherOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="eqOtherOperate(eqOtherOperateFlag = 'multiple')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="eqOtherTableData"
+      [columns]="eqOtherTableHeader"
+      [(selection)]="eqOtherTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="eqOtherOperate(eqOtherOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eqOtherOperate(eqOtherOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="eqOtherPageOption" (clickEvent)="eqOtherPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="eqOtherOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{eqOtherOperateFlag === 'update' ? '设备编辑' : '设备添加'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--组织培训单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="eqOtherOrgTreeSelect.label?eqOtherOrgTreeSelect.label:eqOtherOrgTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="eqOtherOperate(eqOtherOperateFlag = 'tree')">
+                </button>
+              </div>
+            </div>
+            <!--台数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>台数：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填台数" [(ngModel)]="eqOtherOperateField.numberOfSets">
+              </div>
+            </div>
+            <!--完好台数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>完好台数：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填完好台数" [(ngModel)]="eqOtherOperateField.intactNumber">
+              </div>
+            </div>
+          </div>
+          <!--备注-->
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="eqOtherOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="eqOtherOperate(eqOtherOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eqOtherOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="eqOtherOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="eqOtherOrgTree"
+          [(selection)]="eqOtherOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="eqOtherOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
 </div>
