@@ -1,0 +1,15 @@
+<!--安全生产管理机构设置管理-->
+<div class="intent-agency">
+  <div class="menu">
+    <div class="tab-item" *ngFor="let item of tabitem">
+      <a class="item-content" (click)="tabItemClick(item)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="tab">
+    <app-frame *ngIf="simbol === 'frame'"></app-frame>
+    <app-detail *ngIf="simbol === 'detail'"></app-detail>
+  </div>
+</div>

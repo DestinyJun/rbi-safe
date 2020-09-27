@@ -78,4 +78,12 @@ export class GlobalService {
   public publicGetAccidentTypeList(params): Observable<any> {
     return this.http.post('/accident/getTypes', params);
   }
+
+  /**
+   * 获取安全生产管理机构树
+   * @param params
+   */
+  public publicGetIntentAgencyTree(params): Observable<any> {
+    return this.http.post('/organizationManage/findTree', params);
+  }
 }

@@ -11,7 +11,7 @@ export class EquipmentService {
 
   /** * 安全设备管理 */
   /**
-   * 分页查看安全设备
+   * 安全设备分页查看
    * @param params
    */
   public equipmentSafeList(params: any): Observable<any> {
@@ -19,7 +19,7 @@ export class EquipmentService {
   }
 
   /**
-   * 新增安全设备
+   * 安全设备新增
    * @param params
    */
   public equipmentSafeAdd(params: any): Observable<any> {
@@ -27,7 +27,7 @@ export class EquipmentService {
   }
 
   /**
-   * 删除安全设备
+   * 安全设备删除
    * @param params
    */
   public equipmentSafeDel(params: any): Observable<any> {
@@ -35,7 +35,7 @@ export class EquipmentService {
   }
 
   /**
-   * 更新安全设备
+   * 安全设备更新
    * @param params
    */
   public equipmentSafeUpdate(params: any): Observable<any> {

@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
   @Output()
   private outWith = new EventEmitter<any>();
   public fistItem = [
+    // 首页
     {
       icon: {class: 'iconicon_home', fontsize: '16px', color: '#FCCF4F'},
       bgc: '#4E88DE',
@@ -22,6 +23,23 @@ export class SidebarComponent implements OnInit {
       children: [],
       link: '/home/main'
     },
+    // 目标职责管理
+    {
+      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      bgc: '#226AD5',
+      label: '目标职责管理',
+      lefticon: 'fa-angle-down',
+      link: '/home/intent/mains',
+      children: [
+        {item: {label: '目标职责管理现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/intent/mains', isHas: true},
+        {item: {label: '安全生产管理机构设置', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/agency', isHas: true},
+        {item: {label: '目标管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/aims', isHas: true},
+        // {item: {label: '一岗双责管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/double', isHas: true},
+        {item: {label: '安全生产投入',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/invest', isHas: true},
+        {item: {label: '安全文化建设',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/culture', isHas: true},
+      ]
+    },
+    // 安全教育培训
     {
       icon: {class: 'iconOutline-1', fontsize: '14px',  color: '#fff'},
       bgc: '#226AD5',
@@ -42,11 +60,11 @@ export class SidebarComponent implements OnInit {
     },
     // 设备设施管理
     {
-      icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
       bgc: '#226AD5',
       label: '设备设施管理',
       lefticon: 'fa-angle-down',
-      link: '/home/equipment',
+      link: '/home/equipment/safe',
       children: [
         {item: {label: '安全设备设施', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/equipment/safe', isHas: true},
         {item: {label: '特种设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/special', isHas: true},
@@ -97,7 +115,7 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '生产安全事故管理',
       lefticon: 'fa-angle-down',
-      link: '/home/accident',
+      link: '/home/accident/situation',
       children: [
         {item: {label: '生产安全事故现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/accident/situation', isHas: true},
         {item: {label: '生产安全事故记录', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/accident/record', isHas: true},
@@ -114,7 +132,7 @@ export class SidebarComponent implements OnInit {
       ]
     },
     // 一岗双责管理
-    {
+    /*{
       icon: {class: 'iconOutline-4', fontsize: '14px', color: '#fff'},
       bgc: '#226AD5',
       label: '一岗双责管理',
@@ -126,7 +144,7 @@ export class SidebarComponent implements OnInit {
         {item: {label: '责任清单填写', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/checklist-make', isHas: true},
         {item: {label: '员工责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/double/employee-list-file', isHas: true},
       ]
-    },
+    },*/
     // 制度管理
     {
       icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
@@ -342,11 +360,11 @@ export class SidebarComponent implements OnInit {
       item.item.ftcolor = '#4F88DE';
   }
 
-  // // 路由切换
-  // public  routerLinkClick(item): void {
-  //     // console.log(item.link);
-  //     this.router.navigate([item.link]);
-  // }
+  // 路由切换
+  public  routerLinkClick(item): void {
+      // console.log(item.link);
+      this.router.navigate([item.link]);
+  }
 
   public  changeBar(): void {
       this.setSetingBar();
@@ -437,9 +455,7 @@ export class SidebarComponent implements OnInit {
         }
       });
     });
-    // this.barItem.unshift(this.fistItem[0]);
-    // console.log(this.fistItem);
-    // console.log(this.barItem);
+    this.barItem.unshift(this.fistItem[0]);
   }
 
   public  setSetingBar(): void {
