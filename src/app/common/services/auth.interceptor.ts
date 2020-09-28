@@ -10,7 +10,7 @@ import {LocalStorageService} from './local-storage.service';
 import {Store} from '@ngrx/store';
 import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
-import {Location} from "@angular/common";
+import {Location} from '@angular/common';
 // import {environment} from '../../../environments/environment.zga';
 const DEFAULTTIMEOUT = 100000000;
 
@@ -57,6 +57,8 @@ export class AuthInterceptor implements HttpInterceptor {
     `/safeFourLevel/excelImport`,
     `/sendNewApp`,
     `/training/findByMaterialId`,
+    `/cultural/add`,
+    `/cultural/update`,
   ]; // 无需验证的请求地址
   public skipUrlPre = [
     `http://10.40.1.121:8000/complain/production/findAll`,
@@ -83,31 +85,34 @@ export class AuthInterceptor implements HttpInterceptor {
 
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
-    this.store.dispatch({type: 'false'});
-    if (this.skipUrlPre.indexOf(req.url) > -1) {
-      this.clonedRequest = req;
-    }
     // else if (req.url.includes('/training/findByMaterialId')) {
     //   this.clonedRequest = req.clone({
     //     url: environment.url_safe + req.url,
     //     headers: req.headers
     //   });
     // }
+    this.store.dispatch({type: 'false'});
+    if (this.skipUrlPre.indexOf(req.url) > -1) {
+      this.clonedRequest = req;
+    }
     else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
-    }else if (this.isSkipUrl(req.url)) {
+    }
+    else if (this.isSkipUrl(req.url)) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('accessToken', this.localSessionStorage.get('token'))
       });
-    } else if (req.url === '/login') {
+    }
+    else if (req.url === '/login') {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
       });
-    } else {
+    }
+    else {
       // 判断是否有请求头，没有则使用本地token
       let accessToken = req.headers.get('accessToken');
       if (!accessToken) { // 请求中没有token就使用本地的token

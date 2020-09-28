@@ -107,11 +107,11 @@ export class IntentInvestComponent implements OnInit {
         if (this.investOperateField.id) {
           if ('id' in this.investOrgTreeSelect ) {
             this.investOperateField.organizationId = this.investOrgTreeSelect.id;
+            this.investOperateField.organizationName = this.investOrgTreeSelect.label;
           }
           if (this.investDropdownSelected ) {
             this.investOperateField.ifShare = this.investDropdownSelected.value;
           }
-          delete this.investOperateField['organizationName'];
           delete this.investOperateField['udt'];
           delete this.investOperateField['idt'];
           this.investHttpOperate(this.intentSrv.intentInvestUpdate(this.investOperateField));
@@ -119,6 +119,7 @@ export class IntentInvestComponent implements OnInit {
         // 新增保存
         else {
           this.investOperateField.organizationId = this.investOrgTreeSelect.id;
+          this.investOperateField.organizationName = this.investOrgTreeSelect.label;
           this.investOperateField.ifShare = this.investDropdownSelected.value;
           this.investHttpOperate(this.intentSrv.intentInvestAdd(this.investOperateField));
         }

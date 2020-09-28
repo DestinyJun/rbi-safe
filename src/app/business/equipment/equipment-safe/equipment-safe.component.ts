@@ -59,7 +59,6 @@ export class EquipmentSafeComponent implements OnInit {
     this.equipmentSrv.equipmentSafeList({currentPage, pageSize}).subscribe((res) => {
       this.eqSafeTableData = res.data.datas;
       this.eqSafePageOption.totalRecord = res.data.totalRecord;
-      this.eqSafeOperateFlag = 'add';
     });
   }
 

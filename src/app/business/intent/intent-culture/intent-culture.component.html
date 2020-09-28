@@ -1,3 +1,201 @@
-<p>intent-culture works!</p>
 <!--安全文化建设-->
-<div class="intent-culture"></div>
+<div class="intent-culture">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">安全文化建设</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--<input type="text" pInputText placeholder="搜索"/>-->
+      <!--<button pButton type="button" class="ui-button-warning" [label]="'矿业公司当前总计提金额: '+ cultureTotalPlanMoney"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="cultureOperate(cultureOperateFlag = 'add', fileUpload)"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="cultureOperate(cultureOperateFlag = 'multiple')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="cultureTableData"
+      [columns]="cultureTableHeader"
+      [(selection)]="cultureTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="详情" class="ui-button-rounded mr-3" (click)="cultureOperate(cultureOperateFlag='update',rowData, fileUpload)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="cultureOperate(cultureOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="culturePageOption" (clickEvent)="culturePageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="cultureOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{cultureOperateFlag === 'update' ? '编辑操作' : '添加操作'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--开展日期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>开展日期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #calendarDate
+                  placeholder="点击选择时间......"
+                  [locale]="cultureEs" [(ngModel)]="cultureOperateField.startTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="false"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
+            <!--组织培训单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="cultureOrgTreeSelect.label?cultureOrgTreeSelect.label:cultureOrgTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="cultureOperate(cultureOperateFlag = 'tree')">
+                </button>
+              </div>
+            </div>
+            <!--活动名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>活动名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填活动名称" [(ngModel)]="cultureOperateField.activityName">
+              </div>
+            </div>
+            <!--活动等级-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>活动等级：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="cultureDropdownPlaceholder"
+                  [options]="cultureDropdownOptions" [(ngModel)]="cultureDropdownSelected"
+                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--已有图片-->
+            <div class="ui-g-12 ui-md-12" *ngIf="cultureOperateFlag === 'update'">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>已有图片：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <div *ngFor="let item of cultureImgList" class="ml-2" style="display: inline-block;position:relative;">
+                  <i
+                    [pTooltip]="'删除'"
+                    (click)="cultureOperate('imgDel',item.id)"
+                    class="fa fa-trash"
+                    style="font-size: 24px;position:absolute;top: 0;right: 0;color: red;cursor: pointer;">
+                  </i>
+                  <img  [src]="item.annexPath" style="height:100px;width: auto">
+                </div>
+                <span *ngIf="cultureImgList.length === 0">暂无图片</span>
+              </div>
+            </div>
+            <!--图片上传-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>图片上传：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload
+                  name="img"
+                  mode="advanced"
+                  multiple="multiple"
+                  fileLimit="6"
+                  invalidFileLimitMessageDetail="最多只能6张图片"
+                  invalidFileLimitMessageSummary="上传图片超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+            <!--备注-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="cultureOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="cultureOperate(cultureOperateFlag = 'save',fileUpload._files)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="cultureOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="cultureOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="cultureOrgTree"
+          [(selection)]="cultureOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="cultureOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

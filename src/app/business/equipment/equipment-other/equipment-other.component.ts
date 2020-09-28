@@ -54,7 +54,6 @@ export class EquipmentOtherComponent implements OnInit {
     this.equipmentSrv.equipmentOtherList({currentPage, pageSize}).subscribe((res) => {
       this.eqOtherTableData = res.data.datas;
       this.eqOtherPageOption.totalRecord = res.data.totalRecord;
-      this.eqOtherOperateFlag = 'add';
     });
   }
 

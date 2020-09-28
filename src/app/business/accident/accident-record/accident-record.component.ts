@@ -65,7 +65,7 @@ export class AccidentRecordComponent implements OnInit {
     this.accidentSrv.accidentRecordList({pageNo, pageSize}).subscribe((res) => {
       this.acRecordTableData = res.data.contents;
       this.acRecordPageOption.totalRecord = res.data.totalRecord;
-      this.acRecordOperateFlag = 'add';
+      console.log(this.acRecordTableData);
     });
   }
 
@@ -84,18 +84,22 @@ export class AccidentRecordComponent implements OnInit {
       // 添加操作初始化
       case 'add':
         this.acRecordOperateModal = true;
+        this.acRecordOrgTreeSelect = {};
+        this.acRecordDropdownSelected = null;
         this.acRecordOperateField = Object.assign({}, new AddAccidentRecordFieldClass());
         this.acRecordOrgTreeSelectLabel = '点击选择单位';
         this.acRecordDropdownPlaceholder = '请选择运行状况';
-        this.acRecordOrgTreeSelect = {};
-        this.acRecordDropdownSelected = null;
         break;
       // 编辑操作初始化
       case 'update':
-        this.acRecordOrgTreeSelectLabel = item.organizationName;
-        this.acRecordDropdownPlaceholder = item.accidentName;
         this.acRecordOrgTreeSelect = {};
         this.acRecordDropdownSelected = null;
+        this.acRecordOrgTreeSelectLabel = item.organizationName;
+        if (item.accidentName) {
+          this.acRecordDropdownPlaceholder = item.accidentName;
+        } else {
+          this.acRecordDropdownPlaceholder = '请选择运行状况';
+        }
         this.acRecordOperateField = Object.assign({}, new UpdateAccidentRecordFieldClass(), item);
         this.acRecordOperateModal = true;
         break;

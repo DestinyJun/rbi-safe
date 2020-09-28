@@ -218,3 +218,74 @@ export function rmRepeatArray(arr: Array<any>): Array<any> {
   });
   return resArr;
 }
+
+/**
+ * 将base64转成File
+ * @param urlData
+ * @param filename
+ */
+function base64ToFile(urlData, filename) {
+  if (typeof urlData !== 'string') {
+    return false;
+  }
+  const arr = urlData.split(',');
+  const type = arr[0].match(/:(.*?);/)[1];
+  const fileExt = type.split('/')[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], `${filename}.` + fileExt, {
+    type: type
+  });
+}
+
+/**
+ * 将Uint8Array转换成base64
+ * @param u8Arr Uint8Array对象
+ */
+function uint8arrayToBase64(u8Arr) {
+  const CHUNK_SIZE = 0x8000;
+  let index = 0;
+  const length = u8Arr.length;
+  let result = '';
+  let slice;
+  while (index < length) {
+    slice = u8Arr.subarray(index, Math.min(index + CHUNK_SIZE, length));
+    result += String.fromCharCode.apply(null, slice);
+    index += CHUNK_SIZE;
+  }
+  return 'data:image/jpg;base64,' + btoa(result);
+}
+
+/**
+ * 将符合字节流的string转化成Uint8Array
+ * @param {String} data
+ * @return {Blob}
+ * @api public
+ */
+function binaryToUint8Array(data) {
+  const arr = new Uint8Array(data.length);
+  for (let i = 0, l = data.length; i < l; i++) {
+    arr[i] = data.charCodeAt(i);
+  }
+  return arr;
+}
+
+/**
+ * 根据URL获取图片的并转成File对象
+ * @param {String} url 需要请求的图片地址
+ * @param fileName 图片的文件名
+ * @return {File} 返回一个File对象
+ */
+export function getImageFile(url, fileName) {
+  const r = new XMLHttpRequest();
+  r.open('GET', url, false);
+  r.overrideMimeType('text/plain; charset=x-user-defined');
+  r.send(null);
+  const unit8Arr = binaryToUint8Array(r.responseText);
+  const base64 = uint8arrayToBase64(unit8Arr);
+  return base64ToFile(base64, fileName);
+}

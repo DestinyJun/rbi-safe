@@ -60,7 +60,6 @@ export class EquipmentSpecialComponent implements OnInit {
     this.equipmentSrv.equipmentSpecialList({currentPage, pageSize}).subscribe((res) => {
       this.eqSpecialTableData = res.data.datas;
       this.eqSpecialPageOption.totalRecord = res.data.totalRecord;
-      this.eqSpecialOperateFlag = 'add';
     });
   }
 

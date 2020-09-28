@@ -41,7 +41,7 @@
             {{rowData[col.field]}}
           </td>
           <td>
-            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="eqSpecialOperate(eqSpecialOperateFlag='update',rowData)"></button>
+            <button pButton label="详情" class="ui-button-rounded mr-3" (click)="eqSpecialOperate(eqSpecialOperateFlag='update',rowData)"></button>
             <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eqSpecialOperate(eqSpecialOperateFlag='del',rowData)"></button>
           </td>
         </tr>
@@ -113,7 +113,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  [showTime]="true"
+                  [showTime]="false"
                   yearRange="1930:2030">
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarInspectionDate.hideOverlay()"></button>

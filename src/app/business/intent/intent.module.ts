@@ -66,7 +66,7 @@ import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dial
     SidebarModule,
     BasicDialogModule,
     ReactiveFormsModule,
-    PanelModule
+    PanelModule,
   ]
 })
 export class IntentModule { }

@@ -150,3 +150,43 @@ export class UpdateIntentInvestField implements IntentInvestField{
     this.wellPrice = null;
   }
 }
+
+/**
+ * 安全文化建设
+ */
+export interface IntentCultureField {
+  id?: any;
+  organizationId: any; // 组织ID
+  organizationName: string; // 组织名称
+  activityName: string; // 活动名称
+  startTime: string; // 开展日期
+  activityLevel: number; // 活动等级
+  remarks: string; // 备注
+}
+export class AddIntentCultureField implements IntentCultureField{
+  activityLevel: number;
+  activityName: string;
+  organizationId: any;
+  organizationName: string;
+  remarks: string;
+  startTime: string;
+}
+export class UpdateIntentCultureField implements IntentCultureField{
+  activityLevel: number;
+  activityName: string;
+  id: any;
+  organizationId: any;
+  organizationName: string;
+  remarks: string;
+  startTime: string;
+  constructor() {
+    this.id = null;
+    this.organizationId = null;
+    this.organizationName = '';
+    this.activityLevel = null;
+    this.activityName = '';
+    this.remarks = '';
+    this.startTime = '';
+  }
+}
+
