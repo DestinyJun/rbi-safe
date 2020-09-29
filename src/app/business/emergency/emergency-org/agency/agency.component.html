@@ -1,0 +1,169 @@
+<!--应急管理机构-->
+<div class="agency">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">应急管理机构</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--      <input type="text" pInputText placeholder="搜索"/>-->
+      <!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增机构" class="ui-button-rounded" (click)="eoAgencyOperate(eoAgencyOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="eoAgencyOperate(eoAgencyOperateFlag = 'multiple')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="eoAgencyTableData"
+      [columns]="eoAgencyTableHeader"
+      [(selection)]="eoAgencyTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="详情" class="ui-button-rounded mr-3" (click)="eoAgencyOperate(eoAgencyOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eoAgencyOperate(eoAgencyOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="eoAgencyPageOption" (clickEvent)="eoAgencyPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="eoAgencyOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{eoAgencyOperateFlag === 'update' ? '编辑' : '添加'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <!--基础参数-->
+          <div class="ui-g">
+            <!--组织名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填组织名称" [(ngModel)]="eoAgencyOperateField.organizationName">
+              </div>
+            </div>
+            <!--负责人-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>负责人：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填负责人" [(ngModel)]="eoAgencyOperateField.leadingCadre">
+              </div>
+            </div>
+            <!--手机-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>手机：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填手机" [(ngModel)]="eoAgencyOperateField.mobilePhone">
+              </div>
+            </div>
+            <!--备注-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="eoAgencyOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+            <!--增加人员按钮-->
+            <div class="ui-g-12 ui-md-12 text-center">
+              <button pButton label="点击添加人员" class="ui-button-info ml-3" (click)="eoAgencyOperate(eoAgencyOperateFlag='addPersonal')"></button>
+            </div>
+          </div>
+          <!--人员列表-->
+          <div class="ui-g" style="border-bottom: 1px solid gainsboro" *ngFor="let item of eoAgencyPersonal;let i = index">
+            <!--人员名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>人员名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填人员名称" [(ngModel)]="item.nameOfPersonnel">
+              </div>
+            </div>
+            <!--岗位职务-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>岗位职务：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填岗位职务" [(ngModel)]="item.jobTitle">
+              </div>
+            </div>
+            <!--应急职务-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>应急职务：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填应急职务" [(ngModel)]="item.emergencyDuty">
+              </div>
+            </div>
+            <!--手机-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>手机：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填手机" [(ngModel)]="item.telephone">
+              </div>
+            </div>
+            <!--备注-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="item.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+            <!--删除当前项-->
+            <div class="ui-g-12 ui-md-12 text-center">
+              <button pButton label="删除当前项" class="ui-button-danger ml-3" (click)="eoAgencyOperate(eoAgencyOperateFlag='delPersonal',i)"></button>
+              <button pButton label="点击添加人员" class="ui-button-info ml-3" (click)="eoAgencyOperate(eoAgencyOperateFlag='addPersonal')"></button>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="eoAgencyOperate(eoAgencyOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eoAgencyOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

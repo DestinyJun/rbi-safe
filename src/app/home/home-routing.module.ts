@@ -69,6 +69,11 @@ const routes: Routes = [
         path: 'intent',
         loadChildren: () => import('../business/intent/intent.module').then(m => m.IntentModule),
         data: {preload: true}
+      },
+      {
+        path: 'emergency',
+        loadChildren: () => import('../business/emergency/emergency.module').then(m => m.EmergencyModule),
+        data: {preload: true}
       }
 
     ]

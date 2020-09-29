@@ -1,0 +1,16 @@
+<!--应急组织-->
+<div class="emergency-org">
+  <div class="menu">
+    <div class="tab-item" *ngFor="let item of tabitem">
+      <a class="item-content" (click)="tabItemClick(item)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="tab">
+    <app-agency *ngIf="simbol === 'agency'"></app-agency>
+    <app-team *ngIf="simbol === 'team'"></app-team>
+    <app-external *ngIf="simbol === 'external'"></app-external>
+  </div>
+</div>
