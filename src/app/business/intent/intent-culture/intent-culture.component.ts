@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {AddIntentCultureField, IntentCultureField, UpdateIntentCultureField} from '../intentApi';
-import {Es, getImageFile, orgInitializeTree} from '../../../common/public/contents';
+import {Es, orgInitializeTree} from '../../../common/public/contents';
 import {IntentService} from '../../../common/services/intent.service';
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-intent-culture',

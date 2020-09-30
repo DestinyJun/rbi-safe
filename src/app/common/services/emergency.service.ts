@@ -107,4 +107,37 @@ export class EmergencyService {
   public emergencyOrgExternalUpdate(params: any): Observable<any> {
     return this.http.post(`/emergencyExternalOrganization/update`, params);
   }
+
+  /** ********************** 应急预案 **********************  */
+  /**
+   * 应急预案分页查看
+   * @param params
+   */
+  public emergencyPlanList(params: any): Observable<any> {
+    return this.http.post(`/emergencyPlan/page`, params);
+  }
+
+  /**
+   * 应急预案新增
+   * @param params
+   */
+  public emergencyPlanAdd(params: any): Observable<any> {
+    return this.http.post(`/emergencyPlan/add`, params);
+  }
+
+  /**
+   * 应急预案处理
+   * @param params
+   */
+  public emergencyPlanHandle(params: any): Observable<any> {
+    return this.http.post(`/emergencyPlan/handle`, params);
+  }
+
+  /**
+   * 应急预案更新
+   * @param params
+   */
+  public emergencyPlanUpdate(params: any): Observable<any> {
+    return this.http.post(`/emergencyPlan/update`, params);
+  }
 }

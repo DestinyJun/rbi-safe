@@ -134,3 +134,78 @@ export class UpdateEmergencyOrgExternalFieldClass implements EmergencyOrgExterna
   }
 }
 
+/**
+ * 应急预案
+ */
+export interface EmergencyPlanField {
+  id?: any;
+  emergencyPlanName: string; // 	应急预案名称
+  reservePlanType: string; // 	预案类别
+  preparationUnit: string; // 	编制单位名称
+  preparationUnitId: any; // 	编制单位ID
+  controlOrganization: string; // 	主控单位名称
+  controlOrganizationId: any; // 	主控单位id
+  filingOrganization: string; // 	备案单位
+}
+export class AddEmergencyPlanFieldClass implements EmergencyPlanField{
+  controlOrganization: string;
+  controlOrganizationId: any;
+  emergencyPlanName: string;
+  filingOrganization: string;
+  preparationUnit: string;
+  preparationUnitId: any;
+  reservePlanType: string;
+
+}
+export class UpdateEmergencyPlanFieldClass implements EmergencyPlanField {
+  controlOrganization: string;
+  controlOrganizationId: any;
+  emergencyPlanName: string;
+  filingOrganization: string;
+  id: any;
+  preparationUnit: string;
+  preparationUnitId: any;
+  reservePlanType: string;
+
+  constructor() {
+    this.id = null;
+    this.controlOrganization = '';
+    this.controlOrganizationId = null;
+    this.emergencyPlanName = '';
+    this.filingOrganization = '';
+    this.preparationUnit = '';
+    this.preparationUnitId = null;
+    this.reservePlanType = null;
+  }
+}
+
+/**
+ * 应急预案处理
+ */
+export interface EmergencyPlanHandleField {
+  id?: any;
+  emergencyPlanName: string; // 	应急预案名称
+  reservePlanType: string; // 	预案类别
+  reviewStatus: string; // 	评审状态（0：未通过 1：通过）
+  reviewTime: string; // 	评审时间
+  reviewOrganization: string; // 	评审组织
+}
+export class UpdateEmergencyPlanHandleFieldClass implements EmergencyPlanHandleField {
+  emergencyPlanName: string;
+  id: any;
+  reservePlanType: string;
+  reviewOrganization: string;
+  reviewStatus: string;
+  reviewTime: string;
+
+  constructor() {
+    this.id = null;
+    this.emergencyPlanName = '';
+    this.reservePlanType = null;
+    this.reviewOrganization = '';
+    this.reviewStatus = '';
+    this.reviewTime = '';
+  }
+}
+
+

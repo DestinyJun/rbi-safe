@@ -59,6 +59,9 @@ export class AuthInterceptor implements HttpInterceptor {
     `/training/findByMaterialId`,
     `/cultural/add`,
     `/cultural/update`,
+    `/emergencyPlan/add`,
+    `/emergencyPlan/update`,
+    `/emergencyPlan/handle`,
   ]; // 无需验证的请求地址
   public skipUrlPre = [
     `http://10.40.1.121:8000/complain/production/findAll`,

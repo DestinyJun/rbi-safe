@@ -1,2 +1,189 @@
 <!--应急预案-->
-<div class="emergency-plan"></div>
+<div class="emergency-plan">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">应急预案</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--<input type="text" pInputText placeholder="搜索"/>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="emPlanOperate(emPlanOperateFlag = 'add', fileUpload)"></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="emPlanTableData"
+      [columns]="emPlanTableHeader"
+      [(selection)]="emPlanTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="详情" class="ui-button-rounded mr-3" (click)="emPlanOperate(emPlanOperateFlag='update',rowData, fileUpload)"></button>
+            <button pButton label="处理" class="ui-button-rounded ui-button-pink" (click)="emPlanOperate(emPlanOperateFlag='handle',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="emPlanPageOption" (clickEvent)="emPlanPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="emPlanOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{emPlanOperateFlag === 'update' ? '编辑操作' : '添加操作'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--编制单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>编制单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="emPlanPlaitTreeSelect.label?emPlanPlaitTreeSelect.label:emPlanPlaitTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="emPlanOperate(emPlanOperateFlag = 'plaitTree')">
+                </button>
+              </div>
+            </div>
+            <!--主控单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>主控单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="emPlanMasterTreeSelect.label?emPlanMasterTreeSelect.label:emPlanMasterTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="emPlanOperate(emPlanOperateFlag = 'masterTree')">
+                </button>
+              </div>
+            </div>
+            <!--应急预案名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>应急预案名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填应急预案名称" [(ngModel)]="emPlanOperateField.emergencyPlanName">
+              </div>
+            </div>
+            <!--预案类别-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>预案类别：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="emPlanDropdownPlaceholder"
+                  [options]="emPlanDropdownOptions" [(ngModel)]="emPlanDropdownSelected"
+                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--备案单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>备案单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填备案单位" [(ngModel)]="emPlanOperateField.filingOrganization">
+              </div>
+            </div>
+            <!--文件上传-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>文件上传：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload
+                  name="filingAttachment"
+                  mode="advanced"
+                  fileLimit="1"
+                  invalidFileLimitMessageDetail="最多只能上传一个文件"
+                  invalidFileLimitMessageSummary="上传文件超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="emPlanOperate(emPlanOperateFlag = 'save',fileUpload._files)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="emPlanOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--编制单位组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="emPlanPlaitTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择编制单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="emPlanOrgTree"
+          [(selection)]="emPlanPlaitTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="emPlanPlaitTreeModal=false" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+    <!--主控单位组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="emPlanMasterTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择主控单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="emPlanOrgTree"
+          [(selection)]="emPlanMasterTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="emPlanMasterTreeModal=false" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
