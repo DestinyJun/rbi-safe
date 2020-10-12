@@ -184,11 +184,11 @@ export class UpdateEmergencyPlanFieldClass implements EmergencyPlanField {
  */
 export interface EmergencyPlanHandleField {
   id?: any;
-  emergencyPlanName: string; // 	应急预案名称
-  reservePlanType: string; // 	预案类别
+  emergencyPlanName: string; // 	应急预案名称（原来的名称，可修改）
+  reservePlanType: string; // 	预案类别 （写死的下拉类别）
   reviewStatus: string; // 	评审状态（0：未通过 1：通过）
-  reviewTime: string; // 	评审时间
-  reviewOrganization: string; // 	评审组织
+  reviewTime: string; // 	评审时间 （自己选择）
+  reviewOrganization: string; // 	评审组织 （自己输入）
 }
 export class UpdateEmergencyPlanHandleFieldClass implements EmergencyPlanHandleField {
   emergencyPlanName: string;
@@ -204,6 +204,121 @@ export class UpdateEmergencyPlanHandleFieldClass implements EmergencyPlanHandleF
     this.reservePlanType = null;
     this.reviewOrganization = '';
     this.reviewStatus = '';
+    this.reviewTime = '';
+  }
+}
+
+/**
+ * 应急演练
+ */
+export interface EmergencyDrillField {
+  id?: any;
+  emergencyPlanName: string; // 	应急预案名称
+  controlOrganization: string; // 	主控单位名称（单位树）
+  controlOrganizationId: any; // 	主控单位id（单位树）
+  projectUndertaker: string; // 	计划承办演练单位名称（单位树）
+  projectUndertakerId: any; // 	计划承办演练单位id（单位树）
+  planFrequency: number; // 	计划演练次数
+  planDrillTime: string; // 	计划演练时间
+  plannedDrillForm: string; // 	计划演练形式
+  actualFrequency: number; // 	实际演练次数
+  actualDrillTime: string; // 	实际演练时间
+  place: string; // 	演练地点
+  numberOfPeople: number; // 	实际参演人数
+  actualDrillForm: string; // 	实际演练形式
+  cost: number; // 	费用
+  influence: string; // 	演练影响
+  remarks: string; // 	备注
+}
+export class AddEmergencyDrillFieldClass implements EmergencyDrillField{
+  actualDrillForm: string;
+  actualDrillTime: string;
+  actualFrequency: number;
+  controlOrganization: string;
+  controlOrganizationId: any;
+  cost: number;
+  emergencyPlanName: string;
+  influence: string;
+  numberOfPeople: number;
+  place: string;
+  planDrillTime: string;
+  planFrequency: number;
+  plannedDrillForm: string;
+  projectUndertaker: string;
+  projectUndertakerId: any;
+  remarks: string;
+
+
+}
+export class UpdateEmergencyDrillFieldClass implements EmergencyDrillField {
+  actualDrillForm: string;
+  actualDrillTime: string;
+  actualFrequency: number;
+  controlOrganization: string;
+  controlOrganizationId: any;
+  cost: number;
+  emergencyPlanName: string;
+  id: any;
+  influence: string;
+  numberOfPeople: number;
+  place: string;
+  planDrillTime: string;
+  planFrequency: number;
+  plannedDrillForm: string;
+  projectUndertaker: string;
+  projectUndertakerId: any;
+  remarks: string;
+
+  constructor() {
+    this.id = null;
+    this.controlOrganization = '';
+    this.controlOrganizationId = null;
+    this.emergencyPlanName = '';
+    this.actualDrillForm = '';
+    this.actualDrillTime = '';
+    this.actualFrequency = null;
+    this.cost = null;
+    this.influence = '';
+    this.numberOfPeople = null;
+    this.place = '';
+    this.planDrillTime = '';
+    this.planFrequency = null;
+    this.plannedDrillForm = '';
+    this.projectUndertaker = '';
+    this.projectUndertakerId = null;
+    this.remarks = '';
+  }
+}
+
+/**
+ * 预案评估历史记录
+ */
+export interface EmergencyRecordField {
+  id?: any;
+  emergencyPlanName: string; // 	应急预案名称
+  reservePlanType: string; // 	预案类别
+  reviewStatus: any; // 	评审状态
+  reviewTime: string; // 	评审时间
+  reviewAttachmentPath: string; // 	评审附件路径
+  reviewAttachmentName: string; // 	评审附件名称
+  idt: string; // 	创建时间
+}
+export class UpdateEmergencyRecordFieldClass implements EmergencyRecordField {
+  emergencyPlanName: string;
+  idt: string;
+  reservePlanType: string;
+  reviewAttachmentName: string;
+  reviewAttachmentPath: string;
+  reviewStatus: any;
+  reviewTime: string;
+
+  constructor() {
+    this.emergencyPlanName = '';
+    this.idt = '';
+    this.reservePlanType = '';
+    this.reviewAttachmentName = '';
+    this.reviewAttachmentPath = '';
+    this.reviewStatus = null;
     this.reviewTime = '';
   }
 }

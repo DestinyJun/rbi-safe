@@ -140,4 +140,46 @@ export class EmergencyService {
   public emergencyPlanUpdate(params: any): Observable<any> {
     return this.http.post(`/emergencyPlan/update`, params);
   }
+
+  /** ********************** 应急演练 **********************  */
+  /**
+   * 应急演练分页查看
+   * @param params
+   */
+  public emergencyDrillList(params: any): Observable<any> {
+    return this.http.post(`/mineEmergencyDrill/page`, params);
+  }
+
+  /**
+   * 应急演练新增
+   * @param params
+   */
+  public emergencyDrillAdd(params: any): Observable<any> {
+    return this.http.post(`/mineEmergencyDrill/add`, params);
+  }
+
+  /**
+   * 应急演练删除
+   * @param params
+   */
+  public emergencyDrillDel(params: any): Observable<any> {
+    return this.http.post(`/mineEmergencyDrill/delete`, params);
+  }
+
+  /**
+   * 应急演练更新
+   * @param params
+   */
+  public emergencyDrillUpdate(params: any): Observable<any> {
+    return this.http.post(`/mineEmergencyDrill/update`, params);
+  }
+
+  /** ********************** 预计预案评估历史记录 **********************  */
+  /**
+   * 预计预案评估历史记录分页查看
+   * @param params
+   */
+  public emergencyRecordList(params: any): Observable<any> {
+    return this.http.post(`/emergencyPlan/pageHistory`, params);
+  }
 }

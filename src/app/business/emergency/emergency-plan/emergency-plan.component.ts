@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
-import {AddIntentCultureField, UpdateIntentCultureField} from '../../intent/intentApi';
 import {Es, orgInitializeTree} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
 import {EmergencyService} from '../../../common/services/emergency.service';
-import {AddEmergencyPlanFieldClass, EmergencyPlanField, UpdateEmergencyPlanFieldClass} from '../emergencyApi';
+import {AddEmergencyPlanFieldClass, EmergencyPlanField, EmergencyPlanHandleField, UpdateEmergencyPlanFieldClass, UpdateEmergencyPlanHandleFieldClass} from '../emergencyApi';
 
 @Component({
   selector: 'app-emergency-plan',
@@ -32,6 +31,17 @@ export class EmergencyPlanComponent implements OnInit {
   public emPlanOperateField: EmergencyPlanField = new AddEmergencyPlanFieldClass(); // 操作字段
   public emPlanOperateModal: boolean = false; // 模态框
   public emPlanOrgTree: OrgTree[] = []; // 组织树配置项
+  public emPlanEs: any = Es; // 组织树配置项
+
+
+  public emPlanHandleModal: boolean = false; // 处理模态框
+  public emPlanHandleField: EmergencyPlanHandleField = new UpdateEmergencyPlanHandleFieldClass(); // 处理操作字段
+  public emPlanHandleDropdownOptions: any = [
+    {label: '未通过', value: '0'},
+    {label: '通过', value: '1'},
+  ]; // 处理状态下拉配置项
+  public emPlanHandleDropdownSelected: any; // 处理状态下拉选择
+  public emPlanHandleDropdownPlaceholder: any = '请选择评审状态'; //  处理状态下拉label
 
   public emPlanPlaitTreeModal: boolean = false; // 编制单位组织树模态框
   public emPlanPlaitTreeSelect: OrgTree = {}; // 编制单位组织树选择
@@ -66,7 +76,6 @@ export class EmergencyPlanComponent implements OnInit {
   // 数据初始化
   private emPlanDataInit(currentPage, pageSize) {
     this.emergencySrv.emergencyPlanList({currentPage, pageSize}).subscribe((res) => {
-      console.log(res);
       this.emPlanTableData = res.data.datas;
       this.emPlanPageOption.totalRecord = res.data.totalRecord;
     });
@@ -77,6 +86,7 @@ export class EmergencyPlanComponent implements OnInit {
     test.subscribe(() => {
       // 操作成功后重新初始化数据列表
       this.emPlanOperateModal = false;
+      this.emPlanHandleModal = false;
       this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize);
     });
   }
@@ -112,6 +122,21 @@ export class EmergencyPlanComponent implements OnInit {
           }
         }
         this.emPlanOperateModal = true;
+        break;
+      // 处理操作
+      case 'handle':
+        obj.clear();
+        this.emPlanDropdownPlaceholder = item.reservePlanType;
+        this.emPlanDropdownSelected = null;
+        this.emPlanHandleDropdownPlaceholder = item.reviewStatus === '0' ? '未通过' : '通过';
+        this.emPlanHandleDropdownSelected = null;
+        const objsHandle = new UpdateEmergencyPlanHandleFieldClass();
+        for (const keys in objsHandle) {
+          if (objsHandle.hasOwnProperty(keys)) {
+            this.emPlanHandleField[keys] = item[keys];
+          }
+        }
+        this.emPlanHandleModal = true;
         break;
       // 保存操作
       case 'save':
@@ -164,11 +189,24 @@ export class EmergencyPlanComponent implements OnInit {
           this.emPlanHttpOperate(this.emergencySrv.emergencyPlanAdd(field));
         }
         break;
-      // 处理操作
-      case 'handle':
-        if (window.confirm('您确定需要删除吗？')) {
-          this.emPlanHttpOperate(this.emergencySrv.emergencyPlanHandle({data: [{id: item.id}]}));
+      // 处理保存操作
+      case 'handleSave':
+        if (this.emPlanDropdownSelected ) {
+          this.emPlanHandleField.reservePlanType = this.emPlanDropdownSelected.value;
         }
+        if (this.emPlanHandleDropdownSelected ) {
+          this.emPlanHandleField.reviewStatus = this.emPlanHandleDropdownSelected.value;
+        }
+        const handleField = new FormData();
+        Object.keys(this.emPlanHandleField).forEach(res => {
+          handleField.append(res, this.emPlanHandleField[res]);
+        });
+        if (item.length > 0) {
+          item.forEach(res => {
+            handleField.append('reviewAttachment', res);
+          });
+        }
+        this.emPlanHttpOperate(this.emergencySrv.emergencyPlanHandle(handleField));
         break;
       // 编制单位
       case 'plaitTree':

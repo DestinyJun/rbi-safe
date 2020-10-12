@@ -1,2 +1,302 @@
 <!--应急演练-->
-<div class="emergency-drill"></div>
+<div class="emergency-drill">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">应急演练</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--<input type="text" pInputText placeholder="搜索"/>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="emDrillOperate(emDrillOperateFlag = 'add', fileUpload)"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="emDrillOperate(emDrillOperateFlag = 'multiple')"></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="emDrillTableData"
+      [columns]="emDrillTableHeader"
+      [(selection)]="emDrillTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="详情" class="ui-button-rounded mr-3" (click)="emDrillOperate(emDrillOperateFlag='update',rowData, fileUpload)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="emDrillOperate(emDrillOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="emDrillPageOption" (clickEvent)="emDrillPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="emDrillOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{emDrillOperateFlag === 'update' ? '编辑操作' : '添加操作'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--主控单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>主控单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="emDrillMasterPlaitTreeSelect.label?emDrillMasterPlaitTreeSelect.label:emDrillMasterPlaitTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="emDrillOperate(emDrillOperateFlag = 'masterTree')">
+                </button>
+              </div>
+            </div>
+            <!--计划承办演练单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>计划承办演练单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="emDrillPlanPlaitTreeSelect.label?emDrillPlanPlaitTreeSelect.label:emDrillPlanPlaitTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="emDrillOperate(emDrillOperateFlag = 'planTree')">
+                </button>
+              </div>
+            </div>
+            <!--计划演练时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>计划演练时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #planDate
+                  placeholder="点击选择时间......"
+                  [locale]="emDrillEs" [(ngModel)]="emDrillOperateField.planDrillTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="false"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="planDate.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
+            <!--实际演练时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>实际演练时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #realityDate
+                  placeholder="点击选择时间......"
+                  [locale]="emDrillEs" [(ngModel)]="emDrillOperateField.actualDrillTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="false"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="realityDate.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
+            <!--计划演练形式-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>计划演练形式：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="emDrillPlanDropdownPlaceholder"
+                  [options]="emDrillPlanDropdownOptions" [(ngModel)]="emDrillPlanDropdownSelected"
+                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--计划演练次数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>计划演练次数：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填计划演练次数" [(ngModel)]="emDrillOperateField.planFrequency">
+              </div>
+            </div>
+            <!--实际演练形式-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>实际演练形式：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="emDrillRealityDropdownPlaceholder"
+                  [options]="emDrillRealityDropdownOptions" [(ngModel)]="emDrillRealityDropdownSelected"
+                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--实际演练次数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>实际演练次数：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填实际演练次数" [(ngModel)]="emDrillOperateField.actualFrequency">
+              </div>
+            </div>
+            <!--实际参演人数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>实际参演人数：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填实际参演人数" [(ngModel)]="emDrillOperateField.numberOfPeople">
+              </div>
+            </div>
+            <!--演练地点-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>演练地点：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填演练地点" [(ngModel)]="emDrillOperateField.place">
+              </div>
+            </div>
+            <!--应急预案名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>应急预案名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填应急预案名称" [(ngModel)]="emDrillOperateField.emergencyPlanName">
+              </div>
+            </div>
+            <!--费用-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>费用：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填费用" [(ngModel)]="emDrillOperateField.cost">
+              </div>
+            </div>
+            <!--演练影响-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>演练影响：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="emDrillOperateField.influence" pInputTextarea autoResize="autoResize" placeholder="请填写演练影响"></textarea>
+              </div>
+            </div>
+            <!--文件上传-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>文件上传：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload
+                  name="attachment"
+                  mode="advanced"
+                  fileLimit="1"
+                  invalidFileLimitMessageDetail="最多只能上传一个文件"
+                  invalidFileLimitMessageSummary="上传文件超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+            <!--备注-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="emDrillOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="emDrillOperate(emDrillOperateFlag = 'save',fileUpload._files)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="emDrillOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--主控单位-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="emDrillMasterPlaitTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择编制单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="emDrillOrgTree"
+          [(selection)]="emDrillMasterPlaitTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="emDrillMasterPlaitTreeModal=false" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+    <!--计划承办演练单位-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="emDrillPlanPlaitTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择主控单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="emDrillOrgTree"
+          [(selection)]="emDrillPlanPlaitTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="emDrillPlanPlaitTreeModal=false" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
