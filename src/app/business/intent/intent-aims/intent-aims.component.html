@@ -1,1 +1,15 @@
-<p>intent-aims works!</p>
+<!-- 目标管理 -->
+<div class="intent-aims">
+  <div class="menu">
+    <div class="tab-item" *ngFor="let item of tabitem">
+      <a class="item-content" (click)="tabItemClick(item)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="tab">
+    <app-checklist *ngIf="simbol === 'list'"></app-checklist>
+    <app-ledger *ngIf="simbol === 'ledger'"></app-ledger>
+  </div>
+</div>

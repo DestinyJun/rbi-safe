@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {GlobalService} from '../../../common/services/global.service';
-import {orgInitializeTree} from '../../../common/public/contents';
+import {Es, orgInitializeTree} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
 import {AccidentRecordField, AddAccidentRecordFieldClass, UpdateAccidentRecordFieldClass} from '../accidentApi';
 import {AccidentService} from '../../../common/services/accident.service';
@@ -39,6 +39,7 @@ export class AccidentRecordComponent implements OnInit {
   public acRecordDropdownOptions: any = []; // 状态下拉配置项
   public acRecordDropdownSelected: any; // 状态下拉选择
   public acRecordDropdownPlaceholder: any = '请选择事故类型'; //  状态下拉label
+  public acRecordEs: any = Es; // 日期选择插件
   constructor(
     private accidentSrv: AccidentService,
     private globalSrv: GlobalService,

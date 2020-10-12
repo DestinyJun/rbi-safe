@@ -109,6 +109,28 @@
                 <input type="number" pInputText placeholder="请填事故数量" [(ngModel)]="acRecordOperateField.accidentAccount">
               </div>
             </div>
+            <!--事故时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>事故数量：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-calendar
+                  #calendarDate
+                  placeholder="点击选择时间......"
+                  [locale]="acRecordEs" [(ngModel)]="acRecordOperateField.accidentTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [showTime]="false"
+                  yearRange="1930:2030">
+                  <p-footer>
+                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+                  </p-footer>
+                </p-calendar>
+              </div>
+            </div>
             <!--召开警示教育会数-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">

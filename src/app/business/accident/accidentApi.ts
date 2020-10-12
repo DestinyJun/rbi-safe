@@ -7,6 +7,7 @@ export interface AccidentRecordField {
   accidentPlace: string; // 事故地点
   accidentTypeId: any; // 事故类型id
   accidentAccount: any; // 事故数量
+  accidentTime: string; // 事故时间
   educationAccount: any; // 召开警示教育会数
   changeStatus: any; // 整改落实情况（文本域）
   detail: any; // 详细描述（文本域）
@@ -14,6 +15,7 @@ export interface AccidentRecordField {
   measure: any; // 采取措施（文本域）
 }
 export class AddAccidentRecordFieldClass implements AccidentRecordField{
+  accidentTime: string;
   accidentAccount: any;
   accidentPlace: string;
   accidentTypeId: any;
@@ -26,6 +28,7 @@ export class AddAccidentRecordFieldClass implements AccidentRecordField{
 
 }
 export class UpdateAccidentRecordFieldClass implements AccidentRecordField {
+  accidentTime: string;
   accidentAccount: any;
   accidentPlace: string;
   accidentTypeId: any;
@@ -41,6 +44,7 @@ export class UpdateAccidentRecordFieldClass implements AccidentRecordField {
     this.organizationId = null;
     this.accidentAccount = null;
     this.accidentPlace = '';
+    this.accidentTime = '';
     this.accidentTypeId = null;
     this.changeStatus = null;
     this.detail = null;
