@@ -1,1 +1,190 @@
-<p>ledger works!</p>
+<!--目标台账管理-->
+<div class="ledger">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">目标台账管理</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--      <input type="text" pInputText placeholder="搜索"/>-->
+      <!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="intentAimsLedgerOperate(intentAimsLedgerOperateFlag = 'add')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="intentAimsLedgerTableData"
+      [columns]="intentAimsLedgerTableHeader"
+      [(selection)]="intentAimsLedgerTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="详情" class="ui-button-rounded mr-3" (click)="intentAimsLedgerOperate(intentAimsLedgerOperateFlag='update',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="intentAimsLedgerPageOption" (clickEvent)="intentAimsLedgerPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="intentAimsLedgerOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{intentAimsLedgerOperateFlag === 'update' ? '编辑' : '添加'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <!--基础参数-->
+          <div class="ui-g">
+            <!--组织名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="intentAimsOrgTreeSelect.label?intentAimsOrgTreeSelect.label:intentAimsOrgTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="intentAimsLedgerOperate(intentAimsLedgerOperateFlag = 'orgTree')">
+                </button>
+              </div>
+            </div>
+          </div>
+          <!--清单列表-->
+          <div class="ui-g" style="border-bottom: 1px solid gainsboro" *ngFor="let item of intentAimsLedgerList;let i = index">
+            <!--类型-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>类型：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  disabled
+                  [style]="{width: '100%'}"
+                  [placeholder]="intentAimsDropdownPlaceholder"
+                  [options]="intentAimsDropdownOptions" [(ngModel)]="item.targetType"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--分值-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>分值：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" disabled pInputText placeholder="请填分值" [(ngModel)]="item.fraction">
+              </div>
+            </div>
+            <!--考评周期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>考评周期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" disabled pInputText placeholder="请填考评周期" [(ngModel)]="item.cycle">
+              </div>
+            </div>
+            <!--内容-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>内容：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea disabled [rows]="5" [cols]="30" [(ngModel)]="item.content" pInputTextarea autoResize="autoResize" placeholder="请填写内容"></textarea>
+              </div>
+            </div>
+            <!--完成情况-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>完成情况：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" [disabled]="intentAimsLedgerOperateFlag === 'update'" pInputText placeholder="请填完成情况" [(ngModel)]="item.completionSituation">
+              </div>
+            </div>
+            <!--扣分-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>扣分：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" [disabled]="intentAimsLedgerOperateFlag === 'update'" pInputText placeholder="请填扣分" [(ngModel)]="item.reduceFraction">
+              </div>
+            </div>
+            <!--目标指标调整-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>目标指标调整：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" [disabled]="intentAimsLedgerOperateFlag === 'update'" pInputText placeholder="请填目标指标调整" [(ngModel)]="item.adjustment">
+              </div>
+            </div>
+            <!--备注-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [disabled]="intentAimsLedgerOperateFlag === 'update'" [rows]="5" [cols]="30" [(ngModel)]="item.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button *ngIf="!(intentAimsLedgerOperateFlag === 'update')" pButton label="保存" (click)="intentAimsLedgerOperate(intentAimsLedgerOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="intentAimsLedgerOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--主控单位-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="intentAimsOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择编制单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="intentAimsOrgTree"
+          [(selection)]="intentAimsOrgTreeSelect"
+          (onNodeSelect)="intentAimsLedgerOperate(intentAimsLedgerOperateFlag = 'selectTree', $event.node.id)"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="intentAimsOrgTreeModal=false" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
+

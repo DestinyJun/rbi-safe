@@ -36,6 +36,18 @@ export interface IntentAimsChecklistContentField {
   fraction: number; // 分值
   cycle: number; // 考评周期
 }
+export class AddIntentAimsChecklistContentFieldClass implements IntentAimsChecklistContentField{
+  content: string;
+  targetType: string;
+  cycle: number;
+  fraction: number;
+  constructor() {
+    this.content = '';
+    this.targetType = '';
+    this.fraction = null;
+    this.cycle = null;
+  }
+}
 export interface IntentAimsChecklistField {
   id?: any;
   organizationId: any; // 组织ID
@@ -63,7 +75,7 @@ export class UpdateIntentAimsChecklistField implements IntentAimsChecklistField{
 /**
  * 目标台账管理
  */
-export interface IntentLedgerChecklistContentField {
+export interface IntentAimsLedgerContentField {
   id?: any;
   content: string; // 内容
   targetType: string; // 类型下拉的settingCode参数
@@ -74,20 +86,47 @@ export interface IntentLedgerChecklistContentField {
   adjustment: string; // 目标指标调整
   remarks: string; // 备注
 }
-export interface IntentLedgerChecklistField {
+export class AddIntentAimsLedgerContentFieldClass implements IntentAimsLedgerContentField{
+  adjustment: string;
+  completionSituation: string;
+  content: string;
+  cycle: number;
+  fraction: number;
+  reduceFraction: number;
+  remarks: string;
+  targetType: string;
+  constructor() {
+    this.adjustment = '';
+    this.completionSituation = '';
+    this.content = '';
+    this.cycle = null;
+    this.fraction = null;
+    this.reduceFraction = null;
+    this.remarks = '';
+    this.targetType = '';
+  }
+}
+export interface IntentAimsLedgerField {
   id?: any;
   organizationId: any; // 组织ID
   organizationName: string; // 组织名称
   maker: string; // 制定人员（人员列表）
   makerId: any; // 制定人员ID
-  targetDutyContent: IntentLedgerChecklistContentField[]; // 清单内容
+  targetDutyContent: IntentAimsLedgerContentField[]; // 清单内容
 }
-export class AddIntentLedgerChecklistField implements IntentLedgerChecklistField{
+export class UpdateIntentAimsLedgerField implements IntentAimsLedgerField{
   maker: string;
   makerId: any;
   organizationId: any;
   organizationName: string;
-  targetDutyContent: IntentLedgerChecklistContentField[];
+  targetDutyContent: IntentAimsLedgerContentField[];
+  constructor() {
+    this.maker = '';
+    this.makerId = null;
+    this.organizationId = null;
+    this.organizationName = '';
+    this.targetDutyContent = [];
+  }
 }
 
 /**

@@ -9,7 +9,7 @@ export class IntentService {
 
   constructor(private http: HttpClient) { }
 
-  /** * 安全生产管理机构设置 */
+  /** ********************** 安全生产管理机构设置 **********************  */
   /**
    * 安全生产管理机构分页
    * @param params
@@ -58,7 +58,7 @@ export class IntentService {
     return this.http.post(`/organizationManage/findPicture`, params);
   }
 
-  /** * 目标管理职责 */
+  /** ********************** 目标管理职责 **********************  */
   /**
    * 目标管理职责分页
    * @param params
@@ -99,32 +99,73 @@ export class IntentService {
     return this.http.post(`/target/deleteContentById`, params);
   }
 
-  /** * 目标管理台账 */
+  /** ********************** 目标职责清单制定 **********************  */
   /**
-   * 目标台账分页
+   * 目标职责清单制定分页
    * @param params
    */
-  public intentAgencyLedgerList(params: any): Observable<any> {
+  public intentAimsCheckList(params: any): Observable<any> {
     return this.http.post(`/target/findByPage`, params);
   }
 
   /**
-   * 目标台账新增
+   * 目标职责清单制定新增
    * @param params
    */
-  public intentAgencyLedgerAdd(params: any): Observable<any> {
+  public intentAimsCheckAdd(params: any): Observable<any> {
+    return this.http.post(`/target/add`, params);
+  }
+
+  /**
+   * 目标职责清单制定删除
+   * @param params
+   */
+  public intentAimsCheckDel(params: any): Observable<any> {
+    return this.http.post(`/target/delete`, params);
+  }
+
+  /**
+   * 目标职责清单制定修改
+   * @param params
+   */
+  public intentAimsCheckUpdate(params: any): Observable<any> {
+    return this.http.post(`/target/update`, params);
+  }
+
+  /**
+   * 目标职责清单制定指定删除项
+   * @param params
+   */
+  public intentAimsCheckSingleDel(params: any): Observable<any> {
+    return this.http.post(`/target/deleteContentById`, params);
+  }
+
+  /** ********************** 目标台账管理 **********************  */
+  /**
+   * 目标台账管理分页
+   * @param params
+   */
+  public intentAimsLedgerList(params: any): Observable<any> {
+    return this.http.post(`/target/findFileByPage`, params);
+  }
+
+  /**
+   * 目标台账管理新增
+   * @param params
+   */
+  public intentAimsLedgerAdd(params: any): Observable<any> {
     return this.http.post(`/target/addFile`, params);
   }
 
   /**
-   * 目标台账清单获取
+   * 目标台账管理清单获取
    * @param params
    */
-  public intentAgencyLedgerChecklist(params: any): Observable<any> {
+  public intentAimsLedgerChecklist(params: any): Observable<any> {
     return this.http.post(`/target/findFileByOrganizationId`, params);
   }
 
-  /** * 安全生产投入 */
+  /** ********************** 安全生产投入 **********************  */
   /**
    * 安全生产投入分页
    * @param params
@@ -165,7 +206,7 @@ export class IntentService {
     return this.http.post(`/productionInput/findTotalMoney`, params);
   }
 
-  /** * 安全文化建设 */
+  /** ********************** 安全文化建设 **********************  */
   /**
    * 安全文化建设分页
    * @param params
