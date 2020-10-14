@@ -1,0 +1,55 @@
+<!--制度评估历史记录-->
+<div class="institution-record">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">制度评估历史记录</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--<input type="text" pInputText placeholder="搜索"/>-->
+      <!--<button pButton type="button" class="ui-button-warning" [label]="'矿业公司当前总计提金额: '+ institutionRecordTotalPlanMoney"></button>-->
+    </div>
+    <div class="button">
+<!--      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="institutionRecordOperate(institutionRecordOperateFlag = 'add', fileUpload)"></button>-->
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="institutionRecordOperate(institutionRecordOperateFlag = 'multiple')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="institutionRecordTableData"
+      [columns]="institutionRecordTableHeader"
+      [(selection)]="institutionRecordTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="institutionRecordOperate(institutionRecordOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="institutionRecordPageOption" (clickEvent)="institutionRecordPageEvent($event)"></app-pagination>
+  </div>
+</div>
+

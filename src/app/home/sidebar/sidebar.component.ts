@@ -39,6 +39,19 @@ export class SidebarComponent implements OnInit {
         {item: {label: '安全文化建设',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/culture', isHas: true},
       ]
     },
+    // 安全管理制度
+    {
+      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      bgc: '#226AD5',
+      label: '安全管理制度',
+      lefticon: 'fa-angle-down',
+      link: '/home/institution/inmain',
+      children: [
+        {item: {label: '制度运行现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/institution/inmain', isHas: true},
+        {item: {label: '制度管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/institution/inmanage', isHas: true},
+        {item: {label: '制度评估历史记录',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/institution/inrecord', isHas: true}
+      ]
+    },
     // 安全教育培训
     {
       icon: {class: 'iconOutline-1', fontsize: '14px',  color: '#fff'},

@@ -86,4 +86,12 @@ export class GlobalService {
   public publicGetIntentAgencyTree(params): Observable<any> {
     return this.http.post('/organizationManage/findTree', params);
   }
+
+  /**
+   * 获取安全制度类型
+   * @param params
+   */
+  public publicGetInstitutionType(params): Observable<any> {
+    return this.http.post('/getSystemTypeBox', params);
+  }
 }

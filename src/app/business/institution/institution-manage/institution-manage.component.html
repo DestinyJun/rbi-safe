@@ -1,0 +1,307 @@
+<!--制度管理-->
+<div class="institution-manage">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">制度管理</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <!--<input type="text" pInputText placeholder="搜索"/>-->
+      <!--<button pButton type="button" class="ui-button-warning" [label]="'矿业公司当前总计提金额: '+ institutionManageTotalPlanMoney"></button>-->
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="institutionManageOperate(institutionManageOperateFlag = 'add', fileUpload)"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="institutionManageOperate(institutionManageOperateFlag = 'multiple')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
+      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="institutionManageTableData"
+      [columns]="institutionManageTableHeader"
+      [(selection)]="institutionManageTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>勾选</th>
+          <th>序号</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="详情" class="ui-button-rounded" (click)="institutionManageOperate(institutionManageOperateFlag='update',rowData, fileUpload1, fileUpload2)"></button>
+            <button pButton label="评估" class="ui-button-rounded ml-3 mr-3 ui-button-warning" (click)="institutionManageOperate(institutionManageOperateFlag='assess',rowData, fileUpload3)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="institutionManageOperate(institutionManageOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="institutionManagePageOption" (clickEvent)="institutionManagePageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="institutionManageAddModal" [style]="{width: '50vw'}"
+    >
+      <p-header>添加操作</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--制度名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>制度名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填制度名称" [(ngModel)]="institutionManageOperateField.name">
+              </div>
+            </div>
+            <!--类型-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>类型：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="institutionManageDropdownPlaceholder"
+                  [options]="institutionManageDropdownOptions" [(ngModel)]="institutionManageOperateField.type"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--文件上传-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>文件上传：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload
+                  name="img"
+                  mode="advanced"
+                  fileLimit="1"
+                  invalidFileLimitMessageDetail="最多只能上传一个文件"
+                  invalidFileLimitMessageSummary="上传图片超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="institutionManageOperate(institutionManageOperateFlag = 'save',fileUpload._files)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="institutionManageAddModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="institutionManageUpdateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>编辑弹窗</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--制度名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>制度名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填制度名称" [(ngModel)]="institutionManageUpdateField.name">
+              </div>
+            </div>
+            <!--类型-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>类型：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  [placeholder]="institutionManageDropdownPlaceholder"
+                  [options]="institutionManageDropdownOptions" [(ngModel)]="institutionManageUpdateField.type"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--制度文件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>制度文件：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload1
+                  name="sysFile"
+                  mode="advanced"
+                  fileLimit="1"
+                  invalidFileLimitMessageDetail="最多只能上传一个文件"
+                  invalidFileLimitMessageSummary="上传图片超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+            <!--修改说明-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>修改说明：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填修改说明" [(ngModel)]="institutionManageUpdateField.updateExplain">
+              </div>
+            </div>
+            <!--修改文件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>修改文件：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload2
+                  name="updateFile"
+                  mode="advanced"
+                  fileLimit="1"
+                  invalidFileLimitMessageDetail="最多只能上传一个文件"
+                  invalidFileLimitMessageSummary="上传图片超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="institutionManageOperate(institutionManageOperateFlag = 'updateSave',fileUpload1._files, fileUpload2._files)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="institutionManageUpdateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--评估弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="institutionManageAssessModal" [style]="{width: '50vw'}"
+    >
+      <p-header>编辑弹窗</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--制度名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>制度名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText placeholder="请填制度名称" [(ngModel)]="institutionManageAssessField.name">
+              </div>
+            </div>
+            <!--类型-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>类型：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  disabled
+                  [style]="{width: '100%'}"
+                  [placeholder]="institutionManageDropdownPlaceholder"
+                  [options]="institutionManageDropdownOptions" [(ngModel)]="institutionManageAssessField.type"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--适宜性-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>适宜性：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填适宜性" [(ngModel)]="institutionManageAssessField.suit">
+              </div>
+            </div>
+            <!--有效性-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>有效性：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填有效性" [(ngModel)]="institutionManageAssessField.effective">
+              </div>
+            </div>
+            <!--执行性-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>执行性：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填执行性" [(ngModel)]="institutionManageAssessField.execute">
+              </div>
+            </div>
+            <!--评估意见-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>评估意见：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="institutionManageAssessField.evaluateOpinion" pInputTextarea autoResize="autoResize" placeholder="请填写评估意见"></textarea>
+              </div>
+            </div>
+            <!--附件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>附件：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <p-fileUpload
+                  #fileUpload3
+                  name="sysFile"
+                  mode="advanced"
+                  fileLimit="1"
+                  invalidFileLimitMessageDetail="最多只能上传一个文件"
+                  invalidFileLimitMessageSummary="上传图片超出限制！"
+                  chooseLabel="点击上传"
+                  [showCancelButton]="false"
+                  [showUploadButton]="false"
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="institutionManageOperate(institutionManageOperateFlag = 'assessSave',fileUpload3._files)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="institutionManageUpdateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
