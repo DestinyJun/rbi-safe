@@ -10,9 +10,9 @@ const routes: Routes = [
     path: '',
     component: AccidentComponent,
     children: [
-      {path: '', redirectTo: 'situation', pathMatch: 'full'},
-      {path: 'situation', component: AccidentSituationComponent},
-      {path: 'record', component: AccidentRecordComponent},
+      {path: '', redirectTo: 'accidentSituation', pathMatch: 'full'},
+      {path: 'accidentSituation', component: AccidentSituationComponent},
+      {path: 'accidentRecord', component: AccidentRecordComponent},
     ]
   }
 ];

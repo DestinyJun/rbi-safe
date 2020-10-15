@@ -9,6 +9,15 @@ export class EmergencyService {
 
   constructor(private http: HttpClient) { }
 
+  /** **********************  应急管理现状 **********************  */
+  /**
+   * 应急管理现状统计图
+   * @param params
+   */
+  public emergencySituationChart(params: any): Observable<any> {
+    return this.http.post(`/emergencyPresentSituation/realTimePresentSituation`, params);
+  }
+
   /** **********************  应急管理机构 **********************  */
   /**
    * 应急管理机构分页查看

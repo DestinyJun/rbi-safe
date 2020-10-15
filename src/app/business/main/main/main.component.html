@@ -9,12 +9,22 @@
     </div>
     <div class="items p-2">
       <span class="title">隐患类型占比</span>
-      <app-echarts-pie-trouble></app-echarts-pie-trouble>
+      <app-echarts-pie-trouble
+        [echartData]="mainPieData"
+        title="隐患占比"
+        [color]="['#3B86FF', '#226AD5', '#63DCAF']"
+      ></app-echarts-pie-trouble>
     </div>
   </div>
   <div class="bottom mt-3">
     <div class="left">
-      <app-echarts-bar-double></app-echarts-bar-double>
+      <app-echarts-bar-double
+        [echartData]="mainBarData"
+        [axisLabelRotate]="330"
+        [gridBottom]="20"
+        title="安全管理培训计划"
+      >
+      </app-echarts-bar-double>
     </div>
     <div class="right">
       <div class="header pt-3 pb-3 pl-3 pr-3">

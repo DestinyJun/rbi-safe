@@ -41,4 +41,21 @@ export class AccidentService {
   public accidentRecordUpdate(params: any): Observable<any> {
     return this.http.post(`/accident/update`, params);
   }
+
+  /** ********************* 生产安全事故现状 ********************* */
+  /**
+   * 生产安全事故现状柱状图
+   * @param params
+   */
+  public accidentSituationBar(params: any): Observable<any> {
+    return this.http.post(`/accident/getMonthData`, params);
+  }
+
+  /**
+   * 生产安全事故现状饼状图
+   * @param params
+   */
+  public accidentSituationPie(params: any): Observable<any> {
+    return this.http.post(`/accident/getMonthDataType`, params);
+  }
 }

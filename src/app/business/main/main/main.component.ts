@@ -16,15 +16,13 @@ export class MainComponent implements OnInit {
   public riskLevelOption: any;
   public riskLevelData = [];
   public riskLevelTitle: any = '风险等级数量统计';
-
-
   public baseNum = 0.01;
-
-
   public mainPageNo: number = 1;
   public genneralInfoList: Array<object> = [];
   public showDetailDialog: boolean = false;
   public genneralInfoData: GeneralInfoClass = new GeneralInfoClass();
+  public mainBarData: any = null;
+  public mainPieData: any = null;
 
   public color: Array<any> = [ '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69'];
 
@@ -44,8 +42,31 @@ export class MainComponent implements OnInit {
       this.riskLevelData = res.data;
       this.updateRiskLevelOption();
     });
-
     this.initMainData();
+    this.builletinSrv.getAver(null).subscribe(res => {
+      const xdata = [];
+      const data = [
+        {name: '平均成绩', value: []},
+        {name: '平均学时', value: []},
+      ];
+      res.data.forEach(value => {
+        xdata.push(value.trainingContent);
+        data[1].value.push((value.average));
+        data[0].value.push((value.averageClassHours));
+      });
+      this.mainBarData = {xdata, data};
+    });
+
+    //  隐患类型占比
+    this.req.findByType().subscribe(res => {
+      const arr = [];
+      for (const dataKey in res.data) {
+        if (res.data.hasOwnProperty(dataKey)) {
+          arr.push({name: `${dataKey}的隐患`, value: res.data[dataKey]});
+        }
+      }
+      this.mainPieData = arr;
+    });
   }
 
   public initMainData(): void {

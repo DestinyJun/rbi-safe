@@ -143,10 +143,10 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '生产安全事故管理',
       lefticon: 'fa-angle-down',
-      link: '/home/accident/situation',
+      link: '/home/accident/accidentSituation',
       children: [
-        {item: {label: '生产安全事故现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/accident/situation', isHas: true},
-        {item: {label: '生产安全事故记录', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/accident/record', isHas: true},
+        {item: {label: '生产安全事故现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/accident/accidentSituation', isHas: true},
+        {item: {label: '生产安全事故记录', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/accident/accidentRecord', isHas: true},
       ]
     },
     // 职业健康管理

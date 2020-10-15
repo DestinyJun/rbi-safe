@@ -67,4 +67,13 @@ export class InstitutionService {
     return this.http.post(`/systemManage/deleteRecord`, params);
   }
 
+  /** ********************** 制度运行现状 **********************  */
+  /**
+   * 制度运行现状柱状图查看
+   * @param params
+   */
+  public institutionMainBar(params: any): Observable<any> {
+    return this.http.post(`/systemManage/findByYear`, params);
+  }
+
 }

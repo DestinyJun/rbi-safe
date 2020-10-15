@@ -21,6 +21,8 @@ import {QuestionTemplateModule} from '../../common/components/question-template/
 import {TopicModule} from '../../common/components/topic/topic.module';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 import { ExternalComponent } from './emergency-org/external/external.component';
+import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
+import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import { ExternalComponent } from './emergency-org/external/external.component';
     SidebarModule,
     BasicDialogModule,
     ReactiveFormsModule,
-    PanelModule
+    PanelModule,
+    EchartsBarModule,
+    EchartsPieModule
   ]
 })
 export class EmergencyModule { }

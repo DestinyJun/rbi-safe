@@ -7,7 +7,7 @@ import {TroubleCheckStatusService} from "../../../common/services/trouble-check-
   styleUrls: ['./trouble-check-status.component.scss']
 })
 export class TroubleCheckStatusComponent implements OnInit {
-  public lineData = [];
+  public lineData = null;
   public lineTilte: any = '隐患等级数量统计';
   constructor(
     private req: TroubleCheckStatusService
@@ -16,8 +16,17 @@ export class TroubleCheckStatusComponent implements OnInit {
   ngOnInit() {
 
     this.req.findByGrade().subscribe(res => {
-      this.lineData = res.data;
-      console.log(res);
+      const data = {
+        xdata: [],
+        ydata: [],
+      };
+      for (const key in res.data) {
+        if (res.data.hasOwnProperty(key)) {
+          data.ydata.push(res.data[key]);
+          data.xdata.push(key);
+        }
+      }
+      this.lineData = data;
     });
 
 

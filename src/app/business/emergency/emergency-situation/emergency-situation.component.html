@@ -1,2 +1,51 @@
 <!--应急管理现状-->
-<div class="emergency-situation"></div>
+<div class="emergency-situation">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">应急管理现状</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup"></div>
+    <div class="button">
+      <button pButton type="button" [label]="emSituationOrgTreeSelectLabel" class="ui-button-secondary" (click)="emSituationOperate(emSituationOperateFlag = 'tree')"></button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="ui-g" style="height: 100%">
+      <!--组织培训单位-->
+      <div class="ui-g-6 ui-md-6" style="height: 80%">
+        <app-echarts-bar-risk
+          [echartData]="emSituationBar"
+          [showAxisLabel]="true"
+          [showSplitLine]="true"
+          [barColor]="'#226AD5'"
+          (chartClick)="emSituationOperate(emSituationOperateFlag = 'chart',$event)"
+          [title]="'应急演练级别'">
+        </app-echarts-bar-risk>
+      </div>
+      <div class="ui-g-6 ui-md-6" style="height: 80%">
+        <app-echarts-pie-trouble
+          [title]="'应急预案'"
+          [echartData]="emSituationPie">
+        </app-echarts-pie-trouble>
+      </div>
+    </div>
+  </div>
+  <div class="modal">
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="emSituationOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="emSituationOrgTree"
+          [(selection)]="emSituationOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="emSituationOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import { graphic } from 'echarts';
 import {SecurityRiskService} from '../../../services/security-risk.service';
 
@@ -9,56 +9,31 @@ import {SecurityRiskService} from '../../../services/security-risk.service';
 })
 export class EchartsBarRiskComponent implements OnInit, OnChanges {
 
-  public bgColor: string = '#fff';
+  @Input() public echartData: any; // 统计图数据
+  @Input() public title: any; // 统计图标题
+  @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
+  @Input() public showAxisLabel: boolean = false; // 是否显示刻度值
+  @Input() public barColor: string = '#36CE9E'; // 柱状图颜色
+  @Output() public chartClick = new EventEmitter<any>();
   public color: Array<any> = [ '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69'];
-  @Input()
-  public echartData: any;
-  @Input()
-  public title: any;
-  public option: any;
-  public baseNum = 0.01;
-  constructor(
-    private srService: SecurityRiskService
-  ) { }
-  ngOnInit() {
-
-  }
+  public option: any; // 统计图基础配置项
+  constructor() { }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.echartData);
-    this.updateRiskLevelOption();
-  }
-  // public hexToRgba(hex, opacity): string {
-  //   let rgbaColor = '';
-  //   const reg = /^#[\da-f]{6}$/i;
-  //   if (reg.test(hex)) {
-  //     rgbaColor = `rgba(${Number('0x' + hex.slice(1, 3))},${Number(
-  //       '0x' + hex.slice(3, 5)
-  //     )},${Number('0x' + hex.slice(5, 7))},${opacity})`;
-  //   }
-  //   return rgbaColor;
-  // }
-  //
-  //
-
-
-
-  private updateRiskLevelOption(): void {
-
-    const x = [];
-    const y = [];
-
-    console.log(this.echartData);
-    for (const key in this.echartData) {
-      x.push(this.echartData[key] + this.baseNum);
-      y.push(key);
+    if (this.echartData) {
+      // console.log(this.echartData);
+      this.updateRiskLevelOption();
     }
+  }
 
+  // 图表数据渲染配置
+  private updateRiskLevelOption(): void {
     this.option = {
       title: {
         text: this.title,
         left: 26,
-        top: 26,
+        top: 0,
         textStyle: {
           color: '#4D4F5C',
           fontSize: 18,
@@ -66,17 +41,11 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
       },
       tooltip: {
         trigger: 'axis',
-        axisPointer: { // 坐标轴指示器，坐标轴触发有效
-          type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        axisPointer: {
+          type: 'shadow'
         },
         formatter: (val) => {
-          let color = '';
-          if ((val[0].axisValue === 'E' || val[0].axisValue === 'G') && val[0].value > x[val[0].dataIndex]) {
-            color = '#FCE149';
-          } else {
-            color = '#37C611';
-          }
-          return `<span style="color:${color};">   ● </span>${val[0].name} : ${Math.ceil(val[0].data - this.baseNum)}<br/>`;
+          return `<span style="color:${val[0].color};">   ● </span>${val[0].name} : ${Math.ceil(val[0].data)}<br/>`;
         }
       },
       grid: [
@@ -84,15 +53,8 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
           left: '5%',
           right: '5%',
           bottom: 30,
-          top: '30px',
+          top: '10%',
         },
-        {
-          bottom: 30,
-          left: '5%', // 为了让第2个grid显示在2个柱状图中间，中间相隔百分比为100/14
-          right: '5%',
-          height: 0,  //  不显示第2个grid的图表，只显示label
-          // show: true,
-        }
       ],
       legend: {
         data: ['区域内', '区域外'],
@@ -109,12 +71,6 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
       yAxis: [
         {
           type: 'value',
-          min: (value) => {
-            return this.baseNum * 10;
-          },
-          max: (value) => {
-            return value.max > 10 ? value.max : 10;
-          },
           gridIndex: 0,
           axisLine: {
             show: false,
@@ -124,28 +80,15 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
             show: false,
           },
           splitLine: {
-            show: false,
+            show: this.showSplitLine,
           },
           axisLabel: {
-            show: false,
+            show: this.showAxisLabel,
           }
         },
-        {
-          type: 'value',
-          gridIndex: 1,
-          axisLine: {
-            show: false,
-            onZero: true
-          },
-          splitLine: {
-            show: false,
-          },
-          axisLabel: {
-            show: false,
-          },
-        }
       ],
-      xAxis: [{
+      xAxis: [
+        {
         type: 'category',
         gridIndex: 0,
         axisTick: {
@@ -163,40 +106,18 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
           show: true,
           color: '#A7A7A7',
         },
-        data: y,
+        data: this.echartData.xdata,
         zlevel: 2
       },
-        {
-          type: 'category',
-          gridIndex: 1,
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#A3B4E5',
-              fontSize: '14px'
-            }
-          },
-          zlevel: 1,
-          axisTick: {
-            show: false,
-          },
-          axisLabel: {
-            show: false,
-
-          },
-          data: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  //  必须写data数据
-        }
       ],
       series: [
         {
           name: this.title,
           type: 'bar',
           barWidth: 10,
-          barGap: '40%', // 不同系列的柱间距离  为barWidth的 1.5倍
-          // barCateGoryGap: 40,  //同一系列的柱间距离，默认为类目间距的20%，可设固定值
           itemStyle: {
             normal: {
-              color: '#63DCAF',
+              color: this.barColor,
               barBorderRadius: 11,
             }
           },
@@ -211,28 +132,16 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
               }
             }
           },
-          data: x,
+          data: this.echartData.ydata,
           xAxisIndex: 0,
           yAxisIndex: 0
         },
-        {
-          type: 'bar',
-          xAxisIndex: 1, //  表示第2个grid的数据
-          yAxisIndex: 1
-        }
       ]
     };
   }
 
-
-  private getZhCode(str: string) {
-    switch (str) {
-      case 'Ⅰ': return 1;
-      case 'Ⅱ': return 2;
-      case 'Ⅲ': return 4;
-      case 'Ⅳ': return 6;
-      case 'Ⅴ': return 16;
-      default: return 0;
-    }
+  // 图表点击事件
+  public onClick(event) {
+    this.chartClick.emit(event);
   }
 }

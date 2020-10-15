@@ -1,50 +1,36 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TroubleCheckStatusService} from "../../../services/trouble-check-status.service";
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {TroubleCheckStatusService} from '../../../services/trouble-check-status.service';
 
 @Component({
   selector: 'app-echarts-pie-trouble',
   templateUrl: './echarts-pie-trouble.component.html',
   styleUrls: ['./echarts-pie-trouble.component.scss']
 })
-export class EchartsPieTroubleComponent implements OnInit {
-
-  public colorList: Array<any> = ['#226AD5', '#3B86FF', '#63DCAF', '#FCCF4F', '#94F6D2'];
-  @Input() public name: string = '隐患类型占比';
+export class EchartsPieTroubleComponent implements OnInit, OnChanges {
+  @Input() public echartData: any; // 统计图数据
+  @Input() public title: string = ''; // 统计图标题
+  @Input() public color: Array<any> = [
+    '#2246D5', '#226AD5', '#3B86FF', '#58C1F9', '#63DCAF',
+    '#FFC06A', '#FCCF4F', '#FF6A7E', '#91E5FF',
+  ]; // 基础配色
   public option: any;
-  @Input() public data = [];
-  public maxRadio: number;
-  constructor(
-    private req: TroubleCheckStatusService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.req.findByType().subscribe(res => {
-      let max = 0;
-      let tal = 0;
-      this.data = [];
-      for (const dataKey in res.data) {
-        this.data.push({name:  dataKey + '的隐患', value: res.data[dataKey]});
-        if (max < res.data[dataKey]) {
-          max = res.data[dataKey];
-          this.name = dataKey + '的隐患';
-        }
-        tal += res.data[dataKey];
-      }
-      if (tal === 0) {
-        this.maxRadio = 0;
-        this.name = '全部数据为0';
-      } else {
-        this.maxRadio = Math.floor((max / tal) * 100);
-      }
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.echartData) {
+      // console.log(this.echartData);
       this.updateOption();
-    });
+    }
   }
 
   private updateOption(): void {
     this.option = {
       title: {
-        text: this.name,
-        subtext: this.maxRadio + '%',
+        text: this.title,
         textStyle: {
           fontSize: 14,
           color: '#545663',
@@ -56,16 +42,25 @@ export class EchartsPieTroubleComponent implements OnInit {
         },
         textAlign: 'center',
         left: '34.5%',
-        top: '50%'
+        top: '48%'
       },
       tooltip: {
         trigger: 'item',
+        borderColor: 'rgba(255,255,255,.3)',
+        backgroundColor: 'rgba(13,5,30,.6)',
+        borderWidth: 1,
+        padding: 5,
+        formatter: (parms) => {
+          return parms.marker + '' + parms.data.name + '</br>' +
+            '数量：' + parms.data.value + '起</br>' +
+            '占比：' + parms.percent + '%';
+        }
       },
       legend: {
         type: 'scroll',
         orient: 'vertical',
         right: '15%',
-        top: '45%',
+        top: 'center',
         itemGap: 20,
         selectedMode: false,
         icon: 'pin',
@@ -75,38 +70,26 @@ export class EchartsPieTroubleComponent implements OnInit {
             uname: {
               width: 20
             },
-            // unum: {
-            //   color: '#4ed139',
-            //   width: 40,
-            //   align: 'right'
-            // }
           }
         },
-        formatter: (name) => {
-          // let value =  0;
-          // this.data.forEach(v => {
-          //   if (name === v.name) {
-          //     value = v.value;
-          //   }
-          // });
-          // return `{uname|${name}}{unum|${value}}`;
+        formatter: (name, index) => {
           return `{uname|${name}}`;
         }
       },
-      color: this.colorList,
+      color: this.color,
       series: [
         {
-          name: '隐患类型',
+          name: '占比统计：',
           type: 'pie',
           radius: ['45%', '60%'],
-          center: ['35%', '60%'],
+          center: ['35%', '50%'],
           label: {
             show: false
           },
           labelLine: {
             show: false
           },
-          data: this.data,
+          data: this.echartData,
         }
       ]
     };
