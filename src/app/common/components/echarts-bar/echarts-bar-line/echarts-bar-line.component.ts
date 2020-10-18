@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
-  selector: 'app-echarts-bar-double',
-  templateUrl: './echarts-bar-double.component.html',
-  styleUrls: ['./echarts-bar-double.component.scss']
+  selector: 'app-echarts-bar-line',
+  templateUrl: './echarts-bar-line.component.html',
+  styleUrls: ['./echarts-bar-line.component.scss']
 })
-export class EchartsBarDoubleComponent implements OnInit, OnChanges {
+export class EchartsBarLineComponent implements OnInit, OnChanges {
+
   @Input() public echartData: any; // 统计图数据
   @Input() public title: string = ''; // 统计图标题
   @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
@@ -22,7 +23,8 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.echartData) {
-      const series = this.echartData.data.map((item) => {
+      // console.log(this.echartData);
+      const seriesBar = this.echartData.barData.map((item) => {
         return {
           name: item.name,
           type: 'bar',
@@ -47,6 +49,18 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
           data: item.value,
         };
       });
+      const seriesLine = this.echartData.lineData.map((item) => {
+        return {
+          name: item.name,
+          type: 'line',
+          symbol: 'circle',
+          symbolSize: 8,
+          yAxisIndex: 1,
+          data: item.value,
+        };
+      });
+      const series = [...seriesBar, ...seriesLine];
+      console.log(series);
       this.updateOption(series);
     }
   }
@@ -76,29 +90,46 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
           return `${val[0].name}<br/>${str}`;
         }
       },
-      grid: [
-        {
-          left: '5%',
-          right: '5%',
-          bottom: this.gridBottom.toString() + '%',
-          top: '10%',
-        },
-      ],
-      legend: {
-        right: '10%',
-        top: '3%',
-        textStyle: {
-          color: '#AAAAAA'
-        },
-        itemWidth: 16,
-        itemHeight: 16,
-        borderRadius: 10,  // borderRadius最大为宽高最小值的一半，即为5
-        itemGap: 30
+      grid:  {
+        left: '5%',
+        right: '5%',
+        bottom: this.gridBottom.toString() + '%',
+        top: '10%',
       },
+      legend: [
+        {
+          right: '10%',
+          top: '3%',
+          textStyle: {
+            color: '#AAAAAA'
+          },
+          itemWidth: 16,
+          itemHeight: 16,
+          borderRadius: 10,  // borderRadius最大为宽高最小值的一半，即为5
+          itemGap: 30
+        }
+      ],
       yAxis: [
         {
           type: 'value',
-          gridIndex: 0,
+          position: 'left',
+          axisLine: {
+            show: false,
+            onZero: true
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            show: this.showSplitLine,
+          },
+          axisLabel: {
+            show: this.showAxisLabel,
+          }
+        },
+        {
+          type: 'value',
+          position: 'right',
           axisLine: {
             show: false,
             onZero: true
@@ -147,5 +178,4 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
   public onClick(event) {
     this.chartClick.emit(event);
   }
-
 }

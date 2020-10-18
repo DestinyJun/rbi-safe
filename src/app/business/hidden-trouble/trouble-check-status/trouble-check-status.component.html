@@ -1,18 +1,43 @@
 <div class="check-status">
-  <div class="content">
-    <div class="bar-chart">
-      <app-echarts-bar-risk [echartData]="lineData" [title]="lineTilte"></app-echarts-bar-risk>
-    </div>
-    <div class="pie-chart">
-      <div class="pie-title">
-        <span>隐患类型占比</span>
-<!--        <span>查看详情</span>-->
-      </div>
-      <app-echarts-pie-trouble></app-echarts-pie-trouble>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">隐患分析</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup"></div>
+    <div class="button">
+      <button pButton type="button" [label]="troubleCheckOrgTreeSelectLabel" class="ui-button-secondary" (click)="troubleCheckOperate(troubleCheckOperateFlag = 'tree')"></button>
     </div>
   </div>
-  <div class="line-chart">
-    <app-echarts-bar-trouble></app-echarts-bar-trouble>
+  <div class="content">
+    <div class="ui-g" style="height: 100%">
+      <!--组织培训单位-->
+      <div class="ui-g-12 ui-md-12" style="height: 80%">
+        <app-echarts-bar-line
+          [showSplitLine]="true"
+          [showAxisLabel]="true"
+          [echartData]="troubleCheckChart"
+          title="隐患整改率">
+        </app-echarts-bar-line>
+      </div>
+    </div>
+  </div>
+  <div class="modal">
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="troubleCheckOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="troubleCheckOrgTree"
+          [(selection)]="troubleCheckOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="troubleCheckOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
   </div>
 </div>
 

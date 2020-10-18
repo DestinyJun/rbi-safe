@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
-  selector: 'app-echarts-bar-double',
-  templateUrl: './echarts-bar-double.component.html',
-  styleUrls: ['./echarts-bar-double.component.scss']
+  selector: 'app-echarts-bar-stack',
+  templateUrl: './echarts-bar-stack.component.html',
+  styleUrls: ['./echarts-bar-stack.component.scss']
 })
-export class EchartsBarDoubleComponent implements OnInit, OnChanges {
+export class EchartsBarStackComponent implements OnInit, OnChanges {
+
   @Input() public echartData: any; // 统计图数据
   @Input() public title: string = ''; // 统计图标题
   @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
@@ -26,24 +27,18 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
         return {
           name: item.name,
           type: 'bar',
+          stack: '总量',
+          barGap: '50%',
           barWidth: 10,
           itemStyle: {
             normal: {
-              barBorderRadius: 12,
+              barBorderRadius: [12, 12, 12, 12],
             },
           },
           label: {
-            normal: {
-              show: false,
-              position: 'top',
-              fontSize: 11,
-              formatter: (val) => {
-                return `${val.value}s`;
-              }
-            }
+            position: 'insideRight',
+            show: false,
           },
-          xAxisIndex: 0,
-          yAxisIndex: 0,
           data: item.value,
         };
       });
@@ -93,52 +88,45 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
         itemWidth: 16,
         itemHeight: 16,
         borderRadius: 10,  // borderRadius最大为宽高最小值的一半，即为5
-        itemGap: 30
+        itemGap: 30,
       },
-      yAxis: [
-        {
-          type: 'value',
-          gridIndex: 0,
-          axisLine: {
-            show: false,
-            onZero: true
-          },
-          axisTick: {
-            show: false,
-          },
-          splitLine: {
-            show: this.showSplitLine,
-          },
-          axisLabel: {
-            show: this.showAxisLabel,
+      xAxis: {
+        type: 'category',
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false,
+          align: 'center',
+          lineStyle: {
+            color: '#A3',
+            fontSize: '14px'
           }
         },
-      ],
-      xAxis: [
-        {
-          type: 'category',
-          gridIndex: 0,
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false,
-            align: 'center',
-            lineStyle: {
-              color: '#A3',
-              fontSize: '14px'
-            }
-          },
-          axisLabel: {
-            show: true,
-            color: '#A7A7A7',
-            interval: 0,
-            rotate: this.axisLabelRotate
-          },
-          data: this.echartData.xdata,
-          zlevel: 2
+        axisLabel: {
+          show: true,
+          color: '#A7A7A7',
+          interval: 0,
+          rotate: this.axisLabelRotate
         },
-      ],
+        data: this.echartData.xdata,
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: {
+          show: false,
+          onZero: true
+        },
+        axisTick: {
+          show: false,
+        },
+        splitLine: {
+          show: this.showSplitLine,
+        },
+        axisLabel: {
+          show: this.showAxisLabel,
+        }
+      },
       series: series
     };
   }

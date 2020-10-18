@@ -1,35 +1,53 @@
 <div class="sr-control-status">
-  <header class="header">
-    <span>风险危害种类占比</span>
-  </header>
-  <div class="control-status-content">
-    <div class="content-type">
-       <div class="item" *ngFor="let item of itemTypeList">
-         <div class="title">
-           <span class="h2">{{item.title}}</span>
-           <i class="fa fa-question-circle"></i>
-         </div>
-         <div class="content">
-           {{item.content}}
-         </div>
-         <div class="num">
-            <span>{{item.num}}%</span>
-            <span></span>
-         </div>
-       </div>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">生产安全事故现状</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup"></div>
+    <div class="button">
+      <button pButton type="button" [label]="striskStatusOrgTreeSelectLabel" class="ui-button-secondary" (click)="striskStatusOperate(striskStatusOperateFlag = 'tree')"></button>
     </div>
-    <div class="content-chart">
-       <div class="line-chart">
-<!--         <app-echarts-bar-risk [echartData]="lineData" [title]="lineTilte"></app-echarts-bar-risk>-->
-         <div echarts style="width: 100%; height: 100%" [options]="riskLevelOption"  class="echarts-bar-trouble"></div>
-       </div>
-<!--      <div class="pie">-->
-<!--        <div class="pie-title">-->
-<!--          <span class="h3">风险范畴分类</span>-->
-<!--&lt;!&ndash;          <span>查看详情</span>&ndash;&gt;-->
-<!--        </div>-->
-<!--        <app-echarts-pie-risk></app-echarts-pie-risk>-->
-<!--      </div>-->
+  </div>
+  <div class="content">
+    <div class="ui-g" style="height: 100%">
+      <!--左柱状图-->
+      <div class="ui-g-7 ui-md-7" style="height: 80%">
+        <app-echarts-bar-double
+          [showSplitLine]="true"
+          [showAxisLabel]="true"
+          (chartClick)="striskStatusOperate(striskStatusOperateFlag = 'chart', $event)"
+          [color]="['#2246D5', '#3B86FF', '#58C1F9', '#63DCAF']"
+          [echartData]="striskStatusYearBar"
+          title="企业规章制度实施情况统计">
+        </app-echarts-bar-double>
+      </div>
+      <div class="ui-g-5 ui-md-5" style="height: 80%">
+        <app-echarts-bar-stack
+          [title]="'事故占比'"
+          [showSplitLine]="true"
+          [showAxisLabel]="true"
+          [color]="['#024EC1', '#1F6BEC', '#4784EC', '#8DB7FF', '#C9D6FF']"
+          [echartData]="striskStatusMonthBar">
+        </app-echarts-bar-stack>
+      </div>
     </div>
+  </div>
+  <div class="modal">
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="striskStatusOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="striskStatusOrgTree"
+          [(selection)]="striskStatusOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="striskStatusOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
   </div>
 </div>

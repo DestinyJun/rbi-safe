@@ -10,6 +10,24 @@ export class SecurityRiskService {
   constructor(
     private http: HttpClient
   ) { }
+
+  /** **********************  风险分级管控现状 **********************  */
+  /**
+   * 风险分级管控现状柱状图一
+   * @param params
+   */
+  public striskStatusYearBar(params: any): Observable<any> {
+    return this.http.post(`/risk/findByYear`, params);
+  }
+
+  /**
+   * 风险分级管控现状柱状图二
+   * @param params
+   */
+  public striskStatusMonthBar(params: any): Observable<any> {
+    return this.http.post(`/risk/findOneMonth`, params);
+  }
+
   /*--------------------------------------------------- 风险管理模块---------------------------------------------------*/
   /**
    * 计算风险值和风险等级

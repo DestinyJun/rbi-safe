@@ -71,6 +71,7 @@ export class AccidentSituationComponent implements OnInit {
         this.acSituationOrgTreeModal = false;
         this.acSituationOrgTreeSelectLabel = this.acSituationOrgTreeSelect.label;
         this.acSituationBarHttp(this.acSituationOrgTreeSelect.id, this.acSituationYear);
+        this.acSituationPieHttp(this.acSituationOrgTreeSelect.id, this.acSituationYear, this.acSituationMonth);
         break;
     }
   }

@@ -17,8 +17,8 @@ export class TroubleCheckStatusService {
     return this.http.post('/hid/findByMonth', '');
   }
   // 隐患等级
-  public findByGrade(): Observable<any> {
-    return this.http.post('/hid/findByGrade', '');
+  public troubleCheckChar(params): Observable<any> {
+    return this.http.post('/hid/findByYear', params);
   }
   // 隐患类型
   public findByType(): Observable<any> {
