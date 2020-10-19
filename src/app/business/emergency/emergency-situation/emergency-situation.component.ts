@@ -44,7 +44,11 @@ export class EmergencySituationComponent implements OnInit {
   // 柱状图数据获取
   private emSituationChartHttp(organizationId, year) {
     this.emergencySrv.emergencySituationChart({organizationId, year}).subscribe((res) => {
-      this.emSituationBar = res.data;
+      this.emSituationBar = {
+        xdata: res.data.drillDate.xDate,
+        ydata: res.data.drillDate.yDate,
+      };
+      this.emSituationPie = res.data.planDate.map((item) => ({name: item.name, value: item.values}));
     });
   }
 

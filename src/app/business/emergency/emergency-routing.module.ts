@@ -13,12 +13,12 @@ const routes: Routes = [
     path: '',
     component: EmergencyComponent,
     children: [
-      {path: '', redirectTo: 'situation', pathMatch: 'full'},
+      {path: '', redirectTo: 'emergencySituation', pathMatch: 'full'},
       {path: 'org', component: EmergencyOrgComponent},
       {path: 'drill', component: EmergencyDrillComponent},
       {path: 'plan', component: EmergencyPlanComponent},
       {path: 'record', component: EmergencyRecordComponent},
-      {path: 'situation', component: EmergencySituationComponent},
+      {path: 'emergencySituation', component: EmergencySituationComponent},
     ]
   }
 ];

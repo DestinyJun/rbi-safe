@@ -229,8 +229,10 @@ export interface EmergencyDrillField {
   cost: number; // 	费用
   influence: string; // 	演练影响
   remarks: string; // 	备注
+  drillLevel: string; // 	级别（公司级、分厂级，班组级，车间级）
 }
 export class AddEmergencyDrillFieldClass implements EmergencyDrillField{
+  drillLevel: string;
   actualDrillForm: string;
   actualDrillTime: string;
   actualFrequency: number;
@@ -251,6 +253,7 @@ export class AddEmergencyDrillFieldClass implements EmergencyDrillField{
 
 }
 export class UpdateEmergencyDrillFieldClass implements EmergencyDrillField {
+  drillLevel: string;
   actualDrillForm: string;
   actualDrillTime: string;
   actualFrequency: number;
@@ -287,6 +290,7 @@ export class UpdateEmergencyDrillFieldClass implements EmergencyDrillField {
     this.projectUndertaker = '';
     this.projectUndertakerId = null;
     this.remarks = '';
+    this.drillLevel = '';
   }
 }
 

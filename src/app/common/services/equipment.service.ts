@@ -9,7 +9,16 @@ export class EquipmentService {
 
   constructor(private http: HttpClient) { }
 
-  /** * 安全设备管理 */
+  /** ********************* 设备设施管理现状 */
+  /**
+   * 安全设备分页查看
+   * @param params
+   */
+  public equipmentMainChart(params: any): Observable<any> {
+    return this.http.post(`/equipment/realTimeDeviceStatus`, params);
+  }
+
+  /** ********************* 安全设备管理********************* */
   /**
    * 安全设备分页查看
    * @param params
@@ -42,7 +51,7 @@ export class EquipmentService {
     return this.http.post(`/equipment/updateSafe`, params);
   }
 
-  /** * 特种设备管理 */
+  /** ********************** 特种设备管理 ********************* */
   /**
    * 分页查看特种设备
    * @param params
@@ -75,7 +84,7 @@ export class EquipmentService {
     return this.http.post(`/equipment/updateSpecial`, params);
   }
 
-  /** * 其他设备管理 */
+  /** ********************** 其他设备管理 ********************* */
   /**
    * 分页查看其他设备
    * @param params

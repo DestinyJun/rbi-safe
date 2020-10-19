@@ -38,8 +38,6 @@ export class EmergencyDrillComponent implements OnInit {
     {label: '第二式', value: '第二式'},
     {label: '第三式', value: '第三式'},
   ]; // 计划演练形式下拉配置项
-  public emDrillPlanDropdownSelected: any; // 计划演练形式下拉选择
-  public emDrillPlanDropdownPlaceholder: any = '请选择计划演练形式'; //  计划演练形式下拉label
 
   public emDrillRealityDropdownOptions: any = [
     {label: '公司级', value: '公司级'},
@@ -47,8 +45,6 @@ export class EmergencyDrillComponent implements OnInit {
     {label: '车间级', value: '车间级'},
     {label: '班组级', value: '班组级'},
   ]; // 实际演练形式下拉配置项
-  public emDrillRealityDropdownSelected: any; // 实际演练形式下拉选择
-  public emDrillRealityDropdownPlaceholder: any = '请选择实际演练形式'; //  实际演练形式下拉label
 
   public emDrillMasterPlaitTreeModal: boolean = false; // 主控单位组织树模态框
   public emDrillMasterPlaitTreeSelect: OrgTree = {}; // 主控单位组织树选择
@@ -99,12 +95,8 @@ export class EmergencyDrillComponent implements OnInit {
         this.emDrillOperateField = Object.assign({}, new AddEmergencyDrillFieldClass());
         this.emDrillMasterPlaitTreeSelectLabel = '点击选择主控单位';
         this.emDrillPlanPlaitTreeSelectLabel = '点击选择计划承办演练单位';
-        this.emDrillPlanDropdownPlaceholder = '请选择计划演练形式';
-        this.emDrillRealityDropdownPlaceholder = '请选择实际演练形式';
         this.emDrillMasterPlaitTreeSelect = {};
         this.emDrillPlanPlaitTreeSelect = {};
-        this.emDrillPlanDropdownSelected = null;
-        this.emDrillRealityDropdownSelected = null;
         item.clear();
         break;
       // 编辑操作初始化
@@ -112,12 +104,8 @@ export class EmergencyDrillComponent implements OnInit {
         obj.clear();
         this.emDrillMasterPlaitTreeSelectLabel = item.controlOrganization;
         this.emDrillPlanPlaitTreeSelectLabel = item.projectUndertaker;
-        this.emDrillPlanDropdownPlaceholder = item.plannedDrillForm;
-        this.emDrillRealityDropdownPlaceholder = item.actualDrillForm;
         this.emDrillMasterPlaitTreeSelect = {};
         this.emDrillPlanPlaitTreeSelect = {};
-        this.emDrillPlanDropdownSelected = null;
-        this.emDrillRealityDropdownSelected = null;
         const objs = new UpdateEmergencyDrillFieldClass();
         for (const keys in objs) {
           if (objs.hasOwnProperty(keys)) {
@@ -154,12 +142,6 @@ export class EmergencyDrillComponent implements OnInit {
             this.emDrillOperateField.projectUndertakerId = this.emDrillPlanPlaitTreeSelect.id;
             this.emDrillOperateField.projectUndertaker = this.emDrillPlanPlaitTreeSelect.label;
           }
-          if (this.emDrillPlanDropdownSelected ) {
-            this.emDrillOperateField.plannedDrillForm = this.emDrillPlanDropdownSelected.value;
-          }
-          if (this.emDrillRealityDropdownSelected ) {
-            this.emDrillOperateField.actualDrillForm = this.emDrillRealityDropdownSelected.value;
-          }
           const field = new FormData();
           Object.keys(this.emDrillOperateField).forEach(res => {
             field.append(res, this.emDrillOperateField[res]);
@@ -180,12 +162,6 @@ export class EmergencyDrillComponent implements OnInit {
           if ('id' in this.emDrillPlanPlaitTreeSelect ) {
             this.emDrillOperateField.projectUndertakerId = this.emDrillPlanPlaitTreeSelect.id;
             this.emDrillOperateField.projectUndertaker = this.emDrillPlanPlaitTreeSelect.label;
-          }
-          if (this.emDrillPlanDropdownSelected ) {
-            this.emDrillOperateField.plannedDrillForm = this.emDrillPlanDropdownSelected.value;
-          }
-          if (this.emDrillRealityDropdownSelected ) {
-            this.emDrillOperateField.actualDrillForm = this.emDrillRealityDropdownSelected.value;
           }
           const field = new FormData();
           Object.keys(this.emDrillOperateField).forEach(res => {

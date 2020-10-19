@@ -142,9 +142,9 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-dropdown
                   [style]="{width: '100%'}"
-                  [placeholder]="emDrillPlanDropdownPlaceholder"
-                  [options]="emDrillPlanDropdownOptions" [(ngModel)]="emDrillPlanDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                  placeholder="请选择计划演练形式"
+                  [options]="emDrillPlanDropdownOptions" [(ngModel)]="emDrillOperateField.plannedDrillForm"
+                   dropdownIcon="fa fa-caret-down">
                 </p-dropdown>
               </div>
             </div>
@@ -165,9 +165,9 @@
               <div class="ui-g-8 ui-md-8 input">
                 <p-dropdown
                   [style]="{width: '100%'}"
-                  [placeholder]="emDrillRealityDropdownPlaceholder"
-                  [options]="emDrillRealityDropdownOptions" [(ngModel)]="emDrillRealityDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                  placeholder="请选择实际演练形式"
+                  [options]="emDrillRealityDropdownOptions" [(ngModel)]="emDrillOperateField.actualDrillForm"
+                  dropdownIcon="fa fa-caret-down">
                 </p-dropdown>
               </div>
             </div>
@@ -178,6 +178,20 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填实际演练次数" [(ngModel)]="emDrillOperateField.actualFrequency">
+              </div>
+            </div>
+            <!--级别-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>级别：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  placeholder="请选择级别"
+                  [options]="emDrillRealityDropdownOptions" [(ngModel)]="emDrillOperateField.drillLevel"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
               </div>
             </div>
             <!--实际参演人数-->

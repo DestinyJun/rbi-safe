@@ -22,7 +22,7 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.echartData) {
-      // console.log(this.echartData);
+      console.log(this.echartData);
       this.updateRiskLevelOption();
     }
   }
@@ -112,7 +112,6 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
       ],
       series: [
         {
-          name: this.title,
           type: 'bar',
           barWidth: 10,
           itemStyle: {

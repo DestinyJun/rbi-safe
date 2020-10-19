@@ -77,9 +77,10 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '设备设施管理',
       lefticon: 'fa-angle-down',
-      link: '/home/equipment/safe',
+      link: '/home/equipment/equipmentMain',
       children: [
-        {item: {label: '安全设备设施', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/equipment/safe', isHas: true},
+        {item: {label: '设备设施管理现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/equipment/equipmentMain', isHas: true},
+        {item: {label: '安全设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/safe', isHas: true},
         {item: {label: '特种设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/special', isHas: true},
         {item: {label: '其他设备设施',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/other', isHas: true},
       ]
@@ -128,13 +129,13 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '应急管理',
       lefticon: 'fa-angle-down',
-      link: '/home/emergency/situation',
+      link: '/home/emergency/emergencySituation',
       children: [
-        {item: {label: '应急组织', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/emergency/org', isHas: true},
-        {item: {label: '应急演练', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/drill', isHas: true},
+        {item: {label: '应急管理现状',  bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/emergency/emergencySituation', isHas: true},
+        {item: {label: '应急组织', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/org', isHas: true},
         {item: {label: '应急预案',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/plan', isHas: true},
+        {item: {label: '应急演练', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/drill', isHas: true},
         {item: {label: '应急预案评估历史记录',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/record', isHas: true},
-        {item: {label: '应急管理现状',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/situation', isHas: true},
       ]
     },
     // 生产安全事故管理

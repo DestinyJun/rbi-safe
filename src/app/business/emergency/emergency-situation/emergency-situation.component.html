@@ -11,14 +11,13 @@
     <div class="ui-g" style="height: 100%">
       <!--组织培训单位-->
       <div class="ui-g-6 ui-md-6" style="height: 80%">
-        <app-echarts-bar-risk
-          [echartData]="emSituationBar"
-          [showAxisLabel]="true"
-          [showSplitLine]="true"
-          [barColor]="'#226AD5'"
-          (chartClick)="emSituationOperate(emSituationOperateFlag = 'chart',$event)"
-          [title]="'应急演练级别'">
-        </app-echarts-bar-risk>
+          <app-echarts-bar-risk
+            [echartData]="emSituationBar"
+            [showAxisLabel]="true"
+            [showSplitLine]="true"
+            [barColor]="'#226AD5'"
+            [title]="'应急演练级别'">
+          </app-echarts-bar-risk>
       </div>
       <div class="ui-g-6 ui-md-6" style="height: 80%">
         <app-echarts-pie-trouble

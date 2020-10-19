@@ -27,13 +27,17 @@ import { EquipmentComponent } from './equipment.component';
 import { EquipmentSpecialComponent } from './equipment-special/equipment-special.component';
 import { EquipmentSafeComponent } from './equipment-safe/equipment-safe.component';
 import { EquipmentOtherComponent } from './equipment-other/equipment-other.component';
+import { EquipmentMainComponent } from './equipment-main/equipment-main.component';
+import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
+import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
 
 @NgModule({
   declarations: [
     EquipmentComponent,
     EquipmentSpecialComponent,
     EquipmentSafeComponent,
-    EquipmentOtherComponent
+    EquipmentOtherComponent,
+    EquipmentMainComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +68,9 @@ import { EquipmentOtherComponent } from './equipment-other/equipment-other.compo
     SidebarModule,
     BasicDialogModule,
     ReactiveFormsModule,
-    PanelModule
+    PanelModule,
+    EchartsBarModule,
+    EchartsPieModule
   ],
   providers: []
 })
