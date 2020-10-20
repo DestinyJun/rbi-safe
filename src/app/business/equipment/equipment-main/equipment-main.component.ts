@@ -20,25 +20,30 @@ export class EquipmentMainComponent implements OnInit {
   public equipmentMainOrgTree: OrgTree[] = []; // 组织树配置项
   public equipmentMainOrgTreeSelect: OrgTree = {}; // 组织树选择
   public equipmentMainOrgTreeSelectLabel: any = '点击选择单位'; // 组织树label
+  public equipmentMainTabItem = [
+    {
+      item: {label: '全部', ftcolor: '#4F88DE', bgc: '#4F88DE'},
+      show: true,
+      symbol: 'all'
+    },
+    {item: {label: '安全设备', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, show: false, symbol: 'safe'},
+    {item: {label: '特种设备', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, show: false, symbol: 'special'},
+    {item: {label: '其他设备', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, show: false, symbol: 'other'},
+  ];
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
   ) { }
 
   ngOnInit() {
-    // 初始化请求
-    this.equipmentMainDataInit();
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.equipmentMainOrgTreeSelectLabel = res.data[0].organizationName;
+        this.equipmentMainChartHttp(res.data[0].id, this.equipmentMainYear, this.equipmentMainType);
         this.equipmentMainOrgTree = orgInitializeTree(res.data);
       }
     );
-  }
-
-  // 数据初始化
-  private equipmentMainDataInit() {
-    this.equipmentMainChartHttp(34, this.equipmentMainYear, this.equipmentMainType);
   }
 
   // 柱状图数据获取
@@ -73,6 +78,19 @@ export class EquipmentMainComponent implements OnInit {
         // this.equipmentMainChartHttp(this.equipmentMainOrgTreeSelect.id, this.equipmentMainYear);
         break;
     }
+  }
+
+  // tab切换
+  public equipmentMainTabItemClick(item): void {
+    this.equipmentMainTabItem.forEach(val => {
+      val.item.ftcolor = '#D4D4D4';
+      val.item.bgc = '#EDEDED';
+      val.show = false;
+    });
+    item.item.ftcolor = '#4F88DE';
+    item.item.bgc = '#4F88DE';
+    item.show = true;
+    this.equipmentMainChartHttp(34, this.equipmentMainYear, item.symbol);
   }
 
 }

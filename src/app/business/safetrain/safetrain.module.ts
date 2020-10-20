@@ -71,6 +71,9 @@ import { PlanAProcessedComponent } from './st-plan-a/plan-a-list/plan-a-processe
 import { PlanAUnprocessedComponent } from './st-plan-a/plan-a-list/plan-a-unprocessed/plan-a-unprocessed.component';
 import { StPlanAComponent } from './st-plan-a/st-plan-a.component';
 import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice-test/practice-test.component';
+import { TrainSituationComponent } from './train-situation/train-situation.component';
+import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
+import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
 
 @NgModule({
   declarations: [
@@ -123,6 +126,7 @@ import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice
     PlanAUnprocessedComponent,
     StPlanAComponent,
     PracticeTestComponent,
+    TrainSituationComponent,
   ],
   imports: [
     CommonModule,
@@ -154,7 +158,9 @@ import { PracticeTestComponent } from './st-start-study/st-learn-myplan/practice
     SidebarModule,
     BasicDialogModule,
     ReactiveFormsModule,
-    PanelModule
+    PanelModule,
+    EchartsBarModule,
+    EchartsPieModule
   ],
   providers: []
 })

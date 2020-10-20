@@ -12,7 +12,6 @@ import {orgInitializeTree} from '../../../common/public/contents';
 export class TroubleCheckStatusComponent implements OnInit {
   public troubleCheckChart: any = null ; // 柱状图数据
   public troubleCheckYear: any = new Date().getFullYear() ; // 当前年
-  public troubleCheckMonth: any = (new Date().getMonth()) + 1 ; // 当前月
   public troubleCheckOperateFlag: any ; // 操作标识
   public troubleCheckOrgTreeModal: boolean = false; // 组织树模态框
   public troubleCheckOrgTree: OrgTree[] = []; // 组织树配置项
@@ -24,19 +23,14 @@ export class TroubleCheckStatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // 初始化请求
-    this.troubleCheckDataInit();
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.troubleCheckOrgTreeSelectLabel = res.data[0].organizationName;
+        this.troubleCheckBarHttp(res.data[0].id, this.troubleCheckYear);
         this.troubleCheckOrgTree = orgInitializeTree(res.data);
       }
     );
-  }
-
-  // 数据初始化
-  private troubleCheckDataInit() {
-    this.troubleCheckBarHttp(34, this.troubleCheckYear);
   }
 
   // 柱状图数据获取

@@ -9,6 +9,39 @@ export class IntentService {
 
   constructor(private http: HttpClient) { }
 
+  /** ********************** 目标职责管理现状 **********************  */
+  /**
+   * 各级安全活动数量统计图
+   * @param params
+   */
+  public intentStatusTopBar(params: any): Observable<any> {
+    return this.http.post(`/cultural/findByYear`, params);
+  }
+
+  /**
+   * 安全生产投入支出统计图
+   * @param params
+   */
+  public intentStatusTopLine(params: any): Observable<any> {
+    return this.http.post(`/productionInput/findByYear`, params);
+  }
+
+  /**
+   * 一岗双责职责分数统计图
+   * @param params
+   */
+  public intentStatusBottomLeftBar(params: any): Observable<any> {
+    return this.http.post(`/db_evaluation/findByYear`, params);
+  }
+
+  /**
+   * 目标完成情况分数统计图
+   * @param params
+   */
+  public intentStatusBottomRightBar(params: any): Observable<any> {
+    return this.http.post(`/target/findByYear`, params);
+  }
+
   /** ********************** 安全生产管理机构设置 **********************  */
   /**
    * 安全生产管理机构分页

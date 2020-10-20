@@ -36,7 +36,8 @@
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
-              "src/assets/util/download.js"
+              "src/assets/util/download.js",
+              "node_modules/echarts/dist/echarts.min.js"
             ]
           },
           "configurations": {

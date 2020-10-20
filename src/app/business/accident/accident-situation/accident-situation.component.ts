@@ -25,20 +25,15 @@ export class AccidentSituationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // 初始化请求
-    this.acSituationDataInit();
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.acSituationOrgTreeSelectLabel = res.data[0].organizationName;
+        this.acSituationBarHttp(res.data[0].id, this.acSituationYear);
+        this.acSituationPieHttp(res.data[0].id, this.acSituationYear, this.acSituationMonth);
         this.acSituationOrgTree = orgInitializeTree(res.data);
       }
     );
-  }
-
-  // 数据初始化
-  private acSituationDataInit() {
-    this.acSituationBarHttp(34, this.acSituationYear);
-    this.acSituationPieHttp(34, this.acSituationYear, this.acSituationMonth);
   }
 
   // 柱状图数据获取

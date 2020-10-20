@@ -2,7 +2,7 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">生产安全事故现状</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup"></div>
-    <div class="button">
+    <div class="button" style="padding-right: 30px">
       <button pButton type="button" [label]="striskStatusOrgTreeSelectLabel" class="ui-button-secondary" (click)="striskStatusOperate(striskStatusOperateFlag = 'tree')"></button>
     </div>
   </div>
@@ -21,7 +21,7 @@
       </div>
       <div class="ui-g-5 ui-md-5" style="height: 80%">
         <app-echarts-bar-stack
-          [title]="'事故占比'"
+          [title]="'控制措施有效性'"
           [showSplitLine]="true"
           [showAxisLabel]="true"
           [color]="['#024EC1', '#1F6BEC', '#4784EC', '#8DB7FF', '#C9D6FF']"

@@ -2,7 +2,7 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">隐患分析</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup"></div>
-    <div class="button">
+    <div class="button" style="padding-right: 30px">
       <button pButton type="button" [label]="troubleCheckOrgTreeSelectLabel" class="ui-button-secondary" (click)="troubleCheckOperate(troubleCheckOperateFlag = 'tree')"></button>
     </div>
   </div>
@@ -14,6 +14,8 @@
           [showSplitLine]="true"
           [showAxisLabel]="true"
           [echartData]="troubleCheckChart"
+          [barColor]="['#2246D5', '#3B86FF', '#63DCAF', '#8EFFD5']"
+          [lineColor]="['#B2A0FE', '#FF9AA7']"
           title="隐患整改率">
         </app-echarts-bar-line>
       </div>

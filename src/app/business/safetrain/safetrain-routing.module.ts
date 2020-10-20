@@ -15,16 +15,18 @@ import {StStartStudyComponent} from './st-start-study/st-start-study.component';
 import {StLearnListComponent} from './st-start-study/st-learn-list/st-learn-list.component';
 import {StMyplanDetailComponent} from './st-start-study/st-learn-myplan/st-myplan-detail/st-myplan-detail.component';
 import {TaskExamGuard} from '../../common/guard/task-exam.guard';
-import {PlanAListComponent} from "./st-plan-a/plan-a-list/plan-a-list.component";
-import {PlanAEditComponent} from "./st-plan-a/plan-a-edit/plan-a-edit.component";
-import {StPlanAComponent} from "./st-plan-a/st-plan-a.component";
-import {PracticeTestComponent} from "./st-start-study/st-learn-myplan/practice-test/practice-test.component";
+import {PlanAListComponent} from './st-plan-a/plan-a-list/plan-a-list.component';
+import {StPlanAComponent} from './st-plan-a/st-plan-a.component';
+import {PracticeTestComponent} from './st-start-study/st-learn-myplan/practice-test/practice-test.component';
+import {TrainSituationComponent} from './train-situation/train-situation.component';
 
 
 const routes: Routes = [
   {
     path: '', component: SafeTrainComponent,
     children: [
+      {path: '', redirectTo: 'trainSituation', pathMatch: 'full'},
+      {path: 'trainSituation', component: TrainSituationComponent},
       {path: 'institu', component: StInstitutionComponent, data: {preload: true}},
       {path: 'demand', loadChildren: () => import('./st-demand/st-demand.module').then(m => m.StDemandModule)},
       {path: 'archives', component: StArchivesComponent},
@@ -47,17 +49,21 @@ const routes: Routes = [
       },
       {path: 'contentset', component: StContentSetingComponent},
       {path: 'mytrainfile', component: StMytrainFileComponent},
-      {path: 'exam', component: StOnlineExamComponent, children: [
-          {path: '',  redirectTo: 'list', pathMatch: 'full'},
+      {
+        path: 'exam', component: StOnlineExamComponent, children: [
+          {path: '', redirectTo: 'list', pathMatch: 'full'},
           {path: 'list', component: StExamListComponent},
           {path: 'tasking', component: StTakingExamComponent, canDeactivate: [TaskExamGuard]},
-        ]},
-      {path: 'learn', component: StStartStudyComponent, children: [
-          {path: '',  redirectTo: 'list', pathMatch: 'full'},
+        ]
+      },
+      {
+        path: 'learn', component: StStartStudyComponent, children: [
+          {path: '', redirectTo: 'list', pathMatch: 'full'},
           {path: 'list', component: StLearnListComponent},
           {path: 'detail', component: StMyplanDetailComponent},
           {path: 'practice', component: PracticeTestComponent},
-        ]},
+        ]
+      },
     ]
   }
 ];

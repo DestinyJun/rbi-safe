@@ -13,7 +13,8 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
   @Input() public showAxisLabel: boolean = false; // 是否显示刻度值
   @Input() public axisLabelRotate: number = 0; // 横坐标类目文字偏转角度
   @Input() public gridBottom: number = 5; // 坐标轴整体距离底部的距离（百分比）
-  @Input() public color: Array<any> = [ '#2246D5', '#3B86FF', '#91E5FF', '#FF515A', '#8B5CFF', '#00CA69']; // 基础配色
+  @Input() public barColor: Array<any> = [ '#3A85FF']; // 柱状图基础配色
+  @Input() public lineColor: Array<any> = [ '#FCCF4F']; // 折线图基础配色
   @Output() public chartClick = new EventEmitter<any>();
   public option: any; // 统计图基础配置项
 
@@ -24,11 +25,12 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.echartData) {
       // console.log(this.echartData);
-      const seriesBar = this.echartData.barData.map((item) => {
+      const seriesBar = this.echartData.barData.map((item, index) => {
         return {
           name: item.name,
           type: 'bar',
           barWidth: 10,
+          color: this.barColor[index],
           itemStyle: {
             normal: {
               barBorderRadius: 12,
@@ -49,18 +51,18 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
           data: item.value,
         };
       });
-      const seriesLine = this.echartData.lineData.map((item) => {
+      const seriesLine = this.echartData.lineData.map((item, index) => {
         return {
           name: item.name,
           type: 'line',
           symbol: 'circle',
+          color: this.lineColor[index],
           symbolSize: 8,
           yAxisIndex: 1,
           data: item.value,
         };
       });
       const series = [...seriesBar, ...seriesLine];
-      console.log(series);
       this.updateOption(series);
     }
   }
@@ -76,7 +78,6 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
           fontSize: 18,
         }
       },
-      color: this.color,
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -94,7 +95,7 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
         left: '5%',
         right: '5%',
         bottom: this.gridBottom.toString() + '%',
-        top: '10%',
+        top: '15%',
       },
       legend: [
         {
@@ -102,11 +103,7 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
           top: '3%',
           textStyle: {
             color: '#AAAAAA'
-          },
-          itemWidth: 16,
-          itemHeight: 16,
-          borderRadius: 10,  // borderRadius最大为宽高最小值的一半，即为5
-          itemGap: 30
+          }
         }
       ],
       yAxis: [

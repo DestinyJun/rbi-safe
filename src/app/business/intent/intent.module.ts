@@ -22,6 +22,8 @@ import {TableModule} from 'primeng/table';
 import {QuestionTemplateModule} from '../../common/components/question-template/question-template.module';
 import {TopicModule} from '../../common/components/topic/topic.module';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
+import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
+import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
 
 
 @NgModule({
@@ -67,6 +69,8 @@ import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dial
     BasicDialogModule,
     ReactiveFormsModule,
     PanelModule,
+    EchartsBarModule,
+    EchartsPieModule
   ]
 })
 export class IntentModule { }

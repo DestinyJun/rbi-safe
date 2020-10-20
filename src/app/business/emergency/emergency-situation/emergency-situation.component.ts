@@ -31,6 +31,8 @@ export class EmergencySituationComponent implements OnInit {
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.emSituationOrgTreeSelectLabel = res.data[0].organizationName;
+        this.emSituationChartHttp(res.data[0].id, this.emSituationYear);
         this.emSituationOrgTree = orgInitializeTree(res.data);
       }
     );

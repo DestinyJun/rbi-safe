@@ -75,7 +75,7 @@ export class EchartsBarStackComponent implements OnInit, OnChanges {
         {
           left: '5%',
           right: '5%',
-          bottom: this.gridBottom.toString() + '%',
+          bottom: '8%',
           top: '10%',
         },
       ],

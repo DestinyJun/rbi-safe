@@ -17,7 +17,7 @@ export class IntentAimsComponent implements OnInit {
   ngOnInit() {
   }
 
-  public  tabItemClick(item): void {
+  public tabItemClick(item): void {
     this.tabitem.forEach(val => {
       val.item.ftcolor = '#D4D4D4';
       val.item.bgc = '#EDEDED';

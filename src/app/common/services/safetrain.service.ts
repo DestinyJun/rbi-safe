@@ -12,6 +12,24 @@ export class SafetrainService {
   ) {
   }
 
+  /** **********************  教育培训现状 **********************  */
+  /**
+   * 教育培训平均成绩/覆盖率统计统计图
+   * @param params
+   */
+  public trainSituationTopChart(params: any): Observable<any> {
+    return this.http.post(`/SafeEducation/currentLevelNum`, params);
+  }
+
+  /**
+   * 教育培训月数量统计图
+   * @param params
+   */
+  public trainSituationBottomChart(params: any): Observable<any> {
+    return this.http.post(`/SafeEducation/multiLevelClassification`, params);
+  }
+
+
   /**
    * 获取特种培训信息列表
    * @param params

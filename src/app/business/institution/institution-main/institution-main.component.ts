@@ -25,19 +25,14 @@ export class InstitutionMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // 初始化请求
-    this.institutionMainDataInit();
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.institutionMainOrgTreeSelectLabel = res.data[0].organizationName;
+        this.institutionMainBarHttp(res.data[0].id, this.institutionMainYear);
         this.institutionMainOrgTree = orgInitializeTree(res.data);
       }
     );
-  }
-
-  // 数据初始化
-  private institutionMainDataInit() {
-    this.institutionMainBarHttp(34, this.institutionMainYear);
   }
 
   // 柱状图数据获取

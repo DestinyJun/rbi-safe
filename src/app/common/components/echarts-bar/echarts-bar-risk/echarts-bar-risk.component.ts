@@ -22,7 +22,7 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.echartData) {
-      console.log(this.echartData);
+      // console.log(this.echartData);
       this.updateRiskLevelOption();
     }
   }
@@ -50,7 +50,7 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
       },
       grid: [
         {
-          left: '5%',
+          left: '8%',
           right: '5%',
           bottom: 30,
           top: '10%',

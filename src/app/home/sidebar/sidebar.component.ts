@@ -58,9 +58,10 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '安全教育培训',
       lefticon: 'fa-angle-down',
-      link: '/home/strain/institu',
+      link: '/home/strain/trainSituation',
       children: [
-        {item: {label: '教育培训制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strain/institu', isHas: true},
+        {item: {label: '教育培训现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strain/trainSituation', isHas: true},
+        {item: {label: '教育培训制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/institu', isHas: true},
         {item: {label: '教育培训需求', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/demand', isHas: true},
         {item: {label: '教育培训计划',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plain', isHas: true},
         {item: {label: '培训内容库设置', bgc: '#fff', ftcolor: '#8E8E8E' }, link: '/home/strain/contentset', isHas: true},
@@ -437,7 +438,8 @@ export class SidebarComponent implements OnInit {
           }
         }
       });
-    } else {
+    }
+    else {
       this.barItem.forEach(val => {
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {

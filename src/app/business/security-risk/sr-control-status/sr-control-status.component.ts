@@ -26,20 +26,15 @@ export class SrControlStatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // 初始化请求
-    this.striskStatusDataInit();
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.striskStatusOrgTreeSelectLabel = res.data[0].organizationName;
+        this.striskStatusYearBarHttp(res.data[0].id, this.striskStatusYear);
+        this.striskStatusMonthBarHttp(res.data[0].id, this.striskStatusYear, this.striskStatusMonth);
         this.striskStatusOrgTree = orgInitializeTree(res.data);
       }
     );
-  }
-
-  // 数据初始化
-  private striskStatusDataInit() {
-    this.striskStatusYearBarHttp(34, this.striskStatusYear);
-    this.striskStatusMonthBarHttp(34, this.striskStatusYear, this.striskStatusMonth);
   }
 
   // 柱状图数据获取
