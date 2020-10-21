@@ -1,0 +1,26 @@
+.frame{
+  height: 100%;
+  .header{
+    display: flex;
+    justify-content: space-between;
+    .ui-inputgroup{
+      /deep/.ui-inputtext{
+        width: 100%;
+      }
+      /deep/.ui-calendar{
+        width: 100%;
+      }
+      /deep/ .ui-fileupload .ui-fileupload-content{
+        border: none;
+        padding: 0;
+      }
+      /deep/ .ui-fileupload .ui-fileupload-buttonbar{
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+  }
+  .content{
+    height: 83%;
+  }
+}

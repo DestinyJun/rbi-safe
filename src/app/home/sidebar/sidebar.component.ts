@@ -246,6 +246,14 @@ export class SidebarComponent implements OnInit {
     {
       icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
       bgc: '#226AD5',
+      label: 'SPI系数设定',
+      lefticon: '',
+      children: [],
+      link: '/home/seting/spi'
+    },
+    {
+      icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
+      bgc: '#226AD5',
       label: 'App管理',
       lefticon: '',
       children: [],

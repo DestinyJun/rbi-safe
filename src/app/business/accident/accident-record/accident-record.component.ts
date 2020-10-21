@@ -54,7 +54,7 @@ export class AccidentRecordComponent implements OnInit {
       }
     );
 
-    // 初始化组织树
+    // 初始化下拉菜单
     this.globalSrv.publicGetAccidentTypeList({}).subscribe(
       (res) => {
         this.acRecordDropdownOptions = res.data;

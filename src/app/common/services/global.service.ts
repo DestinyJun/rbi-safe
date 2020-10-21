@@ -83,8 +83,8 @@ export class GlobalService {
    * 获取安全生产管理机构树
    * @param params
    */
-  public publicGetIntentAgencyTree(params): Observable<any> {
-    return this.http.post('/organizationManage/findTree', params);
+  public publicGetIntentAgencyTree(): Observable<any> {
+    return this.http.post('/organizationManage/findTree', {});
   }
 
   /**
@@ -93,5 +93,13 @@ export class GlobalService {
    */
   public publicGetInstitutionType(params): Observable<any> {
     return this.http.post('/getSystemTypeBox', params);
+  }
+
+  /**
+   * 获取spi周期阈值树
+   * @param params
+   */
+  public publicGetSpiTree(): Observable<any> {
+    return this.http.post('/spi/findTree', {});
   }
 }

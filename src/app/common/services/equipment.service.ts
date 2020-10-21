@@ -9,7 +9,7 @@ export class EquipmentService {
 
   constructor(private http: HttpClient) { }
 
-  /** ********************* 设备设施管理现状 */
+  /** ********************* 设备设施管理现状 ********************* */
   /**
    * 安全设备分页查看
    * @param params
@@ -18,7 +18,7 @@ export class EquipmentService {
     return this.http.post(`/equipment/realTimeDeviceStatus`, params);
   }
 
-  /** ********************* 安全设备管理********************* */
+  /** ********************* 安全设备管理 ********************* */
   /**
    * 安全设备分页查看
    * @param params

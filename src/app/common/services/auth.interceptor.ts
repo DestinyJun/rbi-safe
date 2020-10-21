@@ -67,6 +67,7 @@ export class AuthInterceptor implements HttpInterceptor {
     `/systemManage/add`,
     `/systemManage/update`,
     `/systemManage/evaluate`,
+    `/organizationManage/findPicture`,
   ]; // 无需验证的请求地址
   public skipUrlPre = [
     `http://10.40.1.121:8000/complain/production/findAll`,

@@ -1,0 +1,133 @@
+<div class="seting-spi">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">SPI系数设定</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup" style="flex: 4">
+      <div class="warningCycle">
+        <span class="mr-2">预警周期设置</span>
+        <p-dropdown
+          placeholder="请选择预警周期"
+          [style]="{width: '100%'}"
+          [options]="setingSpiDropdownOptions" [(ngModel)]="setingSpiSillOperateField.warningCycleCode"
+          dropdownIcon="fa fa-caret-down">
+        </p-dropdown>
+      </div>
+      <div class="warningCycleUpdate">
+        <span>SPI阈值设置</span>
+        <input type="number" disabled style="width: 100px;height: 30px" class="ml-2" [value]="0">
+        <input type="number" style="width: 100px;height: 30px" class="ml-2" placeholder="阈值1" [(ngModel)]="setingSpiSillOperateField.thresholdOne">
+        <input type="number" style="width: 100px;height: 30px" class="ml-2" placeholder="阈值2" [(ngModel)]="setingSpiSillOperateField.thresholdTwo">
+        <input type="number" style="width: 100px;height: 30px" class="ml-2" placeholder="阈值3" [(ngModel)]="setingSpiSillOperateField.thresholdThree">
+        <div class="button">
+          <button pButton type="button" label="阈值修改" class="ui-button-warning ml-3" (click)="setingSpiOperate(setingSpiOperateFlag = 'sillUpdate')"></button>
+        </div>
+      </div>
+    </div>
+    <div class="button" style="flex: 1;text-align: right">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="setingSpiOperate(setingSpiOperateFlag = 'add')"></button>
+      <button pButton type="button" label="编辑" class="ui-button-rounded ui-button-warning ml-2" (click)="setingSpiOperate(setingSpiOperateFlag = 'update')"></button>
+      <button pButton type="button" label="删除" class="ui-button-rounded ui-button-danger ml-2" (click)="setingSpiOperate(setingSpiOperateFlag = 'del')"></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-treeTable
+      selectionMode="single"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
+      [(selection)]="setingSpiTableSelect"
+      [value]="setingSpiTableData"
+      [columns]="setingSpiTableHeader">
+      <ng-template pTemplate="header" let-columns  let-rowNode>
+        <tr [ttRow]="rowNode">
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+          <td *ngFor="let col of columns; let i = index">
+            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+            {{rowData[col.field]}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="setingSpiPageOption" (clickEvent)="setingSpiPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增/编辑弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="setingSpiOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{setingSpiOperateFlag === 'update' ? '记录编辑' : '记录添加'}}</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--所属父级-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>所属父级：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="setingSpiTreeSelect.label?setingSpiTreeSelect.label:setingSpiTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="setingSpiOperate(setingSpiOperateFlag = 'tree')">
+                </button>
+              </div>
+            </div>
+            <!--指标名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>指标名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填指标名称" [(ngModel)]="setingSpiOperateField.name">
+              </div>
+            </div>
+            <!--指标系数-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>指标系数：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填指标系数" [(ngModel)]="setingSpiOperateField.num">
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="setingSpiOperate(setingSpiOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="setingSpiOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--SPI树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="setingSpiTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择SPI树</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="setingSpiTree"
+          [(selection)]="setingSpiTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="setingSpiOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
+
+

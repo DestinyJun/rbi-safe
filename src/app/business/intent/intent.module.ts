@@ -15,7 +15,7 @@ import { DetailComponent } from './intent-agency/detail/detail.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
-import {CalendarModule, CardModule, CheckboxModule, ConfirmDialogModule, DialogModule, DropdownModule, FileUploadModule, InputTextareaModule, PanelModule, ProgressBarModule, RadioButtonModule, ScrollPanelModule, SidebarModule, StepsModule, TabViewModule, TooltipModule, TreeModule} from 'primeng/primeng';
+import {CalendarModule, CardModule, CheckboxModule, ConfirmDialogModule, DialogModule, DropdownModule, FileUploadModule, InputTextareaModule, PanelModule, ProgressBarModule, RadioButtonModule, ScrollPanelModule, SidebarModule, StepsModule, TabViewModule, TooltipModule, TreeModule, TreeTableModule} from 'primeng/primeng';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TableModule} from 'primeng/table';
@@ -70,7 +70,8 @@ import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.
     ReactiveFormsModule,
     PanelModule,
     EchartsBarModule,
-    EchartsPieModule
+    EchartsPieModule,
+    TreeTableModule
   ]
 })
 export class IntentModule { }

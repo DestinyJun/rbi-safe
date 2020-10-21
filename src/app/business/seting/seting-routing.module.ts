@@ -6,7 +6,8 @@ import {RolesManagerComponent} from './roles-manager/roles-manager.component';
 import {LimitsManagerComponent} from './limits-manager/limits-manager.component';
 import {OrganizationManagerComponent} from './organization-manager/organization-manager.component';
 import {PersonnelManagerComponent} from './personnel-manager/personnel-manager.component';
-import {MobilAppManagerComponent} from "./mobil-app-manager/mobil-app-manager.component";
+import {MobilAppManagerComponent} from './mobil-app-manager/mobil-app-manager.component';
+import {SetingSpiComponent} from './seting-spi/seting-spi.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'orgazition', component: OrganizationManagerComponent},
       {path: 'personnel', component: PersonnelManagerComponent},
       {path: 'mobil', component: MobilAppManagerComponent},
+      {path: 'spi', component: SetingSpiComponent},
     ]
   }
 ];

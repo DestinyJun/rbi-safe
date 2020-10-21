@@ -22,6 +22,7 @@ import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, Me
 import {TableModule} from 'primeng/table';
 import {AppConfig, init_app} from '../../common/services/app.config';
 import {MobilAppManagerComponent} from './mobil-app-manager/mobil-app-manager.component';
+import { SetingSpiComponent } from './seting-spi/seting-spi.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MobilAppManagerComponent} from './mobil-app-manager/mobil-app-manager.co
     RolesManagerComponent,
     PersonnelManagerComponent,
     LimitsManagerComponent,
-    MobilAppManagerComponent
+    MobilAppManagerComponent,
+    SetingSpiComponent
   ],
   imports: [
     CommonModule,
