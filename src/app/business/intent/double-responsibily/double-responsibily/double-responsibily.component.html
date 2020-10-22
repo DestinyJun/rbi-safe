@@ -1,0 +1,11 @@
+<div class="double-response">
+  <div class="link">
+    <button
+      *ngFor="let item of linkList"
+      pButton [label]="item.label"
+      [ngStyle]="{marginLeft: '15px',background: item.bgc,borderColor: item.bgc}"
+      (click)="onClick(item)"
+    ></button>
+  </div>
+  <router-outlet></router-outlet>
+</div>

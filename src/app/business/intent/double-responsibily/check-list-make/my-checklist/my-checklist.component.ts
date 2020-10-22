@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PageOption, TableHeader} from "../../../../common/public/Api";
-import {SafetrainService} from "../../../../common/services/safetrain.service";
-import {PublicMethodService} from "../../../../common/public/public-method.service";
-import {Observable} from "rxjs";
-import {ChecklistMakeService} from "../../../../common/services/checklist-make.service";
-import {Router} from "@angular/router";
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
+import {PageOption, TableHeader} from '../../../../../common/public/Api';
+import {ChecklistMakeService} from '../../../../../common/services/checklist-make.service';
+import {PublicMethodService} from '../../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-my-checklist',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PageOption, TableHeader} from '../../../../common/public/Api';
-import {ChecklistMakeService} from '../../../../common/services/checklist-make.service';
-import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {Router} from '@angular/router';
+import {PageOption, TableHeader} from '../../../../../common/public/Api';
+import {ChecklistMakeService} from '../../../../../common/services/checklist-make.service';
+import {PublicMethodService} from '../../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-pending-checklist',
@@ -59,7 +59,6 @@ export class PendingChecklistComponent implements OnInit {
   // 数据初始化
   private dataInit(pageNo, pageSize) {
     this.checkListSrv.dbEvaluationFindAuditByPage({pageNo, pageSize}).subscribe((res) => {
-      console.log(res);
       this.items = res.data ? res.data.contents : [];
       this.items.forEach(item => {
         item.doubleDutyEvaluationContents.forEach(content => {
@@ -115,7 +114,6 @@ export class PendingChecklistComponent implements OnInit {
     } else {
       this.toolSrv.setToast('error', '提示', '全部数据必填');
     }
-    console.log(this.checkItem);
   }
 
 

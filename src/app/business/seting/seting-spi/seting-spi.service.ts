@@ -54,7 +54,7 @@ export class SetingSpiService {
    * @param params
    */
   public setingSpiUpdateSill(params: any): Observable<any> {
-    return this.http.post(`/spi/update`, params);
+    return this.http.post(`/spi/updateHead`, params);
   }
 
 

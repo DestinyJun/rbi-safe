@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
         {item: {label: '目标职责管理现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/intent/mains', isHas: true},
         {item: {label: '安全生产管理机构设置', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/agency', isHas: true},
         {item: {label: '目标管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/aims', isHas: true},
-        // {item: {label: '一岗双责管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/double', isHas: true},
+        {item: {label: '一岗双责管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/double', isHas: true},
         {item: {label: '安全生产投入',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/invest', isHas: true},
         {item: {label: '安全文化建设',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/culture', isHas: true},
       ]

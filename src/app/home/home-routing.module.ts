@@ -50,11 +50,11 @@ const routes: Routes = [
         loadChildren: () => import('../business/general-info/general-info.module').then(m => m.GeneralInfoModule),
         data: {preload: true}
       },
-      {
+     /* {
         path: 'double',
         loadChildren: () => import('../business/double-responsibily/double-responsibily.module').then(m => m.DoubleResponsibilyModule),
         data: {preload: true}
-      },
+      },*/
       {
         path: 'equipment',
         loadChildren: () => import('../business/equipment/equipment.module').then(m => m.EquipmentModule),

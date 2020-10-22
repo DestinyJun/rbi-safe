@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ChecklistMakeService} from '../../../../../common/services/checklist-make.service';
-import {PublicMethodService} from '../../../../../common/public/public-method.service';
+import {ChecklistMakeService} from '../../../../../../common/services/checklist-make.service';
+import {PublicMethodService} from '../../../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-my-checklist-add',

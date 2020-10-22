@@ -21,7 +21,7 @@ export class FrameComponent implements OnInit {
   // 数据初始化
   private frameDataInit() {
     this.intentSrv.intentAgencyImgLook().subscribe((res) => {
-      this.frameImgPath = res.token;
+      this.frameImgPath = res.data;
     });
   }
 

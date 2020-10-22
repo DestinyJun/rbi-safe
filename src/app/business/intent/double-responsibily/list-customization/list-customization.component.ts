@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {GlobalService} from '../../../common/services/global.service';
 import {Subscription} from 'rxjs';
-import {ThemeService} from '../../../common/public/theme.service';
-import {TroubleProcessService} from '../../../common/services/trouble-process.service';
 import {Router} from '@angular/router';
-import {setVlaueToLabel} from '../../../common/public/contents';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {OragizationTree, TreeNode} from '../../../common/public/Api';
-import {PublicMethodService} from '../../../common/public/public-method.service';
-import {ListCustomizationService} from '../../../common/services/list-customization.service';
+import {OragizationTree, TreeNode} from '../../../../common/public/Api';
+import {ThemeService} from '../../../../common/public/theme.service';
+import {ListCustomizationService} from '../../../../common/services/list-customization.service';
+import {PublicMethodService} from '../../../../common/public/public-method.service';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-list-customization',
@@ -67,7 +65,6 @@ export class ListCustomizationComponent implements OnInit {
   ngOnInit() {
     this.initarchivesListData();
     this.req.page({'pageNo': '1', 'pageSize': '5'}).subscribe(res => {
-      console.log(res);
     });
   }
 
@@ -82,7 +79,6 @@ export class ListCustomizationComponent implements OnInit {
   public DetailClick(e): void {
     this.totalFraction = 0;
     if (e.label === '详情') {
-      console.log(e);
       this.dataTree = {label: '', value: ''};
       this.dataTree.label = e.data.organizationName;
       this.dataTree.value = e.data.organizationId;
@@ -139,7 +135,6 @@ export class ListCustomizationComponent implements OnInit {
 
   public initarchivesListData(): void {
     this.req.page({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
       this.archivesListContent = val.data.contents.map(v => {
         return v;
       });
@@ -188,7 +183,6 @@ export class ListCustomizationComponent implements OnInit {
 
   public dataTreeSureClick(): void {
     this.treeDialog = false;
-    console.log(this.dataTree);
   }
 
   public clearData(): void {
@@ -229,7 +223,6 @@ export class ListCustomizationComponent implements OnInit {
     this.contentForms.forEach(form => {
       data.contentArry.push(form.value);
     });
-    console.log(data);
     // 判断是更新还是新增
     if (data.id) {
       this.req.update(data).subscribe(res => {
@@ -245,7 +238,6 @@ export class ListCustomizationComponent implements OnInit {
       });
     } else {
       this.req.add(data).subscribe(res => {
-        console.log(res);
         this.initarchivesListData();
       });
       // 在本地增加

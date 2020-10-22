@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../../common/services/global.service';
 import {Subscription} from 'rxjs';
-import {ThemeService} from '../../../common/public/theme.service';
-import {TroubleProcessService} from '../../../common/services/trouble-process.service';
 import {Router} from '@angular/router';
-import {setVlaueToLabel} from '../../../common/public/contents';
-import {EmployeeListFileService} from "../../../common/services/employee-list-file.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ThemeService} from '../../../../common/public/theme.service';
+import {EmployeeListFileService} from '../../../../common/services/employee-list-file.service';
+import {GlobalService} from '../../../../common/services/global.service';
+import {setVlaueToLabel} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-employee-list-file',

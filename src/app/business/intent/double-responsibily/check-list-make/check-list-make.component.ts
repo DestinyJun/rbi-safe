@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ChecklistMakeService} from "../../../common/services/checklist-make.service";
+import {ChecklistMakeService} from '../../../../common/services/checklist-make.service';
 
 @Component({
   selector: 'app-check-list-make',

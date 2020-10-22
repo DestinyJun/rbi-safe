@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../../common/services/global.service';
-import {PublicMethodService} from '../../../common/public/public-method.service';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {GlobalService} from '../../../../common/services/global.service';
+import {PublicMethodService} from '../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-dr-insitution',
@@ -21,7 +21,6 @@ export class DrInsitutionComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.globalSrv.getEducationList({systemCategoryId: 6}).subscribe((res) => {
-      console.log(res);
       res.data.forEach(val => {
         this.itemData.push({num: val.id, label: val.fileName, time: val.idt, filePath: val.filePath});
       });

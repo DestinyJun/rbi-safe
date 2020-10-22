@@ -17,11 +17,11 @@ const routes: Routes = [
       {path: 'mains', component: IntentStatusComponent},
       {path: 'agency', component: IntentAgencyComponent},
       {path: 'aims', component: IntentAimsComponent},
-     /* {
+      {
         path: 'double',
         loadChildren: () => import('./double-responsibily/double-responsibily.module').then(m => m.DoubleResponsibilyModule),
         data: {preload: true}
-      },*/
+      },
       {path: 'invest', component: IntentInvestComponent},
       {path: 'culture', component: IntentCultureComponent},
     ]

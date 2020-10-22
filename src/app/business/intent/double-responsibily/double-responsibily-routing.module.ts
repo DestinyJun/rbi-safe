@@ -10,15 +10,20 @@ import {MyCheckListDetailComponent} from './check-list-make/my-checklist/my-chec
 
 
 const routes: Routes = [
- {path: '', component: DoubleResponsibilyComponent, children: [
-     {path: 'insitution', component: DrInsitutionComponent},
+ {
+   path: '',
+   component: DoubleResponsibilyComponent,
+   children: [
+     {path: '', redirectTo: 'DoubleInsitution', pathMatch: 'full'},
+     {path: 'DoubleInsitution', component: DrInsitutionComponent},
      {path: 'list-customization', component: ListCustomizationComponent},
      {path: 'employee-list-file', component: EmployeeListFileComponent},
      {path: 'checklist-make', component: CheckListMakeComponent},
      {path: 'my-checklist/detail', component: MyCheckListDetailComponent},
      {path: 'my-checklist/add', component: MyChecklistAddComponent},
      {path: 'checklist-make', component: CheckListMakeComponent},
-   ]}
+   ]
+ }
 ];
 
 @NgModule({

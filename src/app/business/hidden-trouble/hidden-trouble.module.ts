@@ -20,7 +20,6 @@ import {
   CalendarModule,
   CheckboxModule, DialogModule,
   InputTextareaModule,
-  MultiSelectModule,
   RadioButtonModule,
   ScrollPanelModule, TreeModule
 } from 'primeng/primeng';
