@@ -174,6 +174,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
     }
+    else if (req.url.includes('http://61.189.169.44:8000/file')) {
+      this.clonedRequest = req;
+    }
     else if (req.url.includes('/training/findByMaterialId')) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
@@ -210,7 +213,7 @@ export class AuthInterceptor implements HttpInterceptor {
       tap((event: any) => {
         this.store.dispatch({type: 'true'});
         if (event.status === 200) {
-          if (this.skipState.includes(event.body.status)  || event.url.includes('/usr/work')) {
+          if (this.skipState.includes(event.body.status) || event.url.includes('/usr/work') || event.url.includes('http://61.189.169.44:8000/file')) {
             // this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
           } else {
