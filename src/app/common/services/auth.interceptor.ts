@@ -10,7 +10,7 @@ import {LocalStorageService} from './local-storage.service';
 import {Store} from '@ngrx/store';
 import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
-import {Location} from "@angular/common";
+import {Location} from '@angular/common';
 // import {environment} from '../../../environments/environment.zga';
 const DEFAULTTIMEOUT = 100000000;
 
@@ -60,6 +60,8 @@ export class AuthInterceptor implements HttpInterceptor {
   ]; // 无需验证的请求地址
   public skipUrlPre = [
     `http://10.40.1.121:8000/complain/production/findAll`,
+    `http://61.189.169.44:8090/security-platform/production/findAll`,
+    // `http://61.189.169.44:8090/security-platform/training/findByMaterialId`,
   ]; // 跳过不需要验证且不加前缀的请求
   constructor(
     private globalService: GlobalService,
@@ -87,28 +89,27 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
     }
-    // else if (req.url.includes('/training/findByMaterialId')) {
-    //   this.clonedRequest = req.clone({
-    //     url: environment.url_safe + req.url,
-    //     headers: req.headers
-    //   });
-    // }
+    else if (req.url.includes('http://61.189.169.44:8000/file')) {
+      this.clonedRequest = req;
+    }
     else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
-    }else if (this.isSkipUrl(req.url)) {
-      console.log(req.url);
+    }
+    else if (this.isSkipUrl(req.url)) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('accessToken', this.localSessionStorage.get('token'))
       });
-    } else if (req.url === '/login') {
+    }
+    else if (req.url === '/login') {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
       });
-    } else {
+    }
+    else {
       // 判断是否有请求头，没有则使用本地token
       let accessToken = req.headers.get('accessToken');
       if (!accessToken) { // 请求中没有token就使用本地的token
@@ -124,21 +125,20 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
-        console.log(event);
         this.store.dispatch({type: 'true'});
         if (event.status === 200) {
-          if (this.skipState.includes(event.body.status) || event.url.includes('/usr/work')) {
+          if (this.skipState.includes(event.body.status) || event.url.includes('/usr/work') || event.url.includes('http://61.189.169.44:8000/file')) {
             // this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
           } else {
             throw event;
           }
-        } else if (event.status === 500) {
+        }
+        else if (event.status === 500) {
           throw event;
         }
       }),
       catchError((error: any) => {
-        console.log(error);
         if (error.status === 500) {
           this.router.navigate(['/error'], {
             queryParams: {
@@ -173,27 +173,31 @@ export class AuthInterceptor implements HttpInterceptor {
     this.store.dispatch({type: 'false'});
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
-    } else if (req.url.includes('/training/findByMaterialId')) {
+    }
+    else if (req.url.includes('/training/findByMaterialId')) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
       });
-      console.log(this.clonedRequest);
-    } else if (req.url.includes('/usr/work')) {
+    }
+    else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
-    }else if (this.isSkipUrl(req.url)) {
+    }
+    else if (this.isSkipUrl(req.url)) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('accessToken', this.localSessionStorage.get('token'))
       });
-    } else if (req.url === '/login') {
+    }
+    else if (req.url === '/login') {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
       });
-    } else {
+    }
+    else {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers

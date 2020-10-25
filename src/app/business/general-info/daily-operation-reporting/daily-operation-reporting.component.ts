@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {PublicMethodService} from '../../../common/public/public-method.service';
 import {GeneralInfoService} from '../../../common/services/general-info.service';
-import {Es} from "../../../common/public/contents";
+import {Es} from '../../../common/public/contents';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-daily-operation-reporting',
@@ -18,7 +19,8 @@ export class DailyOperationReportingComponent implements OnInit {
   public esDate: any = Es;
   constructor(
     private toolSrv: PublicMethodService,
-    private builletinSrv: GeneralInfoService
+    private builletinSrv: GeneralInfoService,
+    public location: Location,
   ) { }
 
   ngOnInit() {
@@ -37,21 +39,36 @@ export class DailyOperationReportingComponent implements OnInit {
   }
 
   private getTablesData(param): void {
-    console.log(param);
-    this.builletinSrv.complainProductionFindAll({'date': param}).subscribe(res => {
-      console.log(res);
-      if (res.values) {
-        this.lcp = res.values.lcp;
-        this.hjsc = res.values.hj;
-        this.wxk = res.values.wxk;
-        this.zck = res.values.zck;
-        this.zj = res.values.zj;
-        if (this.zj.zyjs) {
-          this.zj.zyjs = this.zj.zyjs.toString().replace(/。/g, '。');
-          console.log(this.zj.zyjs);
+    const urlArr = this.location.path().split('?');
+    if (urlArr.length >= 2) {
+      const accessArr = urlArr[1].split('=');
+      const accessToken = accessArr[1];
+      this.builletinSrv.complainProductionFindAll({'date': param}, accessToken).subscribe(res => {
+        if (res.values) {
+          this.lcp = res.values.lcp;
+          this.hjsc = res.values.hj;
+          this.wxk = res.values.wxk;
+          this.zck = res.values.zck;
+          this.zj = res.values.zj;
+          if (this.zj.zyjs) {
+            this.zj.zyjs = this.zj.zyjs.toString().replace(/。/g, '。');
+          }
         }
-      }
-    });
+      });
+    } else {
+      this.builletinSrv.complainProductionFindAllLocation({'date': param}).subscribe(res => {
+        if (res.values) {
+          this.lcp = res.values.lcp;
+          this.hjsc = res.values.hj;
+          this.wxk = res.values.wxk;
+          this.zck = res.values.zck;
+          this.zj = res.values.zj;
+          if (this.zj.zyjs) {
+            this.zj.zyjs = this.zj.zyjs.toString().replace(/。/g, '。');
+          }
+        }
+      });
+    }
   }
 
 }

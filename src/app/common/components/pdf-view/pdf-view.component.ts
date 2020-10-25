@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GeneralInfoService} from "../../services/general-info.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {Location} from "@angular/common";
-import {PDFSource} from "pdfjs-dist";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {GeneralInfoService} from '../../services/general-info.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {Location} from '@angular/common';
+import {PDFSource} from 'pdfjs-dist';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-pdf-view',
@@ -63,11 +63,11 @@ export class PdfViewComponent implements OnInit {
       console.log(res);
       this.fileName = res.data.resourceName;
       // 拿到资源路径后，请求资源
-      this.httpClient.get(res.data.resourcePath + '', {responseType: 'blob'}).subscribe((data: any) => {
+      // this.httpClient.get(res.data.resourcePath + '', {responseType: 'blob'}).subscribe((data: any) => {
+      this.httpClient.get(res.data.resourcePath, {responseType: 'blob'}).subscribe((data: any) => {
         console.log(data);
         const blob = new Blob([data], {type: 'application/pdf'});
         this.fileUrl = URL.createObjectURL(blob);
-        console.log(blob);
       });
     });
   }

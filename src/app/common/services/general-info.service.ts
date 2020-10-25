@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -54,9 +55,15 @@ export class GeneralInfoService {
     return this.http.post(`/training/findByMaterialId`, pamars, headerOption);
   }
 
-  // 生产运营日报
-  public complainProductionFindAll(params: any): Observable<any> {
-    return this.http.post('http://10.40.1.121:8000/complain/production/findAll', params);
+  // 生产运营日报1
+  public complainProductionFindAll(pamars, token): Observable<any> {
+    const headerOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'accessToken': token})};
+    return this.http.post(`${environment.url_safe}/production/findAll`, pamars, headerOption);
+  }
+
+  // 生产运营日报2
+  public complainProductionFindAllLocation(pamars): Observable<any> {
+    return this.http.post(`/production/findAll`, pamars);
   }
 
 }

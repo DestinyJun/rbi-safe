@@ -77,9 +77,8 @@ export class SystemMangerComponent implements OnInit {
         this.delSystemFiles(e.data.id);
       });
     }else {
-      console.log(e);
-      // window.open(e.data.filePath);
-      this.router.navigate(['/pdf-view']);
+      window.open(e.data.filePath);
+      // this.router.navigate(['/pdf-view']);
     }
   }
   // set table data （设置列表数据）
