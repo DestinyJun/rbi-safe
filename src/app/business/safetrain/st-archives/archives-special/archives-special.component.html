@@ -123,14 +123,14 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarDateOfIssue
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.dateOfIssue"
                   dateFormat="yy-mm-dd"
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
               </div>
             </div>
@@ -171,7 +171,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarOneReviewTime
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.oneReviewTime"
                   dateFormat="yy-mm-dd"
@@ -179,7 +179,7 @@
                   [monthNavigator]="true"
                   [yearNavigator]="true"
                   [baseZIndex]="2000"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
               </div>
             </div>
@@ -199,7 +199,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarTowReviewTime
                   [disabled]="!(specialOperateField.oneReviewResults)"
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.towReviewTime"
@@ -207,7 +207,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
 <!--                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.oneReviewResults)" [(ngModel)]="specialOperateField.towReviewTime">-->
               </div>
@@ -228,7 +228,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarThreeReviewTime
                   [disabled]="!(specialOperateField.towReviewResults)"
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.threeReviewTime"
@@ -236,7 +236,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
 <!--                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.towReviewResults)" [(ngModel)]="specialOperateField.threeReviewTime">-->
               </div>
@@ -257,7 +257,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarFourReviewTime
                   [disabled]="!(specialOperateField.threeReviewResults)"
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.fourReviewTime"
@@ -265,7 +265,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
 <!--                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.threeReviewResults)" [(ngModel)]="specialOperateField.fourReviewTime">-->
               </div>
@@ -286,7 +286,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarFiveReviewTime
                   [disabled]="!(specialOperateField.fourReviewResults)"
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.fiveReviewTime"
@@ -294,7 +294,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
 <!--                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.fourReviewResults)" [(ngModel)]="specialOperateField.fiveReviewTime">-->
               </div>
@@ -315,7 +315,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarSixReviewTime
                   [disabled]="!(specialOperateField.fiveReviewResults)"
                   placeholder="点击选择时间......"
                   [locale]="specialEs" [(ngModel)]="specialOperateField.sixReviewTime"
@@ -323,7 +323,7 @@
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
 <!--                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.fiveReviewResults)" [(ngModel)]="specialOperateField.sixReviewTime">-->
               </div>

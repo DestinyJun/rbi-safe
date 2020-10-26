@@ -79,14 +79,14 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
-                  #calendarStart
+                  #calendarDateOfIssue
                   placeholder="点击选择时间......"
                   [locale]="manageEs" [(ngModel)]="manageOperateField.dateOfIssue"
                   dateFormat="yy-mm-dd"
                   dataType="string"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                 </p-calendar>
 <!--                <input type="text" pInputText placeholder="请填写发证时间，如：2020-05-30" [(ngModel)]="manageOperateField.dateOfIssue">-->
               </div>
@@ -107,7 +107,7 @@
                   selectionMode="range"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030"
+                  yearRange="1949:2030"
                   (click)="change($event)"
                 >
                   <p-footer>
@@ -140,7 +140,7 @@
                   selectionMode="range"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="oneTrainingTime.hideOverlay()"></button>
                   </p-footer>
@@ -162,7 +162,7 @@
                   selectionMode="range"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030">
+                  yearRange="1949:2030">
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="twoTrainingTime.hideOverlay()"></button>
                   </p-footer>
@@ -185,7 +185,7 @@
                   selectionMode="range"
                   [monthNavigator]="true"
                   [yearNavigator]="true"
-                  yearRange="2017:2030"
+                  yearRange="1949:2030"
                 >
                   <p-footer>
                     <button pButton type="button" label="确定" class="ui-button-warning" (click)="threeTrainingTime.hideOverlay()"></button>
