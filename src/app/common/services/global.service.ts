@@ -12,6 +12,11 @@ export class GlobalService {
 
   // 获取组织树
   public getOrgazitionTreeData(params?: {}): Observable<any> {
+    return this.http.post(`/getOrganizationTree`, params);
+  }
+
+  // 获取组织树
+  public getAllOrganizationTree(params?: {}): Observable<any> {
     return this.http.post(`/getAllOrganizationTree`, params);
   }
 

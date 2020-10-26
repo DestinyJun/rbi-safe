@@ -105,7 +105,6 @@ export class ArchivesManageComponent implements OnInit {
       // 保存操作
       case 'save':
         const field = objectCopy(this.manageOperateField, this.manageOperateField);
-        field
         for (const manageOperateFieldKey in field) {
           if (field[manageOperateFieldKey]) {
             // 2020-08-03 - 2020-08-15
