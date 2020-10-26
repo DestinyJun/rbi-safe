@@ -62,7 +62,7 @@
           <input disabled style="max-width: 120px" type="text" pInputText [(ngModel)]="content.selfFraction">
         </div>
       </div>
-      <div class="ui-g-12" *ngIf="item?.status === 3">
+      <div class="ui-g-12" *ngIf="(item?.status + '') === '3'">
         <div class="ui-g-9">
           <h5>检查结果&nbsp;</h5>
           <input disabled type="text" pInputText [(ngModel)]="content.checkResult">
@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div class="ui-g-12 doubleDutyEvaluationContents" *ngIf="item?.status === 3">
+    <div class="ui-g-12 doubleDutyEvaluationContents" *ngIf="(item?.status + '') === '3'">
       <div class="ui-g-12">
         <h5>未履职情况&nbsp;</h5>
         <input disabled type="text" pInputText [value]="item?.badSituation">
