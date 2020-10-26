@@ -30,7 +30,6 @@ export class EchartsPieTroubleComponent implements OnInit {
         }
         tal += res.data[dataKey];
       }
-      console.log(this.data);
       if (tal === 0) {
         this.maxRadio = 0;
         this.name = '全部数据为0';

@@ -23,11 +23,11 @@ export class EchartsBarTroubleComponent implements OnInit {
   ngOnInit() {
     // 月隐患数统计
     this.req.findByMonth().subscribe(res => {
-      // console.log(res);
       this.hiddenDangerData = [];
       for (const dataKey in res.data) {
         this.hiddenDangerData.push({name: dataKey, value: res.data[dataKey]});
       }
+      console.log(this.hiddenDangerData);
       // 排序根据名称
       this.hiddenDangerData = this.hiddenDangerData.sort((a, b) => {
         return this.getMonthCode(a.name) - this.getMonthCode(b.name);

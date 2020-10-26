@@ -390,8 +390,6 @@ export class SidebarComponent implements OnInit {
         if (v.permissionName === res.label){ // 一级菜单比较成功了，再接着比较二级菜单
           this.barItem.push(res);
           if (res.label === '综合信息') {
-            console.log(res);
-            console.log(v);
           }
           // res.children = [];
           const barChildItem = [];
@@ -406,7 +404,6 @@ export class SidebarComponent implements OnInit {
         }
       });
     });
-    console.log(this.barItem);
     this.barItem.unshift(this.fistItem[0]);
   }
 

@@ -24,7 +24,6 @@ export class EchartsBarDoubleComponent implements OnInit {
     const baseNum = 0.01;
 
     this.builletinSrv.getAver(null).subscribe(res => {
-      console.log(res);
       res.data.forEach(value => {
         seriesName.push(value.trainingContent);
         avgTime.push((value.average + baseNum).toFixed(3));
