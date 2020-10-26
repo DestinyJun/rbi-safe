@@ -71,7 +71,7 @@ export class ShootRectifyComponent implements OnInit {
 
   // 获取树结构数据
   public getOrgTreeData(): void {
-    this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
+    this.globalSrv.getAllOrganizationTree({}).subscribe(value => {
       this.OrgTrees = initializeTree(
         value.data ? value.data : [],
         {labelName: 'organizationName', childrenName: 'chiled'}

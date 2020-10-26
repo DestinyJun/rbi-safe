@@ -151,7 +151,7 @@ export class ListCustomizationComponent implements OnInit {
 
   // 获取树结构
   public getOrgazitonTree(): void {
-    this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
+    this.globalSrv.getAllOrganizationTree({}).subscribe(value => {
       if (value.data) {
         this.dataTrees = this.initializeTree(value.data);
       } else {

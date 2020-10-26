@@ -37,6 +37,7 @@ export class GiBulletinBoardComponent implements OnInit {
   public  initBulletinData(): void {
     this.builletinSrv.getBulletinBoradPageData({pageNo: this.bulletionPageNo, pageSize: 10}).subscribe((res) => {
       console.log(res);
+      this.itemData  = [];
       res.data.contents.forEach(val => {
         this.itemData.push({
           num: val.id,
