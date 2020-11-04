@@ -19,10 +19,9 @@ export class TeamComponent implements OnInit {
     {field: 'teamName', header: '队伍名称'},
     {field: 'affiliatedUnit', header: '所属单位'},
     {field: 'natureOfTheTeam', header: '队伍性质'},
-    {field: 'captain', header: '队长'},
-    {field: 'mobilePhone', header: '手机'},
     {field: 'numberOfPeople', header: '人数'},
-    {field: 'idt', header: '添加时间'},
+    {field: 'captain', header: '队长'},
+    {field: 'mobilePhone', header: '队长手机'},
   ]; // 表头字段
   public eoTeamTableData: any[]; // 表体数据
   public eoTeamTableSelect: any = []; // 表格选择数据

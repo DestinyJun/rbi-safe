@@ -18,11 +18,16 @@ export class EquipmentSpecialComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public eqSpecialTableHeader: TableHeader[] = [
-    {field: 'organizationName', header: '组织单位'},
     {field: 'equipmentName', header: '设备名称'},
+    {field: 'position', header: '安装位置'},
+    {field: 'organizationName', header: '所属车间'},
     {field: 'specialParameters', header: '特种参数'},
     {field: 'factoryNumber', header: '出厂编号'},
-    {field: 'idt', header: '添加时间'},
+    {field: 'operationTime', header: '投用时间'},
+    {field: 'inspectionDate', header: '检验日期'},
+    {field: 'inspectionPeriod', header: '检验周期'},
+    {field: 'nextInspectionDate', header: '下次检验日期'},
+    {field: 'operationStatus', header: '运行状态'},
   ]; // 表头字段
   public eqSpecialTableData: any[]; // 表体数据
   public eqSpecialTableSelect: any = []; // 表格选择数据

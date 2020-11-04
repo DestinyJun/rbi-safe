@@ -19,7 +19,7 @@ export class AgencyComponent implements OnInit {
     {field: 'organizationName', header: '组织名称'},
     {field: 'leadingCadre', header: '负责人'},
     {field: 'mobilePhone', header: '手机'},
-    {field: 'idt', header: '添加时间'},
+    {field: 'remarks', header: '备注'},
   ]; // 表头字段
   public eoAgencyTableData: any[]; // 表体数据
   public eoAgencyTableSelect: any = []; // 表格选择数据

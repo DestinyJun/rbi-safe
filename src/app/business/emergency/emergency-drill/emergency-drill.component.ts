@@ -21,8 +21,11 @@ export class EmergencyDrillComponent implements OnInit {
     {field: 'emergencyPlanName', header: '应急预案名称'},
     {field: 'controlOrganization', header: '主控单位'},
     {field: 'projectUndertaker', header: '计划承办演练单位'},
+    {field: 'planDrillTime', header: '计划演练时间'},
+    {field: 'plannedDrillForm', header: '计划演练形式'},
+    {field: 'actualFrequency', header: '实演练次数'},
+    {field: 'actualDrillTime', header: '实际演练时间'},
     {field: 'place', header: '地点'},
-    {field: 'idt', header: '创建时间'},
   ]; // 表头字段
   public emDrillTableData: any[]; // 表体数据
   public emDrillTableSelect: any = []; // 表格选择数据

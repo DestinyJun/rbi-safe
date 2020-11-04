@@ -35,7 +35,7 @@
           </td>
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
-            {{rowData[col.field]}}
+            {{rowData[col.field] === 1?'正常':rowData[col.field] === 0?'异常': rowData[col.field]}}
           </td>
           <td>
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="emPlanOperate(emPlanOperateFlag='update',rowData, fileUpload)"></button>

@@ -18,13 +18,11 @@ export class AccidentRecordComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public acRecordTableHeader: TableHeader[] = [
-    {field: 'organizationName', header: '组织单位'},
+    {field: 'organizationName', header: '上报单位'},
     {field: 'accidentPlace', header: '事故地点'},
-    {field: 'accidentAccount', header: '事故数量'},
     {field: 'accidentName', header: '事故类型'},
-    {field: 'reasonAnalysis', header: '原因分析'},
-    {field: 'detail', header: '详细描述'},
-    {field: 'idt', header: '添加时间'},
+    {field: 'accidentAccount', header: '事故数量'},
+    {field: 'changeStatus', header: '整改落实情况'},
   ]; // 表头字段
   public acRecordTableData: any[]; // 表体数据
   public acRecordTableSelect: any = []; // 表格选择数据
