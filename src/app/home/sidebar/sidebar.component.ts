@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     // 生产检测预警
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '生产监测预警',
       lefticon: 'fa-angle-down',
       link: '/home/monitor/monitorComprehensive',
@@ -38,7 +38,7 @@ export class SidebarComponent implements OnInit {
     // 目标职责管理
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '目标职责管理',
       lefticon: 'fa-angle-down',
       link: '/home/intent/mains',
@@ -54,7 +54,7 @@ export class SidebarComponent implements OnInit {
     // 安全管理制度
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '安全管理制度',
       lefticon: 'fa-angle-down',
       link: '/home/institution/inmain',
@@ -67,7 +67,7 @@ export class SidebarComponent implements OnInit {
     // 安全教育培训
     {
       icon: {class: 'iconOutline-1', fontsize: '14px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '安全教育培训',
       lefticon: 'fa-angle-down',
       link: '/home/strain/trainSituation',
@@ -87,7 +87,7 @@ export class SidebarComponent implements OnInit {
     // 设备设施管理
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '设备设施管理',
       lefticon: 'fa-angle-down',
       link: '/home/equipment/equipmentMain',
@@ -101,7 +101,7 @@ export class SidebarComponent implements OnInit {
     // 安全风险管控
     {
       icon: {class: 'iconOutline-2', fontsize: '16px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '安全风险管控',
       lefticon: 'fa-angle-down',
       link: '/home/strisk/status',
@@ -115,7 +115,7 @@ export class SidebarComponent implements OnInit {
     // 重大危险源管理
     {
       icon: {class: 'iconOutline-3', fontsize: '16px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '重大危险源管理',
       lefticon: 'fa-angle-down',
       link: '/home/risk/institution',
@@ -128,7 +128,7 @@ export class SidebarComponent implements OnInit {
     },
     // 隐患排查治理
     {
-      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#226AD5', label: '隐患排查治理', link: '/home/trouble/checkstatus', lefticon: 'fa-angle-down', children: [
+      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#23344E', label: '隐患排查治理', link: '/home/trouble/checkstatus', lefticon: 'fa-angle-down', children: [
         {item: {label: '隐患排查治理状况', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/trouble/checkstatus', isHas: true},
         {item: {label: '隐患排查治理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/institution', isHas: true},
         {item: {label: '隐患排查', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/shoot', isHas: true},
@@ -139,7 +139,7 @@ export class SidebarComponent implements OnInit {
     // 应急管理
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '应急管理',
       lefticon: 'fa-angle-down',
       link: '/home/emergency/emergencySituation',
@@ -154,7 +154,7 @@ export class SidebarComponent implements OnInit {
     // 生产安全事故管理
     {
       icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '生产安全事故管理',
       lefticon: 'fa-angle-down',
       link: '/home/accident/accidentSituation',
@@ -165,7 +165,7 @@ export class SidebarComponent implements OnInit {
     },
     // 职业健康管理
     {
-      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '职业健康管理', link: '/home/health/phinstitution', lefticon: 'fa-angle-down', children: [
+      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '职业健康管理', link: '/home/health/phinstitution', lefticon: 'fa-angle-down', children: [
         {item: {label: '职业健康规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/health/phinstitution', isHas: true},
         {item: {label: '职业健康台账管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/phmanager', isHas: true},
         // {item: {label: '职业病危害项目申报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -176,7 +176,7 @@ export class SidebarComponent implements OnInit {
     // 一岗双责管理
     /*{
       icon: {class: 'iconOutline-4', fontsize: '14px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '一岗双责管理',
       lefticon: 'fa-angle-down',
       link: '/home/double/insitution',
@@ -190,7 +190,7 @@ export class SidebarComponent implements OnInit {
     // 制度管理
    /* {
       icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '制度管理',
       lefticon: '',
       link: '/home/system/symanger',
@@ -198,7 +198,7 @@ export class SidebarComponent implements OnInit {
     },*/
     // 综合信息
     {
-      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/genneral/board', children: [
+      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/genneral/board', children: [
         {item: {label: '信息公告栏', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/genneral/board', isHas: true},
         // {item: {label: '生产调度信息展示', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '公共信息发布', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/genneral/release', isHas: true},
@@ -217,7 +217,7 @@ export class SidebarComponent implements OnInit {
     },*/
     {
       icon: {class: 'iconoutline-account_circle-24px', fontsize: '20px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '用户管理',
       lefticon: '',
       children: [],
@@ -225,7 +225,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       icon: {class: 'iconoutline-https-24px', fontsize: '20px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '权限管理',
       lefticon: '',
       children: [],
@@ -233,7 +233,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       icon: {class: 'iconbaseline-tag_faces-24px', fontsize: '20px', color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '角色管理',
       lefticon: '',
       children: [],
@@ -241,7 +241,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       icon: {class: 'iconbaseline-device_hub-24px', fontsize: '16px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '组织管理',
       lefticon: '',
       children: [],
@@ -249,7 +249,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: '公司人员管理',
       lefticon: '',
       children: [],
@@ -257,7 +257,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: 'SPI系数设定',
       lefticon: '',
       children: [],
@@ -265,7 +265,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
-      bgc: '#226AD5',
+      bgc: '#23344E',
       label: 'App管理',
       lefticon: '',
       children: [],
@@ -303,7 +303,7 @@ export class SidebarComponent implements OnInit {
   public firItemClick(item): void {
     this.barItem.forEach(val => {
       val.icon.color = '#fff';
-      val.bgc = '#226AD5';
+      val.bgc = '#23344E';
       if (val.children.length !== 0) {
         this.fistItem.forEach(v => {
           if (v.label === item.label){
@@ -314,8 +314,8 @@ export class SidebarComponent implements OnInit {
         val.lefticon = '';
       }
     });
-    item.icon.color = '#FCCF4F';
-    item.bgc = '#4E88DE';
+    item.bgc = '#34445C';
+    item.icon.color = '#3880EB';
     if (item.children.length !== 0) {
       // if (this.item)
       this.fistItem.forEach(v => {
@@ -327,7 +327,7 @@ export class SidebarComponent implements OnInit {
             val.item.ftcolor = '#8E8E8E';
           });
           item.children[0].item.bgc = '#D1E0F7';
-          item.children[0].item.ftcolor = '#4F88DE';
+          item.children[0].item.ftcolor = '#3880EB';
         }
       });
     }
@@ -355,7 +355,6 @@ export class SidebarComponent implements OnInit {
   }
   // 切换回首页模块
   changeToHomeBar(){
-    console.log(123);
     this.setFirstBar();
     this.setBodyMarginLeft(this.secItem);
     this.localSrv.set('isSetBar', 'false');
@@ -402,18 +401,19 @@ export class SidebarComponent implements OnInit {
 
   public  keetRouterStatus(): void {
     if (this.barItem === this.fistItem) {
+      console.log('我执行了1');
       this.barItem.forEach(val => {
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {
-            val.bgc = '#4E88DE';
+            val.bgc = '#23344E';
             val.icon.color = '#FCCF4F';
           } else {
             val.icon.color = '#fff';
-            val.bgc = '#226AD5';
+            val.bgc = '#23344E';
           }
         } else {
           if (val.link.slice(0,   val.link.lastIndexOf('/')) === this.router.url.slice(0 , this.router.url.lastIndexOf('/'))) {
-            val.bgc = '#4E88DE';
+            val.bgc = '#23344E';
             val.icon.color = '#FCCF4F';
             this.secItem = val.children;
             this.setBodyMarginLeft(val.children);
@@ -431,34 +431,36 @@ export class SidebarComponent implements OnInit {
             // val.children.forEach(v)
           } else {
             val.icon.color = '#fff';
-            val.bgc = '#226AD5';
+            val.bgc = '#23344E';
           }
         }
       });
     }
     else {
+      console.log('我执行了2');
       this.barItem.forEach(val => {
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {
-            val.bgc = '#4E88DE';
+            val.bgc = '#23344E';
             val.icon.color = '#FCCF4F';
           } else {
             val.icon.color = '#fff';
-            val.bgc = '#226AD5';
+            val.bgc = '#23344E';
           }
         } else {
           if (val.link.slice(val.link.lastIndexOf('/'), val.link.length) === this.router.url.slice( this.router.url.lastIndexOf('/'), this.router.url.length)) {
-            val.bgc = '#4E88DE';
-            val.icon.color = '#FCCF4F';
+            val.bgc = '#34445C';
+            val.icon.color = '#3880EB';
             this.secItem = val.children;
             this.setBodyMarginLeft(val.children);
           } else {
-            val.icon.color = '#fff';
-            val.bgc = '#226AD5';
+            val.icon.color = '#FFFFFF';
+            val.bgc = '#23344E';
           }
         }
       });
     }
+    console.log(this.barItem);
   }
 
   public setFirstBar(): void {

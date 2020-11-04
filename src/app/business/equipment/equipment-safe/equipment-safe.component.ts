@@ -22,6 +22,11 @@ export class EquipmentSafeComponent implements OnInit {
     {field: 'type', header: '类型'},
     {field: 'majorEquipment', header: '主要设备设施'},
     {field: 'modelAndSpecification', header: '型号及规则'},
+    {field: 'unit', header: '单位'},
+    {field: 'number', header: '数量'},
+    {field: 'position', header: '安装位置'},
+    {field: 'operationStatus', header: '运行情况'},
+    {field: 'modelAndSpecification', header: '备注'},
     {field: 'idt', header: '添加时间'},
   ]; // 表头字段
   public eqSafeTableData: any[]; // 表体数据

@@ -18,7 +18,11 @@ export class InstitutionManageComponent implements OnInit {
   }; // 分页组件配置
   public institutionManageTableHeader: TableHeader[] = [
     {field: 'name', header: '制度名称'},
-    {field: 'idt', header: '创建按时间'},
+    {field: 'typeName', header: '制度类型'},
+    {field: 'suit', header: '适宜性'},
+    {field: 'effective', header: '有效性'},
+    {field: 'execute', header: '执行性'},
+    {field: 'idt', header: '上传时间'},
   ]; // 表头字段
   public institutionManageTableData: any[]; // 表体数据
   public institutionManageTableSelect: any = []; // 表格选择数据

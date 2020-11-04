@@ -5,7 +5,7 @@
   <div class="sidebar">
     <app-sidebar [firWidth]="barWith" (outWith)="setBodyMarginLeft($event)" #sidebarComponent (click)="show()"></app-sidebar>
   </div>
-  <div class="home-main" [ngStyle]="{marginLeft: bodyMarginLeft + 'vw'}" (click)="show()">
+  <div class="home-main" [ngStyle]="{marginLeft:  '18vw'}" (click)="show()">
     <router-outlet ></router-outlet>
   </div>
 <!--  <p-dialog header="待办事项" [(visible)]="showDialog" [style]="{width: '28vw', height: '26vh'}">-->

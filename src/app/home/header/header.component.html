@@ -6,19 +6,19 @@
   <div class="user-info">
     <div class="pancel pt-3 pb-3 text-light">
       <span class="setting pl-3 pr-3">
-        <i class="iconfont iconicon_home" (click)="setHomeClick()"></i>
+        <i class="iconfont iconicon_home" style="color: #BCCCD6;" (click)="setHomeClick()"></i>
       </span>
       <span class="setting pl-3 pr-3" *ngIf="setingBar.length !== 0">
-        <i class="iconfont iconOutline setting" (click)="setClick()"></i>
+        <i class="iconfont iconOutline setting" style="color: #BCCCD6;" (click)="setClick()"></i>
       </span>
       <span (click)="showNoticeClick()" class="remind pl-3 pr-3">
-        <i class="iconfont iconNotificationIcon"></i>
+        <i class="iconfont iconNotificationIcon" style="color: #BCCCD6;"></i>
         <span class="bage" *ngIf="noticeItem.length > 0"></span>
       </span>
     </div>
     <div class="user pl-3 pr-3 text-light" (click)="headerSideBarShow=true">
-      <span class="mr-3">{{username}}</span>
-      <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 30px"></i>
+      <span class="mr-3" style="color: #BCCCD6;">{{username}}</span>
+      <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 30px;color: #14243B;"></i>
     </div>
   </div>
   <div class="sidebar">
