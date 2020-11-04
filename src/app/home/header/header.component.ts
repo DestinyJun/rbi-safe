@@ -92,6 +92,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home/seting/user']);
   }
 
+  public setHomeClick(): void {
+    this.outEvent.emit('false');
+    this.localSrv.set('isSetBar', 'false');
+    this.router.navigate(['/home/monitor']);
+  }
+
   public close(): void {
     this.showNotice = false;
   }

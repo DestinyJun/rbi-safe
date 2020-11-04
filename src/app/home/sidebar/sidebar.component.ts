@@ -15,14 +15,14 @@ export class SidebarComponent implements OnInit {
   private outWith = new EventEmitter<any>();
   public fistItem = [
     // 首页
-    {
+   /* {
       icon: {class: 'iconicon_home', fontsize: '16px', color: '#FCCF4F'},
       bgc: '#4E88DE',
       label: '首页',
       lefticon: '',
       children: [],
       link: '/home/main'
-    },
+    },*/
     // 生产检测预警
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
@@ -506,7 +506,6 @@ export class SidebarComponent implements OnInit {
         }
       });
     });
-    this.barItem.unshift(this.fistItem[0]);
   }
 
   public  setSetingBar(): void {
