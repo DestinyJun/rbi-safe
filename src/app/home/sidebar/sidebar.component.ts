@@ -520,6 +520,5 @@ export class SidebarComponent implements OnInit {
         });
       }
     });
-    this.barItem.unshift(this.setItem[0]);
   }
 }
