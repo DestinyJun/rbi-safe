@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: MonitorComponent,
     children: [
-      {path: '', redirectTo: 'monitorSingle', pathMatch: 'full'},
+      {path: '', redirectTo: 'monitorComprehensive', pathMatch: 'full'},
       {path: 'monitorSingle', component: MonitorSingleComponent},
       {path: 'monitorComprehensive', component: MonitorComprehensiveComponent},
     ]
