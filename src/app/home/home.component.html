@@ -5,13 +5,13 @@
   <div class="sidebar">
     <app-sidebar [firWidth]="barWith" (outWith)="setBodyMarginLeft($event)" #sidebarComponent (click)="show()"></app-sidebar>
   </div>
-  <div class="home-main" [ngStyle]="{marginLeft:  '18vw'}" (click)="show()">
+  <div class="home-main" [ngStyle]="{marginLeft:  bodyMarginLeft + 'vw'}" (click)="show()">
     <router-outlet ></router-outlet>
   </div>
-<!--  <p-dialog header="待办事项" [(visible)]="showDialog" [style]="{width: '28vw', height: '26vh'}">-->
-<!--    <p-scrollPanel [style]="{width: '100%', height: '26vh'}" styleClass="custom">-->
-<!--&lt;!&ndash;      {{reviewInfo | json}}&ndash;&gt;-->
-<!--      <p style="font-size: 1.5em"><i class="fa fa-warning"></i><span style="color: red; margin-left: 15px">您有资格证待复审</span></p>-->
-<!--    </p-scrollPanel>-->
-<!--  </p-dialog>-->
+  <!--  <p-dialog header="待办事项" [(visible)]="showDialog" [style]="{width: '28vw', height: '26vh'}">-->
+  <!--    <p-scrollPanel [style]="{width: '100%', height: '26vh'}" styleClass="custom">-->
+  <!--&lt;!&ndash;      {{reviewInfo | json}}&ndash;&gt;-->
+  <!--      <p style="font-size: 1.5em"><i class="fa fa-warning"></i><span style="color: red; margin-left: 15px">您有资格证待复审</span></p>-->
+  <!--    </p-scrollPanel>-->
+  <!--  </p-dialog>-->
 </div>
