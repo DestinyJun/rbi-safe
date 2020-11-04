@@ -352,37 +352,13 @@ export class SidebarComponent implements OnInit {
         this.secItem = [];
       }
     }
-    else {
-      // 判断为设置导航，首页点击时导航切换
-      if (item.label === '首页') {
-        this.isSetBar = 'false';
-        this.fistItem.forEach((value, index) => {
-          if (index !== 0) {
-            value.icon.color = '#fff';
-            value.bgc = '#226AD5';
-            if (value.children.length !== 0){
-              value.lefticon = 'fa-angle-down';
-            }
-            value.children.forEach((val, flog) => {
-              if (flog !== 0) {
-                val.item.bgc = '#fff';
-                val.item.ftcolor = '#8E8E8E';
-              } else {
-                val.item.bgc = '#D1E0F7';
-                val.item.ftcolor = '#4F88DE';
-              }
-            });
-          } else {
-            value.icon.color = '#FCCF4F';
-            value.bgc = '#4E88DE';
-          }
-        });
-        this.setFirstBar();
-        this.localSrv.set('isSetBar', 'false');
-      }
-    }
   }
-
+  // 切换回首页模块
+  changeToHomeBar(){
+    console.log(123);
+    this.setFirstBar();
+    this.localSrv.set('isSetBar', 'false');
+  }
   // 设置中间内容离左边
   public setBodyMarginLeft(item): void {
     if (item.length === 0) {

@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   @ViewChild('headerComponent') headerCilde: HeaderComponent;
   public barWith: any;
   public bodyMarginLeft = 10;
-  public isBar: string;
   constructor(
     private toolSrv: PublicMethodService,
     private router: Router,
@@ -51,9 +50,13 @@ export class HomeComponent implements OnInit {
       this.bodyMarginLeft = e;
   }
   public  getSetBarStatus(e): void {
-    this.isBar = e;
+    console.log(e);
     this.child.isSetBar = e;
-    this.child.changeBar();
+    if (e === 'true'){
+      this.child.changeBar();
+    }else {
+      this.child.changeToHomeBar();
+    }
   }
   public show(): void {
       this.headerCilde.showNotice = false;
