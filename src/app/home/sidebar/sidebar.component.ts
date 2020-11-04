@@ -357,6 +357,7 @@ export class SidebarComponent implements OnInit {
   changeToHomeBar(){
     console.log(123);
     this.setFirstBar();
+    this.setBodyMarginLeft(this.secItem);
     this.localSrv.set('isSetBar', 'false');
   }
   // 设置中间内容离左边
@@ -462,6 +463,7 @@ export class SidebarComponent implements OnInit {
 
   public setFirstBar(): void {
     this.barItem = [];
+    this.secItem = [];
     this.fistItem.forEach(res => {
       this.limitDataBar.forEach(v => {
         if (v.permissionName === res.label){ // 一级菜单比较成功了，再接着比较二级菜单
@@ -478,6 +480,7 @@ export class SidebarComponent implements OnInit {
               });
             });
           }
+          this.secItem = this.fistItem[0].children;
           res.children = barChildItem;
         }
       });
