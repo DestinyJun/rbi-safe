@@ -19,10 +19,9 @@ export class IntentInvestComponent implements OnInit {
   }; // 分页组件配置
   public investTableHeader: TableHeader[] = [
     {field: 'organizationName', header: '组织单位'},
-    {field: 'outdoorsAmount', header: '露天矿量'},
-    {field: 'wellAmount', header: '井下矿量'},
-    {field: 'outdoorsPrice', header: '露天单价'},
-    {field: 'wellPrice', header: '井下单价'},
+    {field: 'planMoney', header: '计提金额'},
+    {field: 'useMoney', header: '支出'},
+    {field: 'ifShare', header: '是否共用'},
     {field: 'date', header: '日期'},
   ]; // 表头字段
   public investTableData: any[]; // 表体数据
@@ -114,6 +113,7 @@ export class IntentInvestComponent implements OnInit {
           }
           delete this.investOperateField['udt'];
           delete this.investOperateField['idt'];
+          this.investOperateField.planMoney = (this.investOperateField.outdoorsAmount * this.investOperateField.outdoorsPrice) + (this.investOperateField.wellAmount * this.investOperateField.wellPrice);
           this.investHttpOperate(this.intentSrv.intentInvestUpdate(this.investOperateField));
         }
         // 新增保存
@@ -121,6 +121,7 @@ export class IntentInvestComponent implements OnInit {
           this.investOperateField.organizationId = this.investOrgTreeSelect.id;
           this.investOperateField.organizationName = this.investOrgTreeSelect.label;
           this.investOperateField.ifShare = this.investDropdownSelected.value;
+          this.investOperateField.planMoney = (this.investOperateField.outdoorsAmount * this.investOperateField.outdoorsPrice) + (this.investOperateField.wellAmount * this.investOperateField.wellPrice);
           this.investHttpOperate(this.intentSrv.intentInvestAdd(this.investOperateField));
         }
         break;

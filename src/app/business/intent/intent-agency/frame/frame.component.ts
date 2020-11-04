@@ -10,6 +10,16 @@ import {Observable} from 'rxjs';
 export class FrameComponent implements OnInit {
   public frameOperateFlag: any ; // 操作标识
   public frameImgPath: any = '' ; // 操作标识
+  public frameImgNumber: any = null ; // 	单位专职安全生产管理人员
+  public frameImgName: any = null ; // 	单位专职安全生产管理人员
+  public frameDropdownPlaceholder: any = '下拉切换组织'; //  状态下拉label
+  public frameDropdownOptions: any = [
+    {value: 87, label: ' 矿业公司'},
+    {value: 94, label: ' 坛罐窑铝'},
+    {value: 99, label: ' 小长冲河铝矿'},
+    {value: 98, label: ' 猫场铝矿'},
+  ]; // 状态下拉配置项
+  public frameDropdownSelected: any; // 状态下拉选择
 
   constructor(
     private intentSrv: IntentService,
@@ -20,8 +30,11 @@ export class FrameComponent implements OnInit {
   }
   // 数据初始化
   private frameDataInit() {
-    this.intentSrv.intentAgencyImgLook().subscribe((res) => {
-      this.frameImgPath = res.data;
+    this.intentSrv.intentAgencyImgLook({}).subscribe((res) => {
+      this.frameImgPath = res.data.organizationPicture;
+      this.frameDropdownSelected = res.data.organizationId;
+      this.frameImgNumber = res.data.number;
+      this.frameImgName = res.data.name;
     });
   }
 
@@ -45,8 +58,18 @@ export class FrameComponent implements OnInit {
               field.append('file', res);
             });
           }
+          field.append('number', this.frameImgNumber);
           this.frameHttpOperate(this.intentSrv.intentAgencyImgUpload(field));
         }
+        break;
+      // 树操作
+      case 'change':
+        this.intentSrv.intentAgencyImgLook({organizationId: item.value}).subscribe((res) => {
+          this.frameImgPath = res.data.organizationPicture;
+          this.frameDropdownSelected = res.data.organizationId;
+          this.frameImgNumber = res.data.number;
+          this.frameImgName = res.data.name;
+        });
         break;
     }
   }

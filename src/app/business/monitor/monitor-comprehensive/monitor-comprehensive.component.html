@@ -1,0 +1,53 @@
+<!--综合监测预警-->
+<div class="monitor-comprehensive">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">综合监测预警指标</h2>
+  <div class="header pt-2 pb-2 pr-3">
+    <div class="ui-inputgroup"></div>
+    <div class="button">
+      <button pButton type="button" [label]="trainSituationOrgTreeSelectLabel" class="ui-button-secondary" (click)="trainSituationOperate(trainSituationOperateFlag = 'tree')"></button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="ui-g" style="height: 100%">
+      <!--上图-->
+      <div class="ui-g-12 ui-md-12 mb-2" style="height: 50%;background: #fff;border-radius: 10px">
+        <app-echarts-bar-dimensional
+          [showSplitLine]="true"
+          [showAxisLabel]="true"
+          [echartData]="trainSituationTopChart"
+          title="教育培训平均成绩/覆盖率统计统计图">
+        </app-echarts-bar-dimensional>
+      </div>
+      <!--下图-->
+      <div class="ui-g-12 ui-md-12 mt-2" style="height: 50%;background: #fff;border-radius: 10px">
+        <app-echarts-area-chart
+          title="设备完好率"
+          [echartsData]="trainSituationBottomChart"
+        >
+        </app-echarts-area-chart>
+      </div>
+    </div>
+  </div>
+  <div class="modal">
+    <!--组织树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="trainSituationOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择组织单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="trainSituationOrgTree"
+          [(selection)]="trainSituationOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="trainSituationOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
+
+

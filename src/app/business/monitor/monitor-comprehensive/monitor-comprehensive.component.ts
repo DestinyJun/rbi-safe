@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree} from '../../../common/public/Api';
+import {SafetrainService} from '../../../common/services/safetrain.service';
 import {GlobalService} from '../../../common/services/global.service';
 import {orgInitializeTree} from '../../../common/public/contents';
-import {SafetrainService} from '../../../common/services/safetrain.service';
 
 @Component({
-  selector: 'app-train-situation',
-  templateUrl: './train-situation.component.html',
-  styleUrls: ['./train-situation.component.scss']
+  selector: 'app-monitor-comprehensive',
+  templateUrl: './monitor-comprehensive.component.html',
+  styleUrls: ['./monitor-comprehensive.component.scss']
 })
-export class TrainSituationComponent implements OnInit {
+export class MonitorComprehensiveComponent implements OnInit {
 
   public trainSituationTopChart: any = null ; // 教育培训平均成绩/覆盖率统计统计图
   public trainSituationBottomChart: any = null ; // 教育培训月数量统计图
@@ -55,7 +55,10 @@ export class TrainSituationComponent implements OnInit {
         {name: '车间级', value: res.data.chejianji},
         {name: '班组级', value: res.data.banzhuji},
       ];
-      this.trainSituationBottomChart = {xdata, data};
+      this.trainSituationBottomChart = {
+        xData: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        yData: [0.5, 0.3, 0.1, 0.8, 0.4, 0.2, 0.9, 0.3, 0.4, 0.5, 0.7, 0.2]
+      };
     });
   }
 
@@ -74,5 +77,6 @@ export class TrainSituationComponent implements OnInit {
         break;
     }
   }
+
 
 }

@@ -9,6 +9,7 @@ import { EchartsBarLineComponent } from './echarts-bar-line/echarts-bar-line.com
 import { EchartsBarCircleComponent } from './echarts-bar/echarts-bar-circle/echarts-bar-circle.component';
 import {EchartsAreaChartComponent} from './echarts-area-chart/echarts-area-chart.component';
 import { EchartsLineNormalComponent } from './echarts-line-normal/echarts-line-normal.component';
+import {EchartsBarDimensionalComponent} from './echarts-bar-dimensional/echarts-bar-dimensional.component';
 
 
 
@@ -21,7 +22,8 @@ import { EchartsLineNormalComponent } from './echarts-line-normal/echarts-line-n
     EchartsBarLineComponent,
     EchartsBarCircleComponent,
     EchartsAreaChartComponent,
-    EchartsLineNormalComponent
+    EchartsLineNormalComponent,
+    EchartsBarDimensionalComponent
   ],
   exports: [
     EchartsBarRiskComponent,
@@ -31,7 +33,8 @@ import { EchartsLineNormalComponent } from './echarts-line-normal/echarts-line-n
     EchartsBarLineComponent,
     EchartsBarCircleComponent,
     EchartsAreaChartComponent,
-    EchartsLineNormalComponent
+    EchartsLineNormalComponent,
+    EchartsBarDimensionalComponent
   ],
   imports: [
     CommonModule,

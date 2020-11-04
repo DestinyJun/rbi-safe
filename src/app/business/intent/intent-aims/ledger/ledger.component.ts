@@ -19,6 +19,7 @@ export class LedgerComponent implements OnInit {
   }; // 分页组件配置
   public intentAimsLedgerTableHeader: TableHeader[] = [
     {field: 'organizationName', header: '组织名称'},
+    {field: 'name', header: '清单名称'},
     {field: 'maker', header: '制定人员'},
     {field: 'idt', header: '制定时间'},
   ]; // 表头字段
@@ -94,7 +95,6 @@ export class LedgerComponent implements OnInit {
       // 保存操作
       case 'save':
         this.intentAimsLedgerHttpOperate(this.intentSrv.intentAimsLedgerAdd(this.intentAimsLedgerOperateField));
-        console.log(this.intentAimsLedgerOperateField);
         break;
       // 组织单位
       case 'orgTree':
@@ -105,6 +105,7 @@ export class LedgerComponent implements OnInit {
         this.intentSrv.intentAimsLedgerChecklist({organizationId: item}).subscribe((res) => {
           this.intentAimsLedgerList = res.data.targetDutyContent.map((val) => (Object.assign(new AddIntentAimsLedgerContentFieldClass(), val)));
           this.intentAimsLedgerOperateField.maker = res.data.maker;
+          this.intentAimsLedgerOperateField.name = res.data.name;
           this.intentAimsLedgerOperateField.makerId = res.data.makerId;
           this.intentAimsLedgerOperateField.organizationId = res.data.organizationId;
           this.intentAimsLedgerOperateField.organizationName = res.data.organizationName;

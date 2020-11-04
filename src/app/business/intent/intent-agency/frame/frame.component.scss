@@ -1,5 +1,9 @@
 .frame{
   height: 100%;
+  .dropdown{
+    display: flex;
+    justify-content: flex-end;
+  }
   .header{
     display: flex;
     justify-content: space-between;
@@ -21,6 +25,6 @@
     }
   }
   .content{
-    height: 83%;
+    height: 79%;
   }
 }

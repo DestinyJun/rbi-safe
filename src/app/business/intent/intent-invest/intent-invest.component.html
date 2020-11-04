@@ -110,15 +110,6 @@
                 <input type="number" pInputText placeholder="请填露天矿量" [(ngModel)]="investOperateField.outdoorsAmount">
               </div>
             </div>
-            <!--井下矿量-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>井下矿量：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填井下矿量" [(ngModel)]="investOperateField.wellAmount">
-              </div>
-            </div>
             <!--露天单价-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
@@ -126,6 +117,15 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填露天单价" [(ngModel)]="investOperateField.outdoorsPrice">
+              </div>
+            </div>
+            <!--井下矿量-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>井下矿量：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填井下矿量" [(ngModel)]="investOperateField.wellAmount">
               </div>
             </div>
             <!--井下单价-->
@@ -143,7 +143,8 @@
                 <span>提取金额：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填提取金额" [(ngModel)]="investOperateField.planMoney">
+<!--                <input type="number" pInputText placeholder="请填提取金额" [(ngModel)]="investOperateField.planMoney">-->
+                <input type="number" disabled pInputText placeholder="请填提取金额" [value]="(investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice)">
               </div>
             </div>
             <!--使用金额-->

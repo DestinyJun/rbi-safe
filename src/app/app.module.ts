@@ -15,7 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {GeneralInfoModule} from "./business/general-info/general-info.module";
+import {GeneralInfoModule} from './business/general-info/general-info.module';
 
 
 @NgModule({

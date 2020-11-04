@@ -6,9 +6,14 @@ import {HomeComponent} from './home.component';
 const routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
-      {
+     /* {
         path: 'main',
         loadChildren: () => import('../business/main/main.module').then(m => m.MainModule)
+      },*/
+      {
+        path: 'monitor',
+        loadChildren: () => import('../business/monitor/monitor.module').then(m => m.MonitorModule),
+        data: {preload: true}
       },
       {
         path: 'strain',
@@ -50,11 +55,6 @@ const routes: Routes = [
         loadChildren: () => import('../business/general-info/general-info.module').then(m => m.GeneralInfoModule),
         data: {preload: true}
       },
-     /* {
-        path: 'double',
-        loadChildren: () => import('../business/double-responsibily/double-responsibily.module').then(m => m.DoubleResponsibilyModule),
-        data: {preload: true}
-      },*/
       {
         path: 'equipment',
         loadChildren: () => import('../business/equipment/equipment.module').then(m => m.EquipmentModule),
@@ -79,8 +79,7 @@ const routes: Routes = [
         path: 'institution',
         loadChildren: () => import('../business/institution/institution.module').then(m => m.InstitutionModule),
         data: {preload: true}
-      }
-
+      },
     ]
   }
 ];

@@ -21,6 +21,7 @@ export class DetailComponent implements OnInit {
     {field: 'name', header: '指标名称'},
     {field: 'num', header: '指标系数'},
     {field: 'pname', header: '父级名称'},
+    {field: 'description', header: '描述'},
     {field: 'idt', header: '添加时间'},
   ]; // 表头字段
   public detailTableData: any[]; // 表体数据

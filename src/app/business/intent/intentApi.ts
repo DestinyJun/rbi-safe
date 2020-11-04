@@ -52,10 +52,12 @@ export interface IntentAimsChecklistField {
   id?: any;
   organizationId: any; // 组织ID
   organizationName: string; // 组织名称
+  name: string; // 清单名称名称
   targetDutyContent: IntentAimsChecklistContentField[]; // 清单内容
 }
 export class AddIntentAimsChecklistField implements IntentAimsChecklistField{
-  organizationId: any;
+  name: any;
+  organizationId: string;
   organizationName: string;
   targetDutyContent: IntentAimsChecklistContentField[];
 }
@@ -63,11 +65,13 @@ export class UpdateIntentAimsChecklistField implements IntentAimsChecklistField{
   id: any;
   organizationId: any;
   organizationName: string;
+  name: string;
   targetDutyContent: IntentAimsChecklistContentField[];
   constructor() {
     this.id = null;
     this.organizationId = null;
-    this.organizationName = null;
+    this.organizationName = '';
+    this.name = '';
     this.targetDutyContent = [];
   }
 }
@@ -110,18 +114,21 @@ export interface IntentAimsLedgerField {
   id?: any;
   organizationId: any; // 组织ID
   organizationName: string; // 组织名称
+  name: string; // 清单名称
   maker: string; // 制定人员（人员列表）
   makerId: any; // 制定人员ID
   targetDutyContent: IntentAimsLedgerContentField[]; // 清单内容
 }
 export class UpdateIntentAimsLedgerField implements IntentAimsLedgerField{
   maker: string;
+  name: string;
   makerId: any;
   organizationId: any;
   organizationName: string;
   targetDutyContent: IntentAimsLedgerContentField[];
   constructor() {
     this.maker = '';
+    this.name = '';
     this.makerId = null;
     this.organizationId = null;
     this.organizationName = '';

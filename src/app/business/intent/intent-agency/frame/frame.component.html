@@ -1,5 +1,14 @@
 <div class="frame">
   <h2 class="title text-center pt-3 pb-3 text-littleGray">安全生产管理机构</h2>
+  <div class="dropdown">
+    <p-dropdown
+      (onChange)="frameOperate(frameOperateFlag = 'change', $event)"
+      [style]="{width: '100%'}"
+      [placeholder]="frameDropdownPlaceholder"
+      [options]="frameDropdownOptions" [(ngModel)]="frameDropdownSelected"
+      dropdownIcon="fa fa-caret-down">
+    </p-dropdown>
+  </div>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
       <p-fileUpload
@@ -14,9 +23,18 @@
         [showUploadButton]="false"
       >
       </p-fileUpload>
+      <!--名称-->
+      <div>
+        <label class="ui-g-4 ui-md-4 label">
+          <span>{{frameImgName}}：</span>
+        </label>
+        <div class="ui-g-8 ui-md-8 input">
+          <input type="text" pInputText placeholder="请填单位专职安全生产管理人员" [(ngModel)]="frameImgNumber">
+        </div>
+      </div>
     </div>
     <div class="button">
-      <button pButton type="button" label="点击上传" class="ui-button-danger" (click)="frameOperate(frameOperateFlag = 'upload', fileUpload._files)"></button>
+      <button pButton [disabled]="!frameImgNumber" type="button" label="点击上传" class="ui-button-danger" (click)="frameOperate(frameOperateFlag = 'upload', fileUpload._files)"></button>
     </div>
   </div>
   <div class="content text-center">

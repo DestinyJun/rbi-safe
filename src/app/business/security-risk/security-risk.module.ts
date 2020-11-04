@@ -27,7 +27,7 @@ import { SrInstitutionComponent } from './sr-institution/sr-institution.componen
 import { SrControlStatusComponent } from './sr-control-status/sr-control-status.component';
 import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
 import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
-import {NgxEchartsCoreModule} from "ngx-echarts/core";
+// import {NgxEchartsCoreModule} from "ngx-echarts/core";
 
 
 @NgModule({
@@ -63,7 +63,7 @@ import {NgxEchartsCoreModule} from "ngx-echarts/core";
         TooltipModule,
         EchartsBarModule,
         EchartsPieModule,
-        NgxEchartsCoreModule
+        // NgxEchartsCoreModule
     ],
   providers: [DatePipe]
 })

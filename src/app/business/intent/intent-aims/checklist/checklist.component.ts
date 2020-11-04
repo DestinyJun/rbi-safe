@@ -19,6 +19,7 @@ export class ChecklistComponent implements OnInit {
   }; // 分页组件配置
   public intentAimsCheckTableHeader: TableHeader[] = [
     {field: 'organizationName', header: '组织名称'},
+    {field: 'name', header: '清单名称'},
     {field: 'maker', header: '制定人'},
     {field: 'idt', header: '制定时间'},
   ]; // 表头字段

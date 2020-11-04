@@ -87,8 +87,8 @@ export class IntentService {
    * 组织图查看
    * @param params
    */
-  public intentAgencyImgLook(): Observable<any> {
-    return this.http.post(`/organizationManage/findPicture`, {});
+  public intentAgencyImgLook(params): Observable<any> {
+    return this.http.post(`/organizationManage/findPicture`, params);
   }
 
   /** ********************** 目标管理职责 **********************  */

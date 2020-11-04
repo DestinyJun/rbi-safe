@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.localSrv.set('username', this.username);
         this.localSrv.setObject('limitData', val.data);
         // this.localSrv.set('companyPersonnelId', val.data.companyPersonnelId);
-        this.route.navigate(['home/main']);
+        this.route.navigate(['home/monitor']);
       });
     }
   }

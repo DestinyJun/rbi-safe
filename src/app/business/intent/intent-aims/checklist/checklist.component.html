@@ -79,6 +79,15 @@
                 </button>
               </div>
             </div>
+            <!--清单名称-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>清单名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填清单名称" [(ngModel)]="intentAimsCheckOperateField.name">
+              </div>
+            </div>
             <!--增加清单按钮-->
             <div class="ui-g-12 ui-md-12 text-center">
               <button pButton label="点击添加清单" class="ui-button-info ml-3" (click)="intentAimsCheckOperate(intentAimsCheckOperateFlag='addList')"></button>

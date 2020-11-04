@@ -23,6 +23,18 @@ export class SidebarComponent implements OnInit {
       children: [],
       link: '/home/main'
     },
+    // 生产检测预警
+    {
+      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      bgc: '#226AD5',
+      label: '生产监测预警',
+      lefticon: 'fa-angle-down',
+      link: '/home/monitor/monitorSingle',
+      children: [
+        {item: {label: '单一监测预警', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/monitor/monitorSingle', isHas: true},
+        {item: {label: '综合监测预警', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/monitor/monitorComprehensive', isHas: true},
+      ]
+    },
     // 目标职责管理
     {
       icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
@@ -195,14 +207,14 @@ export class SidebarComponent implements OnInit {
     }
   ];
   public setItem = [
-    {
+   /* {
       icon: {class: 'iconicon_home', fontsize: '16px', color: '#FCCF4F'},
       bgc: '#4E88DE',
       label: '首页',
       lefticon: '',
       children: [],
       link: '/home/main'
-    },
+    },*/
     {
       icon: {class: 'iconoutline-account_circle-24px', fontsize: '20px', color: '#fff'},
       bgc: '#226AD5',
@@ -482,8 +494,8 @@ export class SidebarComponent implements OnInit {
           // res.children = [];
           const barChildItem = [];
           if (v.sysPermissionList) {
-            v.sysPermissionList.forEach(cChild => {
-              res.children.forEach((resChild: any) => {
+            res.children.forEach((resChild: any) => {
+              v.sysPermissionList.forEach(cChild => {
                 if (cChild.permissionName === resChild.item.label) { // 二级菜单比较成功了
                   barChildItem.push(resChild);
                 }

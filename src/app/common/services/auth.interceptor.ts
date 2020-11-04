@@ -5,13 +5,11 @@ import {catchError, tap, timeout} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AppState} from '../../store/loadstatus.state';
 import {GlobalService} from './global.service';
-// import {environment} from '../../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
 import {Store} from '@ngrx/store';
 import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
 import {Location} from '@angular/common';
-// import {environment} from '../../../environments/environment.zga';
 const DEFAULTTIMEOUT = 100000000;
 
 @Injectable()
@@ -83,12 +81,10 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // console.log(environment.name);
     if (environment.production) {
       return this.prod_http(req, next);
     } else {
       return this.debug_http(req, next);
-      // return this.prod_http(req, next);
     }
   }
 
@@ -184,26 +180,31 @@ export class AuthInterceptor implements HttpInterceptor {
     this.store.dispatch({type: 'false'});
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
-    } else if (req.url.includes('/training/findByMaterialId')) {
+    }
+    else if (req.url.includes('/training/findByMaterialId')) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
       });
-    } else if (req.url.includes('/usr/work')) {
+    }
+    else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
-    }else if (this.isSkipUrl(req.url)) {
+    }
+    else if (this.isSkipUrl(req.url)) {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('accessToken', this.localSessionStorage.get('token'))
       });
-    } else if (req.url === '/login') {
+    }
+    else if (req.url === '/login') {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
       });
-    } else {
+    }
+    else {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
