@@ -1,0 +1,44 @@
+.monitor-single-cat{
+  height: 100%;
+  .header{
+    display: flex;
+    justify-content: space-between;
+  }
+  .content{
+    height: 83%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /deep/.ui-table .ui-table-scrollable-header-box{
+      margin-right: 0!important;
+    }
+    /deep/.ui-table .ui-table-scrollable-wrapper .ui-table-scrollable-view .ui-table-scrollable-body{
+      width: 72.9vw;
+    }
+  }
+  .modal{
+    .label{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 14px;
+      padding: 0.97em;
+    }
+    .input{
+      /deep/.ui-inputtext{
+        width: 100%;
+      }
+      /deep/.ui-calendar{
+        width: 100%;
+      }
+      /deep/ .ui-fileupload .ui-fileupload-content{
+        border: none;
+        padding: 0;
+      }
+      /deep/ .ui-fileupload .ui-fileupload-buttonbar{
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+  }
+}

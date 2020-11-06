@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/monitor/monitorComprehensive',
       children: [
         {item: {label: '综合监测预警', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/monitor/monitorComprehensive', isHas: true},
-        {item: {label: '单一监测预警', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/monitor/monitorSingle', isHas: true},
+        {item: {label: '单一监测预警', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/monitor/monitorSingle', isHas: true},
       ]
     },
     // 目标职责管理
@@ -44,11 +44,11 @@ export class SidebarComponent implements OnInit {
       link: '/home/intent/mains',
       children: [
         {item: {label: '目标职责管理现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/intent/mains', isHas: true},
-        {item: {label: '安全生产管理机构设置', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/agency', isHas: true},
-        {item: {label: '目标管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/aims', isHas: true},
-        {item: {label: '一岗双责管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/double', isHas: true},
-        {item: {label: '安全生产投入', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/invest', isHas: true},
-        {item: {label: '安全文化建设', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/intent/culture', isHas: true},
+        {item: {label: '安全生产管理机构设置', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/intent/agency', isHas: true},
+        {item: {label: '目标管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/intent/aims', isHas: true},
+        {item: {label: '一岗双责管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/intent/double', isHas: true},
+        {item: {label: '安全生产投入', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/intent/invest', isHas: true},
+        {item: {label: '安全文化建设', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/intent/culture', isHas: true},
       ]
     },
     // 安全管理制度
@@ -60,8 +60,8 @@ export class SidebarComponent implements OnInit {
       link: '/home/institution/inmain',
       children: [
         {item: {label: '制度运行现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/institution/inmain', isHas: true},
-        {item: {label: '制度管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/institution/inmanage', isHas: true},
-        {item: {label: '制度评估历史记录', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/institution/inrecord', isHas: true}
+        {item: {label: '制度管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/institution/inmanage', isHas: true},
+        {item: {label: '制度评估历史记录', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/institution/inrecord', isHas: true}
       ]
     },
     // 安全教育培训
@@ -73,15 +73,15 @@ export class SidebarComponent implements OnInit {
       link: '/home/strain/trainSituation',
       children: [
         {item: {label: '教育培训现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strain/trainSituation', isHas: true},
-        {item: {label: '教育培训制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/institu', isHas: true},
-        {item: {label: '教育培训需求', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/demand', isHas: true},
-        {item: {label: '教育培训计划', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plain', isHas: true},
-        {item: {label: '培训内容库设置', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/contentset', isHas: true},
-        {item: {label: '培训档案管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/archives', isHas: true},
-        {item: {label: '开始学习', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/learn', isHas: true},
-        {item: {label: '在线考试', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/exam', isHas: true},
-        {item: {label: '我的培训档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/mytrainfile', isHas: true},
-        // {item: {label: '教育培训计划A',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true},
+        // {item: {label: '教育培训制度', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/institu', isHas: true},
+        {item: {label: '教育培训需求', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/demand', isHas: true},
+        {item: {label: '教育培训计划', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/plain', isHas: true},
+        {item: {label: '培训内容库设置', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/contentset', isHas: true},
+        {item: {label: '培训档案管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/archives', isHas: true},
+        {item: {label: '开始学习', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/learn', isHas: true},
+        {item: {label: '在线考试', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/exam', isHas: true},
+        {item: {label: '我的培训档案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/mytrainfile', isHas: true},
+        // {item: {label: '教育培训计划A',  bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strain/plainA', isHas: true},
       ]
     },
     // 设备设施管理
@@ -93,9 +93,9 @@ export class SidebarComponent implements OnInit {
       link: '/home/equipment/equipmentMain',
       children: [
         {item: {label: '设备设施管理现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/equipment/equipmentMain', isHas: true},
-        {item: {label: '安全设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/safe', isHas: true},
-        {item: {label: '特种设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/special', isHas: true},
-        {item: {label: '其他设备设施', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/equipment/other', isHas: true},
+        {item: {label: '安全设备设施', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/equipment/equipmentSafe', isHas: true},
+        {item: {label: '特种设备设施', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/equipment/special', isHas: true},
+        {item: {label: '其他设备设施', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/equipment/other', isHas: true},
       ]
     },
     // 安全风险管控
@@ -107,9 +107,9 @@ export class SidebarComponent implements OnInit {
       link: '/home/strisk/status',
       children: [
         {item: {label: '风险分级管控现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strisk/status', isHas: true},
-        {item: {label: '风险等级管控制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strisk/institution', isHas: true},
-        {item: {label: '风险管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strisk/manager', isHas: true},
-        {item: {label: '风险档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strisk/archive', isHas: true},
+        // {item: {label: '风险等级管控制度', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strisk/institution', isHas: true},
+        {item: {label: '风险管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strisk/manager', isHas: true},
+        {item: {label: '风险档案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/strisk/archive', isHas: true},
       ]
     },
     // 重大危险源管理
@@ -118,22 +118,22 @@ export class SidebarComponent implements OnInit {
       bgc: '#23344E',
       label: '重大危险源管理',
       lefticon: 'fa-angle-down',
-      link: '/home/risk/institution',
+      link: '/home/risk/discern',
       children: [
         // {item: {label: '重大危险源现状分析', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/analysis', isHas: true},
-        {item: {label: '重大危险源管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/institution', isHas: true},
-        {item: {label: '重大危险源识别', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/discern', isHas: true},
-        {item: {label: '重大危险源档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/archive', isHas: true},
+        // {item: {label: '重大危险源管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/institution', isHas: true},
+        {item: {label: '重大危险源识别', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/discern', isHas: true},
+        {item: {label: '重大危险源档案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/risk/archive', isHas: true},
       ]
     },
     // 隐患排查治理
     {
       icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#23344E', label: '隐患排查治理', link: '/home/trouble/checkstatus', lefticon: 'fa-angle-down', children: [
         {item: {label: '隐患排查治理状况', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/trouble/checkstatus', isHas: true},
-        {item: {label: '隐患排查治理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/institution', isHas: true},
-        {item: {label: '隐患排查', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/shoot', isHas: true},
-        {item: {label: '隐患处理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/process', isHas: true},
-        {item: {label: '隐患档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/archive', isHas: true},
+        // {item: {label: '隐患排查治理制度', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/trouble/institution', isHas: true},
+        {item: {label: '隐患排查', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/trouble/shoot', isHas: true},
+        {item: {label: '隐患处理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/trouble/process', isHas: true},
+        {item: {label: '隐患档案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/trouble/archive', isHas: true},
       ]
     },
     // 应急管理
@@ -145,10 +145,10 @@ export class SidebarComponent implements OnInit {
       link: '/home/emergency/emergencySituation',
       children: [
         {item: {label: '应急管理现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/emergency/emergencySituation', isHas: true},
-        {item: {label: '应急组织', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/org', isHas: true},
-        {item: {label: '应急预案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/plan', isHas: true},
-        {item: {label: '应急演练', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/drill', isHas: true},
-        {item: {label: '应急预案评估历史记录', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/emergency/record', isHas: true},
+        {item: {label: '应急组织', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/org', isHas: true},
+        {item: {label: '应急预案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/plan', isHas: true},
+        {item: {label: '应急演练', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/drill', isHas: true},
+        {item: {label: '应急预案评估历史记录', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/record', isHas: true},
       ]
     },
     // 生产安全事故管理
@@ -160,17 +160,17 @@ export class SidebarComponent implements OnInit {
       link: '/home/accident/accidentSituation',
       children: [
         {item: {label: '生产安全事故现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/accident/accidentSituation', isHas: true},
-        {item: {label: '生产安全事故记录', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/accident/accidentRecord', isHas: true},
+        {item: {label: '生产安全事故记录', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/accident/accidentRecord', isHas: true},
       ]
     },
     // 职业健康管理
     {
-      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '职业健康管理', link: '/home/health/phinstitution', lefticon: 'fa-angle-down', children: [
-        {item: {label: '职业健康规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/health/phinstitution', isHas: true},
-        {item: {label: '职业健康台账管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/phmanager', isHas: true},
-        // {item: {label: '职业病危害项目申报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '职业病危害因素监测与评价管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/pharchive', isHas: true},
-        // {item: {label: '隐患档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '职业健康管理', link: '/home/health/phmanager', lefticon: 'fa-angle-down', children: [
+        // {item: {label: '职业健康规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/health/phinstitution', isHas: true},
+        {item: {label: '职业健康台账管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/health/phmanager', isHas: true},
+        // {item: {label: '职业病危害项目申报', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        {item: {label: '职业病危害因素监测与评价管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/health/pharchive', isHas: true},
+        // {item: {label: '隐患档案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '', isHas: true},
       ]
     },
     // 一岗双责管理
@@ -200,9 +200,9 @@ export class SidebarComponent implements OnInit {
     {
       icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/genneral/board', children: [
         {item: {label: '信息公告栏', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/genneral/board', isHas: true},
-        // {item: {label: '生产调度信息展示', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '公共信息发布', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/genneral/release', isHas: true},
-        {item: {label: '生产运营日报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/genneral/operation-reporting', isHas: true},
+        // {item: {label: '生产调度信息展示', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        {item: {label: '公共信息发布', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/genneral/release', isHas: true},
+        // {item: {label: '生产运营日报', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/genneral/operation-reporting', isHas: true},
       ]
     }
   ];
@@ -322,12 +322,11 @@ export class SidebarComponent implements OnInit {
       this.fistItem.forEach(v => {
         if (v.label === item.label) {
           item.lefticon = 'fa-angle-right';
-          // this.secItem = this.
           item.children.forEach(val => {
-            val.item.bgc = '#fff';
-            val.item.ftcolor = '#8E8E8E';
+            val.item.bgc = '#3E4D63';
+            val.item.ftcolor = '#BFC4CC';
           });
-          item.children[0].item.bgc = '#D1E0F7';
+          item.children[0].item.bgc = '#4D5B6F';
           item.children[0].item.ftcolor = '#3880EB';
         }
       });
@@ -366,7 +365,6 @@ export class SidebarComponent implements OnInit {
 
   // 设置中间内容离左边
   public setBodyMarginLeft(item): void {
-    console.log(item);
     if (item.length === 0) {
       if (this.firWidth === 3) {
         this.outWith.emit(3);
@@ -385,10 +383,10 @@ export class SidebarComponent implements OnInit {
   // 二级路由切换
   public secItemClick(item): void {
     this.secItem.forEach(val => {
-      val.item.bgc = '#fff';
-      val.item.ftcolor = '#8E8E8E';
+      val.item.bgc = '#3E4D63';
+      val.item.ftcolor = '#BFC4CC';
     });
-    item.item.bgc = '#D1E0F7';
+    item.item.bgc = '#4D5B6F';
     item.item.ftcolor = '#4F88DE';
   }
 
@@ -410,9 +408,7 @@ export class SidebarComponent implements OnInit {
 
   public keetRouterStatus(): void {
     if (this.barItem.length === this.fistItem.length) {
-      console.log('123');
       this.barItem.forEach(val => {
-        console.log(this.router.url.lastIndexOf('/'));
         // 判断为首页的
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {
@@ -424,7 +420,6 @@ export class SidebarComponent implements OnInit {
           }
         } else {
           if (val.link.split('/')[2] === this.router.url.split('/')[2]) {
-            console.log(123);
             val.bgc = '#23344E';
             val.icon.color = '#3880EB';
             this.secItem = val.children;
@@ -432,11 +427,11 @@ export class SidebarComponent implements OnInit {
             this.secItem.forEach(res => {
               if (res.link.length > 0) {
                 if (res.link.split('/')[3] === this.router.url.split('/')[3]) {
-                  res.item.bgc = '#D1E0F7';
+                  res.item.bgc = '#4D5B6F';
                   res.item.ftcolor = '#4F88DE';
                 } else {
-                  res.item.bgc = '#fff';
-                  res.item.ftcolor = '#8E8E8E';
+                  res.item.bgc = '#3E4D63';
+                  res.item.ftcolor = '#BFC4CC';
                 }
               }
             });
@@ -447,7 +442,6 @@ export class SidebarComponent implements OnInit {
         }
       });
     } else {
-      console.log('我执行了2');
       this.barItem.forEach(val => {
         if (this.router.url.lastIndexOf('/') === 5) {
           if (val.link === this.router.url) {
@@ -470,7 +464,6 @@ export class SidebarComponent implements OnInit {
         }
       });
     }
-    // console.log(this.barItem);
   }
 
   public setFirstBar(): void {

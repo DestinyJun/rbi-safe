@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {GlobalService} from '../../../../common/services/global.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 

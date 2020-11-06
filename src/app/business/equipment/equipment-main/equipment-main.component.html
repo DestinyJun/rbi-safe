@@ -4,7 +4,7 @@
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup"></div>
     <div class="button">
-      <button pButton type="button" [label]="equipmentMainOrgTreeSelectLabel" class="ui-button-secondary" (click)="equipmentMainOperate(equipmentMainOperateFlag = 'tree')"></button>
+      <button pButton type="button" [label]="equipmentMainOrgTreeSelectLabel" style="background: #ffffff" class="ui-button-secondary" (click)="equipmentMainOperate(equipmentMainOperateFlag = 'tree')"></button>
     </div>
   </div>
   <div class="content">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="ui-g" style="height: 90%;padding-top: 15px">
-      <div class="ui-g-12 ui-md-12" style="height: 95%;box-shadow: 0 0 10px #C1C1C1;border-radius: 15px">
+      <div class="ui-g-12 ui-md-12" style="height: 95%;box-shadow: 0 0 10px #C1C1C1;border-radius: 15px;background: #ffffff;">
         <div class="tab">
           <div class="tab-title">
             <h4 style="color: #4D4F5C;padding-left: 10px">设备完好率</h4>
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="chart" style="height: 90%">
+        <div class="chart" style="height: 90%;">
           <app-echarts-area-chart
             title="设备完好率"
             [echartsData]="equipmentMainLine"

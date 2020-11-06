@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: '', component: GeneralInfoComponent, children: [
       {path: 'board', component: GiBulletinBoardComponent},
       {path: 'release', component: GiInfoReleaseComponent},
-      {path: 'operation-reporting', component: DailyOperationReportingComponent},
+      // {path: 'operation-reporting', component: DailyOperationReportingComponent},
     ]}
 ];
 

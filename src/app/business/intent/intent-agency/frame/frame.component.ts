@@ -18,6 +18,7 @@ export class FrameComponent implements OnInit {
     {value: 94, label: ' 坛罐窑铝'},
     {value: 99, label: ' 小长冲河铝矿'},
     {value: 98, label: ' 猫场铝矿'},
+    {value: 97, label: ' 麦坝铝矿'},
   ]; // 状态下拉配置项
   public frameDropdownSelected: any; // 状态下拉选择
 

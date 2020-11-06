@@ -14,8 +14,8 @@ const routes: Routes = [
    path: '',
    component: DoubleResponsibilyComponent,
    children: [
-     {path: '', redirectTo: 'DoubleInsitution', pathMatch: 'full'},
-     {path: 'DoubleInsitution', component: DrInsitutionComponent},
+     {path: '', redirectTo: 'list-customization', pathMatch: 'full'},
+     // {path: 'DoubleInsitution', component: DrInsitutionComponent},
      {path: 'list-customization', component: ListCustomizationComponent},
      {path: 'employee-list-file', component: EmployeeListFileComponent},
      {path: 'checklist-make', component: CheckListMakeComponent},

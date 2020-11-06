@@ -1,15 +1,15 @@
 <div class="train-situation">
-  <h2 class="title text-center pt-3 pb-3 text-littleGray">生产安全事故现状</h2>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">安全教育培训现状</h2>
   <div class="header pt-2 pb-2 pr-3">
     <div class="ui-inputgroup"></div>
     <div class="button">
-      <button pButton type="button" [label]="trainSituationOrgTreeSelectLabel" class="ui-button-secondary" (click)="trainSituationOperate(trainSituationOperateFlag = 'tree')"></button>
+      <button pButton type="button" [label]="trainSituationOrgTreeSelectLabel" style="background: #fff" class="ui-button-secondary" (click)="trainSituationOperate(trainSituationOperateFlag = 'tree')"></button>
     </div>
   </div>
   <div class="content">
     <div class="ui-g" style="height: 100%">
       <!--组织培训单位-->
-      <div class="ui-g-12 ui-md-12 mb-2" style="height: 50%">
+      <div class="ui-g-12 ui-md-12 mb-2" style="height: 50%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;">
         <app-echarts-bar-line
           [showSplitLine]="true"
           [showAxisLabel]="true"
@@ -17,7 +17,7 @@
           title="教育培训平均成绩/覆盖率统计统计图">
         </app-echarts-bar-line>
       </div>
-      <div class="ui-g-12 ui-md-12 mt-2" style="height: 50%">
+      <div class="ui-g-12 ui-md-12 mt-2" style="height: 50%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;">
         <app-echarts-bar-stack
           [title]="'教育培训月数量统计图'"
           [showSplitLine]="true"

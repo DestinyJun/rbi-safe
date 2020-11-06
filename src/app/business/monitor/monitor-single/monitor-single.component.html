@@ -1,1 +1,17 @@
-<p>monitor-single works!</p>
+<!--安全生产管理机构设置管理-->
+<div class="monitor-single">
+  <div class="menu">
+    <div class="tab-item" *ngFor="let item of tabitem">
+      <a class="item-content" (click)="tabItemClick(item)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="tab">
+    <app-monitor-single-cat *ngIf="simbol === 'cat'"></app-monitor-single-cat>
+    <app-monitor-single-river *ngIf="simbol === 'river'"></app-monitor-single-river>
+    <app-monitor-single-wheat *ngIf="simbol === 'wheat'"></app-monitor-single-wheat>
+  </div>
+</div>
+

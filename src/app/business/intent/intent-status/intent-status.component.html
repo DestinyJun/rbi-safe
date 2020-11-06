@@ -3,13 +3,13 @@
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup"></div>
     <div class="button">
-      <button pButton type="button" [label]="intentStatusOrgTreeSelectLabel" class="ui-button-secondary" (click)="intentStatusOperate(intentStatusOperateFlag = 'tree')"></button>
+      <button pButton type="button" [label]="intentStatusOrgTreeSelectLabel" style="background: #fff" class="ui-button-secondary" (click)="intentStatusOperate(intentStatusOperateFlag = 'tree')"></button>
     </div>
   </div>
   <div class="content">
-    <div class="ui-g" style="height: 50%">
+    <div class="ui-g" style="height: 49%;margin-bottom: 1%;">
       <!--chart统计图-->
-      <div class="ui-g-7 ui-md-7" style="height: 100%">
+      <div style="height: 100%;width: 52.4%;background: #fff;margin-right: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;" >
         <app-echarts-bar-stack
           [title]="'各级安全活动数量统计图'"
           [showSplitLine]="true"
@@ -18,16 +18,16 @@
           [echartData]="intentStatusTopBar">
         </app-echarts-bar-stack>
       </div>
-      <div class="ui-g-5 ui-md-5" style="height: 100%">
+      <div style="height: 100%;width: 46.4%;background: #fff;margin-left: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;">
         <app-echarts-line-normal
-          [title]="'事故占比'"
+          [title]="'安全生产投入支出统计'"
           [echartData]="intentStatusTopLine">
         </app-echarts-line-normal>
       </div>
     </div>
-    <div class="ui-g" style="height: 50%">
+    <div class="ui-g" style="height: 49%;margin-top: 1%;">
       <!--chart统计图-->
-      <div class="ui-g-6 ui-md-6" style="height: 100%">
+      <div style="height: 100%;width: 49.4%;background: #fff;margin-right: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;">
         <app-echarts-bar-risk
           [echartData]="intentStatusBottomLeftBar"
           [showAxisLabel]="true"
@@ -36,7 +36,7 @@
           [title]="'一岗双责职责分数统计图'">
         </app-echarts-bar-risk>
       </div>
-      <div class="ui-g-6 ui-md-6" style="height: 100%">
+      <div style="height: 100%;width: 49.4%;background: #fff;margin-left: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;">
         <app-echarts-bar-risk
           [echartData]="intentStatusBottomRightBar"
           [showAxisLabel]="true"

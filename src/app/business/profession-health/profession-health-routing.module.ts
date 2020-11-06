@@ -8,7 +8,7 @@ import {PhArchiveComponent} from './ph-archive/ph-archive.component';
 
 const routes: Routes = [
  {path: '', component: ProfessionHealthComponent, children: [
-     {path: 'phinstitution', component: PhInstitutionComponent},
+     // {path: 'phinstitution', component: PhInstitutionComponent},
      {path: 'phmanager', component: PhManagerComponent},
      {path: 'pharchive', component: PhArchiveComponent},
    ]}

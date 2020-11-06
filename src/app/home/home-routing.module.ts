@@ -6,6 +6,7 @@ import {HomeComponent} from './home.component';
 const routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
+      {path: '', redirectTo: 'monitor', pathMatch: 'full'},
      /* {
         path: 'main',
         loadChildren: () => import('../business/main/main.module').then(m => m.MainModule)

@@ -1,6 +1,6 @@
 .archives-list{
   width: 100%;
-  height: 100%;
+  height: 94%;
   background: #fff;
   padding: 1vh 2vw;
   .archives-list-title{
@@ -43,6 +43,7 @@
     }
   }
   .archives-list-table{
+    height: 77%;
     margin-top: 2vh;
     ::ng-deep .ui-table .ui-table-thead>tr >th{
       border: 0;
@@ -56,9 +57,7 @@
     }
   }
   .archives-list-pagination{
-    position: absolute;
-    bottom: 8vh;
-    right: 4vh;
+    width: 100%;
   }
   ::ng-deep .ui-inputgroup .ui-widget {
     color: #8D8E96;

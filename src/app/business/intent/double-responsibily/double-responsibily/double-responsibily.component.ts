@@ -9,8 +9,8 @@ import {Location} from '@angular/common';
 })
 export class DoubleResponsibilyComponent implements OnInit {
   public linkList = [
-    {label: '一岗双责管理制度', bgc: '#C80000', router: 'DoubleInsitution'},
-    {label: '责任清单制定', bgc: '#226AD5', router: 'list-customization'},
+    // {label: '一岗双责管理制度', bgc: '#C80000', router: 'DoubleInsitution'},
+    {label: '责任清单制定', bgc: '#C80000', router: 'list-customization'},
     {label: '责任清单填写', bgc: '#226AD5', router: 'checklist-make'},
     {label: '员工责任清单档案', bgc: '#226AD5', router: 'employee-list-file'},
   ];

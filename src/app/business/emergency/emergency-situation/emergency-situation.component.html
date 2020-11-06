@@ -4,13 +4,13 @@
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup"></div>
     <div class="button">
-      <button pButton type="button" [label]="emSituationOrgTreeSelectLabel" class="ui-button-secondary" (click)="emSituationOperate(emSituationOperateFlag = 'tree')"></button>
+      <button pButton type="button" style="background: #ffffff" [label]="emSituationOrgTreeSelectLabel" class="ui-button-secondary" (click)="emSituationOperate(emSituationOperateFlag = 'tree')"></button>
     </div>
   </div>
   <div class="content">
     <div class="ui-g" style="height: 100%">
       <!--chart图表-->
-      <div class="ui-g-6 ui-md-6" style="height: 80%">
+      <div style="height: 80%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;margin-right: 0.6%;width: 49.4%">
           <app-echarts-bar-risk
             [echartData]="emSituationBar"
             [showAxisLabel]="true"
@@ -19,7 +19,7 @@
             [title]="'应急演练级别'">
           </app-echarts-bar-risk>
       </div>
-      <div class="ui-g-6 ui-md-6" style="height: 80%">
+      <div style="height: 80%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;margin-left: 0.6%;width: 49.4%">
         <app-echarts-pie-trouble
           [title]="'应急预案'"
           [echartData]="emSituationPie">

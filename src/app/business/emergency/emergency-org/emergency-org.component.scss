@@ -1,8 +1,10 @@
 .emergency-org {
   width: 100%;
   height: 100%;
-  background: #fff;
   padding: 1vh 2vw;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #C4C4C4;
+  background: #FFFFFF;
   .menu {
     height: 6vh;
     border-bottom: 2px solid #EDEDED;
@@ -11,11 +13,9 @@
       display: inline-block;
       margin-right: 4vw;
       .item-content {
-        //display: inline-block;
         display: flex;
         flex-direction: column;
         text-align: left;
-        //align-items: center;
         cursor: pointer;
         span:first-child {
           font-size: 16px;
@@ -32,8 +32,7 @@
   }
   .tab {
     margin-top: 1vh;
-    height: 92%;
+    height: 89%;
     width: 100%;
-    //background: #ee9900;
   }
 }
