@@ -47,7 +47,7 @@ export class EchartsLineNormalComponent implements OnInit, OnChanges {
       title: {
         text: this.title,
         left: 26,
-        top: 0,
+        top: 10,
         textStyle: {
           color: '#4D4F5C',
           fontSize: 18,
@@ -68,7 +68,7 @@ export class EchartsLineNormalComponent implements OnInit, OnChanges {
         }
       },
       grid: {
-        top: '10%',
+        top: '20%',
         left: '3%',
         right: '3%',
         bottom: '2%',
@@ -76,7 +76,7 @@ export class EchartsLineNormalComponent implements OnInit, OnChanges {
       },
       legend: {
         right: '10%',
-        top: '3%',
+        top: '9%',
         textStyle: {
           color: '#AAAAAA'
         },

@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {OrgTree} from '../../../common/public/Api';
-import {GlobalService} from '../../../common/services/global.service';
-import {orgInitializeTree} from '../../../common/public/contents';
 import {MonitorService} from '../monitor.service';
 
 @Component({
@@ -13,7 +10,6 @@ export class MonitorComprehensiveComponent implements OnInit {
 
   public monitorTopChart: any = null ; // 综合监测预警指标分类占比
   public monitorBottomChart: any = null ; // 综合监测预警指标分类占比
-  public monitorYear: any = new Date().getFullYear() ; // 当前年
   public monitorOperateFlag: any ; // 操作标识
   public monitorDropdownPlaceholder: any = '下拉切换组织'; //  状态下拉label
   public monitorDropdownOptions: any = [

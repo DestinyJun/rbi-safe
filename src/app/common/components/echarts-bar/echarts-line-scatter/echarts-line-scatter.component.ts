@@ -82,7 +82,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
       title: {
         text: this.title,
         left: 26,
-        top: 0,
+        top: 10,
         textStyle: {
           color: '#4D4F5C',
           fontSize: 18,
@@ -103,7 +103,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         }
       },
       grid: {
-        top: '10%',
+        top: '15%',
         left: '3%',
         right: '3%',
         bottom: '2%',

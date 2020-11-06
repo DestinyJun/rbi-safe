@@ -33,7 +33,7 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
       title: {
         text: this.title,
         left: 26,
-        top: 0,
+        top: 10,
         textStyle: {
           color: '#4D4F5C',
           fontSize: 18,
@@ -50,10 +50,10 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
       },
       grid: [
         {
-          left: '8%',
+          left: '9%',
           right: '5%',
           bottom: 30,
-          top: '10%',
+          top: '15%',
         },
       ],
       legend: {

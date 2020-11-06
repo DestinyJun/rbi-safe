@@ -51,7 +51,7 @@ export class EchartsBarStackComponent implements OnInit, OnChanges {
       title: {
         text: this.title,
         left: 26,
-        top: 0,
+        top: 10,
         textStyle: {
           color: '#4D4F5C',
           fontSize: 18,
@@ -76,12 +76,12 @@ export class EchartsBarStackComponent implements OnInit, OnChanges {
           left: '5%',
           right: '5%',
           bottom: '8%',
-          top: '10%',
+          top: '20%',
         },
       ],
       legend: {
         right: '10%',
-        top: '3%',
+        top: '9%',
         textStyle: {
           color: '#AAAAAA'
         },
