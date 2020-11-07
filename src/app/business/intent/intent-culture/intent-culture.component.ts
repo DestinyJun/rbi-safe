@@ -95,6 +95,7 @@ export class IntentCultureComponent implements OnInit {
           this.cultureImgList.push(res);
         });
         this.cultureOrgTreeSelectLabel = item.organizationName;
+        this.cultureDropdownPlaceholder = item.activityLevel;
         this.cultureOrgTreeSelect = {};
         this.cultureDropdownSelected = null;
         this.cultureOperateField = Object.assign({}, new UpdateIntentCultureField(), item);
