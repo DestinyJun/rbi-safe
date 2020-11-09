@@ -55,7 +55,8 @@ export class DailyOperationReportingComponent implements OnInit {
           }
         }
       });
-    } else {
+    }
+    else {
       this.builletinSrv.complainProductionFindAllLocation({'date': param}).subscribe(res => {
         if (res.values) {
           this.lcp = res.values.lcp;

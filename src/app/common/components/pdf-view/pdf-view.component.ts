@@ -4,6 +4,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Location} from '@angular/common';
 import {PDFSource} from 'pdfjs-dist';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-pdf-view',
@@ -60,12 +61,11 @@ export class PdfViewComponent implements OnInit {
     accessToken = params.accessToken;
     delete params.accessToken;
     this.generalInfo.trainingFindByMaterialId(params, accessToken).subscribe(res => {
-      console.log(res);
       this.fileName = res.data.resourceName;
+      const pdfUrl = environment.app_url + '/file' + res.data.resourcePath.split('file')[1];
       // 拿到资源路径后，请求资源
       // this.httpClient.get(res.data.resourcePath + '', {responseType: 'blob'}).subscribe((data: any) => {
-      this.httpClient.get(res.data.resourcePath, {responseType: 'blob'}).subscribe((data: any) => {
-        console.log(data);
+      this.httpClient.get(pdfUrl, {responseType: 'blob'}).subscribe((data: any) => {
         const blob = new Blob([data], {type: 'application/pdf'});
         this.fileUrl = URL.createObjectURL(blob);
       });

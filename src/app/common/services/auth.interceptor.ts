@@ -92,6 +92,13 @@ export class AuthInterceptor implements HttpInterceptor {
     else if (req.url.includes('http://61.189.169.44:8000/file')) {
       this.clonedRequest = req;
     }
+    else if (req.url.includes('/training/findByMaterialId')) {
+      this.clonedRequest = req.clone({
+        url: 'http://61.189.169.44:8090/security-platform' + req.url,
+        headers: req.headers
+      });
+      console.log(this.clonedRequest);
+    }
     else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;
     }
@@ -179,9 +186,10 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     else if (req.url.includes('/training/findByMaterialId')) {
       this.clonedRequest = req.clone({
-        url: environment.url_safe + req.url,
+        url: 'http://61.189.169.44:8090/security-platform' + req.url,
         headers: req.headers
       });
+      console.log(this.clonedRequest);
     }
     else if (req.url.includes('/usr/work')) {
       this.clonedRequest = req;

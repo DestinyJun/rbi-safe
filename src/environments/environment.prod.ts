@@ -6,5 +6,7 @@
   // url_safe: 'http://10.40.1.121:8090/security-platform',
   // url_safe: 'http://10.40.1.121:8090/security-platform',
   // url_safe: 'http://61.189.169.44:8090/security-platform',
-   url_safe: 'http://10.40.1.121:8091/security-platform'  // safe内网包
+   app_pdf_url: 'http://61.189.169.44:8090/security-platform', // 松达
+   app_url: 'http://61.189.169.44:8000', // PDF资源地址
+   url_safe: 'http://10.40.1.121:8090/security-platform'  // safe内网包
 };

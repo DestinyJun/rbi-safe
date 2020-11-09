@@ -58,7 +58,7 @@ export class GeneralInfoService {
   // 生产运营日报1
   public complainProductionFindAll(pamars, token): Observable<any> {
     const headerOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'accessToken': token})};
-    return this.http.post(`${environment.url_safe}/production/findAll`, pamars, headerOption);
+    return this.http.post(`http://61.189.169.44:8090/security-platform/production/findAll`, pamars, headerOption);
   }
 
   // 生产运营日报2
