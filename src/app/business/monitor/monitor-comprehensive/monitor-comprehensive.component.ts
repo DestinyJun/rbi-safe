@@ -31,9 +31,9 @@ export class MonitorComprehensiveComponent implements OnInit {
         const data = [
           {name: 'SPI实际值', value: res.data.value, isShowDotted: false},
           {name: 'SPI预测值', value: res.data.predictiveValue, isShowDotted: true},
-          {name: 'a', value: res.data.thresholdOne, isShowDotted: false},
-          {name: 'b', value: res.data.thresholdTwo, isShowDotted: false},
-          {name: 'c', value: res.data.thresholdThree, isShowDotted: false},
+          {name: '阈值一', value: res.data.thresholdOne, isShowDotted: false},
+          {name: '阈值二', value: res.data.thresholdTwo, isShowDotted: false},
+          {name: '阈值三', value: res.data.thresholdThree, isShowDotted: false},
         ];
         this.monitorBottomChart = {
           xData: xData,

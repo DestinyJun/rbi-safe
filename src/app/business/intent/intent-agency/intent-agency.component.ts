@@ -9,7 +9,7 @@ export class IntentAgencyComponent implements OnInit {
 
   public tabitem = [
     {item: {label: '组织构架', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'frame'},
-    {item: {label: '组织详情', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'detail'},
+    // {item: {label: '组织详情', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'detail'},
   ];
   public simbol = 'frame';
   constructor() { }

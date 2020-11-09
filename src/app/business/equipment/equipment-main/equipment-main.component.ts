@@ -20,6 +20,7 @@ export class EquipmentMainComponent implements OnInit {
   public equipmentMainOrgTree: OrgTree[] = []; // 组织树配置项
   public equipmentMainOrgTreeSelect: OrgTree = {}; // 组织树选择
   public equipmentMainOrgTreeSelectLabel: any = '点击选择单位'; // 组织树label
+  public equipmentMainOrgSelectId: any = null; // 选择性id
   public equipmentMainTabItem = [
     {
       item: {label: '全部', ftcolor: '#4F88DE', bgc: '#4F88DE'},
@@ -39,6 +40,7 @@ export class EquipmentMainComponent implements OnInit {
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
+        this.equipmentMainOrgSelectId = res.data[0].id;
         this.equipmentMainOrgTreeSelectLabel = res.data[0].organizationName;
         this.equipmentMainChartHttp(res.data[0].id, this.equipmentMainYear, this.equipmentMainType);
         this.equipmentMainOrgTree = orgInitializeTree(res.data);
@@ -75,7 +77,8 @@ export class EquipmentMainComponent implements OnInit {
       case 'select':
         this.equipmentMainOrgTreeModal = false;
         this.equipmentMainOrgTreeSelectLabel = this.equipmentMainOrgTreeSelect.label;
-        // this.equipmentMainChartHttp(this.equipmentMainOrgTreeSelect.id, this.equipmentMainYear);
+        this.equipmentMainOrgSelectId = this.equipmentMainOrgTreeSelect.id;
+        this.equipmentMainChartHttp(this.equipmentMainOrgTreeSelect.id, this.equipmentMainYear, this.equipmentMainType);
         break;
     }
   }
@@ -90,7 +93,7 @@ export class EquipmentMainComponent implements OnInit {
     item.item.ftcolor = '#4F88DE';
     item.item.bgc = '#4F88DE';
     item.show = true;
-    this.equipmentMainChartHttp(34, this.equipmentMainYear, item.symbol);
+    this.equipmentMainChartHttp(this.equipmentMainOrgSelectId, this.equipmentMainYear, item.symbol);
   }
 
 }

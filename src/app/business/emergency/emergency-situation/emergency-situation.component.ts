@@ -26,8 +26,6 @@ export class EmergencySituationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // 初始化请求
-    this.emSituationDataInit();
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
@@ -36,11 +34,6 @@ export class EmergencySituationComponent implements OnInit {
         this.emSituationOrgTree = orgInitializeTree(res.data);
       }
     );
-  }
-
-  // 数据初始化
-  private emSituationDataInit() {
-    this.emSituationChartHttp(34, this.emSituationYear);
   }
 
   // 柱状图数据获取

@@ -24,7 +24,7 @@ export class EchartsBarCircleComponent implements OnInit, OnChanges {
     const handred = 100;
     this.option = {
       title: {
-        text: this.echartData + '%',
+        text: (this.echartData * 100) + '%',
         x: 'center',
         y: 'center',
         textStyle: {
@@ -58,13 +58,13 @@ export class EchartsBarCircleComponent implements OnInit, OnChanges {
           hoverAnimation: false,
           data: [
             {
-            value: this.echartData,
+            value: this.echartData * 100,
             itemStyle: {
               color: this.color,
             }
           },
             {
-            value: handred - this.echartData,
+            value: handred - (this.echartData * 100),
             itemStyle: {
               normal: {
                 color: '#E1E8EE'

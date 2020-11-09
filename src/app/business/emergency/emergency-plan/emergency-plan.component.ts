@@ -53,10 +53,9 @@ export class EmergencyPlanComponent implements OnInit {
   public emPlanMasterTreeSelectLabel: any = '点击选择主控单位'; // 主控单位组织树label
 
   public emPlanDropdownOptions: any = [
-    {label: '公司级', value: '公司级'},
-    {label: '分厂级', value: '分厂级'},
-    {label: '车间级', value: '车间级'},
-    {label: '班组级', value: '班组级'},
+    {label: '现场处理预案', value: '现场处理预案'},
+    {label: '专项预案', value: '专项预案'},
+    {label: '综合预案', value: '综合预案'},
   ]; // 状态下拉配置项
   public emPlanDropdownSelected: any; // 状态下拉选择
   public emPlanDropdownPlaceholder: any = '请选择预案类别'; //  状态下拉label

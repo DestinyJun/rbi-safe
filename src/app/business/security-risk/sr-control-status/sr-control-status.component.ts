@@ -20,6 +20,7 @@ export class SrControlStatusComponent implements OnInit {
   public striskStatusOrgTree: OrgTree[] = []; // 组织树配置项
   public striskStatusOrgTreeSelect: OrgTree = {}; // 组织树选择
   public striskStatusOrgTreeSelectLabel: any = '点击选择单位'; // 组织树label
+  public striskStatusOrgId: any = null; // 已选择的组织id
   constructor(
     private striskSrv: SecurityRiskService,
     private globalSrv: GlobalService,
@@ -30,16 +31,17 @@ export class SrControlStatusComponent implements OnInit {
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
         this.striskStatusOrgTreeSelectLabel = res.data[0].organizationName;
+        this.striskStatusOrgId = res.data[0].id;
         this.striskStatusYearBarHttp(res.data[0].id, this.striskStatusYear);
-        this.striskStatusMonthBarHttp(res.data[0].id, this.striskStatusYear, this.striskStatusMonth);
+        this.striskStatusMonthBarHttp(res.data[0].id, `${this.striskStatusYear}-${this.striskStatusMonth}`);
         this.striskStatusOrgTree = orgInitializeTree(res.data);
       }
     );
   }
 
-  // 柱状图数据获取
-  private striskStatusYearBarHttp(organizationId, year) {
-    this.striskSrv.striskStatusYearBar({organizationId, year}).subscribe((res) => {
+  // 左柱状图数据获取
+  private striskStatusYearBarHttp(organizationId, date) {
+    this.striskSrv.striskStatusYearBar({organizationId, date}).subscribe((res) => {
       const xdata = res.data.abscissa;
       const data = [
         {name: '1级', value: res.data.grade1},
@@ -51,16 +53,16 @@ export class SrControlStatusComponent implements OnInit {
     });
   }
 
-  // 饼状图数据获取
-  private striskStatusMonthBarHttp(organizationId, year, month) {
-    this.striskSrv.striskStatusMonthBar({organizationId, year, month}).subscribe((res) => {
+  // 又柱状图数据获取
+  private striskStatusMonthBarHttp(organizationId, date) {
+    this.striskSrv.striskStatusMonthBar({organizationId, date}).subscribe((res) => {
       const xdata = res.data.abscissa;
       const data = [
         {name: '等级1', value: res.data.effective1},
-        {name: '等级2', value: res.data.effective1},
-        {name: '等级3', value: res.data.effective1},
-        {name: '等级4', value: res.data.effective1},
-        {name: '等级6', value: res.data.effective1},
+        {name: '等级2', value: res.data.effective2},
+        {name: '等级3', value: res.data.effective3},
+        {name: '等级4', value: res.data.effective4},
+        {name: '等级6', value: res.data.effective6},
       ];
       this.striskStatusMonthBar = {xdata, data};
     });
@@ -71,7 +73,7 @@ export class SrControlStatusComponent implements OnInit {
     switch (flag) {
       // 树操作
       case 'chart':
-        this.striskStatusMonthBarHttp(34, this.striskStatusYear, item.dataIndex + 1);
+        this.striskStatusMonthBarHttp(this.striskStatusOrgId, `${this.striskStatusYear}-${item.dataIndex + 1}`);
         break;
       // 树操作
       case 'tree':
@@ -81,8 +83,9 @@ export class SrControlStatusComponent implements OnInit {
       case 'select':
         this.striskStatusOrgTreeModal = false;
         this.striskStatusOrgTreeSelectLabel = this.striskStatusOrgTreeSelect.label;
+        this.striskStatusOrgId = this.striskStatusOrgTreeSelect.id;
         this.striskStatusYearBarHttp(this.striskStatusOrgTreeSelect.id, this.striskStatusYear);
-        this.striskStatusMonthBarHttp(this.striskStatusOrgTreeSelect.id, this.striskStatusYear, this.striskStatusMonth);
+        this.striskStatusMonthBarHttp(this.striskStatusOrgTreeSelect.id, `${this.striskStatusYear}-${this.striskStatusMonth}`);
         break;
     }
   }

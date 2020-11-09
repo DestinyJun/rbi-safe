@@ -22,55 +22,73 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.echartData) {
       const series = [];
-      this.echartData.data.forEach((item) => {
-        series.push({
-          name: item.name,
-          type: 'line',
-          smooth: true, // 是否平滑曲线显示
-          symbol: 'circle',
-          symbolSize: 10,
-          label: {
-            show: false,
-            position: 'top',
-            textStyle: {
-              color: '#fff',
-            }
-          },
-          lineStyle: {
-            type: item.isShowDotted ? 'dashed' : 'solid'
-          },
-          data: item.value,
-        });
-        series.push({
-          name: item.name,
-          type: 'effectScatter',
-          tooltip: {
-            show: false,
-          },
-          label: {
-            show: false,
-            position: 'top',
-            textStyle: {
-              color: 'red',
-            }
-          },
-          symbolSize: [5, 5],
-          rippleEffect: {
-            period: 1,
-            scale: 8,
-            brushType: 'fill'
-          },
-          itemStyle: {
-            color: [{
-              offset: 0,
-              color: '#FAFF52'
-            }, {
-              offset: 1,
-              color: '#1A1835'
-            }]
-          },
-          data: item.value,
-        });
+      this.echartData.data.forEach((item, index) => {
+        if (index === 0 || index === 1) {
+          series.push({
+            name: item.name,
+            type: 'line',
+            smooth: true, // 是否平滑曲线显示
+            symbol: 'circle',
+            symbolSize: 10,
+            label: {
+              show: false,
+              position: 'top',
+              textStyle: {
+                color: '#fff',
+              }
+            },
+            lineStyle: {
+              type: item.isShowDotted ? 'dashed' : 'solid'
+            },
+            data: item.value,
+          });
+        }
+        else if (index === 4) {
+          series.push({
+            name: item.name,
+            type: 'line',
+            smooth: true, // 是否平滑曲线显示
+            symbol: 'circle',
+            stack: 'line',
+            symbolSize: 10,
+            label: {
+              show: false,
+              position: 'top',
+              textStyle: {
+                color: '#fff',
+              }
+            },
+            areaStyle: {color: 'orange'},
+            lineStyle: {
+              type: item.isShowDotted ? 'dashed' : 'solid'
+            },
+            data: item.value,
+          });
+        }
+        else {
+          series.push({
+            name: item.name,
+            type: 'line',
+            smooth: true, // 是否平滑曲线显示
+            symbol: 'circle',
+            symbolSize: 10,
+            label: {
+              show: false,
+              position: 'top',
+              textStyle: {
+                color: '#fff',
+              }
+            },
+            stack: 'line',
+            areaStyle: {
+              color: index === 2 ? '#5B9BD5 ' : 'yellow'
+            },
+            lineStyle: {
+              type: item.isShowDotted ? 'dashed' : 'solid'
+            },
+            data: item.value,
+          });
+        }
       });
       this.areaChartFun(series);
     }

@@ -37,9 +37,9 @@ export class EmergencyDrillComponent implements OnInit {
   public emDrillEs: any = Es; // 事件本地初始化
 
   public emDrillPlanDropdownOptions: any = [
-    {label: '第一式', value: '第一式'},
-    {label: '第二式', value: '第二式'},
-    {label: '第三式', value: '第三式'},
+    {label: '全面实战', value: '全面实战'},
+    {label: '功能演练', value: '功能演练'},
+    {label: '桌面演练', value: '桌面演练'},
   ]; // 计划演练形式下拉配置项
 
   public emDrillRealityDropdownOptions: any = [

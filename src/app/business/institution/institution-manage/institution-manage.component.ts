@@ -34,8 +34,15 @@ export class InstitutionManageComponent implements OnInit {
   public institutionManageAddModal: boolean = false; // 模态框
   public institutionManageUpdateModal: boolean = false; // 更新模态框
   public institutionManageAssessModal: boolean = false; // 评估模态框
+
   public institutionManageDropdownOptions: any = []; // 状态下拉配置项
   public institutionManageDropdownPlaceholder: any = '请选择类型'; //  状态下拉label
+
+  public institutionManageAssessDropdownOptions: any = [
+    {label: '是',  value: '是'},
+    {label: '否',  value: '否'}
+  ]; // 是否状态下拉配置项
+
   public institutionManageImgList: any = []; // 文件列表
   constructor(
     private institutionSrv: InstitutionService,
@@ -92,6 +99,7 @@ export class InstitutionManageComponent implements OnInit {
           }
         });
         this.institutionManageUpdateModal = true;
+        console.log(this.institutionManageUpdateField);
         break;
       // 添加保存操作
       case 'save':

@@ -245,7 +245,12 @@
                 <span>适宜性：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填适宜性" [(ngModel)]="institutionManageAssessField.suit">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  placeholder="请填选择适宜性"
+                  [options]="institutionManageAssessDropdownOptions" [(ngModel)]="institutionManageAssessField.suit"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
               </div>
             </div>
             <!--有效性-->
@@ -254,7 +259,12 @@
                 <span>有效性：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填有效性" [(ngModel)]="institutionManageAssessField.effective">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  placeholder="请填选择有效性"
+                  [options]="institutionManageAssessDropdownOptions" [(ngModel)]="institutionManageAssessField.effective"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
               </div>
             </div>
             <!--执行性-->
@@ -263,7 +273,12 @@
                 <span>执行性：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填执行性" [(ngModel)]="institutionManageAssessField.execute">
+                <p-dropdown
+                  [style]="{width: '100%'}"
+                  placeholder="请填选择执行性"
+                  [options]="institutionManageAssessDropdownOptions" [(ngModel)]="institutionManageAssessField.execute"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
               </div>
             </div>
             <!--评估意见-->
