@@ -146,6 +146,10 @@ export interface EmergencyPlanField {
   controlOrganization: string; // 	主控单位名称
   controlOrganizationId: any; // 	主控单位id
   filingOrganization: string; // 	备案单位
+  reviewStatus?: any; // 	是否通过评审 0未通过 1通过
+  reviewTime?: string; //  评审时间
+  reviewOrganization?: string; //  评审单位
+  reviewAttachmentPath?: string; //  评审附件路径
 }
 export class AddEmergencyPlanFieldClass implements EmergencyPlanField{
   controlOrganization: string;
@@ -166,6 +170,10 @@ export class UpdateEmergencyPlanFieldClass implements EmergencyPlanField {
   preparationUnit: string;
   preparationUnitId: any;
   reservePlanType: string;
+  reviewStatus: any;
+  reviewTime: string;
+  reviewOrganization: string;
+  reviewAttachmentPath: string;
 
   constructor() {
     this.id = null;
@@ -176,6 +184,10 @@ export class UpdateEmergencyPlanFieldClass implements EmergencyPlanField {
     this.preparationUnit = '';
     this.preparationUnitId = null;
     this.reservePlanType = null;
+    this.reviewStatus = null;
+    this.reviewTime = '';
+    this.reviewOrganization = '';
+    this.reviewAttachmentPath = '';
   }
 }
 

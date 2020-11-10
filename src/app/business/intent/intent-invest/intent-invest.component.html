@@ -143,8 +143,11 @@
                 <span>提取金额：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" disabled pInputText placeholder="请填提取金额"
-                       [value]="((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice)).toFixed(2)">
+                <input
+                  type="text" disabled pInputText placeholder="请填提取金额"
+                  [value]="
+                  ((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice))?
+                  ((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice)).toFixed(2):'0'">
               </div>
             </div>
             <!--使用金额-->

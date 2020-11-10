@@ -39,9 +39,14 @@ export class MonitorComprehensiveComponent implements OnInit {
           xData: xData,
           data: data
         };
+        this.monitorDropdownSelected = res.data.organizationId;
+        this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
+      } else {
+        this.monitorTopChart = {
+          xdata: [],
+          barData: []
+        };
       }
-      this.monitorDropdownSelected = res.data.organizationId;
-      this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
     });
   }
 
@@ -61,9 +66,18 @@ export class MonitorComprehensiveComponent implements OnInit {
           xData: xData,
           data: data
         };
+        this.monitorDropdownSelected = res.data.organizationId;
+        this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
+      } else {
+        this.monitorBottomChart = {
+          xData: [],
+          data: []
+        };
+        this.monitorTopChart = {
+          xdata: [],
+          barData: []
+        };
       }
-      this.monitorDropdownSelected = res.data.organizationId;
-      this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
     });
   }
 

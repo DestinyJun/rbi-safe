@@ -40,6 +40,7 @@
           <td>
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="emPlanOperate(emPlanOperateFlag='update',rowData, fileUpload)"></button>
             <button pButton label="处理" class="ui-button-rounded ui-button-pink" (click)="emPlanOperate(emPlanOperateFlag='handle',rowData,fileUploadHandle)"></button>
+            <button pButton label="附件" class="ui-button-rounded ui-button-warning" (click)="emPlanOperate(emPlanOperateFlag='open',rowData.filingAttachmentPath)"></button>
           </td>
         </tr>
       </ng-template>
@@ -141,6 +142,50 @@
                 </p-fileUpload>
               </div>
             </div>
+            <ng-container *ngIf="emPlanOperateFlag === 'update'">
+              <!--是否通过评审-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>是否通过评审：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" disabled pInputText placeholder="是否通过评审" [value]="emPlanOperateField.reviewStatus === 0?'未通过':'通过'">
+                </div>
+              </div>
+              <!--评审时间-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评审时间：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" disabled pInputText placeholder="评审时间" [(ngModel)]="emPlanOperateField.reviewTime">
+                </div>
+              </div>
+              <!--评审单位-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评审单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" disabled pInputText placeholder="评审单位" [(ngModel)]="emPlanOperateField.reviewOrganization">
+                </div>
+              </div>
+              <!--评审附件-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评审附件：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    [disabled]="!(emPlanOperateField.reviewAttachmentPath)"
+                    [label]="emPlanOperateField.reviewAttachmentPath?'点击下载文件': '暂无附件'"
+                    class="ui-button-rounded"
+                    (click)="emPlanOperate(emPlanOperateFlag = 'open',emPlanOperateField.reviewAttachmentPath)">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </p-scrollPanel>
       </div>

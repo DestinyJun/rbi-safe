@@ -43,7 +43,6 @@ export class InstitutionManageComponent implements OnInit {
     {label: '否',  value: '否'}
   ]; // 是否状态下拉配置项
 
-  public institutionManageImgList: any = []; // 文件列表
   constructor(
     private institutionSrv: InstitutionService,
     private globalSrv: GlobalService,
@@ -99,7 +98,6 @@ export class InstitutionManageComponent implements OnInit {
           }
         });
         this.institutionManageUpdateModal = true;
-        console.log(this.institutionManageUpdateField);
         break;
       // 添加保存操作
       case 'save':
@@ -126,7 +124,7 @@ export class InstitutionManageComponent implements OnInit {
           });
         }
         if (obj.length > 0) {
-          item.forEach(res => {
+          obj.forEach(res => {
             updateField.append('updateFile', res);
           });
         }
@@ -172,6 +170,10 @@ export class InstitutionManageComponent implements OnInit {
         } else {
           window.alert('请您勾选需要删除的项！');
         }
+        break;
+      // 文件下载
+      case 'open':
+        window.open(item);
         break;
     }
   }

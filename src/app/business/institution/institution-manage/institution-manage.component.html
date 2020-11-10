@@ -43,8 +43,13 @@
           </td>
           <td>
             <button pButton label="详情" class="ui-button-rounded" (click)="institutionManageOperate(institutionManageOperateFlag='update',rowData, fileUpload1, fileUpload2)"></button>
-            <button pButton label="评估" class="ui-button-rounded ml-3 mr-3 ui-button-warning" (click)="institutionManageOperate(institutionManageOperateFlag='assess',rowData, fileUpload3)"></button>
-            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="institutionManageOperate(institutionManageOperateFlag='del',rowData)"></button>
+            <button
+              [disabled]="!(rowData.suit === '是' && rowData.effective === '是' && rowData.execute === '是')"
+              pButton label="评估"
+              class="ui-button-rounded ml-3 mr-3 ui-button-warning"
+              (click)="institutionManageOperate(institutionManageOperateFlag='assess',rowData, fileUpload3)">
+            </button>
+            <button pButton label="查看" class="ui-button-rounded ui-button-pink" (click)="institutionManageOperate(institutionManageOperateFlag='open',rowData.filePath)"></button>
           </td>
         </tr>
       </ng-template>
@@ -168,6 +173,30 @@
                 </p-fileUpload>
               </div>
             </div>
+            <!--评估意见-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>评估意见：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText placeholder="请填修改说明" [(ngModel)]="institutionManageUpdateField.evaluateOpinion">
+              </div>
+            </div>
+            <!--评估附件地址-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>评估附件：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  [disabled]="!(institutionManageUpdateField.evaluateOpinionPath)"
+                  [label]="institutionManageUpdateField.evaluateOpinionPath?'点击下载文件': '暂无附件'"
+                  class="ui-button-rounded"
+                  (click)="institutionManageOperate(institutionManageOperateFlag = 'open',institutionManageUpdateField.evaluateOpinionPath)">
+                </button>
+              </div>
+            </div>
             <!--修改说明-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
@@ -175,6 +204,21 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="text" pInputText placeholder="请填修改说明" [(ngModel)]="institutionManageUpdateField.updateExplain">
+              </div>
+            </div>
+            <!--修改文件查看-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>修改文件查看：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  [disabled]="!(institutionManageUpdateField.updateExplainPath)"
+                  [label]="institutionManageUpdateField.updateExplainPath?'点击下载文件': '暂无附件'"
+                  class="ui-button-rounded"
+                  (click)="institutionManageOperate(institutionManageOperateFlag = 'open',institutionManageUpdateField.updateExplainPath)">
+                </button>
               </div>
             </div>
             <!--修改文件-->

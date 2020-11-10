@@ -58,8 +58,11 @@ export class EmergencyRecordComponent implements OnInit {
             }
           }
         }
-        console.log(this.emRecordOperateField);
         this.emRecordOperateModal = true;
+        break;
+      // 文件下载
+      case 'open':
+        window.open(item);
         break;
     }
   }

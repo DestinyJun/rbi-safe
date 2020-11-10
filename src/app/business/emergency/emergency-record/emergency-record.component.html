@@ -40,6 +40,7 @@
           </td>
           <td>
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="emRecordOperate(emRecordOperateFlag='update',rowData)"></button>
+            <button pButton label="附件" class="ui-button-rounded ui-button-warning" (click)="emRecordOperate(emRecordOperateFlag='open',rowData.reviewAttachmentPath)"></button>
           </td>
         </tr>
       </ng-template>

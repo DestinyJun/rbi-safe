@@ -53,7 +53,7 @@ export class EmergencyPlanComponent implements OnInit {
   public emPlanMasterTreeSelectLabel: any = '点击选择主控单位'; // 主控单位组织树label
 
   public emPlanDropdownOptions: any = [
-    {label: '现场处理预案', value: '现场处理预案'},
+    {label: '现场处置预案', value: '现场处置预案'},
     {label: '专项预案', value: '专项预案'},
     {label: '综合预案', value: '综合预案'},
   ]; // 状态下拉配置项
@@ -122,6 +122,10 @@ export class EmergencyPlanComponent implements OnInit {
           }
         }
         this.emPlanOperateModal = true;
+        break;
+      // 文件下载
+      case 'open':
+        window.open(item);
         break;
       // 处理操作
       case 'handle':

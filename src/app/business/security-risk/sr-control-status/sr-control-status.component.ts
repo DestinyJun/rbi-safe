@@ -73,7 +73,8 @@ export class SrControlStatusComponent implements OnInit {
     switch (flag) {
       // 树操作
       case 'chart':
-        this.striskStatusMonthBarHttp(this.striskStatusOrgId, `${this.striskStatusYear}-${item.dataIndex + 1}`);
+        const month = (item.dataIndex + 1) > 9 ? (item.dataIndex + 1) : `0${(item.dataIndex + 1)}`;
+        this.striskStatusMonthBarHttp(this.striskStatusOrgId, `${this.striskStatusYear}-${month}`);
         break;
       // 树操作
       case 'tree':

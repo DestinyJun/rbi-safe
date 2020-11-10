@@ -42,6 +42,7 @@
             {{rowData[col.field]}}
           </td>
           <td>
+            <button pButton label="详情" class="ui-button-rounded" (click)="institutionRecordOperate(institutionRecordOperateFlag='update',rowData)"></button>
             <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="institutionRecordOperate(institutionRecordOperateFlag='del',rowData)"></button>
           </td>
         </tr>
@@ -50,6 +51,101 @@
   </div>
   <div class="pagination">
     <app-pagination [option]="institutionRecordPageOption" (clickEvent)="institutionRecordPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--新增弹窗-->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="institutionRecordDetailModal" [style]="{width: '50vw'}"
+    >
+      <p-header>详情查看</p-header>
+      <div style="width: 100%;height: 65vh;">
+        <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <ng-container *ngIf="institutionRecordOperateField.status === '已修改完成'">
+              <!--修改说明-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>修改说明：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" disabled pInputText placeholder="暂无修改说明" [(ngModel)]="institutionRecordOperateField.updateExplain">
+                </div>
+              </div>
+              <!--修改附件地址-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>修改附件：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    [disabled]="!(institutionRecordOperateField.updateExplainPath)"
+                    [label]="institutionRecordOperateField.updateExplainPath?'点击下载文件': '暂无附件'"
+                    class="ui-button-rounded"
+                    (click)="institutionRecordOperate(institutionRecordOperateFlag = 'open',institutionRecordOperateField.updateExplainPath)">
+                  </button>
+                </div>
+              </div>
+              <!--评估意见-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评估意见：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" disabled pInputText placeholder="暂无评估意见" [(ngModel)]="institutionRecordOperateField.evaluateOpinion">
+                </div>
+              </div>
+              <!--评估附件地址-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评估附件：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    [disabled]="!(institutionRecordOperateField.evaluateOpinionPath)"
+                    [label]="institutionRecordOperateField.evaluateOpinionPath?'点击下载文件': '暂无附件'"
+                    class="ui-button-rounded"
+                    (click)="institutionRecordOperate(institutionRecordOperateFlag = 'open',institutionRecordOperateField.evaluateOpinionPath)">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="institutionRecordOperateField.status === '已评估'">
+              <!--评估意见-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评估意见：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" disabled pInputText placeholder="暂无评估意见" [(ngModel)]="institutionRecordOperateField.evaluateOpinion">
+                </div>
+              </div>
+              <!--评估附件地址-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评估附件：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    [disabled]="!(institutionRecordOperateField.evaluateOpinionPath)"
+                    [label]="institutionRecordOperateField.evaluateOpinionPath?'点击下载文件': '暂无附件'"
+                    class="ui-button-rounded"
+                    (click)="institutionRecordOperate(institutionRecordOperateFlag = 'open',institutionRecordOperateField.evaluateOpinionPath)">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="关闭" class="ui-button-pink" (click)="institutionRecordDetailModal = false"></button>
+      </p-footer>
+    </p-dialog>
   </div>
 </div>
 

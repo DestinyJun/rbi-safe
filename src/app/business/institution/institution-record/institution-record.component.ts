@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PageOption, TableHeader} from '../../../common/public/Api';
 import {InstitutionService} from '../../../common/services/institution.service';
 import {Observable} from 'rxjs';
+import {InstitutionRecordUpdateField, UpdateInstitutionRecordFieldClass} from '../institutionApi';
 
 @Component({
   selector: 'app-institution-record',
@@ -20,6 +21,7 @@ export class InstitutionRecordComponent implements OnInit {
     {field: 'effective', header: '有效性'},
     {field: 'execute', header: '执行性'},
     {field: 'evaluator', header: '评估人'},
+    {field: 'status', header: '制度评估状态'},
     {field: 'evaluateOpinion', header: '评估意见'},
     {field: 'updater', header: '修改人'},
     {field: 'updateExplain', header: '修改说明'},
@@ -28,6 +30,8 @@ export class InstitutionRecordComponent implements OnInit {
   public institutionRecordTableSelect: any = []; // 表格选择数据
   public institutionRecordNowPage: number = 1; // 当前页
   public institutionRecordOperateFlag: any ; // 操作标识
+  public institutionRecordOperateField: InstitutionRecordUpdateField = new UpdateInstitutionRecordFieldClass(); // 添加操作字段
+  public institutionRecordDetailModal: boolean = false; // 模态框
   constructor(
     private institutionSrv: InstitutionService,
   ) { }
@@ -54,6 +58,17 @@ export class InstitutionRecordComponent implements OnInit {
   // 基础操作
   public institutionRecordOperate(flag: string, item?: any, obj?: any, obj2?: any) {
     switch (flag) {
+      // 编辑操作初始化
+      case 'update':
+        Object.keys(this.institutionRecordOperateField).forEach(res => {
+          this.institutionRecordOperateField[res] = item[res];
+        });
+        this.institutionRecordDetailModal = true;
+        break;
+      // 文件下载
+      case 'open':
+        window.open(item);
+        break;
       // 删除操作
       case 'del':
         if (window.confirm('您确定需要删除吗？')) {

@@ -44,7 +44,7 @@ export class IntentStatusComponent implements OnInit {
     this.intentSrv.intentStatusTopBar({organizationId, year}).subscribe((res) => {
       const xdata = res.data.abscissa;
       const data = [
-        {name: '总活动数', value: res.data.total},
+        // {name: '总活动数', value: res.data.total},
         {name: '公司级', value: res.data.company},
         {name: '分厂级', value: res.data.factory},
         {name: '车间级', value: res.data.workshop},
