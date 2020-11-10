@@ -23,7 +23,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
     if (this.echartData) {
       const series = [];
       this.echartData.data.forEach((item, index) => {
-        if (index === 0 || index === 1) {
+        if (index === 0) {
           series.push({
             name: item.name,
             type: 'line',
@@ -43,13 +43,12 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
             data: item.value,
           });
         }
-        else if (index === 4) {
+        else if (index === 1) {
           series.push({
             name: item.name,
             type: 'line',
             smooth: true, // 是否平滑曲线显示
             symbol: 'circle',
-            stack: 'line',
             symbolSize: 10,
             label: {
               show: false,
@@ -58,7 +57,57 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
                 color: '#fff',
               }
             },
-            areaStyle: {color: 'orange'},
+            lineStyle: {
+              type: item.isShowDotted ? 'dashed' : 'solid'
+            },
+            data: item.value,
+          });
+        }
+        else if (index === 2) {
+          series.push({
+            name: item.name,
+            type: 'line',
+            smooth: true, // 是否平滑曲线显示
+            symbol: 'circle',
+            symbolSize: 10,
+            label: {
+              show: false,
+              position: 'top',
+              textStyle: {
+                color: '#fff',
+              }
+            },
+            stack: '阈值',
+            areaStyle: {
+              color:  'rgb(0,0,255)',
+              origin: 'start',
+              opacity: 1
+            },
+            lineStyle: {
+              type: item.isShowDotted ? 'dashed' : 'solid'
+            },
+            data: item.value,
+          });
+        }
+        else if (index === 3) {
+          series.push({
+            name: item.name,
+            type: 'line',
+            smooth: true, // 是否平滑曲线显示
+            symbol: 'circle',
+            stack: '阈值',
+            symbolSize: 10,
+            label: {
+              show: false,
+              position: 'top',
+              textStyle: {
+                color: '#fff',
+              }
+            },
+            areaStyle: {
+              color: 'rgb(255,255,0)',
+              opacity: 1
+            },
             lineStyle: {
               type: item.isShowDotted ? 'dashed' : 'solid'
             },
@@ -71,6 +120,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
             type: 'line',
             smooth: true, // 是否平滑曲线显示
             symbol: 'circle',
+            stack: '阈值',
             symbolSize: 10,
             label: {
               show: false,
@@ -79,9 +129,9 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
                 color: '#fff',
               }
             },
-            stack: 'line',
             areaStyle: {
-              color: index === 2 ? '#5B9BD5 ' : 'yellow'
+              color: 'rgb(255,97,0)',
+              opacity: 1
             },
             lineStyle: {
               type: item.isShowDotted ? 'dashed' : 'solid'
@@ -115,7 +165,12 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         formatter: (val) => {
           let str = '';
           val.forEach((item) => {
-            str += `<span style="color:${item.color};">   ● </span>${item.seriesName}: ${parseFloat((item.data).toFixed(3))}<br/>`;
+            if (!(item.seriesName)) {
+              str += ``;
+            } else {
+              str += `<span style="color:${item.color};">   ● </span>${item.seriesName}: ${parseFloat((item.data).toFixed(3))}<br/>`;
+            }
+
           });
           return `${val[0].name}<br/>${str}`;
         }
@@ -152,7 +207,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
           show: false
         },
         splitLine: {
-          show: true,
+          show: false,
           lineStyle: {
             color: 'rgba(255,255,255,0.1)'
           }
@@ -167,6 +222,12 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
             margin: 20,
             color: '#B8B8B8'
           },
+          splitArea: {
+            show: true,
+            areaStyle: {
+              color: 'red'
+            }
+          },
           axisTick: {
             show: true,
             length: 15,
@@ -175,14 +236,14 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
             }
           },
           splitLine: {
-            show: true,
+            show: false,
           },
           axisLine: {
             lineStyle: {
               color: '#fff',
               width: 2
             }
-          }
+          },
         }
       ],
       series: series
