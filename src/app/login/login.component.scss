@@ -25,6 +25,11 @@ $i_font: 28px; // 全局i标签大小
   width: 100vw;
   height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../assets/image/login_bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   .left-img{
     flex: 6;
     background: #FFFFFF;
@@ -35,19 +40,15 @@ $i_font: 28px; // 全局i标签大小
     }
   }
   .right {
-    flex: 4;
-    background: #F8F8F8;
+    width: 60vh;
+    height: 55vh;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.9);
     display: flex;
-    box-sizing: content-box;
-    //background: #45b29d;
-    justify-content: center;
     align-items: center;
-    //padding: 20vh 10vw;
+    flex-direction: column;
     .right-form {
-       width: 60%;
-       height: 60%;
       .form-title {
-        margin-top: 2vh;
         text-align: center;
         h2 {
           color: #44556F;
@@ -55,7 +56,7 @@ $i_font: 28px; // 全局i标签大小
           font-family: "微软雅黑 Light";
           font-weight: bold;
           font-size: 1.5rem;
-          margin-top: 0.5vh;
+          margin-top: 1.5vh;
         }
         .form-small-title {
           margin-top: 2vh;
@@ -63,7 +64,7 @@ $i_font: 28px; // 全局i标签大小
         }
       }
       .form-input {
-        margin-top: 8vh;
+        margin-top: 5vh;
         padding: 0 2vw;
         @include i_style;
         .form-user {
@@ -85,7 +86,7 @@ $i_font: 28px; // 全局i标签大小
           width: 100%;
           height: 5vh;
           font-size: 18px;
-          background: #226AD5;
+          background: #2F5081;
           color: #fff;
           border-radius: 4px;
           border: 0;
@@ -93,10 +94,8 @@ $i_font: 28px; // 全局i标签大小
       }
     }
     .right-bottom {
-      position: absolute;
-
-      bottom: 2vh;
-      color: #8D8E96;
+      padding-top: 20px;
+      color: #4D4E5B;
     }
   }
 }
