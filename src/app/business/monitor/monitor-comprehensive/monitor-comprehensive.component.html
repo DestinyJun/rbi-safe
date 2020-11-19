@@ -18,8 +18,8 @@
       <!--下图-->
       <div class="ui-g-12 ui-md-12 mb-2" style="height: 50%;background: #fff;border-radius: 15px; box-shadow: 0 0 20px #C4C4C4;">
         <app-echarts-line-scatter
-          [title]="'综合监测预警指标分类占比'"
-          [color]="['#000000','#000000','#5B9BD5','#FFC000','#FF0000']"
+          [title]="'综合监测预警值'"
+          [color]="['#00FF00','#9F0099','#5B9BD5','#FFC000','#FF0000']"
           [echartData]="monitorBottomChart" (chartClick)="monitorOperate(monitorOperateFlag = 'chart', $event)">
         </app-echarts-line-scatter>
       </div>

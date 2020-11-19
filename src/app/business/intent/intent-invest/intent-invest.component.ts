@@ -19,8 +19,8 @@ export class IntentInvestComponent implements OnInit {
   }; // 分页组件配置
   public investTableHeader: TableHeader[] = [
     {field: 'organizationName', header: '组织单位'},
-    {field: 'planMoney', header: '计提金额'},
-    {field: 'useMoney', header: '支出'},
+    {field: 'planMoney', header: '计提金额（单位/元）'},
+    {field: 'useMoney', header: '支出（单位/元）'},
     {field: 'ifShare', header: '是否共用'},
     {field: 'date', header: '日期'},
   ]; // 表头字段

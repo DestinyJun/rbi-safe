@@ -3,8 +3,8 @@ import {AddEducateFieldClass, EducateField, PageOption, TableHeader, UpdateEduca
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
 import {Es} from '../../../../common/public/contents';
-import {FormControl} from "@angular/forms";
-import {debounceTime, distinctUntilChanged} from "rxjs/operators";
+import {FormControl} from '@angular/forms';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-archives-educate',
@@ -25,6 +25,7 @@ export class ArchivesEducateComponent implements OnInit {
   ]; // 表头字段
   public educateUploadRecordOption: any;
   public educateTableData: any[]; // 表体数据
+  public educateCheckTableSelect: any = []; // 表格选择数据
   public educateNowPage: number = 1; // 当前页
   public educateOperateFlag: any ; // 操作标识
   public educateOperateField: EducateField = new AddEducateFieldClass(); // 操作字段
@@ -106,6 +107,16 @@ export class ArchivesEducateComponent implements OnInit {
       case 'del':
         if (window.confirm('您确定需要删除吗？')) {
           this.educateHttpOperate(this.safeSrv.delEducateInfo({data: [{id: item.id}]}));
+        }
+        break;
+      // 批量删除
+      case 'multiple':
+        if (this.educateCheckTableSelect.length > 0) {
+          if (window.confirm(`您确定需要这${this.educateCheckTableSelect.length}项删除吗？`)) {
+            this.educateHttpOperate(this.safeSrv.delEducateInfo({data: this.educateCheckTableSelect.map((val) => ({id: val.id}))}));
+          }
+        } else {
+          window.alert('请您勾选需要删除的项！');
         }
         break;
       // 文件导出操作

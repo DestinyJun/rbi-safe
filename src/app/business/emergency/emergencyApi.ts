@@ -68,6 +68,7 @@ export interface EmergencyOrgTeamField {
   id?: any;
   teamName: string; // 	队伍名称
   affiliatedUnit: string; // 	所属单位
+  affiliatedUnitId: any; // 	所属单位Id
   natureOfTheTeam: string; // 	队伍性质
   captain: string; // 	队长
   mobilePhone: number; // 	手机
@@ -75,6 +76,7 @@ export interface EmergencyOrgTeamField {
   mineEmergencyTeamMembers: EmergencyOrgPersonField[]; // 队伍人员
 }
 export class AddEmergencyOrgTeamFieldClass implements EmergencyOrgTeamField{
+  affiliatedUnitId: any;
   affiliatedUnit: string;
   captain: string;
   mineEmergencyTeamMembers: EmergencyOrgPersonField[];
@@ -85,6 +87,7 @@ export class AddEmergencyOrgTeamFieldClass implements EmergencyOrgTeamField{
 
 }
 export class UpdateEmergencyOrgTeamFieldClass implements EmergencyOrgTeamField {
+  affiliatedUnitId: any;
   affiliatedUnit: string;
   captain: string;
   id: any;
@@ -96,6 +99,7 @@ export class UpdateEmergencyOrgTeamFieldClass implements EmergencyOrgTeamField {
 
   constructor() {
     this.id = null;
+    this.affiliatedUnitId = null;
     this.affiliatedUnit = '';
     this.mineEmergencyTeamMembers = [];
     this.mobilePhone = null;

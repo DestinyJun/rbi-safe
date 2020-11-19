@@ -117,9 +117,17 @@ export class RkArchiveComponent implements OnInit {
       this.toolSrv.setToast('error', '操作错误', '请输入重大危险源的名称');
     }
   }
- // 导入文件
-  public  importArchiveFileClick(): void {
 
+ // 删除
+  public  archiveDelClick(item): void {
+    if (window.confirm('您确定需要删除吗？')) {
+      this.archiveSrv.addRiskDel({data: [{id: item.id}]}).subscribe(val => {
+        this.archiveSrv.getRiskArchivesPageData({pageNo: this.archivePageNo, pageSize: 10}).subscribe(val => {
+          this.rkArchiveContent = val.data.contents;
+          this.principalPageOption.totalRecord = val.data.totalRecord;
+        });
+      });
+    }
   }
   // 导出文件
   public  exportArchiveFileClick(): void {

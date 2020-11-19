@@ -14,7 +14,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr>
+        <tr style="text-align: center">
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns">
             {{rowData[col.field] == '2'?'已处理':rowData[col.field] == '3'?'已拒绝': rowData[col.field] == '1'?'申请中':rowData[col.field]}}

@@ -54,6 +54,15 @@ export class SafetrainService {
     return this.http.post(`/training/insertSpecialTraining`, params);
   }
 
+
+  /**
+   * 删除特种人员信息
+   * @param params
+   */
+  public delArchivesInfo(params: any): Observable<any> {
+    return this.http.post(`/training/deleteSpecialTraining`, params);
+  }
+
   /**
    * 导入特种人员信息
    * @param params
@@ -203,7 +212,7 @@ export class SafetrainService {
    * @param params
    */
   public delEducateInfo(params: any): Observable<any> {
-    return this.http.post(`/safeFourLevel/deleteSafeFourLevelById`, params);
+    return this.http.post(`/safeFourLevel/deleteSafeFourLevelByIds`, params);
   }
 
   /**

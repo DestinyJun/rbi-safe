@@ -51,7 +51,7 @@
 <!--              <p class="item-font-title">{{item.text}}</p>-->
 <!--              <p class="item-right-time">{{item.time}}</p>-->
 <!--            </div>-->
-            <p class="item"><span>{{i + 1}} . </span>{{item}}</p>
+            <p class="item" [routerLink]="[item.router]" style="cursor: pointer"><span>{{i + 1}} . </span>{{item.message}}</p>
           </div>
         </p-scrollPanel>
         <div class="notice-footer">

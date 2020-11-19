@@ -57,7 +57,6 @@ export class DemandReportComponent implements OnInit {
       }
     };
     this.clearObject(bj);
-    console.log(bj);
 
     this.reportDataInit();
   }

@@ -39,7 +39,7 @@
             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
             {{rowData[col.field]}}
           </td>
-          <td>
+          <td style="text-align: center">
             <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="DetailClick({label: '编辑'})"></button>
 <!--            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="DetailClick({label: '删除'})"></button>-->
           </td>

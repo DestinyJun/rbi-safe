@@ -26,12 +26,12 @@
       [scrollable]="true" scrollHeight="90%"
     >
       <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr style="text-align: center">
           <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
-          <th>操作</th>
+          <th style="width: 18%;">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
@@ -40,7 +40,7 @@
           <td *ngFor="let col of columns">
             {{rowData[col.field]}}
           </td>
-          <td>
+          <td style="width: 18%;">
             <button pButton label="查看" class="ui-button-rounded mr-3"
                     (click)="contentsOperate(contentsOperateFlag='view',rowData)"></button>
             <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="openEdit(rowData)"></button>

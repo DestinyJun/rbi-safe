@@ -1,6 +1,6 @@
 <!--应急预案评估历史记录-->
 <div class="emergency-record">
-  <h2 class="title text-center pt-3 pb-3 text-littleGray">应急预案评估历史记录</h2>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">应急预案评审记录</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
       <!--<input type="text" pInputText placeholder="搜索"/>-->
@@ -30,7 +30,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>

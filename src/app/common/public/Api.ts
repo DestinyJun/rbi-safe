@@ -19,6 +19,7 @@ export interface OrgTree {
   expandedIcon?: string;
   collapsedIcon?: string;
   icon?: string;
+  expanded?: boolean;
 }
 
 // 组织后台台树形结构接口

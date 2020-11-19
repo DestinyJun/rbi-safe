@@ -3,7 +3,7 @@
      <ul *ngFor="let item of barItem" >
        <li>
          <a (click)="firItemClick(item)" [routerLink]="item.link" [ngStyle]="{background: item.bgc}">
-           <i [ngClass]="'iconfont ' + item.icon.class" [ngStyle]="{fontSize: item.icon.fontsize, color: item.icon.color}"></i>
+           <i [ngClass]="item.icon.class" [ngStyle]="{fontSize: item.icon.fontsize, color: item.icon.color}"></i>
            <div *ngIf="firWidth !== 3">
              <span style="font-size: 14px">{{item.label}}</span>
              <i *ngIf=" item.lefticon!==''" [ngClass]="'fa ' + item.lefticon" ></i>

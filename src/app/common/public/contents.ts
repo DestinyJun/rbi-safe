@@ -31,9 +31,13 @@ export function orgInitializeTree(data): any {
         }
       }
     }
+    if (item.level === 2) {
+      childnode.expanded = true;
+    }
     if (item.chiled != null && item.chiled.length !== 0) {
       childnode.children = orgInitializeTree(item.chiled);
-    } else {
+    }
+    else {
       childnode.children = [];
       childnode.icon = 'fa fa-address-card-o';
     }

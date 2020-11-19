@@ -19,7 +19,7 @@ export class SetingSpiComponent implements OnInit {
   }; // 分页组件配置
   public setingSpiTableHeader: TableHeader[] = [
     {field: 'name', header: '指标名称'},
-    {field: 'num', header: '指标系数'},
+    {field: 'num', header: '计算系数'},
     {field: 'pname', header: '父级名称'},
     {field: 'idt', header: '添加时间'},
   ]; // 表头字段

@@ -12,7 +12,7 @@ import {InstitutionRecordUpdateField, UpdateInstitutionRecordFieldClass} from '.
 export class InstitutionRecordComponent implements OnInit {
 
   public institutionRecordPageOption: PageOption = {
-    pageSize: 8, // 默认显示多少条
+    pageSize: 4, // 默认显示多少条
     totalRecord: null // 总条数
   }; // 分页组件配置
   public institutionRecordTableHeader: TableHeader[] = [
@@ -22,9 +22,8 @@ export class InstitutionRecordComponent implements OnInit {
     {field: 'execute', header: '执行性'},
     {field: 'evaluator', header: '评估人'},
     {field: 'status', header: '制度评估状态'},
-    {field: 'evaluateOpinion', header: '评估意见'},
+    {field: 'idt', header: '评估时间'},
     {field: 'updater', header: '修改人'},
-    {field: 'updateExplain', header: '修改说明'},
   ]; // 表头字段
   public institutionRecordTableData: any[]; // 表体数据
   public institutionRecordTableSelect: any = []; // 表格选择数据

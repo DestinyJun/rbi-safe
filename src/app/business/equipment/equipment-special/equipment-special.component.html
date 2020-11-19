@@ -28,11 +28,11 @@
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
-          <th>操作</th>
+          <th style="width: 15%">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -40,7 +40,7 @@
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field] === 1?'正常':rowData[col.field] === 0?'异常': rowData[col.field]}}
           </td>
-          <td>
+          <td style="width: 15%">
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="eqSpecialOperate(eqSpecialOperateFlag='update',rowData)"></button>
             <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eqSpecialOperate(eqSpecialOperateFlag='del',rowData)"></button>
           </td>

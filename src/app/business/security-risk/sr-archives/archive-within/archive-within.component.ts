@@ -143,7 +143,6 @@ export class ArchiveWithinComponent implements OnInit {
   // 初始化分页数据
   public initArchiveWithinData(): void {
     this.secRiskSrv.queryArchiveWithinPageData({pageNo: this.archivePageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
       this.rkArchiveContent = val.data.contents.map(v => {
         v.harmKind = setVlaueToLabel(this.riskKindOption, v.harmKind);
         v.riskCategory = setVlaueToLabel(this.riskCategoryOption, v.riskCategory);
@@ -308,6 +307,14 @@ export class ArchiveWithinComponent implements OnInit {
     this.fileDialog = true;
   }
 
+  // 删除
+  public  archiveDelClick(item): void {
+    if (window.confirm('您确定需要删除吗？')) {
+      this.secRiskSrv.riskWithinDel({data: [{riskCode: item.riskCode}]}).subscribe(val => {
+        this.initArchiveWithinData();
+      });
+    }
+  }
 
   public  selectFile(e): void {
     this.fileName = e.files[0].name;

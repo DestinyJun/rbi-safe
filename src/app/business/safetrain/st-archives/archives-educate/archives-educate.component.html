@@ -7,17 +7,23 @@
     </div>
     <div class="button">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="educateOperate(educateOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="educateOperate(educateOperateFlag = 'multiple')"></button>
       <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>
       <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>
     </div>
   </div>
   <div class="content">
     <p-table
-      [value]="educateTableData" [columns]="educateTableHeader"
-      [scrollable]="true" scrollHeight="90%"
+      [value]="educateTableData"
+      [columns]="educateTableHeader"
+      [(selection)]="educateCheckTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
+          <th>勾选</th>
           <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -26,7 +32,10 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
@@ -47,7 +56,7 @@
     <p-dialog
       [modal]="true"
       [blockScroll]="true"
-      [(visible)]="educateOperateModal" [style]="{width: '80vw'}"
+      [(visible)]="educateOperateModal" [style]="{width: '50vw'}"
     >
       <p-header>{{educateOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
       <div style="width: 100%;height: 65vh;">

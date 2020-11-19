@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { PageOption, SpecialField, SpecialFieldClass, TableHeader} from '../../../../common/public/Api';
+import {PageOption, SpecialField, SpecialFieldClass, TableHeader} from '../../../../common/public/Api';
 import {Observable} from 'rxjs';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Es, objectCopy} from '../../../../common/public/contents';
-import {debounceTime, distinctUntilChanged} from "rxjs/operators";
-import {FormControl} from "@angular/forms";
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-archives-special',
@@ -25,6 +25,7 @@ export class ArchivesSpecialComponent implements OnInit {
   ]; // 表头字段
   public specialUploadRecordOption: any;
   public specialTableData: any[]; // 表体数据
+  public specialCheckTableSelect: any = []; // 表格选择数据
   public specialNowPage: number = 1; // 当前页
   public specialOperateFlag: any ; // 操作标识
   public specialOperateField: SpecialField = new SpecialFieldClass(); // 操作字段
@@ -58,7 +59,6 @@ export class ArchivesSpecialComponent implements OnInit {
       } else {
         const regIdCard =  /^\d{0,17}\d$/;
         this.idCardIsValid = regIdCard.test(value);
-        console.log(234);
       }
     });
   }
@@ -107,7 +107,19 @@ export class ArchivesSpecialComponent implements OnInit {
         break;
       // 删除操作
       case 'del':
-        console.log('暂时不做');
+        if (window.confirm('您确定需要删除吗？')) {
+          this.specialHttpOperate(this.safeSrv.delArchivesInfo({ids: [item.id]}));
+        }
+        break;
+      // 批量删除
+      case 'multiple':
+        if (this.specialCheckTableSelect.length > 0) {
+          if (window.confirm(`您确定需要这${this.specialCheckTableSelect.length}项删除吗？`)) {
+            this.specialHttpOperate(this.safeSrv.delArchivesInfo({ids: this.specialCheckTableSelect.map((val) => (val.id))}));
+          }
+        } else {
+          window.alert('请您勾选需要删除的项！');
+        }
         break;
       // 文件导出操作
       case 'export':

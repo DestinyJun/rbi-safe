@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LocalStorageService} from '../../common/services/local-storage.service';
-import {Router} from "@angular/router";
-import {GeneralInfoService} from "../../common/services/general-info.service";
+import {Router} from '@angular/router';
+import {GeneralInfoService} from '../../common/services/general-info.service';
 
 @Component({
   selector: 'app-header',
@@ -47,18 +47,24 @@ export class HeaderComponent implements OnInit {
   private async getData(): Promise<any> {
     await this.generalInfoService.hidNotice(null).toPromise().then(res => {
       if (res.data > 0) {
-        this.noticeItem.push('您有' + res.data + '条隐患数待处理。');
+        this.noticeItem.push({message: '您有' + res.data + '条隐患数待处理！', router: '/home/trouble/process/list'});
       }
     });
     await this.generalInfoService.selfReview(null).toPromise().then(res => {
       if (res.data) {
         this.showNotice = true;
-        this.noticeItem.push('您有资格证待复审。');
+        this.noticeItem.push({message: '您有资格证待复审！', router: '/home/strain/demand'});
+      }
+    });
+    await this.generalInfoService.monitorNotice(null).toPromise().then(res => {
+      if (res.data) {
+        this.showNotice = true;
+        this.noticeItem.push({message: res.data, router: '/home/monitor/monitorSingle'});
       }
     });
     await this.generalInfoService.administratorReviewNotice(null).toPromise().then(res => {
       if (res.data) {
-        this.noticeItem.push(res.data);
+        this.noticeItem.push({message: res.data, router: '/home/strain/demand'});
       }
     });
     return new Promise(((resolve, reject) => {

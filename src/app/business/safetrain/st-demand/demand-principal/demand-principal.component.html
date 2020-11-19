@@ -31,16 +31,16 @@
           <th *ngFor="let col of columns" class="text-center">
             {{col.header}}
           </th>
-          <th class="text-center">操作</th>
+          <th class="text-center" style="width: 18%">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr>
+        <tr style="text-align: center">
           <td class="text-center">{{rowIndex}}</td>
           <td *ngFor="let col of columns" class="text-center">
             {{rowData[col.field]}}
           </td>
-          <td class="text-center">
+          <td class="text-center" style="width: 18%">
             <button pButton label="完成复审" class="ui-button-rounded m-1" (click)="principalOperate(principalOperateFlag='review',rowData)" *ngIf="rowData.completionStatus === 1"></button>
             <button pButton label="取消" class="ui-button-rounded ui-button-pink" (click)="principalOperate(principalOperateFlag='cancle',rowData)" *ngIf="rowData['completionStatus'] === 1"></button>
             <button pButton label="已操作完成" class="ui-button-rounded ui-button-white" disabled *ngIf="(rowData.completionStatus !== 1)"></button>

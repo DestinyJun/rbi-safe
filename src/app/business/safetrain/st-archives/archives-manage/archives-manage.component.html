@@ -7,17 +7,23 @@
     </div>
     <div class="button">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="manageOperate(manageOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="manageOperate(manageOperateFlag = 'multiple')"></button>
       <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"  (click)="manageImportFieldModal=true"></button>
       <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="manageOperate(manageOperateFlag = 'export')"></button>
     </div>
   </div>
   <div class="content">
     <p-table
-      [value]="manageTableData" [columns]="manageTableHeader"
-      [scrollable]="true" scrollHeight="90%"
+      [value]="manageTableData"
+      [columns]="manageTableHeader"
+      [(selection)]="manageCheckTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
+          <th>勾选</th>
           <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -26,7 +32,10 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
           <td>{{rowIndex}}</td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}

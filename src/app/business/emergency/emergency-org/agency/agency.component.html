@@ -33,7 +33,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>

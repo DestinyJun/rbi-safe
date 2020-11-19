@@ -26,6 +26,7 @@ export class ArchivesManageComponent implements OnInit {
   ]; // 表头字段
   public manageUploadRecordOption: any;
   public manageTableData: any[]; // 表体数据
+  public manageCheckTableSelect: any = []; // 表格选择数据
   public manageNowPage: number = 1; // 当前页
   public manageOperateFlag: any; // 操作标识
   public manageOperateField: ManageField = new AddManageFieldClass(); // 操作字段
@@ -66,7 +67,6 @@ export class ArchivesManageComponent implements OnInit {
   // 数据初始化
   private manageDataInit(pageNo, pageSize) {
     this.safeSrv.getManageList({pageNo, pageSize}).subscribe((res) => {
-      console.log(res);
       this.manageTableData = res.data.contents;
       this.managePageOption.totalRecord = res.data.totalRecord;
       this.manageOperateFlag = 'add';
@@ -99,13 +99,11 @@ export class ArchivesManageComponent implements OnInit {
             this.manageOperateField[manageOperateFieldKey] = (this.manageOperateField[manageOperateFieldKey] + '').replace('至', ' - ');
           }
         }
-        console.log(this.manageOperateField);
         this.manageOperateModal = true;
         break;
       // 保存操作
       case 'save':
         const field = objectCopy(this.manageOperateField, this.manageOperateField);
-        field
         for (const manageOperateFieldKey in field) {
           if (field[manageOperateFieldKey]) {
             // 2020-08-03 - 2020-08-15
@@ -120,7 +118,6 @@ export class ArchivesManageComponent implements OnInit {
         });
         // 修改保存
         if (this.manageOperateField.id) {
-          console.log(field);
           this.manageHttpOperate(this.safeSrv.updateManageInfo(field));
         }
         // 新增保存
@@ -131,7 +128,17 @@ export class ArchivesManageComponent implements OnInit {
       // 删除操作
       case 'del':
         if (window.confirm('您确定需要删除吗？')) {
-          this.manageHttpOperate(this.safeSrv.delManageInfo({id: item.id}));
+          this.manageHttpOperate(this.safeSrv.delManageInfo({ids: [item.id]}));
+        }
+        break;
+      // 批量删除
+      case 'multiple':
+        if (this.manageCheckTableSelect.length > 0) {
+          if (window.confirm(`您确定需要这${this.manageCheckTableSelect.length}项删除吗？`)) {
+            this.manageHttpOperate(this.safeSrv.delManageInfo({ids: this.manageCheckTableSelect.map((val) => (val.id))}));
+          }
+        } else {
+          window.alert('请您勾选需要删除的项！');
         }
         break;
       // 文件导出操作

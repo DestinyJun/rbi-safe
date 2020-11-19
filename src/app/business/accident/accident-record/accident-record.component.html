@@ -32,7 +32,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -65,7 +65,7 @@
             <!--组织培训单位-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>组织单位：</span>
+                <span>单位：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <button
@@ -103,10 +103,10 @@
             <!--事故数量-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>事故数量：</span>
+                <span>涉及人员数量：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填事故数量" [(ngModel)]="acRecordOperateField.accidentAccount">
+                <input type="number" pInputText placeholder="请填涉及人员数量" [(ngModel)]="acRecordOperateField.accidentAccount">
               </div>
             </div>
             <!--事故时间-->

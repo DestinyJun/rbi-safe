@@ -37,7 +37,7 @@
             <span *ngIf="col.field === 'level'">{{tableData[col.field]}}</span>
             <span *ngIf="col.field !== 'level'">{{tableData[col.field] === 1 ? '是' : tableData[col.field] === 0 ? '否' : tableData[col.field]}}</span>
           </td>
-          <td>
+          <td style="text-align: center">
             <button
               pButton type="button" label="编辑"
               (click)="this.roleOperate(roleOperateFlag='update',tableData)"

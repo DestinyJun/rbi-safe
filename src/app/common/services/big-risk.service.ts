@@ -48,4 +48,12 @@ export class BigRiskService {
   public addRiskDiscernData(params: any): Observable<any> {
     return this.http.post(`/seriousDanger/insertSeriousDanger`, params);
   }
+
+  /**
+   * 添加重大危险源档案
+   * @param params
+   */
+  public addRiskDel(params: any): Observable<any> {
+    return this.http.post(`/seriousDanger/deleteByIds`, params);
+  }
 }

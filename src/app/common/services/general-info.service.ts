@@ -44,6 +44,11 @@ export class GeneralInfoService {
   }
 
   // 获取特种人员自身待复审信息
+  public  monitorNotice(pamars): Observable<any> {
+    return this.http.post(`/accident/notice`, pamars);
+  }
+
+  // 获取特种人员自身待复审信息
   public  administratorReviewNotice(pamars): Observable<any> {
     return this.http.post(`/administratorReview/notice`, pamars);
   }

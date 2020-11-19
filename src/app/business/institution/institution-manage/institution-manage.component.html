@@ -29,11 +29,11 @@
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
-          <th>操作</th>
+          <th style="width: 18%">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -41,7 +41,7 @@
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
           </td>
-          <td>
+          <td style="width: 18%">
             <button pButton label="详情" class="ui-button-rounded" (click)="institutionManageOperate(institutionManageOperateFlag='update',rowData, fileUpload1, fileUpload2)"></button>
             <button
               [disabled]="!(rowData.suit === '是' && rowData.effective === '是' && rowData.execute === '是')"
@@ -102,6 +102,7 @@
                   #fileUpload
                   name="img"
                   mode="advanced"
+                  accept="application/pdf"
                   fileLimit="1"
                   invalidFileLimitMessageDetail="最多只能上传一个文件"
                   invalidFileLimitMessageSummary="上传图片超出限制！"
@@ -164,6 +165,7 @@
                   name="sysFile"
                   mode="advanced"
                   fileLimit="1"
+                  accept="application/pdf"
                   invalidFileLimitMessageDetail="最多只能上传一个文件"
                   invalidFileLimitMessageSummary="上传图片超出限制！"
                   chooseLabel="点击上传"
@@ -207,7 +209,7 @@
               </div>
             </div>
             <!--修改文件查看-->
-            <div class="ui-g-6 ui-md-6">
+         <!--   <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
                 <span>修改文件查看：</span>
               </label>
@@ -220,7 +222,7 @@
                   (click)="institutionManageOperate(institutionManageOperateFlag = 'open',institutionManageUpdateField.updateExplainPath)">
                 </button>
               </div>
-            </div>
+            </div>-->
             <!--修改文件-->
             <div class="ui-g-12 ui-md-12">
               <label class="ui-g-2 ui-md-2 label">

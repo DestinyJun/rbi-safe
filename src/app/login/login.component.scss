@@ -48,23 +48,34 @@ $i_font: 28px; // 全局i标签大小
     align-items: center;
     flex-direction: column;
     .right-form {
-      .form-title {
+      .form-title-box {
+        padding-top: 15px;
+        display: flex;
         text-align: center;
-        h2 {
-          color: #44556F;
-          letter-spacing: 0.5rem;
-          font-family: "微软雅黑 Light";
-          font-weight: bold;
-          font-size: 1.5rem;
-          margin-top: 1.5vh;
+        .form-title-img{
+
         }
-        .form-small-title {
-          margin-top: 2vh;
-          color: #BDC2CA;
+        .form-title-text{
+          padding-left: 5px;
+          h4{
+            color: #243856;
+          }
+          h2 {
+            color: #243856;
+            letter-spacing: 0.5rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-top: 1.5vh;
+          }
         }
       }
+      .form-small-title {
+        text-align: center;
+        margin-top: 2vh;
+        color: #BDC2CA;
+      }
       .form-input {
-        margin-top: 5vh;
+        margin-top: 3vh;
         padding: 0 2vw;
         @include i_style;
         .form-user {

@@ -7,17 +7,23 @@
     </div>
     <div class="button" style="float: right">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="specialOperate(specialOperateFlag = 'add')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="specialOperate(specialOperateFlag = 'multiple')"></button>
       <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="specialImportFieldModal=true"></button>
       <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="specialOperate(specialOperateFlag = 'export')"></button>
     </div>
   </div>
   <div class="content">
     <p-table
-      [value]="specialTableData" [columns]="specialTableHeader"
-      [scrollable]="true" scrollHeight="90%"
+      [value]="specialTableData"
+      [columns]="specialTableHeader"
+      [(selection)]="specialCheckTableSelect"
+      dataKey="id"
+      [scrollable]="true"
+      scrollHeight="90%"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
+          <th>勾选</th>
           <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -26,14 +32,17 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns">
             {{rowData[col.field]}}
           </td>
           <td>
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="specialOperate(specialOperateFlag='update',rowData)"></button>
-            <button pButton label="删除" class="ui-button-rounded ui-button-pink"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="specialOperate(specialOperateFlag='del',rowData)"></button>
           </td>
         </tr>
       </ng-template>
@@ -46,7 +55,7 @@
     <!--角色新增/编辑弹窗-->
     <p-dialog
       [blockScroll]="true"
-      [(visible)]="specialOperateModal" [style]="{width: '80vw'}"
+      [(visible)]="specialOperateModal" [style]="{width: '70vw'}"
     >
       <p-header>{{specialOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
       <div style="width: 100%;height: 65vh;overflow: hidden">

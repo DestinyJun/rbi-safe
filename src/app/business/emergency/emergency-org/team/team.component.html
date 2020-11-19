@@ -29,11 +29,11 @@
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
-          <th>操作</th>
+          <th style="width: 15%">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -41,7 +41,7 @@
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
           </td>
-          <td>
+          <td style="width: 15%">
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="eoTeamOperate(eoTeamOperateFlag='update',rowData)"></button>
             <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eoTeamOperate(eoTeamOperateFlag='del',rowData)"></button>
           </td>
@@ -79,7 +79,13 @@
                 <span>所属单位：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填负责人" [(ngModel)]="eoTeamOperateField.affiliatedUnit">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="eoTeamOrgTreeSelect.label?eoTeamOrgTreeSelect.label:eoTeamOrgTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="eoTeamOperate(eoTeamOperateFlag = 'orgTree')">
+                </button>
               </div>
             </div>
             <!--队伍性质-->
@@ -181,6 +187,24 @@
       <p-footer>
         <button pButton label="保存" (click)="eoTeamOperate(eoTeamOperateFlag = 'save')"></button>
         <button pButton label="取消" class="ui-button-pink" (click)="eoTeamOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--主控单位-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="eoTeamOrgTreeModal" [blockScroll]="true"
+      [contentStyle]="{width: '30vw',height: '30vh'}">
+      <p-header>请选择编制单位</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="eoTeamOrgTree"
+          [(selection)]="eoTeamOrgTreeSelect"
+          selectionMode="single">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="eoTeamOrgTreeModal=false" label="确定"></button>
       </p-footer>
     </p-dialog>
   </div>

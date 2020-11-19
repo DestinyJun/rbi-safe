@@ -8,7 +8,7 @@
     </div>
     <div class="button">
       <button pButton type="button" label="新增" class="ui-button-rounded" (click)="intentAimsCheckOperate(intentAimsCheckOperateFlag = 'add')"></button>
-      <button pButton type="button" label="批量" class="ui-button-rounded ui-button-danger ml-2" (click)="intentAimsCheckOperate(intentAimsCheckOperateFlag = 'multiple')"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="intentAimsCheckOperate(intentAimsCheckOperateFlag = 'multiple')"></button>
       <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
       <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
     </div>
@@ -33,7 +33,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>

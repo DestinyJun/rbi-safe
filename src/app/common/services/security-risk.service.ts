@@ -117,6 +117,14 @@ export class SecurityRiskService {
   }
 
   /**
+   * 添加重大危险源档案
+   * @param params
+   */
+  public riskWithinDel(params: any): Observable<any> {
+    return this.http.post(`/risk/deleteByIds`, params);
+  }
+
+  /**
    * 更新数据
    * @param pamars
    */

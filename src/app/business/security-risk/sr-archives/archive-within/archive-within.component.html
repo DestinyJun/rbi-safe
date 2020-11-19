@@ -42,7 +42,7 @@
           </td>
           <td style="margin: 0 auto"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
             <button  style="background: #3B86FF;border: 0;padding: 10px;border-radius: 10px;color: #fff" (click)="editRiskArchiveClcik(rowData)">详情</button>
-            <!--            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0"></button>-->
+            <button  style="background: #FF8A9A;border: 0;padding: 10px;border-radius: 10px;color: #fff" (click)="archiveDelClick(rowData)">删除</button>
           </td>
         </tr>
       </ng-template>

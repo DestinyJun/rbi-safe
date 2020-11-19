@@ -4,8 +4,8 @@
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
       <!--<input type="text" pInputText placeholder="搜索"/>-->
-      <button pButton type="button" class="ui-button-warning" [label]="'矿业公司当前总计提金额: '+ investTotalPlanMoney"></button>
-      <button pButton type="button" class="ui-button-darkPrimary ml-2" [label]="'矿业公司当前总计提金额: '+ investTotalInputMoney"></button>
+      <button pButton type="button" class="ui-button-warning" [label]="'矿业公司当前总计提金额: '+ investTotalPlanMoney + '元'"></button>
+      <button pButton type="button" class="ui-button-darkPrimary ml-2" [label]="'矿业公司当前总计提金额: '+ investTotalInputMoney + '元'"></button>
     </div>
     <div class="button">
       <button pButton type="button" label="新增" class="ui-button-rounded" (click)="investOperate(investOperateFlag = 'add')"></button>
@@ -34,7 +34,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -104,7 +104,7 @@
             <!--露天矿量-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>露天矿量：</span>
+                <span>露天矿量(单位/吨)：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填露天矿量" [(ngModel)]="investOperateField.outdoorsAmount">
@@ -113,7 +113,7 @@
             <!--露天单价-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>露天单价：</span>
+                <span>露天单价(单位/元)：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填露天单价" [(ngModel)]="investOperateField.outdoorsPrice">
@@ -122,7 +122,7 @@
             <!--井下矿量-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>井下矿量：</span>
+                <span>井下矿量(单位/吨)：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填井下矿量" [(ngModel)]="investOperateField.wellAmount">
@@ -131,7 +131,7 @@
             <!--井下单价-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>井下单价：</span>
+                <span>井下单价(单位/元)：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填井下单价" [(ngModel)]="investOperateField.wellPrice">
@@ -140,7 +140,7 @@
             <!--提取金额-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>提取金额：</span>
+                <span>提取金额(单位/元)：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input
@@ -153,7 +153,7 @@
             <!--使用金额-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>使用金额：</span>
+                <span>使用金额(单位/元)：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="number" pInputText placeholder="请填使用金额" [(ngModel)]="investOperateField.useMoney">

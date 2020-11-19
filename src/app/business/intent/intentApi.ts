@@ -165,6 +165,19 @@ export class AddIntentInvestField implements IntentInvestField{
   useMoney: number;
   wellAmount: number;
   wellPrice: number;
+  constructor() {
+    this.organizationId = null;
+    this.organizationName = '';
+    this.date = '';
+    this.ifShare = '';
+    this.outdoorsAmount = 0;
+    this.outdoorsPrice = 0;
+    this.planMoney = null;
+    this.remarks = '';
+    this.useMoney = null;
+    this.wellAmount = 0;
+    this.wellPrice = 0;
+  }
 
 }
 export class UpdateIntentInvestField implements IntentInvestField{

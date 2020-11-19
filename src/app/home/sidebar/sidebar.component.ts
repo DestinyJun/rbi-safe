@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
      },*/
     // 生产检测预警
     {
-      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      icon: {class: 'fa fa-desktop', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '生产监测预警',
       lefticon: 'fa-angle-down',
@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
     },
     // 目标职责管理
     {
-      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      icon: {class: 'fa fa-dot-circle-o', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '目标职责管理',
       lefticon: 'fa-angle-down',
@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
     },
     // 安全管理制度
     {
-      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      icon: {class: 'fa fa-hdd-o', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '安全管理制度',
       lefticon: 'fa-angle-down',
@@ -66,7 +66,7 @@ export class SidebarComponent implements OnInit {
     },
     // 安全教育培训
     {
-      icon: {class: 'iconOutline-1', fontsize: '14px', color: '#fff'},
+      icon: {class: 'fa fa-bar-chart', fontsize: '14px', color: '#fff'},
       bgc: '#23344E',
       label: '安全教育培训',
       lefticon: 'fa-angle-down',
@@ -86,7 +86,7 @@ export class SidebarComponent implements OnInit {
     },
     // 设备设施管理
     {
-      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconfont iconOutline-1', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '设备设施管理',
       lefticon: 'fa-angle-down',
@@ -100,7 +100,7 @@ export class SidebarComponent implements OnInit {
     },
     // 安全风险管控
     {
-      icon: {class: 'iconOutline-2', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconfont iconOutline-2', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '安全风险管控',
       lefticon: 'fa-angle-down',
@@ -114,7 +114,7 @@ export class SidebarComponent implements OnInit {
     },
     // 重大危险源管理
     {
-      icon: {class: 'iconOutline-3', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconfont iconOutline-3', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '重大危险源管理',
       lefticon: 'fa-angle-down',
@@ -128,7 +128,7 @@ export class SidebarComponent implements OnInit {
     },
     // 隐患排查治理
     {
-      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#23344E', label: '隐患排查治理', link: '/home/trouble/checkstatus', lefticon: 'fa-angle-down', children: [
+      icon: {class: 'iconfont iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#23344E', label: '隐患排查治理', link: '/home/trouble/checkstatus', lefticon: 'fa-angle-down', children: [
         {item: {label: '隐患排查治理状况', bgc: '#4D5B6F', ftcolor: '#4F88DE'}, link: '/home/trouble/checkstatus', isHas: true},
         // {item: {label: '隐患排查治理制度', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/trouble/institution', isHas: true},
         {item: {label: '隐患排查', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/trouble/shoot', isHas: true},
@@ -138,7 +138,7 @@ export class SidebarComponent implements OnInit {
     },
     // 应急管理
     {
-      icon: {class: 'iconOutline-1', fontsize: '16px', color: '#fff'},
+      icon: {class: 'fa fa-cubes', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '应急管理',
       lefticon: 'fa-angle-down',
@@ -148,12 +148,12 @@ export class SidebarComponent implements OnInit {
         {item: {label: '应急组织', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/org', isHas: true},
         {item: {label: '应急预案', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/plan', isHas: true},
         {item: {label: '应急演练', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/drill', isHas: true},
-        {item: {label: '应急预案评估历史记录', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/record', isHas: true},
+        {item: {label: '应急预案评审记录', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/emergency/record', isHas: true},
       ]
     },
     // 生产安全事故管理
     {
-      icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconfont iconlujing2313', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '生产安全事故管理',
       lefticon: 'fa-angle-down',
@@ -165,7 +165,7 @@ export class SidebarComponent implements OnInit {
     },
     // 职业健康管理
     {
-      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '职业健康管理', link: '/home/health/phmanager', lefticon: 'fa-angle-down', children: [
+      icon: {class: 'iconfont iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '职业健康管理', link: '/home/health/phmanager', lefticon: 'fa-angle-down', children: [
         // {item: {label: '职业健康规章制度', bgc: '#4D5B6F', ftcolor: '#4F88DE'}, link: '/home/health/phinstitution', isHas: true},
         {item: {label: '职业健康台账管理', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/health/phmanager', isHas: true},
         // {item: {label: '职业病危害项目申报', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -198,7 +198,7 @@ export class SidebarComponent implements OnInit {
      },*/
     // 综合信息
     {
-      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/genneral/board', children: [
+      icon: {class: 'iconfont iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#23344E', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/genneral/board', children: [
         {item: {label: '信息公告栏', bgc: '#4D5B6F', ftcolor: '#4F88DE'}, link: '/home/genneral/board', isHas: true},
         // {item: {label: '生产调度信息展示', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '公共信息发布', bgc: '#3E4D63', ftcolor: '#8E8E8E'}, link: '/home/genneral/release', isHas: true},
@@ -216,7 +216,7 @@ export class SidebarComponent implements OnInit {
        link: '/home/main'
      },*/
     {
-      icon: {class: 'iconoutline-account_circle-24px', fontsize: '20px', color: '#fff'},
+      icon: {class: 'iconfont iconoutline-account_circle-24px', fontsize: '20px', color: '#fff'},
       bgc: '#23344E',
       label: '用户管理',
       lefticon: '',
@@ -224,7 +224,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/user'
     },
     {
-      icon: {class: 'iconoutline-https-24px', fontsize: '20px', color: '#fff'},
+      icon: {class: 'iconfont iconoutline-https-24px', fontsize: '20px', color: '#fff'},
       bgc: '#23344E',
       label: '权限管理',
       lefticon: '',
@@ -232,7 +232,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/limit'
     },
     {
-      icon: {class: 'iconbaseline-tag_faces-24px', fontsize: '20px', color: '#fff'},
+      icon: {class: 'iconfont iconbaseline-tag_faces-24px', fontsize: '20px', color: '#fff'},
       bgc: '#23344E',
       label: '角色管理',
       lefticon: '',
@@ -240,7 +240,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/role'
     },
     {
-      icon: {class: 'iconbaseline-device_hub-24px', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconfont iconbaseline-device_hub-24px', fontsize: '16px', color: '#fff'},
       bgc: '#23344E',
       label: '组织管理',
       lefticon: '',
@@ -248,7 +248,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/orgazition'
     },
     {
-      icon: {class: 'iconoutline-contacts-24px', fontsize: '18px', color: '#fff'},
+      icon: {class: 'fa fa-adjust', fontsize: '18px', color: '#fff'},
       bgc: '#23344E',
       label: '公司人员管理',
       lefticon: '',
@@ -256,7 +256,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/personnel'
     },
     {
-      icon: {class: 'iconoutline-contacts-24px', fontsize: '18px', color: '#fff'},
+      icon: {class: 'fa fa-shopping-basket', fontsize: '18px', color: '#fff'},
       bgc: '#23344E',
       label: 'SPI系数设定',
       lefticon: '',
@@ -264,7 +264,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/spi'
     },
     {
-      icon: {class: 'iconoutline-contacts-24px', fontsize: '18px', color: '#fff'},
+      icon: {class: 'iconfont iconoutline-contacts-24px', fontsize: '18px', color: '#fff'},
       bgc: '#23344E',
       label: 'App管理',
       lefticon: '',
