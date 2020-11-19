@@ -10,7 +10,7 @@ $i_font: 28px; // 全局i标签大小
   color: #C7CCD3;
   border-bottom: 2px solid #EEEEF2;
   align-items: center;
-  margin-bottom: 6vh;
+  margin-bottom: 1vh;
   input {
     padding-left: 10px;
     border: 0;
@@ -41,7 +41,7 @@ $i_font: 28px; // 全局i标签大小
   }
   .right {
     width: 60vh;
-    height: 55vh;
+    height: 50vh;
     border-radius: 15px;
     background: rgba(255,255,255,0.9);
     display: flex;
@@ -49,20 +49,22 @@ $i_font: 28px; // 全局i标签大小
     flex-direction: column;
     .right-form {
       .form-title-box {
-        padding-top: 15px;
+        padding-top: 36px;
         display: flex;
         text-align: center;
         .form-title-img{
 
         }
         .form-title-text{
-          padding-left: 5px;
+          padding-left: 15px;
           h4{
             color: #243856;
+            letter-spacing: 0.5rem;
           }
           h2 {
+            padding-top: 10px;
             color: #243856;
-            letter-spacing: 0.5rem;
+            letter-spacing: 0.4rem;
             font-weight: bold;
             font-size: 1.5rem;
             margin-top: 1.5vh;
