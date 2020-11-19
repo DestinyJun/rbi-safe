@@ -32,9 +32,9 @@ export class MonitorSingleCatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.monitorSingleCatDataInit(this.monitorSingleCatNowPage, this.monitorSingleCatPageOption.pageSize);
-    /*this.monitorSingleTimer = setInterval(() => {
+    this.monitorSingleTimer = setInterval(() => {
       this.monitorSingleCatDataInit(this.monitorSingleCatNowPage, this.monitorSingleCatPageOption.pageSize);
-    }, 5000);*/
+    }, 5000);
   }
 
   // 数据初始化
