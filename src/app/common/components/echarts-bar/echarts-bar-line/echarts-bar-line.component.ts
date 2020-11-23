@@ -136,9 +136,13 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
           },
           splitLine: {
             show: this.showSplitLine,
+            lineStyle: {
+              color: 'rgba(255,163,71,0.5)'
+            }
           },
           axisLabel: {
             show: this.showAxisLabel,
+            color: 'rgba(255,163,71,1)'
           }
         },
       ],

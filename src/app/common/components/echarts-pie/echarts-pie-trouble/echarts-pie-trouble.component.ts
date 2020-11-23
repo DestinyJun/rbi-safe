@@ -8,6 +8,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 export class EchartsPieTroubleComponent implements OnInit, OnChanges {
   @Input() public echartData: any; // 统计图数据
   @Input() public title: string = ''; // 统计图标题
+  @Input() public unit: string = ''; // 单位
   @Input() public color: Array<any> = [
     '#2246D5', '#226AD5', '#3B86FF', '#58C1F9', '#63DCAF',
     '#FFC06A', '#FCCF4F', '#FF6A7E', '#91E5FF',
@@ -51,7 +52,7 @@ export class EchartsPieTroubleComponent implements OnInit, OnChanges {
         padding: 5,
         formatter: (parms) => {
           return parms.marker + '' + parms.data.name + '</br>' +
-            '数量：' + parms.data.value + '起</br>' +
+            '数量：' + parms.data.value + this.unit + '</br>' +
             '占比：' + parms.percent + '%';
         }
       },

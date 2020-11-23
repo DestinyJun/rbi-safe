@@ -28,7 +28,7 @@
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
-          <th>操作</th>
+          <th style="width: 18%">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
@@ -40,7 +40,7 @@
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
           </td>
-          <td>
+          <td style="width: 18%">
             <button pButton label="详情" class="ui-button-rounded mr-3" (click)="eqOtherOperate(eqOtherOperateFlag='update',rowData)"></button>
             <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="eqOtherOperate(eqOtherOperateFlag='del',rowData)"></button>
           </td>
@@ -65,7 +65,7 @@
             <!--组织培训单位-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>组织单位：</span>
+                <span>单位：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <button

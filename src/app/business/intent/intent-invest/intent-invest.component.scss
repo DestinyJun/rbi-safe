@@ -16,6 +16,9 @@
     /deep/.ui-table .ui-table-scrollable-header-box{
       margin-right: 0!important;
     }
+    /deep/.ui-table .ui-table-scrollable-wrapper .ui-table-scrollable-view .ui-table-scrollable-body::-webkit-scrollbar {
+      display: inline;
+    }
   }
   .modal{
     .label{

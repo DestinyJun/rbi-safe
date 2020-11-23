@@ -584,7 +584,7 @@ body .ui-widget-overlay {
 // 改变modal框头部鼠标样式
 .ui-dialog-titlebar {
   cursor: move !important;
-  background: #226AD5 !important;
+  background: #23344E !important;
   color: #FFFFFF !important;
 
   a {
@@ -594,3 +594,14 @@ body .ui-widget-overlay {
 .ui-dialog-mask {
   z-index: unset !important;
 }
+
+/*body .ui-button.ui-state-default {
+  color: #ffffff;
+  background-color: #23344E;
+  border: 1px solid #23344E;
+}
+body .ui-button.ui-state-default:hover{
+  color: #66A0FF;
+  background-color: #FFFFFF;
+  border: 1px solid #66A0FF;
+}*/

@@ -182,13 +182,30 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         bottom: '2%',
         containLabel: true,
       },
-      legend: {
-        right: '10%',
-        top: '3%',
-        textStyle: {
-          color: '#AAAAAA'
+      legend: [
+        {
+          show: true,
+          right: '10%',
+          top: '3%',
+          textStyle: {
+            color: '#AAAAAA'
+          },
+          data: [
+            {name: 'SPI实际值'}
+          ]
         },
-      },
+        {
+          show: true,
+          right: '20%',
+          top: '3%',
+          textStyle: {
+            color: '#AAAAAA'
+          },
+          data: [
+            {name: 'SPI预测值'}
+          ]
+        },
+      ],
       xAxis: {
         type: 'category',
         boundaryGap: false,

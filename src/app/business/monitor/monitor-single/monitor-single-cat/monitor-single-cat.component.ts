@@ -40,7 +40,6 @@ export class MonitorSingleCatComponent implements OnInit, OnDestroy {
   // 数据初始化
   private monitorSingleCatDataInit(pageNo, pageSize) {
     this.monitorSrv.monitorSingleCatList({pageNo, pageSize}).subscribe((res) => {
-      console.log(res);
       this.monitorSingleCatTableData = res.data;
     });
   }
