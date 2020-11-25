@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FileOption} from '../dialog.model';
+import {GlobalService} from '../../../services/global.service';
 
 @Component({
   selector: 'app-file-pop',
@@ -13,10 +14,22 @@ export class FilePopComponent implements OnInit, OnChanges {
   @Output()
   public event =  new EventEmitter<any>();
   public photoFiles: any[] = [];
-  constructor() { }
+  public regularExcelTemplate: string = ''; // 导入模板地址
+  constructor(
+    private globalSrv: GlobalService
+  ) { }
 
   ngOnInit() {
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.regularExcelTemplate = res.data[16].path;
+    });
     this.UploadFileOption.files = [];
+  }
+
+  // 题库模板下载
+  public regularDownloadClick() {
+    window.open(this.regularExcelTemplate);
   }
 
   public  UploadSureClick(): void {

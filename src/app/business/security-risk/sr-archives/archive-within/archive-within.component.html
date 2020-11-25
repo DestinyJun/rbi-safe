@@ -284,6 +284,12 @@
         <input type="file" #file style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0" (change)="selectFile(file)">
       </div>
     </div>
+    <div style="height: 100px; text-align: center; padding-top: 20px">
+      <span style="width: 60px; display: inline-block">模板下载:</span>
+      <div style="position: relative; display: inline-block; width: 200px;  height: 27px;" >
+        <button pButton label="点击下载" (click)="withinDownloadClick()"></button>
+      </div>
+    </div>
     <div style="text-align: center">
       <p-button label="确认" class="" (click)="submitClick()"></p-button>
       <!--      <button class="dialog-btn" ></button>-->

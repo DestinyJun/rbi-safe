@@ -16,8 +16,8 @@ export class MonitorSingleCatComponent implements OnInit, OnDestroy {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public monitorSingleCatTableHeader: TableHeader[] = [
-    {field: 'location', header: '传感器位置'},
     {field: 'name', header: '传感器名称'},
+    {field: 'location', header: '传感器位置'},
     {field: 'openTime', header: '开启时间'},
     {field: 'transducerSiteName', header: '传感器基站位置'},
     {field: 'value', header: '实时数据'},
@@ -34,7 +34,7 @@ export class MonitorSingleCatComponent implements OnInit, OnDestroy {
     this.monitorSingleCatDataInit(this.monitorSingleCatNowPage, this.monitorSingleCatPageOption.pageSize);
     this.monitorSingleTimer = setInterval(() => {
       this.monitorSingleCatDataInit(this.monitorSingleCatNowPage, this.monitorSingleCatPageOption.pageSize);
-    }, 5000);
+    }, 90000);
   }
 
   // 数据初始化

@@ -244,6 +244,15 @@
                 </p-fileUpload>
               </div>
             </div>
+            <!--模板下载-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>模板下载：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button pButton label="点击下载" (click)="manageOperate(manageOperateFlag = 'download')"></button>
+              </div>
+            </div>
           </div>
         </p-scrollPanel>
       </div>

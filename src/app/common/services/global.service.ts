@@ -81,7 +81,6 @@ export class GlobalService {
 
   /**
    * 获取安全生产管理机构树
-   * @param params
    */
   public publicGetIntentAgencyTree(): Observable<any> {
     return this.http.post('/organizationManage/findTree', {});
@@ -97,9 +96,15 @@ export class GlobalService {
 
   /**
    * 获取spi周期阈值树
-   * @param params
    */
   public publicGetSpiTree(): Observable<any> {
     return this.http.post('/spi/findTree', {});
+  }
+
+  /**
+   * 获取文档模板文件
+   */
+  public publicGetExcelTemplate(): Observable<any> {
+    return this.http.post('/findTemplate', {});
   }
 }

@@ -6,6 +6,7 @@ import {Es, objectCopy} from '../../../../common/public/contents';
 import {isArray} from 'util';
 import {FormControl} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-archives-manage',
@@ -33,11 +34,13 @@ export class ArchivesManageComponent implements OnInit {
   public manageOperateModal: boolean = false; // 模态框
   public manageImportField: FormData = new FormData(); // 导入
   public manageImportFieldModal: boolean = false; // 导入模态框
+  public manageExcelTemplate: string = ''; // 导入模板地址
   public manageEs: any = Es; // 时间选择面板本地化
   public idCard = new FormControl(''); // 监听身份证输入框,检验是否合法
   public idCardIsValid = true; // 身份证是否有效
   constructor(
     private safeSrv: SafetrainService,
+    private globalSrv: GlobalService,
   ) {
   }
 
@@ -62,6 +65,10 @@ export class ArchivesManageComponent implements OnInit {
         this.idCardIsValid = regIdCard.test(value);
       }
     });
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.manageExcelTemplate = res.data[3].path;
+    });
   }
 
   // 数据初始化
@@ -85,6 +92,10 @@ export class ArchivesManageComponent implements OnInit {
   // 台账操作操作
   public manageOperate(flag: string, item?: any) {
     switch (flag) {
+      // 模板文件下载
+      case 'download':
+        window.open(this.manageExcelTemplate);
+        break;
       // 添加操作初始化
       case 'add':
         this.manageOperateModal = true;

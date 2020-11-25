@@ -10,8 +10,8 @@ import {MonitorService} from '../../monitor.service';
 export class MonitorSingleRiverComponent implements OnInit, OnDestroy {
 
   public monitorSingleRiverTableHeader: TableHeader[] = [
-    {field: 'name', header: '传感器名称'},
     {field: 'typeName', header: '传感器类型名称'},
+    {field: 'name', header: '传感器名称'},
     {field: 'place', header: '位置'},
     {field: 'value', header: '传感器采集数字量'},
     {field: 'unit', header: '传感器采集数字量单位'},

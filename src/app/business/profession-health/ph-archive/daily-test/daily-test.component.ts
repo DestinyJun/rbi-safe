@@ -6,6 +6,7 @@ import {PublicMethodService} from '../../../../common/public/public-method.servi
 import {BigRiskService} from '../../../../common/services/big-risk.service';
 import {ProfessHealthService} from '../../../../common/services/profess-health.service';
 import {DatePipe} from '@angular/common';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-daily-test',
@@ -54,13 +55,19 @@ export class DailyTestComponent implements OnInit {
     'failSize': 0,
     'failTecord': []
   };
+  public rateExcelTemplate: string = ''; // 导入模板地址
   constructor(
     private toolSrv: PublicMethodService,
     private phealthSrv: ProfessHealthService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
+    private globalSrv: GlobalService
   ) { }
   ngOnInit() {
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.rateExcelTemplate = res.data[10].path;
+    });
     this.initDailyTestData();
     this.editDialyTest = this.fb.group(
       {
@@ -78,6 +85,11 @@ export class DailyTestComponent implements OnInit {
         principal: new FormControl('', Validators.required),
       }
     );
+  }
+
+  // 题库模板下载
+  public rateDownloadClick() {
+    window.open(this.rateExcelTemplate);
   }
 
   // 初始化分页数据

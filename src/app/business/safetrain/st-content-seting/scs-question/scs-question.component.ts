@@ -79,6 +79,7 @@ export class ScsQuestionComponent implements OnInit {
       log: []
     }
   };
+  public questionExcelTemplate: string = ''; // 导入模板地址
   constructor(
     private themeSrv: ThemeService,
     private safeSrv: SafetrainService,
@@ -98,6 +99,10 @@ export class ScsQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.initQuestionData();
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.questionExcelTemplate = res.data[2].path;
+    });
   }
   // 初始化题目类型信息
   public getQuestionSortInfoConfig(): void {
@@ -108,7 +113,10 @@ export class ScsQuestionComponent implements OnInit {
       });
     });
   }
-
+  // 题库模板下载
+  public questionDownloadClick() {
+    window.open(this.questionExcelTemplate);
+  }
   // 初始化题目列表
   public initQuestionData(): void {
     this.questionContent = [];

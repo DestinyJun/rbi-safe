@@ -5,6 +5,7 @@ import {Es} from '../../../../common/public/contents';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {ProfessHealthService} from '../../../../common/services/profess-health.service';
 import {DatePipe} from '@angular/common';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-rate-now',
@@ -48,13 +49,19 @@ export class RateNowComponent implements OnInit {
   };
   public pathFile: any;
   public file: any;
+  public rateExcelTemplate: string = ''; // 导入模板地址
   constructor(
     private toolSrv: PublicMethodService,
     private phealthSrv: ProfessHealthService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
+    private globalSrv: GlobalService
   ) { }
   ngOnInit() {
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.rateExcelTemplate = res.data[12].path;
+    });
     this.initDailyTestData();
     this.editRateNow = this.fb.group(
       {
@@ -66,6 +73,11 @@ export class RateNowComponent implements OnInit {
         file: new FormControl('', Validators.required),
       }
     );
+  }
+
+  // 题库模板下载
+  public rateDownloadClick() {
+    window.open(this.rateExcelTemplate);
   }
 
   // 初始化分页数据

@@ -5,6 +5,7 @@ import {Es} from '../../../../common/public/contents';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {ProfessHealthService} from '../../../../common/services/profess-health.service';
 import {DatePipe} from '@angular/common';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-pr-hygiene',
@@ -58,13 +59,19 @@ export class PrHygieneComponent implements OnInit {
     'failSize': 0,
     'failTecord': []
   };
+  public regularExcelTemplate: string = ''; // 导入模板地址
   constructor(
     private toolSrv: PublicMethodService,
     private phealthSrv: ProfessHealthService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
+    private globalSrv: GlobalService
   ) { }
   ngOnInit() {
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.regularExcelTemplate = res.data[11].path;
+    });
     this.initHygieneData();
     this.editHygiene = this.fb.group(
       {
@@ -88,6 +95,11 @@ export class PrHygieneComponent implements OnInit {
         healthProjectResultConclusion: new FormControl('', Validators.required),
       }
     );
+  }
+
+  // 题库模板下载
+  public regularDownloadClick() {
+    window.open(this.regularExcelTemplate);
   }
 
   // 初始化分页数据

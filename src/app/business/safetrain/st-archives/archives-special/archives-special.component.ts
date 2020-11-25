@@ -5,6 +5,7 @@ import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Es, objectCopy} from '../../../../common/public/contents';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-archives-special',
@@ -32,11 +33,13 @@ export class ArchivesSpecialComponent implements OnInit {
   public specialOperateModal: boolean = false; // 模态框
   public specialImportField: FormData = new FormData(); // 导入
   public specialImportFieldModal: boolean = false; // 导入模态框
+  public specialExcelTemplate: string = ''; // 导入模态框
   public specialEs: any = Es; // 时间选择面板本地化
   public idCard = new FormControl(''); // 监听身份证输入框,检验是否合法
   public idCardIsValid = true; // 身份证是否有效
   constructor(
     private safeSrv: SafetrainService,
+    private globalSrv: GlobalService,
   ) {
   }
 
@@ -61,6 +64,11 @@ export class ArchivesSpecialComponent implements OnInit {
         this.idCardIsValid = regIdCard.test(value);
       }
     });
+
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.specialExcelTemplate = res.data[1].path;
+    });
   }
 
   // 数据初始化
@@ -84,6 +92,10 @@ export class ArchivesSpecialComponent implements OnInit {
   // 特殊台账操作操作
   public specialOperate(flag: string, item?: any) {
     switch (flag) {
+      // 文件导出操作
+      case 'download':
+        window.open(this.specialExcelTemplate);
+        break;
       // 添加操作初始化
       case 'add':
         this.specialOperateModal = true;

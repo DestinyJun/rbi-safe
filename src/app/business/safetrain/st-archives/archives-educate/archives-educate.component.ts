@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Es} from '../../../../common/public/contents';
 import {FormControl} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-archives-educate',
@@ -32,11 +33,13 @@ export class ArchivesEducateComponent implements OnInit {
   public educateOperateModal: boolean = false; // 模态框
   public educateImportField: FormData = new FormData(); // 导入
   public educateImportFieldModal: boolean = false; // 导入模态框
+  public educateExcelTemplate: string = ''; // 导入模板地址
   public educateEs: any = Es; // 时间选择面板本地化
   public idCard = new FormControl(''); // 监听身份证输入框,检验是否合法
   public idCardIsValid = true; // 身份证是否有效
   constructor(
     private safeSrv: SafetrainService,
+    private globalSrv: GlobalService,
   ) { }
 
   ngOnInit() {
@@ -60,6 +63,11 @@ export class ArchivesEducateComponent implements OnInit {
           this.idCardIsValid = regIdCard.test(value);
         }
     });
+
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.educateExcelTemplate = res.data[0].path;
+    });
   }
   // 数据初始化
   private educateDataInit(pageNo, pageSize) {
@@ -82,6 +90,10 @@ export class ArchivesEducateComponent implements OnInit {
   // 特殊台账操作操作
   public educateOperate(flag: string, item?: any) {
     switch (flag) {
+      // 模板文件下载
+      case 'download':
+        window.open(this.educateExcelTemplate);
+        break;
       // 添加操作初始化
       case 'add':
         this.educateOperateModal = true;
@@ -129,7 +141,6 @@ export class ArchivesEducateComponent implements OnInit {
       case 'import':
         this.educateImportField.append('file', item.files[0]);
         this.safeSrv.importEducateInfo(this.educateImportField).subscribe((res) => {
-          console.log(res);
           this.educateImportFieldModal = false;
           this.showUploadRecord(res.data);
           this.educateDataInit(this.educateNowPage, this.educatePageOption.pageSize);

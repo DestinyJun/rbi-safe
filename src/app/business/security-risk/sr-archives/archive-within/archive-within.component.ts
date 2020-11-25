@@ -97,6 +97,7 @@ export class ArchiveWithinComponent implements OnInit {
     'realNumber': 0,
     'log': []
   };
+  public withinExcelTemplate: string = ''; // 导入模板地址
   constructor(
     private toolSrv: PublicMethodService,
     private secRiskSrv: SecurityRiskService,
@@ -108,6 +109,10 @@ export class ArchiveWithinComponent implements OnInit {
 
   ngOnInit() {
     this.initconfifData();
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.withinExcelTemplate = res.data[4].path;
+    });
     this.editWithinArchive = this.fb.group(
       {
         organizationName: new FormControl('', Validators.required),
@@ -139,6 +144,10 @@ export class ArchiveWithinComponent implements OnInit {
         riskCode: new FormControl('', Validators.required), // 编号
       }
     );
+  }
+  // 题库模板下载
+  public withinDownloadClick() {
+    window.open(this.withinExcelTemplate);
   }
   // 初始化分页数据
   public initArchiveWithinData(): void {

@@ -14,8 +14,8 @@ export class MonitorSingleWheatComponent implements OnInit, OnDestroy {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public monitorSingleWheatTableHeader: TableHeader[] = [
-    {field: 'name', header: '传感器名称'},
     {field: 'typeName', header: '传感器类型名称'},
+    {field: 'name', header: '传感器名称'},
     {field: 'place', header: '位置'},
     {field: 'value', header: '传感器采集数字量'},
     {field: 'unit', header: '传感器采集数字量单位'},
@@ -32,7 +32,7 @@ export class MonitorSingleWheatComponent implements OnInit, OnDestroy {
     this.monitorSingleWheatDataInit(this.monitorSingleWheatNowPage, this.monitorSingleWheatPageOption.pageSize);
     this.monitorSingleTimer = setInterval(() => {
       this.monitorSingleWheatDataInit(this.monitorSingleWheatNowPage, this.monitorSingleWheatPageOption.pageSize);
-    }, 5000);
+    }, 90000);
   }
 
   // 数据初始化
