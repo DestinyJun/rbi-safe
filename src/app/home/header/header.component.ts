@@ -60,6 +60,7 @@ export class HeaderComponent implements OnInit {
       if (res.data) {
         this.showNotice = true;
         this.noticeItem.push({message: res.data, router: '/home/monitor/monitorSingle'});
+        this.localSrv.monitorStatus.next({value: true});
       }
     });
     await this.generalInfoService.administratorReviewNotice(null).toPromise().then(res => {

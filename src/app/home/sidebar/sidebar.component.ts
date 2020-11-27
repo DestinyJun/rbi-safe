@@ -277,6 +277,7 @@ export class SidebarComponent implements OnInit {
   public limitDataBarTwo: any = [];
   public secItem = [];
   public barItem = [];
+  public monitorStatus: boolean = false;
 
   constructor(
     private localSrv: LocalStorageService,
@@ -294,10 +295,14 @@ export class SidebarComponent implements OnInit {
     });
     if (this.isSetBar !== 'true') {
       this.setFirstBar();
-    } else {
+    }
+    else {
       this.setSetingBar();
     }
     this.keetRouterStatus();
+    this.localSrv.monitorStatus.subscribe((val) => {
+      this.monitorStatus = val.value;
+    });
   }
 
   // 一级导航点击事件

@@ -26,12 +26,98 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.echartData) {
-      const data = this.echartData.barData;
-      this.updateOption(this.echartData.xdata, data);
+      // const data = this.echartData.barData;
+      const bardata = [];
+      const barBottomData = [];
+      const barTopData = [];
+      this.echartData.barData.forEach((item) => {
+        if (item < 0) {
+          bardata.push({
+            value: item,
+            itemStyle: {
+              normal: {
+                color: {
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  type: 'linear',
+                  global: false,
+                  colorStops: [{
+                    offset: 0,
+                    color: 'rgba(59,134,255)'
+                  }, {
+                    offset: 1,
+                    color: '#58C1F9'
+                  }]
+                }
+              }
+            },
+            label: {
+              show: true,
+              color: '#448BFF',
+              position: item > -10 ? ['10%', 20] : ['10%', '150%'],
+              formatter: '{c}%',
+            },
+          });
+          barBottomData.push({
+            value: item,
+            symbolOffset: [0, -10],
+            itemStyle: {
+              normal: {
+                color: 'rgba(61,138,254,1)'
+              }
+            },
+          });
+          barTopData.push({
+            value: item,
+            symbolOffset: [0, 10],
+          });
+        } else {
+          bardata.push({
+            value: item,
+            itemStyle: {
+              normal: {
+                color: {
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  type: 'linear',
+                  global: false,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#58C1F9'
+                  }, {
+                    offset: 1,
+                    color: 'rgba(59,134,255)'
+                  }]
+                }
+              }
+            },
+            label: {
+              show: true,
+              color: '#448BFF',
+              position: [0, -25],
+              formatter: '{c}%',
+            },
+          });
+          barBottomData.push({
+            value: item,
+            symbolOffset: [0, 10],
+          });
+          barTopData.push({
+            value: item,
+            symbolOffset: [0, -10],
+          });
+        }
+
+      });
+      this.updateOption(this.echartData.xdata, bardata, barBottomData, barTopData);
     }
   }
 
-  private updateOption(xdata, data): void {
+  private updateOption(xdata, bardata, barBottomData, barTopData): void {
     this.option = {
       title: {
         text: this.title,
@@ -83,7 +169,11 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
           }
         },
         axisLine: {
-          show: false
+          show: true,
+          lineStyle: {
+            color: 'rgba(255,0,0,0.5)',
+            width: 2
+          }
         },
         splitLine: {
           show: true,
@@ -125,14 +215,13 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
           name: '',
           type: 'pictorialBar',
           symbolSize: [30, 20],
-          symbolOffset: [0, 10],
           z: 12,
           itemStyle: {
             normal: {
               color: 'rgba(61,138,254,1)'
             }
           },
-          data: data
+          data: barBottomData
         },
         // 柱体
         {
@@ -140,39 +229,13 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
           type: 'bar',
           barWidth: 30,
           barGap: '0%',
-          itemStyle: {
-            'normal': {
-              'color': {
-                'x': 0,
-                'y': 0,
-                'x2': 0,
-                'y2': 1,
-                'type': 'linear',
-                'global': false,
-                'colorStops': [{
-                  'offset': 0,
-                  'color': '#58C1F9'
-                }, {
-                  'offset': 1,
-                  'color': 'rgba(59,134,255)'
-                }]
-              }
-            }
-          },
-          label: {
-            show: true,
-            color: '#448BFF',
-            position: [0, -25],
-            formatter: '{c}%',
-          },
-          data: data
+          data: bardata
         },
         // 柱顶圆片
         {
           name: '',
           type: 'pictorialBar',
           symbolSize: [30, 20],
-          symbolOffset: [0, -10],
           z: 12,
           symbolPosition: 'end',
           'itemStyle': {
@@ -191,7 +254,7 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
               ),
             }
           },
-          data: data
+          data: barTopData
         }
       ]
     };

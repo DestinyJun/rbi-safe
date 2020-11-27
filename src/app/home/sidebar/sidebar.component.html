@@ -16,7 +16,8 @@
     <ul *ngFor="let item of secItem" >
       <li  *ngIf="item.isHas">
         <a class="sec-item" [routerLink]="item.link"  [ngStyle]="{background: item.item.bgc}" (click)="secItemClick(item)">
-          <span [ngStyle]="{color: item.item.ftcolor}" >{{item.item.label}}</span>
+          <span [ngStyle]="{color: item.item.ftcolor, verticalAlign: 'middle'}">{{item.item.label}}</span>
+          <span *ngIf="((item.item.label === '单一监测预警') && monitorStatus)" style="display: inline-block;width: 20px;height: 20px;background: orangered;border-radius: 50%; vertical-align: middle"></span>
         </a>
       </li>
     </ul>

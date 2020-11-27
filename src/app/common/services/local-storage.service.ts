@@ -8,6 +8,7 @@ export class LocalStorageService {
 
   public eventBus: Subject<any> = new Subject<any>();
   public persons: Subject<any> = new Subject<any>();
+  public monitorStatus: Subject<any> = new Subject<any>();
   public userSessionStorage = localStorage;
   constructor() {
     // if (!sessionStorage) {

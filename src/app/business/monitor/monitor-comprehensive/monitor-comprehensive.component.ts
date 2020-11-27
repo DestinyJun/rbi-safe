@@ -41,7 +41,8 @@ export class MonitorComprehensiveComponent implements OnInit {
         };
         this.monitorDropdownSelected = res.data.organizationId;
         this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
-      } else {
+      }
+      else {
         this.monitorTopChart = {
           xdata: [],
           barData: []
@@ -68,7 +69,8 @@ export class MonitorComprehensiveComponent implements OnInit {
         };
         this.monitorDropdownSelected = res.data.organizationId;
         this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
-      } else {
+      }
+      else {
         this.monitorBottomChart = {
           xData: [],
           data: []
@@ -86,6 +88,7 @@ export class MonitorComprehensiveComponent implements OnInit {
     this.monitorSrv.monitorComprehensiveBar(params).subscribe((res) => {
       const xdata = res.data.abscissa;
       const barData = res.data.percentage;
+      // const barData = [-30, 15, 50, 10, 43, 55, -23, 13];
       this.monitorTopChart = {xdata, barData};
     });
   }
