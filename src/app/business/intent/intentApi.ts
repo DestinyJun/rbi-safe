@@ -117,6 +117,9 @@ export interface IntentAimsLedgerField {
   name: string; // 清单名称
   maker: string; // 制定人员（人员列表）
   makerId: any; // 制定人员ID
+  totalScore?: any; // 总得分
+  reduceScore?: any; // 总扣分
+  idt?: string; // 填报时间
   targetDutyContent: IntentAimsLedgerContentField[]; // 清单内容
 }
 export class UpdateIntentAimsLedgerField implements IntentAimsLedgerField{

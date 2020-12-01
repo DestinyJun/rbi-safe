@@ -7,6 +7,7 @@
     </div>
     <div class="button">
       <button pButton type="button" label="新增" class="ui-button-rounded" (click)="emPlanOperate(emPlanOperateFlag = 'add', fileUpload)"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="emPlanOperate(emPlanOperateFlag = 'multiple')"></button>
     </div>
   </div>
   <div class="content">
@@ -35,7 +36,7 @@
           </td>
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
-            {{rowData[col.field] === 1?'正常':rowData[col.field] === 0?'异常': rowData[col.field]}}
+            {{rowData[col.field] === '1'?'通过':rowData[col.field] === '0'?'未通过': rowData[col.field]}}
           </td>
           <td style="width: 18%">
             <button pButton label="详情" class="ui-button-rounded mr-2" (click)="emPlanOperate(emPlanOperateFlag='update',rowData, fileUpload)"></button>
@@ -142,14 +143,14 @@
                 </p-fileUpload>
               </div>
             </div>
-            <ng-container *ngIf="emPlanOperateFlag === 'update'">
+            <ng-container *ngIf="emPlanOperateFlag === 'update' || emPlanOperateFlag === 'open'">
               <!--是否通过评审-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
                   <span>是否通过评审：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
-                  <input type="text" disabled pInputText placeholder="是否通过评审" [value]="emPlanOperateField.reviewStatus === 0?'未通过':'通过'">
+                  <input type="text" disabled pInputText placeholder="是否通过评审" [value]="emPlanOperateField.reviewStatus === '0'?'未通过':'通过'">
                 </div>
               </div>
               <!--评审时间-->
@@ -204,6 +205,21 @@
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <div class="ui-g">
+            <!--主控单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>主控单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  style="width: 100%"
+                  [label]="emPlanMasterTreeSelect.label?emPlanMasterTreeSelect.label:emPlanMasterTreeSelectLabel"
+                  class="ui-button-white text-left"
+                  (click)="emPlanOperate(emPlanOperateFlag = 'masterTree')">
+                </button>
+              </div>
+            </div>
             <!--应急预案名称-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">

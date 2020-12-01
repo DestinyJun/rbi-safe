@@ -205,6 +205,8 @@ export interface EmergencyPlanHandleField {
   reviewStatus: string; // 	评审状态（0：未通过 1：通过）
   reviewTime: string; // 	评审时间 （自己选择）
   reviewOrganization: string; // 	评审组织 （自己输入）
+  controlOrganization: string; // 	主控单位名称
+  controlOrganizationId: any; // 	主控单位id
 }
 export class UpdateEmergencyPlanHandleFieldClass implements EmergencyPlanHandleField {
   emergencyPlanName: string;
@@ -213,11 +215,15 @@ export class UpdateEmergencyPlanHandleFieldClass implements EmergencyPlanHandleF
   reviewOrganization: string;
   reviewStatus: string;
   reviewTime: string;
+  controlOrganization: string; // 	主控单位名称
+  controlOrganizationId: any; // 	主控单位id
 
   constructor() {
     this.id = null;
     this.emergencyPlanName = '';
     this.reservePlanType = null;
+    this.controlOrganization = '';
+    this.controlOrganizationId = null;
     this.reviewOrganization = '';
     this.reviewStatus = '';
     this.reviewTime = '';

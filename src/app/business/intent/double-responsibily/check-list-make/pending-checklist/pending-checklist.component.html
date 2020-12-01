@@ -31,52 +31,53 @@
   <div class="pagination">
     <app-pagination [option]="pageOption" (clickEvent)="contentsPageEvent($event)"></app-pagination>
   </div>
-
-  <p-dialog
-    [closable]="true"
-    [blockScroll]="true"
-    header="详情"
-    [(visible)]="displayDetail" [style]="{width: '80vw'}"
-  >
-    <div class="ui-g-12 doubleDutyEvaluationContents" *ngFor="let content of item?.doubleDutyEvaluationContents; let i = index">
-      <div class="ui-g-12">
-        <p>{{i +1}} .（{{content.fraction}}分）{{content.content}}</p>
-      </div>
-      <div class="ui-g-12">
-        <div class="ui-g-9">
-          <h5>自评内容&nbsp;</h5>
-          <input disabled type="text" pInputText [(ngModel)]="content.selfEvaluation">
+  <div class="modal">
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      header="详情"
+      [(visible)]="displayDetail"
+      [style]="{width: '60vw'}"
+    >
+      <div class="ui-g-12 doubleDutyEvaluationContents" *ngFor="let content of item?.doubleDutyEvaluationContents; let i = index">
+        <div class="ui-g-12">
+          <p>{{i +1}} .（{{content.fraction}}分）{{content.content}}</p>
         </div>
-        <div class="ui-g-3">
-          <h5>自评得分</h5>
-          <input disabled style="max-width: 120px" type="text" pInputText [(ngModel)]="content.selfFraction">
+        <div class="ui-g-12">
+          <div class="ui-g-9">
+            <h5>自评内容&nbsp;</h5>
+            <input disabled type="text" pInputText [(ngModel)]="content.selfEvaluation">
+          </div>
+          <div class="ui-g-3">
+            <h5>自评得分</h5>
+            <input disabled style="max-width: 120px" type="text" pInputText [(ngModel)]="content.selfFraction">
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-9">
+            <h5>检查结果&nbsp;</h5>
+            <input type="text" pInputText [(ngModel)]="content.checkResult">
+          </div>
+          <div class="ui-g-3">
+            <h5>检查得分</h5>
+            <input style="max-width: 120px" type="text" pInputText [(ngModel)]="content.checkFraction">
+            <span style="color: red" *ngIf="content.checkFraction > content.fraction">检查得分不能大于总分</span>
+          </div>
         </div>
       </div>
-      <div class="ui-g-12">
-        <div class="ui-g-9">
-          <h5>检查结果&nbsp;</h5>
-          <input type="text" pInputText [(ngModel)]="content.checkResult">
+      <div class="ui-g-12 doubleDutyEvaluationContents">
+        <div class="ui-g-12">
+          <h5>未履职情况&nbsp;</h5>
+          <input type="text" pInputText [(ngModel)]="checkItem.badSituation">
         </div>
-        <div class="ui-g-3">
-          <h5>检查得分</h5>
-          <input style="max-width: 120px" type="text" pInputText [(ngModel)]="content.checkFraction">
-          <span style="color: red" *ngIf="content.checkFraction > content.fraction">检查得分不能大于总分</span>
+        <div class="ui-g-12">
+          <h5>纠正与考核情况</h5>
+          <input type="text" pInputText [(ngModel)]="checkItem.correctSituation">
+        </div>
+        <div class="ui-g-12 text-center">
+          <p-button label="提交" (click)="save()"></p-button>
         </div>
       </div>
-    </div>
-    <div class="ui-g-12 doubleDutyEvaluationContents">
-      <div class="ui-g-12">
-        <h5>未履职情况&nbsp;</h5>
-        <input type="text" pInputText [(ngModel)]="checkItem.badSituation">
-      </div>
-      <div class="ui-g-12">
-        <h5>纠正与考核情况</h5>
-        <input type="text" pInputText [(ngModel)]="checkItem.correctSituation">
-      </div>
-      <div class="ui-g-12 text-center">
-        <p-button label="提交" (click)="save()"></p-button>
-      </div>
-    </div>
-
-  </p-dialog>
+    </p-dialog>
+  </div>
 </div>

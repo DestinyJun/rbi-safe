@@ -14,7 +14,6 @@
       margin-right: 0!important;
     }
   }
-
   .doubleDutyEvaluationContents {
     background-color: #ffffff;
     border-radius: 5px;
@@ -38,7 +37,10 @@
       padding: 0.97em;
     }
     .input{
-      /deep/ .ui-dropdown{
+      /deep/.ui-inputtext{
+        width: 100%;
+      }
+      /deep/.ui-calendar{
         width: 100%;
       }
       /deep/ .ui-fileupload .ui-fileupload-content{

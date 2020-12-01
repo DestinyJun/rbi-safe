@@ -20,8 +20,9 @@ export class LedgerComponent implements OnInit {
   public intentAimsLedgerTableHeader: TableHeader[] = [
     {field: 'organizationName', header: '组织名称'},
     {field: 'name', header: '清单名称'},
-    {field: 'maker', header: '制定人员'},
-    {field: 'idt', header: '制定时间'},
+    {field: 'idt', header: '填报时间'},
+    {field: 'totalScore', header: '总得分'},
+    {field: 'reduceScore', header: '总扣分'},
   ]; // 表头字段
   public intentAimsLedgerTableData: any[]; // 表体数据
   public intentAimsLedgerTableSelect: any = []; // 表格选择数据

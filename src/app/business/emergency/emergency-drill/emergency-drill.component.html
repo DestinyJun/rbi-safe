@@ -242,12 +242,13 @@
             <!--文件上传-->
             <div class="ui-g-12 ui-md-12">
               <label class="ui-g-2 ui-md-2 label">
-                <span>文件上传：</span>
+                <span>图片上传：</span>
               </label>
               <div class="ui-g-10 ui-md-10 input">
                 <p-fileUpload
                   #fileUpload
                   name="attachment"
+                  accept="image/*"
                   mode="advanced"
                   fileLimit="1"
                   invalidFileLimitMessageDetail="最多只能上传一个文件"

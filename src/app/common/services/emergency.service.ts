@@ -135,6 +135,14 @@ export class EmergencyService {
   }
 
   /**
+   * 应急预案删除
+   * @param params
+   */
+  public emergencyPlanDel(params: any): Observable<any> {
+    return this.http.post(`/emergencyPlan/delete`, params);
+  }
+
+  /**
    * 应急预案处理
    * @param params
    */

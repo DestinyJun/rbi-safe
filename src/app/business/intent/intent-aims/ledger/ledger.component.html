@@ -57,7 +57,7 @@
       [blockScroll]="true"
       [(visible)]="intentAimsLedgerOperateModal" [style]="{width: '50vw'}"
     >
-      <p-header>{{intentAimsLedgerOperateFlag === 'update' ? '编辑' : '添加'}}</p-header>
+      <p-header>{{intentAimsLedgerOperateFlag === 'update' ? '详情' : '添加'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <!--基础参数-->
@@ -70,11 +70,48 @@
               <div class="ui-g-8 ui-md-8 input">
                 <button
                   pButton type="button"
+                  [disabled]="intentAimsLedgerOperateFlag === 'update'"
                   style="width: 100%"
                   [label]="intentAimsOrgTreeSelect.label?intentAimsOrgTreeSelect.label:intentAimsOrgTreeSelectLabel"
                   class="ui-button-white text-left"
                   (click)="intentAimsLedgerOperate(intentAimsLedgerOperateFlag = 'orgTree')">
                 </button>
+              </div>
+            </div>
+            <!--清单名称-->
+            <div class="ui-g-6 ui-md-6" *ngIf="intentAimsLedgerOperateField.name">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>清单名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText [value]="intentAimsLedgerOperateField.name">
+              </div>
+            </div>
+            <!--填报时间-->
+            <div class="ui-g-6 ui-md-6" *ngIf="intentAimsLedgerOperateFlag === 'update'">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>填报时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText [value]="intentAimsLedgerOperateField.idt">
+              </div>
+            </div>
+            <!--总得分-->
+            <div class="ui-g-6 ui-md-6" *ngIf="intentAimsLedgerOperateFlag === 'update'">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>总得分：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText [value]="intentAimsLedgerOperateField.totalScore">
+              </div>
+            </div>
+            <!--总扣分-->
+            <div class="ui-g-6 ui-md-6" *ngIf="intentAimsLedgerOperateFlag === 'update'">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>总扣分：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText [value]="intentAimsLedgerOperateField.reduceScore">
               </div>
             </div>
           </div>

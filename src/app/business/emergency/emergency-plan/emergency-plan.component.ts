@@ -132,6 +132,7 @@ export class EmergencyPlanComponent implements OnInit {
         obj.clear();
         this.emPlanDropdownPlaceholder = item.reservePlanType;
         this.emPlanDropdownSelected = null;
+        this.emPlanMasterTreeSelectLabel = item.controlOrganization;
         this.emPlanHandleDropdownPlaceholder = item.reviewStatus === '0' ? '未通过' : '通过';
         this.emPlanHandleDropdownSelected = null;
         const objsHandle = new UpdateEmergencyPlanHandleFieldClass();
@@ -219,6 +220,16 @@ export class EmergencyPlanComponent implements OnInit {
       // 主控单位
       case 'masterTree':
         this.emPlanMasterTreeModal = true;
+        break;
+      // 批量删除
+      case 'multiple':
+        if (this.emPlanTableSelect.length > 0) {
+          if (window.confirm(`您确定需要这${this.emPlanTableSelect.length}项删除吗？`)) {
+            this.emPlanHttpOperate(this.emergencySrv.emergencyPlanDel({ids: this.emPlanTableSelect.map((val) => val.id)}));
+          }
+        } else {
+          window.alert('请您勾选需要删除的项！');
+        }
         break;
     }
   }

@@ -21,7 +21,7 @@
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th>勾选</th>
+          <!--<th>勾选</th>-->
           <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
@@ -31,9 +31,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
         <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
-          <td>
+        <!--  <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-          </td>
+          </td>-->
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{col.field !== 'reviewStatus'?rowData[col.field]:rowData[col.field] === '0'?'未通过':'通过'}}
