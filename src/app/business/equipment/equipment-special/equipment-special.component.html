@@ -37,7 +37,7 @@
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
           <td>{{rowIndex + 1}}</td>
-          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field] === 1?'正常':rowData[col.field] === 0?'异常': rowData[col.field]">
             {{rowData[col.field] === 1?'正常':rowData[col.field] === 0?'异常': rowData[col.field]}}
           </td>
           <td style="width: 18%">

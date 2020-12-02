@@ -9,18 +9,18 @@
   <div class="content">
     <div class="ui-g" style="height: 49%;margin-bottom: 1%;">
       <!--chart统计图-->
-      <div style="height: 100%;width: 52.4%;background: #fff;margin-right: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;" >
+      <div style="height: 100%;width: 49.4%;background: #fff;margin-right: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;" >
         <app-echarts-bar-stack
-          [title]="'各级安全活动数量统计'"
+          [title]="'各级安全活动数量'"
           [showSplitLine]="true"
           [showAxisLabel]="true"
-          [color]="['#024EC1', '#1F6BEC', '#4784EC', '#8DB7FF', '#C9D6FF']"
+          [color]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [echartData]="intentStatusTopBar">
         </app-echarts-bar-stack>
       </div>
-      <div style="height: 100%;width: 46.4%;background: #fff;margin-left: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;">
+      <div style="height: 100%;width: 49.4%;background: #fff;margin-left: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;">
         <app-echarts-line-normal
-          [title]="'安全生产投入支出统计'"
+          [title]="'安全生产投入支出'"
           [echartData]="intentStatusTopLine">
         </app-echarts-line-normal>
       </div>
@@ -32,8 +32,8 @@
           [echartData]="intentStatusBottomLeftBar"
           [showAxisLabel]="true"
           [showSplitLine]="true"
-          [barColor]="'#58C1F9'"
-          [title]="'一岗双责职责分数统计'">
+          [barColor]="'#ffd800'"
+          [title]="'一岗双责职责分数'">
         </app-echarts-bar-risk>
       </div>
       <div style="height: 100%;width: 49.4%;background: #fff;margin-left: 0.6%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;">
@@ -41,8 +41,8 @@
           [echartData]="intentStatusBottomRightBar"
           [showAxisLabel]="true"
           [showSplitLine]="true"
-          [barColor]="'#3B86FF'"
-          [title]="'目标完成情况分数统计'">
+          [barColor]="'#ff270a'"
+          [title]="'目标完成情况分数'">
         </app-echarts-bar-risk>
       </div>
     </div>

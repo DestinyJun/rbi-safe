@@ -12,14 +12,16 @@
         </p-dropdown>
       </div>
       <div class="warningCycleUpdate">
-        <span>SPI阈值设置</span>
+        <span style="vertical-align: middle">SPI阈值设置</span>
         <input type="number" disabled style="width: 100px;height: 30px" class="ml-2" [value]="0">
         <input type="number" style="width: 100px;height: 30px" class="ml-2" placeholder="阈值1" [(ngModel)]="setingSpiSillOperateField.thresholdOne">
         <input type="number" style="width: 100px;height: 30px" class="ml-2" placeholder="阈值2" [(ngModel)]="setingSpiSillOperateField.thresholdTwo">
         <input type="number" style="width: 100px;height: 30px" class="ml-2" placeholder="阈值3" [(ngModel)]="setingSpiSillOperateField.thresholdThree">
-        <div class="button">
+        <div class="button mr-2">
           <button pButton type="button" label="阈值修改" class="ui-button-warning ml-3" (click)="setingSpiOperate(setingSpiOperateFlag = 'sillUpdate')"></button>
         </div>
+        <p-inputSwitch name="开关" [(ngModel)]="setingSpiState" (onChange)="setingSpiOperate(setingSpiOperateFlag = 'switch', $event)"></p-inputSwitch>
+        <span class="ml-2" style="vertical-align: middle">{{setingSpiState?'开': '关'}}</span>
       </div>
     </div>
     <div class="button" style="flex: 1;text-align: right">

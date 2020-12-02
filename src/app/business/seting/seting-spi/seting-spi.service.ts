@@ -50,6 +50,13 @@ export class SetingSpiService {
   }
 
   /**
+   * spi系数设定模块开关
+   */
+  public setingSpiSwitch(params): Observable<any> {
+    return this.http.post(`/spi/start`, params);
+  }
+
+  /**
    * spi系数设定模块树修改周期阈值
    * @param params
    */

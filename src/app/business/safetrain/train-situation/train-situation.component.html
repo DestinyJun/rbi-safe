@@ -14,15 +14,15 @@
           [showSplitLine]="true"
           [showAxisLabel]="true"
           [echartData]="trainSituationTopChart"
-          title="教育培训平均成绩/覆盖率统计">
+          title="教育培训平均成绩/覆盖率">
         </app-echarts-bar-line>
       </div>
       <div class="ui-g-12 ui-md-12 mt-2" style="height: 50%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;">
         <app-echarts-bar-stack
-          [title]="'教育培训月数量统计'"
+          [title]="'教育培训月数量'"
           [showSplitLine]="true"
           [showAxisLabel]="true"
-          [color]="['#2246D5', '#3B86FF', '#58C1F9', '#91E5FF']"
+          [color]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [echartData]="trainSituationBottomChart">
         </app-echarts-bar-stack>
       </div>

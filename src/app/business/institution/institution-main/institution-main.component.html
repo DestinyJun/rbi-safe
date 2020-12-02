@@ -11,10 +11,11 @@
       <!--chart图表统计-->
       <div class="ui-g-12 ui-md-12" style="height: 80%">
         <app-echarts-bar-double
+          [color]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [showSplitLine]="true"
           [showAxisLabel]="true"
           [echartData]="institutionMainBar"
-          title="企业规章制度实施情况统计">
+          title="企业规章制度实施情况">
         </app-echarts-bar-double>
       </div>
     </div>

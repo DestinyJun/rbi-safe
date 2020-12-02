@@ -19,8 +19,10 @@
             [title]="'应急演练级别'">
           </app-echarts-bar-risk>
       </div>
-      <div style="height: 80%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;margin-left: 0.6%;width: 49.4%">
+      <div style="height: 80%;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;margin-left: 0.6%;width: 49.4%;position: relative">
+        <span style="position:absolute;left: 30px;top: 11px;font-size: 18px;color:#4D4F5C;font-weight: bolder">应急预案数量</span>
         <app-echarts-pie-trouble
+          [color]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [title]="'应急预案'"
           unit="份"
           [echartData]="emSituationPie">

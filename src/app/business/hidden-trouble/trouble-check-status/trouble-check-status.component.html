@@ -11,10 +11,11 @@
       <!--隐患整改率-->
       <div class="ui-g-12 ui-md-12" style="height: 80%">
         <app-echarts-bar-line
+          [isShowDotted]="true"
           [showSplitLine]="true"
           [showAxisLabel]="true"
           [echartData]="troubleCheckChart"
-          [barColor]="['#2246D5', '#3B86FF', '#63DCAF', '#8EFFD5']"
+          [barColor]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [lineColor]="['#B2A0FE', '#FF9AA7']"
           title="隐患等级/隐患整改率">
         </app-echarts-bar-line>

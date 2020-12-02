@@ -23,6 +23,7 @@ import {TableModule} from 'primeng/table';
 import {AppConfig, init_app} from '../../common/services/app.config';
 import {MobilAppManagerComponent} from './mobil-app-manager/mobil-app-manager.component';
 import { SetingSpiComponent } from './seting-spi/seting-spi.component';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { SetingSpiComponent } from './seting-spi/seting-spi.component';
     MessageModule,
     TableModule,
     TooltipModule,
-    TreeTableModule
+    TreeTableModule,
+    InputSwitchModule
   ],
   providers: [
     DatePipe,

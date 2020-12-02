@@ -79,7 +79,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
             },
             stack: '阈值',
             areaStyle: {
-              color:  'rgb(0,0,255)',
+              color:  '#97b9fc',
               origin: 'start',
               opacity: 1
             },
@@ -105,7 +105,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
               }
             },
             areaStyle: {
-              color: 'rgb(255,255,0)',
+              color: '#fefe9f',
               opacity: 1
             },
             lineStyle: {
@@ -130,7 +130,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
               }
             },
             areaStyle: {
-              color: 'rgb(255,97,0)',
+              color: '#fea96d',
               opacity: 1
             },
             lineStyle: {
@@ -242,7 +242,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
           splitArea: {
             show: true,
             areaStyle: {
-              color: 'red'
+              color: '#ff6c6a'
             }
           },
           axisTick: {

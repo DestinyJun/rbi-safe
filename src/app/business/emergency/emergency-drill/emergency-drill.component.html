@@ -239,6 +239,24 @@
                 <textarea [rows]="5" [cols]="30" [(ngModel)]="emDrillOperateField.influence" pInputTextarea autoResize="autoResize" placeholder="请填写演练影响"></textarea>
               </div>
             </div>
+            <!--已有图片-->
+            <div class="ui-g-12 ui-md-12" *ngIf="emDrillOperateFlag === 'update'">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>已有图片：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <div *ngFor="let item of emDrillImgList" class="ml-2" style="display: inline-block;position:relative;">
+                  <i
+                    [pTooltip]="'删除'"
+                    (click)="emDrillOperate('imgDel',item)"
+                    class="fa fa-trash"
+                    style="font-size: 24px;position:absolute;top: 0;right: 0;color: red;cursor: pointer;">
+                  </i>
+                  <img  [src]="item" style="height:100px;width: auto">
+                </div>
+                <span *ngIf="emDrillImgList.length === 0">暂无图片</span>
+              </div>
+            </div>
             <!--文件上传-->
             <div class="ui-g-12 ui-md-12">
               <label class="ui-g-2 ui-md-2 label">
@@ -247,12 +265,10 @@
               <div class="ui-g-10 ui-md-10 input">
                 <p-fileUpload
                   #fileUpload
+                  multiple="multiple"
                   name="attachment"
                   accept="image/*"
                   mode="advanced"
-                  fileLimit="1"
-                  invalidFileLimitMessageDetail="最多只能上传一个文件"
-                  invalidFileLimitMessageSummary="上传文件超出限制！"
                   chooseLabel="点击上传"
                   [showCancelButton]="false"
                   [showUploadButton]="false"

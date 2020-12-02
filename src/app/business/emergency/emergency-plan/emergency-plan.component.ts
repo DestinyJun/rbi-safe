@@ -23,7 +23,7 @@ export class EmergencyPlanComponent implements OnInit {
     {field: 'controlOrganization', header: '主控单位名称'},
     {field: 'reservePlanType', header: '预案类别'},
     {field: 'filingOrganization', header: '备案单位'},
-    {field: 'reviewStatus', header: '是否通过专家评估'},
+    {field: 'reviewStatus', header: '是否通过专家评审'},
   ]; // 表头字段
   public emPlanTableData: any[]; // 表体数据
   public emPlanTableSelect: any = []; // 表格选择数据

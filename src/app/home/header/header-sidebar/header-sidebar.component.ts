@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../../common/services/local-storage.service';
 import {HomeService} from '../../../common/services/home.service';
@@ -11,6 +11,7 @@ import {objectCopy} from '../../../common/public/contents';
   styleUrls: ['./header-sidebar.component.scss']
 })
 export class HeaderSidebarComponent implements OnInit {
+  @Output() personInit: EventEmitter<any> = new EventEmitter<any>();
   public hdPersonInfo: PersonInfo = new PersonInfoClass();
   public hdPersionPassword: PersionPasswordClass = new PersionPasswordClass();
   public surePsd: string = '';
@@ -25,6 +26,7 @@ export class HeaderSidebarComponent implements OnInit {
   ngOnInit() {
     this.HomeSrv.getPersonInfo().subscribe((res) => {
       this.hdPersonInfo = objectCopy(new PersonInfoClass(), res.data);
+      this.personInit.emit(this.hdPersonInfo);
     });
   }
   public loginOut() {

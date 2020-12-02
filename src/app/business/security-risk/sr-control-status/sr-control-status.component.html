@@ -14,16 +14,16 @@
           [showSplitLine]="true"
           [showAxisLabel]="true"
           (chartClick)="striskStatusOperate(striskStatusOperateFlag = 'chart', $event)"
-          [color]="['#2246D5', '#3B86FF', '#58C1F9', '#63DCAF']"
+          [color]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [echartData]="striskStatusYearBar"
-          title="风险分级管控数量统计">
+          title="风险分级管控数量">
         </app-echarts-bar-double>
       </div>
       <div class="ui-g-6 ui-md-6" style="height: 80%">
         <app-echarts-bar-double
           [showSplitLine]="true"
           [showAxisLabel]="true"
-          [color]="['#024EC1', '#1F6BEC', '#4784EC', '#8DB7FF', '#C9D6FF']"
+          [color]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [echartData]="striskStatusMonthBar"
           title="控制措施有效性">
         </app-echarts-bar-double>

@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.username = this.localSrv.get('username');
     const data = this.localSrv.getObject('limitData');
     data.forEach(v => {
       if (v.permissionName === '系统设置') {
@@ -42,6 +41,10 @@ export class HeaderComponent implements OnInit {
         this.showNotice = true;
       }
     });
+  }
+
+  public personInit(event) {
+    this.username = event.name;
   }
 
   private async getData(): Promise<any> {
@@ -97,6 +100,12 @@ export class HeaderComponent implements OnInit {
     this.outEvent.emit('true');
     this.localSrv.set('isSetBar', 'true');
     this.router.navigate(['/home/seting/user']);
+  }
+
+  public routerChange(item) {
+    this.outEvent.emit('false');
+    this.localSrv.set('isSetBar', 'false');
+    this.router.navigate([item]);
   }
 
   public setHomeClick(): void {

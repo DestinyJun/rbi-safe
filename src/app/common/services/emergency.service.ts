@@ -191,6 +191,14 @@ export class EmergencyService {
     return this.http.post(`/mineEmergencyDrill/update`, params);
   }
 
+  /**
+   * 应急演练图片删除
+   * @param params
+   */
+  public emergencyDrillImgDel(params: any): Observable<any> {
+    return this.http.post(`/mineEmergencyDrill/deleteImg`, params);
+  }
+
   /** ********************** 预计预案评估历史记录 **********************  */
   /**
    * 预计预案评估历史记录分页查看

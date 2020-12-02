@@ -51,11 +51,7 @@ export class EmergencyRecordComponent implements OnInit {
         const objs = new UpdateEmergencyRecordFieldClass();
         for (const keys in objs) {
           if (objs.hasOwnProperty(keys)) {
-            if (keys === 'reviewStatus') {
-              this.emRecordOperateField[keys] = item[keys] === '0' ? '未通过' : '通过';
-            } else {
-              this.emRecordOperateField[keys] = item[keys];
-            }
+            this.emRecordOperateField[keys] = item[keys];
           }
         }
         this.emRecordOperateModal = true;

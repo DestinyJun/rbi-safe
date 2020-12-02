@@ -18,7 +18,7 @@ export class IntentCultureComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public cultureTableHeader: TableHeader[] = [
-    {field: 'organizationName', header: '组织单位'},
+    {field: 'organizationName', header: '实施单位'},
     {field: 'activityName', header: '活动名称'},
     {field: 'activityLevel', header: '活动等级'},
     {field: 'startTime', header: '开展日期'},

@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 export class EchartsBarLineComponent implements OnInit, OnChanges {
 
   @Input() public echartData: any; // 统计图数据
+  @Input() public isShowDotted: boolean = false; // 是否开启虚线
   @Input() public title: string = ''; // 统计图标题
   @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
   @Input() public showAxisLabel: boolean = false; // 是否显示刻度值
@@ -59,6 +60,9 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
           color: this.lineColor[index],
           symbolSize: 8,
           yAxisIndex: 1,
+          lineStyle: {
+            type: this.isShowDotted ? 'dashed' : 'solid'
+          },
           data: item.value,
         };
       });

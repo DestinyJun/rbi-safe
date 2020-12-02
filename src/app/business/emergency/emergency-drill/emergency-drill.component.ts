@@ -57,6 +57,8 @@ export class EmergencyDrillComponent implements OnInit {
   public emDrillPlanPlaitTreeSelect: OrgTree = {}; // 计划承办演练单位组织树选择
   public emDrillPlanPlaitTreeSelectLabel: any = '点击选择计划承办演练单位'; // 计划承办演练单位组织树label
 
+  public emDrillImgList: any = []; // 图片文件列表
+  public emDrillImgId: any = null; // 图片所属Id
 
   constructor(
     private emergencySrv: EmergencyService,
@@ -92,6 +94,15 @@ export class EmergencyDrillComponent implements OnInit {
   // 基础操作
   public emDrillOperate(flag: string, item?: any, obj?: any) {
     switch (flag) {
+      // 图片删除操作
+      case 'imgDel':
+        if (window.confirm('您确定需要删除吗？')) {
+          this.emergencySrv.emergencyDrillImgDel({id: this.emDrillImgId, realPath: item}).subscribe((res) => {
+            this.emDrillImgList = this.emDrillImgList.filter((val) => (val !== item));
+            this.emDrillDataInit(this.emDrillNowPage, this.emDrillPageOption.pageSize);
+          });
+        }
+        break;
       // 添加操作初始化
       case 'add':
         this.emDrillOperateModal = true;
@@ -105,6 +116,13 @@ export class EmergencyDrillComponent implements OnInit {
       // 编辑操作初始化
       case 'update':
         obj.clear();
+        this.emDrillImgList = [];
+        if (item.attachmentPaths) {
+          item.attachmentPaths.forEach(res => {
+            this.emDrillImgList.push(res);
+          });
+        }
+        this.emDrillImgId = item.id;
         this.emDrillMasterPlaitTreeSelectLabel = item.controlOrganization;
         this.emDrillPlanPlaitTreeSelectLabel = item.projectUndertaker;
         this.emDrillMasterPlaitTreeSelect = {};
@@ -151,7 +169,7 @@ export class EmergencyDrillComponent implements OnInit {
           });
           if (item.length > 0) {
             item.forEach(res => {
-              field.append('filingAttachment', res);
+              field.append('attachment', res);
             });
           }
           this.emDrillHttpOperate(this.emergencySrv.emergencyDrillUpdate(field));
@@ -172,7 +190,7 @@ export class EmergencyDrillComponent implements OnInit {
           });
           if (item.length > 0) {
             item.forEach(res => {
-              field.append('filingAttachment', res);
+              field.append('attachment', res);
             });
           }
           this.emDrillHttpOperate(this.emergencySrv.emergencyDrillAdd(field));

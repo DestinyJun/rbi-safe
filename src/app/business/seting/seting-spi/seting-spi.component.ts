@@ -35,6 +35,8 @@ export class SetingSpiComponent implements OnInit {
   public setingSpiTreeSelectLabel: any = '点击选择所属父级'; // 组织树label
   public setingSpiDropdownOptions: any = []; // 状态下拉配置项
   public setingSpiSillOperateField: SetingSillApiField = new UpdateSetingSillApiFieldClass(); // 阈值操作字段
+  public setingSpiState: boolean = false;
+
   constructor(
     private setingSpiSrv: SetingSpiService,
     private globalSrv: GlobalService,
@@ -55,6 +57,7 @@ export class SetingSpiComponent implements OnInit {
   // 初始化周期阈值
   private setingSpiSillInit() {
     this.setingSpiSrv.setingSpiViewSill().subscribe((res) => {
+      this.setingSpiState = res.data.status === 1;
       for (const key in this.setingSpiSillOperateField) {
         if (this.setingSpiSillOperateField.hasOwnProperty(key)) {
           this.setingSpiSillOperateField[key] = res.data[key];
@@ -93,6 +96,12 @@ export class SetingSpiComponent implements OnInit {
   // 基础操作
   public setingSpiOperate(flag: string, item?: any) {
     switch (flag) {
+      // switch开关
+      case 'switch':
+        this.setingSpiSrv.setingSpiSwitch({status: item.checked ? 1 : 0}).subscribe((res) => {
+          window.alert(res.message);
+        });
+        break;
       // 添加操作初始化
       case 'add':
         this.setingSpiOperateModal = true;
