@@ -205,6 +205,7 @@ export class LoginComponent implements OnInit {
       ]
     }
   ];
+  public bgcUrl: string = null;
   constructor(
     private route: Router,
     private loginSrv: LoginService,
@@ -222,6 +223,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.preloadImg('assets/image/login_bg.png');
   }
 
   public loginClick(): void {
@@ -240,5 +242,13 @@ export class LoginComponent implements OnInit {
         this.route.navigate([router[0].link]);
       });
     }
+  }
+
+  public preloadImg(url) {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => {
+      this.bgcUrl = url;
+    };
   }
 }
