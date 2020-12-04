@@ -2,7 +2,7 @@
   /*背景颜色*/
   --bgc-theme: '';
   /*  头部背景颜色*/
-  --header-bgc: '';
+  --header-bgc: '#ffffff';
   --header-title-bgc: '';
   /* 内容背景颜色 */
   --body-bgc: '';

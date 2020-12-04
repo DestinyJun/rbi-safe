@@ -20,7 +20,37 @@
         </app-echarts-bar-risk>
       </div>
       <div class="ui-g-5 ui-md-5" style="height: 80%">
-        <h4 style="padding-top: 10px;color: #4D4F5C">起始日期</h4>
+        <h4 style="padding-top: 10px;color: #4D4F5C"></h4>
+        <p-calendar
+          #calendarDate
+          placeholder="点击选择开始日期"
+          [locale]="acSituationEs" [(ngModel)]="acSituationStartTime"
+          dateFormat="yy-mm-dd"
+          dataType="string"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [showTime]="false"
+          yearRange="1930:2030">
+          <p-footer>
+            <button pButton type="button" label="关闭" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+          </p-footer>
+        </p-calendar>
+        <p-calendar
+          styleClass="ml-3"
+          #calendarDate
+          placeholder="点击选择结束日期"
+          [locale]="acSituationEs" [(ngModel)]="acSituationEndTime"
+          dateFormat="yy-mm-dd"
+          dataType="string"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [showTime]="false"
+          yearRange="1930:2030">
+          <p-footer>
+            <button pButton type="button" label="关闭" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+          </p-footer>
+        </p-calendar>
+        <button pButton type="button" label="查询" class="ui-button-danger ml-3" (click)="acSituationOperate(acSituationOperateFlag = 'changeChart')"></button>
         <app-echarts-pie-trouble
           [title]="'事故占比'"
           unit="起"

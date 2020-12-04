@@ -10,6 +10,7 @@ import {Store} from '@ngrx/store';
 import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
 import {Location} from '@angular/common';
+import {Hidden, Show} from '../../store/loadstatus.actions';
 const DEFAULTTIMEOUT = 100000000;
 
 @Injectable()
@@ -96,7 +97,7 @@ export class AuthInterceptor implements HttpInterceptor {
     //     headers: req.headers
     //   });
     // }
-    this.store.dispatch({type: 'false'});
+    this.store.dispatch(new Show());
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
     }
@@ -133,8 +134,8 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
-        this.store.dispatch({type: 'true'});
         if (event.status === 200) {
+          this.store.dispatch(new Hidden());
           if (this.skipState.includes(event.body.status) || event.url.includes('/usr/work')) {
             // this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
@@ -146,6 +147,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: any) => {
+        this.store.dispatch(new Hidden());
         if (error.status === 500) {
           this.router.navigate(['/error'], {
             queryParams: {
@@ -155,7 +157,8 @@ export class AuthInterceptor implements HttpInterceptor {
             }
           });
           return EMPTY;
-        }else if (error.status === 200) {
+        }
+        else if (error.status === 200) {
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;
@@ -177,7 +180,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
-    this.store.dispatch({type: 'false'});
+    this.store.dispatch(new Show());
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
     }
@@ -215,8 +218,8 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
-        this.store.dispatch({type: 'true'});
         if (event.status === 200) {
+          this.store.dispatch(new Hidden());
           if (this.skipState.includes(event.body.status)  || event.url.includes('/usr/work')) {
             // this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
@@ -228,6 +231,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: any) => {
+        this.store.dispatch(new Hidden());
         if (error.status === 500) {
           this.router.navigate(['/error'], {
             queryParams: {

@@ -52,10 +52,18 @@ export class AccidentService {
   }
 
   /**
-   * 生产安全事故现状饼状图
+   * 生产安全事故现状饼状图一
    * @param params
    */
   public accidentSituationPie(params: any): Observable<any> {
     return this.http.post(`/accident/getMonthDataType`, params);
+  }
+
+  /**
+   * 生产安全事故现状饼状图二
+   * @param params
+   */
+  public accidentSituationPieRTwo(params: any): Observable<any> {
+    return this.http.post(`/accident/getYearMonthDataType`, params);
   }
 }

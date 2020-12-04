@@ -13,7 +13,6 @@ export class LoadingComponent implements OnInit {
   constructor(private store: Store<AppState>) {
     this.count$ = store.pipe(select('loadhidden'));
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

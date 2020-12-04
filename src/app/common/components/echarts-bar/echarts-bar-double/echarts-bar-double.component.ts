@@ -88,7 +88,8 @@ export class EchartsBarDoubleComponent implements OnInit, OnChanges {
         right: '10%',
         top: '3%',
         textStyle: {
-          color: '#AAAAAA'
+          color: '#AAAAAA',
+          fontSize: 16,
         },
         itemWidth: 16,
         itemHeight: 16,

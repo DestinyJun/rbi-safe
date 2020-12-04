@@ -12,6 +12,7 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
   @Input() public title: string = ''; // 统计图标题
   @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
   @Input() public showAxisLabel: boolean = false; // 是否显示刻度值
+  @Input() public yAxisSplitLineType: string = 'solid'; // y坐标轴在 grid 区域中的分隔线的类型
   @Input() public axisLabelRotate: number = 0; // 横坐标类目文字偏转角度
   @Input() public gridBottom: number = 5; // 坐标轴整体距离底部的距离（百分比）
   @Input() public barColor: Array<any> = [ '#3A85FF']; // 柱状图基础配色
@@ -141,7 +142,8 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
           splitLine: {
             show: this.showSplitLine,
             lineStyle: {
-              color: 'rgba(255,163,71,0.5)'
+              color: 'rgba(255,163,71,0.5)',
+              type: this.yAxisSplitLineType
             }
           },
           axisLabel: {

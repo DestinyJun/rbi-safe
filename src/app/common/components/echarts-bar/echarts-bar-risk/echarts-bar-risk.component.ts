@@ -13,6 +13,7 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
   @Input() public title: any; // 统计图标题
   @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
   @Input() public showAxisLabel: boolean = false; // 是否显示刻度值
+  @Input() public showAxisLine: boolean = false; // 是否X坐标轴线
   @Input() public barColor: string = '#36CE9E'; // 柱状图颜色
   @Output() public chartClick = new EventEmitter<any>();
   public color: Array<any> = [ '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69'];
@@ -95,11 +96,10 @@ export class EchartsBarRiskComponent implements OnInit, OnChanges {
           show: false
         },
         axisLine: {
-          show: false,
-          align: 'center',
+          show: this.showAxisLine,
           lineStyle: {
-            color: '#A3',
-            fontSize: '14px'
+            color: '#FFC005',
+            width: 2
           }
         },
         axisLabel: {

@@ -56,7 +56,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
         <!--普通列表-->
-        <tr [pSelectableRow]="rowData" [ngStyle]="option.Content.styleone">
+        <tr [pSelectableRow]="rowData">
           <td  *ngFor="let col of columns?.slice(0, columns?.length-1)" >
             <span style="word-wrap:break-word" [ngStyle]="{'color': rowData['color']}">{{rowData[col.field]}}</span>
           </td>

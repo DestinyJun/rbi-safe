@@ -1,9 +1,9 @@
 #loading{
-  //background-color: #45b29d;
-  height: 100%;
-  width: 100%;
+  background-color: rgba(46,50,57,0.5);
+  height: 100vh;
+  width: 100vw;
   position: fixed;
-  z-index: 1;
+  z-index: 99999;
   margin-top: 0;
   top: 0;
 }
@@ -20,13 +20,12 @@
   width: 150px;
   margin-top: -25px;
   margin-left: -75px;
-
 }
 .object{
   width: 8px;
   height: 50px;
   margin-right:5px;
-  background-color: var(--header-bgc);
+  background-color: #ffffff;
   -webkit-animation: animate 1s infinite;
   animation: animate 1s infinite;
   float: left;

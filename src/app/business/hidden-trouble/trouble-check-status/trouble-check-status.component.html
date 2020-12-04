@@ -11,7 +11,8 @@
       <!--隐患整改率-->
       <div class="ui-g-12 ui-md-12" style="height: 80%">
         <app-echarts-bar-line
-          [isShowDotted]="true"
+          yAxisSplitLineType="dashed"
+          [isShowDotted]="false"
           [showSplitLine]="true"
           [showAxisLabel]="true"
           [echartData]="troubleCheckChart"
