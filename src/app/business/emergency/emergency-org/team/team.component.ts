@@ -23,7 +23,7 @@ export class TeamComponent implements OnInit {
     {field: 'natureOfTheTeam', header: '队伍性质'},
     {field: 'numberOfPeople', header: '人数'},
     {field: 'captain', header: '队长'},
-    {field: 'mobilePhone', header: '队长手机'},
+    {field: 'mobilePhone', header: '联系方式'},
   ]; // 表头字段
   public eoTeamTableData: any[]; // 表体数据
   public eoTeamTableSelect: any = []; // 表格选择数据

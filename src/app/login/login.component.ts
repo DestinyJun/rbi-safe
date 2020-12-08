@@ -3,6 +3,9 @@ import {Router} from '@angular/router';
 import {LoginService} from '../common/services/login.service';
 import {PublicMethodService} from '../common/public/public-method.service';
 import {LocalStorageService} from '../common/services/local-storage.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../store/loadstatus.state';
+import {Show} from '../store/loadstatus.actions';
 
 @Component({
   selector: 'app-login',
@@ -210,7 +213,8 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private loginSrv: LoginService,
     private toolSrv: PublicMethodService,
-    private localSrv: LocalStorageService
+    private localSrv: LocalStorageService,
+    private store: Store<AppState>,
   ) {
   }
   @HostListener('window:keydown', ['$event'])
@@ -227,6 +231,7 @@ export class LoginComponent implements OnInit {
   }
 
   public loginClick(): void {
+    this.store.dispatch(new Show());
     if (this.username !== '' && this.password !== '') {
       this.loginSrv.login({username: this.username, password: this.password}).subscribe(val => {
         this.localSrv.set('token', val.token);

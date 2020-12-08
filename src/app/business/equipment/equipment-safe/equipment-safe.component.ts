@@ -18,7 +18,7 @@ export class EquipmentSafeComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public eqSafeTableHeader: TableHeader[] = [
-    {field: 'organizationName', header: '组织单位'},
+    {field: 'organizationName', header: '使用单位'},
     {field: 'type', header: '类型'},
     {field: 'majorEquipment', header: '主要设备设施'},
     {field: 'modelAndSpecification', header: '型号及规则'},

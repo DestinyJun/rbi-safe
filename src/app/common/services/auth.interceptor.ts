@@ -97,7 +97,7 @@ export class AuthInterceptor implements HttpInterceptor {
     //     headers: req.headers
     //   });
     // }
-    this.store.dispatch(new Show());
+    // this.store.dispatch(new Show());
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
     }
@@ -180,7 +180,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
-    this.store.dispatch(new Show());
+    // this.store.dispatch(new Show());
     if (this.skipUrlPre.indexOf(req.url) > -1) {
       this.clonedRequest = req;
     }

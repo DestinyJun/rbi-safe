@@ -30,6 +30,7 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
       const bardata = [];
       const barBottomData = [];
       const barTopData = [];
+      const bardataTrans = [];
       this.echartData.barData.forEach((item) => {
         if (item < 0) {
           bardata.push({
@@ -53,12 +54,6 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
                 }
               }
             },
-            label: {
-              show: true,
-              color: '#448BFF',
-              position: item > -10 ? ['10%', 20] : ['10%', '150%'],
-              formatter: '{c}%',
-            },
           });
           barBottomData.push({
             value: item,
@@ -73,7 +68,24 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
             value: item,
             symbolOffset: [0, 10],
           });
-        } else {
+          bardataTrans.push({
+            value: item - 5,
+            itemStyle: {
+              normal: {
+                color: 'transparent'
+              }
+            },
+            label: {
+              show: true,
+              color: '#448BFF',
+              position: 'bottom',
+              formatter: () => {
+                return item;
+              },
+            },
+          });
+        }
+        else {
           bardata.push({
             value: item,
             itemStyle: {
@@ -95,12 +107,6 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
                 }
               }
             },
-            label: {
-              show: true,
-              color: '#448BFF',
-              position: [0, -25],
-              formatter: '{c}%',
-            },
           });
           barBottomData.push({
             value: item,
@@ -110,14 +116,29 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
             value: item,
             symbolOffset: [0, -10],
           });
+          bardataTrans.push({
+            value: item + 3,
+            itemStyle: {
+              normal: {
+                color: 'transparent'
+              }
+            },
+            label: {
+              show: true,
+              color: '#448BFF',
+              position: 'top',
+              formatter: () => {
+                return item;
+              },
+            },
+          });
         }
-
       });
-      this.updateOption(this.echartData.xdata, bardata, barBottomData, barTopData);
+      this.updateOption(this.echartData.xdata, bardata, barBottomData, barTopData, bardataTrans);
     }
   }
 
-  private updateOption(xdata, bardata, barBottomData, barTopData): void {
+  private updateOption(xdata, bardata, barBottomData, barTopData, bardataTrans): void {
     this.option = {
       title: {
         text: this.title,
@@ -130,7 +151,7 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
       },
       tooltip: {
         trigger: 'axis',
-        formatter: '{b} : {c}%',
+        formatter: '{b} : {c}',
         axisPointer: { // 坐标轴指示器，坐标轴触发有效
           type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
         }
@@ -255,7 +276,15 @@ export class EchartsBarDimensionalComponent implements OnInit, OnChanges {
             }
           },
           data: barTopData
-        }
+        },
+        // 透明柱体
+        {
+          name: '',
+          type: 'bar',
+          barWidth: 30,
+          barGap: '-100%', /*此属性设置两个柱状图的间隔位置*/
+          data: bardataTrans
+        },
       ]
     };
   }

@@ -15,7 +15,7 @@ export class FrameComponent implements OnInit {
   public frameDropdownPlaceholder: any = '下拉切换组织'; //  状态下拉label
   public frameDropdownOptions: any = [
     {value: 87, label: ' 矿业公司'},
-    {value: 94, label: ' 坛罐窑铝'},
+    {value: 94, label: ' 坛罐窑铝矿'},
     {value: 99, label: ' 小长冲河铝矿'},
     {value: 98, label: ' 猫场铝矿'},
     {value: 97, label: ' 麦坝铝矿'},

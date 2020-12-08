@@ -40,7 +40,12 @@
           </td>
           <td style="width: 18%">
             <button pButton label="详情" class="ui-button-rounded mr-2" (click)="emPlanOperate(emPlanOperateFlag='update',rowData, fileUpload)"></button>
-            <button pButton label="处理" class="ui-button-rounded ui-button-pink mr-2" (click)="emPlanOperate(emPlanOperateFlag='handle',rowData,fileUploadHandle)"></button>
+            <button
+              [disabled]="rowData['reviewStatus'] === '0'"
+              pButton label="处理"
+              class="ui-button-rounded ui-button-pink mr-2"
+              (click)="emPlanOperate(emPlanOperateFlag='handle',rowData,fileUploadHandle)">
+            </button>
             <button pButton label="附件" class="ui-button-rounded ui-button-warning" (click)="emPlanOperate(emPlanOperateFlag='open',rowData.filingAttachmentPath)"></button>
           </td>
         </tr>
