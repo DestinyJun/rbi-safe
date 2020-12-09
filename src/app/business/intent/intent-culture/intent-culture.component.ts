@@ -5,6 +5,9 @@ import {Es, orgInitializeTree} from '../../../common/public/contents';
 import {IntentService} from '../../../common/services/intent.service';
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
+import {Show} from '../../../store/loadstatus.actions';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/loadstatus.state';
 
 @Component({
   selector: 'app-intent-culture',
@@ -46,6 +49,7 @@ export class IntentCultureComponent implements OnInit {
   constructor(
     private intentSrv: IntentService,
     private globalSrv: GlobalService,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
@@ -103,6 +107,7 @@ export class IntentCultureComponent implements OnInit {
         break;
       // 保存操作
       case 'save':
+        this.store.dispatch(new Show());
         // 修改保存
         if (this.cultureOperateField.id) {
           if ('id' in this.cultureOrgTreeSelect ) {

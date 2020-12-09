@@ -5,6 +5,9 @@ import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
 import {EmergencyService} from '../../../common/services/emergency.service';
 import {AddEmergencyPlanFieldClass, EmergencyPlanField, EmergencyPlanHandleField, UpdateEmergencyPlanFieldClass, UpdateEmergencyPlanHandleFieldClass} from '../emergencyApi';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/loadstatus.state';
+import {Show} from '../../../store/loadstatus.actions';
 
 @Component({
   selector: 'app-emergency-plan',
@@ -62,6 +65,7 @@ export class EmergencyPlanComponent implements OnInit {
   constructor(
     private emergencySrv: EmergencyService,
     private globalSrv: GlobalService,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
@@ -147,6 +151,7 @@ export class EmergencyPlanComponent implements OnInit {
       case 'save':
         // 修改保存
         if (this.emPlanOperateField.id) {
+          this.store.dispatch(new Show());
           if ('id' in this.emPlanMasterTreeSelect ) {
             this.emPlanOperateField.controlOrganizationId = this.emPlanMasterTreeSelect.id;
             this.emPlanOperateField.controlOrganization = this.emPlanMasterTreeSelect.label;
@@ -171,6 +176,7 @@ export class EmergencyPlanComponent implements OnInit {
         }
         // 新增保存
         else {
+          this.store.dispatch(new Show());
           if ('id' in this.emPlanMasterTreeSelect ) {
             this.emPlanOperateField.controlOrganizationId = this.emPlanMasterTreeSelect.id;
             this.emPlanOperateField.controlOrganization = this.emPlanMasterTreeSelect.label;
@@ -196,6 +202,7 @@ export class EmergencyPlanComponent implements OnInit {
         break;
       // 处理保存操作
       case 'handleSave':
+        this.store.dispatch(new Show());
         if (this.emPlanDropdownSelected ) {
           this.emPlanHandleField.reservePlanType = this.emPlanDropdownSelected.value;
         }

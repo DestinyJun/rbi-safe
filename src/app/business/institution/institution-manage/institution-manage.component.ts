@@ -4,6 +4,9 @@ import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
 import {InstitutionService} from '../../../common/services/institution.service';
 import {AddInstitutionManageFieldClass, InstitutionManageAssessField, InstitutionManageAssessFieldClass, InstitutionManageField, InstitutionManageUpdateField, UpdateInstitutionManageFieldClass} from '../institutionApi';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/loadstatus.state';
+import {Show} from '../../../store/loadstatus.actions';
 
 @Component({
   selector: 'app-institution-manage',
@@ -46,6 +49,7 @@ export class InstitutionManageComponent implements OnInit {
   constructor(
     private institutionSrv: InstitutionService,
     private globalSrv: GlobalService,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
@@ -101,6 +105,7 @@ export class InstitutionManageComponent implements OnInit {
         break;
       // 添加保存操作
       case 'save':
+        this.store.dispatch(new Show());
         const field = new FormData();
         Object.keys(this.institutionManageOperateField).forEach(res => {
           field.append(res, this.institutionManageOperateField[res]);
@@ -114,6 +119,7 @@ export class InstitutionManageComponent implements OnInit {
         break;
       // 修改保存操作
       case 'updateSave':
+        this.store.dispatch(new Show());
         const updateField = new FormData();
         Object.keys(this.institutionManageUpdateField).forEach(res => {
           updateField.append(res, this.institutionManageUpdateField[res]);
@@ -150,6 +156,7 @@ export class InstitutionManageComponent implements OnInit {
         break;
       // 评估保存操作
       case 'assessSave':
+        this.store.dispatch(new Show());
         const assessField = new FormData();
         Object.keys(this.institutionManageAssessField).forEach(res => {
           assessField.append(res, this.institutionManageAssessField[res]);
