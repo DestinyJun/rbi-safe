@@ -58,11 +58,13 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="cultureOperateModal" [style]="{width: '50vw'}"
+      (onHide)="cultureOperate(cultureOperateFlag = 'cancel')"
     >
       <p-header>{{cultureOperateFlag === 'update' ? '编辑操作' : '添加操作'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
+          <form [formGroup]="cultureFormModal">
+            <div class="ui-g">
             <!--开展日期-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
@@ -70,6 +72,7 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-calendar
+                  formControlName="startTime"
                   #calendarDate
                   placeholder="点击选择时间......"
                   [locale]="cultureEs" [(ngModel)]="cultureOperateField.startTime"
@@ -106,7 +109,7 @@
                 <span>活动名称：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填活动名称" [(ngModel)]="cultureOperateField.activityName">
+                <input type="text" formControlName="activityName" pInputText placeholder="请填活动名称">
               </div>
             </div>
             <!--活动等级-->
@@ -116,10 +119,11 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-dropdown
+                  formControlName="activityLevel"
                   [style]="{width: '100%'}"
-                  [placeholder]="cultureDropdownPlaceholder"
-                  [options]="cultureDropdownOptions" [(ngModel)]="cultureDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
+                  placeholder="点击选择活动等级"
+                  [options]="cultureDropdownOptions"
+                  dropdownIcon="fa fa-caret-down">
                 </p-dropdown>
               </div>
             </div>
@@ -169,10 +173,11 @@
                 <span>备注：</span>
               </label>
               <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="cultureOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+                <textarea [rows]="5" [cols]="30" formControlName="remarks"  pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
               </div>
             </div>
           </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>

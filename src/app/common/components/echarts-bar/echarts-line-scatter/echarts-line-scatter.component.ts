@@ -180,7 +180,8 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         left: '3%',
         right: '3%',
         bottom: '2%',
-        containLabel: true,
+        show: false,
+        containLabel: false
       },
       legend: [
         {
@@ -213,6 +214,12 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
           margin: 30,
           color: '#B8B8B8'
         },
+        splitArea: {
+          show: true,
+          areaStyle: {
+            color: '#ff6c6a'
+          }
+        },
         axisTick: {
           show: true,
           length: 25,
@@ -226,43 +233,47 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         splitLine: {
           show: false,
           lineStyle: {
-            color: 'rgba(255,255,255,0.1)'
+            color: '#ffffff'
           }
         },
         data: this.echartData.xData,
       },
-      yAxis: [
-        {
-          type: 'value',
-          position: 'left',
-          axisLabel: {
-            margin: 20,
-            color: '#B8B8B8'
-          },
-          splitArea: {
-            show: true,
-            areaStyle: {
-              color: '#ff6c6a'
-            }
-          },
-          axisTick: {
-            show: true,
-            length: 15,
-            lineStyle: {
-              color: 'rgba(255,255,255,0.1)'
-            }
-          },
-          splitLine: {
-            show: false,
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#fff',
-              width: 2
-            }
-          },
+      yAxis: {
+        type: 'value',
+        position: 'left',
+        axisLabel: {
+          margin: 20,
+          color: '#B8B8B8'
+        },
+        splitArea: {
+          show: true,
+          areaStyle: {
+            color: '#ff6c6a'
+          }
+        },
+        axisTick: {
+          show: true,
+          length: 15,
+          lineStyle: {
+            color: 'rgba(255,255,255,0.1)'
+          }
+        },
+        splitLine: {
+          show: false,
+          lineStyle: {
+            color: 'red'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff',
+            width: 2
+          }
+        },
+        minorSplitLine: {
+          show: false
         }
-      ],
+      },
       series: series
     };
   }

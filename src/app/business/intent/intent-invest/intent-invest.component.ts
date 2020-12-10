@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
-import {Es, orgInitializeTree} from '../../../common/public/contents';
+import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
 import {AddIntentInvestField, IntentInvestField, UpdateIntentInvestField} from '../intentApi';
 import {IntentService} from '../../../common/services/intent.service';
 import {GlobalService} from '../../../common/services/global.service';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-intent-invest',
@@ -38,17 +39,23 @@ export class IntentInvestComponent implements OnInit {
     {value: '是', label: '是'},
     {value: '否', label: '否'},
   ]; // 状态下拉配置项
-  public investDropdownSelected: any; // 状态下拉选择
-  public investDropdownPlaceholder: any = '请选择共用状况'; //  状态下拉label
   public investEs: any = Es; // 日期选择插件
   public investTotalPlanMoney: any = ''; // 总计提金额
   public investTotalInputMoney: any = ''; // 	总支出金额
+  public investFormModal = this.fbSrv.group(InitFormGroup(new AddIntentInvestField())); // 表单模型
   constructor(
     private intentSrv: IntentService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
+    // 监控表单模型数据变化
+    this.investFormModal.valueChanges.subscribe((res) => {
+      this.investFormModal.patchValue({
+        planMoney: ((res.outdoorsAmount * res.outdoorsPrice) + (res.wellAmount * res.wellPrice)).toFixed(2),
+      }, {onlySelf: false, emitEvent: false});
+    });
     this.investDataInit(this.investNowPage, this.investPageOption.pageSize);
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
@@ -87,17 +94,18 @@ export class IntentInvestComponent implements OnInit {
         this.investOperateModal = true;
         this.investOperateField = Object.assign({}, new AddIntentInvestField());
         this.investOrgTreeSelectLabel = '点击选择单位';
-        this.investDropdownPlaceholder = '请选择共用状况';
         this.investOrgTreeSelect = {};
-        this.investDropdownSelected = null;
         break;
       // 编辑操作初始化
       case 'update':
         this.investOrgTreeSelectLabel = item.organizationName;
-        this.investDropdownPlaceholder = item.operationStatus === 1 ? '正常' : '异常';
         this.investOrgTreeSelect = {};
-        this.investDropdownSelected = null;
         this.investOperateField = Object.assign({}, new UpdateIntentInvestField(), item);
+        const Obj = {};
+        Object.keys(this.investFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.investFormModal.setValue(Obj);
         this.investOperateModal = true;
         break;
       // 保存操作
@@ -107,23 +115,34 @@ export class IntentInvestComponent implements OnInit {
           if ('id' in this.investOrgTreeSelect ) {
             this.investOperateField.organizationId = this.investOrgTreeSelect.id;
             this.investOperateField.organizationName = this.investOrgTreeSelect.label;
+            this.investFormModal.patchValue({
+              organizationId: this.investOrgTreeSelect.id,
+              organizationName: this.investOrgTreeSelect.label,
+            }, {onlySelf: false, emitEvent: false});
           }
-          if (this.investDropdownSelected ) {
-            this.investOperateField.ifShare = this.investDropdownSelected.value;
+          if (this.investFormModal.valid) {
+            this.investHttpOperate(this.intentSrv.intentInvestUpdate({...this.investFormModal.value, id: this.investOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整!');
           }
-          delete this.investOperateField['udt'];
-          delete this.investOperateField['idt'];
-          this.investOperateField.planMoney = (this.investOperateField.outdoorsAmount * this.investOperateField.outdoorsPrice) + (this.investOperateField.wellAmount * this.investOperateField.wellPrice);
-          this.investHttpOperate(this.intentSrv.intentInvestUpdate(this.investOperateField));
         }
         // 新增保存
         else {
-          this.investOperateField.organizationId = this.investOrgTreeSelect.id;
-          this.investOperateField.organizationName = this.investOrgTreeSelect.label;
-          this.investOperateField.ifShare = this.investDropdownSelected.value;
-          this.investOperateField.planMoney = (this.investOperateField.outdoorsAmount * this.investOperateField.outdoorsPrice) + (this.investOperateField.wellAmount * this.investOperateField.wellPrice);
-          this.investHttpOperate(this.intentSrv.intentInvestAdd(this.investOperateField));
+          this.investFormModal.patchValue({organizationId: this.investOrgTreeSelect.id,
+            organizationName: this.investOrgTreeSelect.label,
+          }, {onlySelf: false, emitEvent: false});
+          if (this.investFormModal.valid) {
+            this.investHttpOperate(this.intentSrv.intentInvestAdd(this.investFormModal.value));
+          }
+          else {
+            window.alert('请把参数填写完整!');
+          }
         }
+        break;
+      // 取消操作
+      case 'cancel':
+        this.investOperateModal = false;
+        this.investFormModal.reset({}, {onlySelf: true, emitEvent: false});
         break;
       // 删除操作
       case 'del':

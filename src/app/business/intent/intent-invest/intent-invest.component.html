@@ -59,137 +59,261 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="investOperateModal" [style]="{width: '58vw'}"
+      (onHide)="investOperate(investOperateFlag = 'cancel')"
     >
       <p-header>{{investOperateFlag === 'update' ? '编辑操作' : '添加操作'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
-            <!--组织培训单位-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>组织单位：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <button
-                  pButton type="button"
-                  style="width: 100%"
-                  [label]="investOrgTreeSelect.label?investOrgTreeSelect.label:investOrgTreeSelectLabel"
-                  class="ui-button-white text-left"
-                  (click)="investOperate(investOperateFlag = 'tree')">
-                </button>
+          <form [formGroup]="investFormModal">
+           <!-- <div class="ui-g">
+              &lt;!&ndash;组织培训单位&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>组织单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    style="width: 100%"
+                    [label]="investOrgTreeSelect.label?investOrgTreeSelect.label:investOrgTreeSelectLabel"
+                    class="ui-button-white text-left"
+                    (click)="investOperate(investOperateFlag = 'tree')">
+                  </button>
+                </div>
               </div>
-            </div>
-            <!--日期-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>日期：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-calendar
-                  #calendarDate
-                  placeholder="点击选择时间......"
-                  [locale]="investEs" [(ngModel)]="investOperateField.date"
-                  dateFormat="yy-mm-dd"
-                  dataType="string"
-                  [monthNavigator]="true"
-                  [yearNavigator]="true"
-                  [showTime]="false"
-                  yearRange="1930:2030">
-                  <p-footer>
-                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
-                  </p-footer>
-                </p-calendar>
+              &lt;!&ndash;日期&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>日期：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-calendar
+                    #calendarDate
+                    placeholder="点击选择时间......"
+                    [locale]="investEs" [(ngModel)]="investOperateField.date"
+                    dateFormat="yy-mm-dd"
+                    dataType="string"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    [showTime]="false"
+                    yearRange="1930:2030">
+                    <p-footer>
+                      <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+                    </p-footer>
+                  </p-calendar>
+                </div>
               </div>
-            </div>
-            <!--露天矿量-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>露天矿量(单位/吨)：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填露天矿量" [(ngModel)]="investOperateField.outdoorsAmount">
+              &lt;!&ndash;露天矿量&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>露天矿量(单位/吨)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" pInputText placeholder="请填露天矿量" [(ngModel)]="investOperateField.outdoorsAmount">
+                </div>
               </div>
-            </div>
-            <!--露天单价-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>露天单价(单位/元)：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填露天单价" [(ngModel)]="investOperateField.outdoorsPrice">
+              &lt;!&ndash;露天单价&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>露天单价(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" pInputText placeholder="请填露天单价" [(ngModel)]="investOperateField.outdoorsPrice">
+                </div>
               </div>
-            </div>
-            <!--井下矿量-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>井下矿量(单位/吨)：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填井下矿量" [(ngModel)]="investOperateField.wellAmount">
+              &lt;!&ndash;井下矿量&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>井下矿量(单位/吨)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" pInputText placeholder="请填井下矿量" [(ngModel)]="investOperateField.wellAmount">
+                </div>
               </div>
-            </div>
-            <!--井下单价-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>井下单价(单位/元)：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填井下单价" [(ngModel)]="investOperateField.wellPrice">
+              &lt;!&ndash;井下单价&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>井下单价(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" pInputText placeholder="请填井下单价" [(ngModel)]="investOperateField.wellPrice">
+                </div>
               </div>
-            </div>
-            <!--提取金额-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>提取金额(单位/元)：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input
-                  type="text" disabled pInputText placeholder="请填提取金额"
-                  [value]="
+              &lt;!&ndash;提取金额&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>提取金额(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input
+                    type="text" disabled pInputText placeholder="请填提取金额"
+                    [value]="
                   ((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice))?
                   ((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice)).toFixed(2):'0'">
+                </div>
+              </div>
+              &lt;!&ndash;使用金额&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>使用金额(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" pInputText placeholder="请填使用金额" [(ngModel)]="investOperateField.useMoney">
+                </div>
+              </div>
+              &lt;!&ndash;是否共用&ndash;&gt;
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>是否共用：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    [style]="{width: '100%'}"
+                    [placeholder]="investDropdownPlaceholder"
+                    [options]="investDropdownOptions" [(ngModel)]="investDropdownSelected"
+                    optionLabel="label" dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
               </div>
             </div>
-            <!--使用金额-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>使用金额(单位/元)：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填使用金额" [(ngModel)]="investOperateField.useMoney">
+            &lt;!&ndash;备注&ndash;&gt;
+            <div class="ui-g">
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>备注：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" [(ngModel)]="investOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+                </div>
+              </div>
+            </div>-->
+            <div class="ui-g">
+              <!--组织培训单位-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>组织单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    style="width: 100%"
+                    [label]="investOrgTreeSelect.label?investOrgTreeSelect.label:investOrgTreeSelectLabel"
+                    class="ui-button-white text-left"
+                    (click)="investOperate(investOperateFlag = 'tree')">
+                  </button>
+                </div>
+              </div>
+              <!--日期-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>日期：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-calendar
+                    formControlName="date"
+                    #calendarDate
+                    placeholder="点击选择时间......"
+                    [locale]="investEs"
+                    dateFormat="yy-mm-dd"
+                    dataType="string"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    [showTime]="false"
+                    yearRange="1930:2030">
+                    <p-footer>
+                      <button pButton type="button" label="确定" class="ui-button-warning"
+                              (click)="calendarDate.hideOverlay()"></button>
+                    </p-footer>
+                  </p-calendar>
+                </div>
+              </div>
+              <!--露天矿量-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>露天矿量(单位/吨)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="outdoorsAmount" required pInputText placeholder="请填露天矿量">
+                </div>
+              </div>
+              <!--露天单价-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>露天单价(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="outdoorsPrice" pInputText placeholder="请填露天单价">
+                </div>
+              </div>
+              <!--井下矿量-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>井下矿量(单位/吨)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="wellAmount" pInputText placeholder="请填井下矿量">
+                </div>
+              </div>
+              <!--井下单价-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>井下单价(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="wellPrice" pInputText placeholder="请填井下单价">
+                </div>
+              </div>
+              <!--提取金额-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>提取金额(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input
+                    type="text" formControlName="planMoney" disabled pInputText placeholder="请填提取金额">
+                </div>
+              </div>
+              <!--使用金额-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>使用金额(单位/元)：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="useMoney" pInputText placeholder="请填使用金额">
+                </div>
+              </div>
+              <!--是否共用-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>是否共用：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="ifShare"
+                    [style]="{width: '100%'}"
+                    placeholder="请选择共用状况"
+                    [options]="investDropdownOptions" dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
               </div>
             </div>
-            <!--是否共用-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>是否共用：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  [placeholder]="investDropdownPlaceholder"
-                  [options]="investDropdownOptions" [(ngModel)]="investDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
+            <!--备注-->
+            <div class="ui-g">
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>备注：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+                </div>
               </div>
             </div>
-          </div>
-          <!--备注-->
-          <div class="ui-g">
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>备注：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="investOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
-              </div>
-            </div>
-          </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>
         <button pButton label="保存" (click)="investOperate(investOperateFlag = 'save')"></button>
-        <button pButton label="取消" class="ui-button-pink" (click)="investOperateModal = false"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="investOperateModal= false"></button>
       </p-footer>
     </p-dialog>
     <!--组织树弹窗-->

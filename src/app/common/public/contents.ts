@@ -1,5 +1,5 @@
 import {OrgTree, TreeOption} from './Api';
-import {FormGroup} from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 
 // p-calendar语言本地化
 export const Es = {
@@ -198,7 +198,16 @@ export function setValueToFromValue(list: Array<string>, data: object, formGroup
     obj[val] = data[val];
     formGroup.patchValue({[val]: data[val]});
   });
+}
 
+export function InitFormGroup(obj: any): any  {
+  const a = Object.assign(obj);
+  for (const keys in a) {
+    if (a.hasOwnProperty(keys)) {
+      a[keys] = ['', Validators.required];
+    }
+  }
+  return a;
 }
 
 /**

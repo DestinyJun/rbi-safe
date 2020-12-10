@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
-import {AddIntentCultureField, IntentCultureField, UpdateIntentCultureField} from '../intentApi';
-import {Es, orgInitializeTree} from '../../../common/public/contents';
+import {AddIntentCultureField, IntentCultureField, UpdateIntentCultureField, UpdateIntentInvestField} from '../intentApi';
+import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {IntentService} from '../../../common/services/intent.service';
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
-import {Show} from '../../../store/loadstatus.actions';
+import {Hidden, Show} from '../../../store/loadstatus.actions';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/loadstatus.state';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-intent-culture',
@@ -42,14 +43,14 @@ export class IntentCultureComponent implements OnInit {
     {label: '车间级', value: '车间级'},
     {label: '班组级', value: '班组级'},
   ]; // 状态下拉配置项
-  public cultureDropdownSelected: any; // 状态下拉选择
-  public cultureDropdownPlaceholder: any = '请选择活动等级'; //  状态下拉label
   public cultureEs: any = Es; // 日期选择插件
   public cultureImgList: any = []; // 图片文件列表
+  public cultureFormModal = this.fbSrv.group(InitFormGroup(new AddIntentCultureField())); // 表单模型
   constructor(
     private intentSrv: IntentService,
     private globalSrv: GlobalService,
     private store: Store<AppState>,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -86,9 +87,7 @@ export class IntentCultureComponent implements OnInit {
         this.cultureOperateModal = true;
         this.cultureOperateField = Object.assign({}, new AddIntentCultureField());
         this.cultureOrgTreeSelectLabel = '点击选择单位';
-        this.cultureDropdownPlaceholder = '请选择活动等级';
         this.cultureOrgTreeSelect = {};
-        this.cultureDropdownSelected = null;
         item.clear();
         break;
       // 编辑操作初始化
@@ -99,10 +98,13 @@ export class IntentCultureComponent implements OnInit {
           this.cultureImgList.push(res);
         });
         this.cultureOrgTreeSelectLabel = item.organizationName;
-        this.cultureDropdownPlaceholder = item.activityLevel;
         this.cultureOrgTreeSelect = {};
-        this.cultureDropdownSelected = null;
         this.cultureOperateField = Object.assign({}, new UpdateIntentCultureField(), item);
+        const Obj = {};
+        Object.keys(this.cultureFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.cultureFormModal.setValue(Obj);
         this.cultureOperateModal = true;
         break;
       // 保存操作
@@ -113,40 +115,58 @@ export class IntentCultureComponent implements OnInit {
           if ('id' in this.cultureOrgTreeSelect ) {
             this.cultureOperateField.organizationId = this.cultureOrgTreeSelect.id;
             this.cultureOperateField.organizationName = this.cultureOrgTreeSelect.label;
+            this.cultureFormModal.patchValue({
+              organizationId: this.cultureOrgTreeSelect.id,
+              organizationName: this.cultureOrgTreeSelect.label,
+            }, {onlySelf: false, emitEvent: false});
           }
-          if (this.cultureDropdownSelected ) {
-            this.cultureOperateField.activityLevel = this.cultureDropdownSelected.value;
-          }
-          delete this.cultureOperateField['culturalConstructionAnnexes'];
-          delete this.cultureOperateField['udt'];
-          const field = new FormData();
-          Object.keys(this.cultureOperateField).forEach(res => {
-            field.append(res, this.cultureOperateField[res]);
-          });
-          if (item.length > 0) {
-            item.forEach(res => {
-              field.append('img', res);
+          if (this.cultureFormModal.valid) {
+            const field = new FormData();
+            Object.keys({...this.cultureFormModal.value, id: this.cultureOperateField.id }).forEach(res => {
+              field.append(res, this.cultureOperateField[res]);
             });
+            if (item.length > 0) {
+              item.forEach(res => {
+                field.append('img', res);
+              });
+            }
+            this.cultureHttpOperate(this.intentSrv.intentCultureUpdate(field));
           }
-          this.cultureHttpOperate(this.intentSrv.intentCultureUpdate(field));
+          else {
+            window.alert('请把参数填写完整!');
+            this.store.dispatch(new Hidden());
+          }
         }
         // 新增保存
         else {
-          this.cultureOperateField.organizationId = this.cultureOrgTreeSelect.id;
-          this.cultureOperateField.organizationName = this.cultureOrgTreeSelect.label;
-          this.cultureOperateField.activityLevel = this.cultureDropdownSelected.value;
-          const field = new FormData();
-          Object.keys(this.cultureOperateField).forEach(res => {
-            field.append(res, this.cultureOperateField[res]);
-          });
-          if (item.length > 0) {
-            item.forEach(res => {
-              field.append('img', res);
+          this.cultureFormModal.patchValue({
+            organizationId: this.cultureOrgTreeSelect.id,
+            organizationName: this.cultureOrgTreeSelect.label,
+          }, {onlySelf: false, emitEvent: false});
+          if (this.cultureFormModal.valid) {
+            const field = new FormData();
+            Object.keys(this.cultureFormModal.value).forEach(res => {
+              field.append(res, this.cultureFormModal.value[res]);
             });
+            if (item.length > 0) {
+              item.forEach(res => {
+                field.append('img', res);
+              });
+            }
+            this.cultureHttpOperate(this.intentSrv.intentCultureAdd(field));
           }
-          this.cultureHttpOperate(this.intentSrv.intentCultureAdd(field));
+          else {
+            window.alert('请把参数填写完整!');
+            this.store.dispatch(new Hidden());
+          }
         }
         break;
+      // 取消操作
+      case 'cancel':
+        this.cultureOperateModal = false;
+        this.cultureFormModal.reset({}, {onlySelf: true, emitEvent: false});
+        break;
+      // 删除操作
       // 删除操作
       case 'del':
         if (window.confirm('您确定需要删除吗？')) {

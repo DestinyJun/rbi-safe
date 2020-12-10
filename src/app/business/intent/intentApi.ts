@@ -232,6 +232,14 @@ export class AddIntentCultureField implements IntentCultureField{
   organizationName: string;
   remarks: string;
   startTime: string;
+  constructor() {
+    this.organizationId = null;
+    this.organizationName = '';
+    this.activityLevel = null;
+    this.activityName = '';
+    this.remarks = '';
+    this.startTime = '';
+  }
 }
 export class UpdateIntentCultureField implements IntentCultureField{
   activityLevel: number;

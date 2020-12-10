@@ -64,18 +64,20 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="institutionManageAddModal" [style]="{width: '50vw'}"
+      (onHide)="institutionManageOperate(institutionManageOperateFlag = 'cancel')"
     >
       <p-header>添加操作</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
+          <form [formGroup]="institutionManageAddFormModal">
+            <div class="ui-g">
             <!--制度名称-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
                 <span>制度名称：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填制度名称" [(ngModel)]="institutionManageOperateField.name">
+                <input type="text" pInputText formControlName="name" placeholder="请填制度名称">
               </div>
             </div>
             <!--类型-->
@@ -85,9 +87,10 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-dropdown
+                  formControlName="type"
                   [style]="{width: '100%'}"
-                  [placeholder]="institutionManageDropdownPlaceholder"
-                  [options]="institutionManageDropdownOptions" [(ngModel)]="institutionManageOperateField.type"
+                  placeholder="请选择类型"
+                  [options]="institutionManageDropdownOptions"
                   dropdownIcon="fa fa-caret-down">
                 </p-dropdown>
               </div>
@@ -114,6 +117,7 @@
               </div>
             </div>
           </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>
@@ -126,18 +130,20 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="institutionManageUpdateModal" [style]="{width: '50vw'}"
+      (onHide)="institutionManageOperate(institutionManageOperateFlag = 'cancel')"
     >
       <p-header>编辑弹窗</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
+          <form [formGroup]="institutionManageUpdateFormModal">
+            <div class="ui-g">
             <!--制度名称-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
                 <span>制度名称：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填制度名称" [(ngModel)]="institutionManageUpdateField.name">
+                <input type="text" formControlName="name" pInputText placeholder="请填制度名称">
               </div>
             </div>
             <!--类型-->
@@ -147,9 +153,10 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <p-dropdown
+                  formControlName="type"
                   [style]="{width: '100%'}"
-                  [placeholder]="institutionManageDropdownPlaceholder"
-                  [options]="institutionManageDropdownOptions" [(ngModel)]="institutionManageUpdateField.type"
+                  placeholder="请选择类型"
+                  [options]="institutionManageDropdownOptions"
                   dropdownIcon="fa fa-caret-down">
                 </p-dropdown>
               </div>
@@ -181,7 +188,10 @@
                 <span>评估意见：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" disabled pInputText placeholder="请填修改说明" [(ngModel)]="institutionManageUpdateField.evaluateOpinion">
+                <span
+                  style="width: 100%;height:33px;color: #C0C0C0;line-height: 33px;vertical-align: middle;display: inline-block;border: 1px solid #A6A6A6">
+                  {{institutionManageUpdateField.evaluateOpinion?institutionManageUpdateField.evaluateOpinion: '暂无'}}
+                </span>
               </div>
             </div>
             <!--评估附件地址-->
@@ -205,7 +215,7 @@
                 <span>修改说明：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填修改说明" [(ngModel)]="institutionManageUpdateField.updateExplain">
+                <input type="text" formControlName="updateExplain" pInputText placeholder="请填修改说明">
               </div>
             </div>
             <!--修改文件查看-->
@@ -244,6 +254,7 @@
               </div>
             </div>
           </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>
@@ -260,103 +271,109 @@
       <p-header>评估操作</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
-            <!--制度名称-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>制度名称：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" disabled pInputText placeholder="请填制度名称" [(ngModel)]="institutionManageAssessField.name">
+          <form [formGroup]="institutionManageAssessFormModal">
+            <div class="ui-g">
+              <!--制度名称-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>制度名称：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="name" disabled pInputText placeholder="请填制度名称">
+                </div>
+              </div>
+              <!--类型-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>类型：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="type"
+                    [disabled]="true"
+                    [style]="{width: '100%'}"
+                    placeholder="请选择类型"
+                    [options]="institutionManageDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--适宜性-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>适宜性：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="suit"
+                    [style]="{width: '100%'}"
+                    placeholder="请填选择适宜性"
+                    [options]="institutionManageAssessDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--有效性-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>有效性：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="effective"
+                    [style]="{width: '100%'}"
+                    placeholder="请填选择有效性"
+                    [options]="institutionManageAssessDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--执行性-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>执行性：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="execute"
+                    [style]="{width: '100%'}"
+                    placeholder="请填选择执行性"
+                    [options]="institutionManageAssessDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--评估意见-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>评估意见：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="evaluateOpinion" pInputTextarea autoResize="autoResize" placeholder="请填写评估意见"></textarea>
+                </div>
+              </div>
+              <!--附件-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>附件：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <p-fileUpload
+                    #fileUpload3
+                    name="sysFile"
+                    mode="advanced"
+                    fileLimit="1"
+                    invalidFileLimitMessageDetail="最多只能上传一个文件"
+                    invalidFileLimitMessageSummary="上传图片超出限制！"
+                    chooseLabel="点击上传"
+                    [showCancelButton]="false"
+                    [showUploadButton]="false"
+                  >
+                  </p-fileUpload>
+                </div>
               </div>
             </div>
-            <!--类型-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>类型：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  disabled
-                  [style]="{width: '100%'}"
-                  [placeholder]="institutionManageDropdownPlaceholder"
-                  [options]="institutionManageDropdownOptions" [(ngModel)]="institutionManageAssessField.type"
-                  dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--适宜性-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>适宜性：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  placeholder="请填选择适宜性"
-                  [options]="institutionManageAssessDropdownOptions" [(ngModel)]="institutionManageAssessField.suit"
-                  dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--有效性-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>有效性：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  placeholder="请填选择有效性"
-                  [options]="institutionManageAssessDropdownOptions" [(ngModel)]="institutionManageAssessField.effective"
-                  dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--执行性-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>执行性：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  placeholder="请填选择执行性"
-                  [options]="institutionManageAssessDropdownOptions" [(ngModel)]="institutionManageAssessField.execute"
-                  dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--评估意见-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>评估意见：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="institutionManageAssessField.evaluateOpinion" pInputTextarea autoResize="autoResize" placeholder="请填写评估意见"></textarea>
-              </div>
-            </div>
-            <!--附件-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>附件：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <p-fileUpload
-                  #fileUpload3
-                  name="sysFile"
-                  mode="advanced"
-                  fileLimit="1"
-                  invalidFileLimitMessageDetail="最多只能上传一个文件"
-                  invalidFileLimitMessageSummary="上传图片超出限制！"
-                  chooseLabel="点击上传"
-                  [showCancelButton]="false"
-                  [showUploadButton]="false"
-                >
-                </p-fileUpload>
-              </div>
-            </div>
-          </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>

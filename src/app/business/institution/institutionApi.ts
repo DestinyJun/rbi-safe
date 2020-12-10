@@ -10,6 +10,10 @@ export interface InstitutionManageField {
 export class AddInstitutionManageFieldClass implements InstitutionManageField{
   name: string;
   type: any;
+  constructor() {
+    this.name = '';
+    this.type = null;
+  }
 }
 
 /*制度管理修改*/

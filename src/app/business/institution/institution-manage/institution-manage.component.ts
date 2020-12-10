@@ -6,7 +6,9 @@ import {InstitutionService} from '../../../common/services/institution.service';
 import {AddInstitutionManageFieldClass, InstitutionManageAssessField, InstitutionManageAssessFieldClass, InstitutionManageField, InstitutionManageUpdateField, UpdateInstitutionManageFieldClass} from '../institutionApi';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/loadstatus.state';
-import {Show} from '../../../store/loadstatus.actions';
+import {Hidden, Show} from '../../../store/loadstatus.actions';
+import {FormBuilder} from '@angular/forms';
+import {InitFormGroup} from '../../../common/public/contents';
 
 @Component({
   selector: 'app-institution-manage',
@@ -39,17 +41,20 @@ export class InstitutionManageComponent implements OnInit {
   public institutionManageAssessModal: boolean = false; // 评估模态框
 
   public institutionManageDropdownOptions: any = []; // 状态下拉配置项
-  public institutionManageDropdownPlaceholder: any = '请选择类型'; //  状态下拉label
 
   public institutionManageAssessDropdownOptions: any = [
     {label: '是',  value: '是'},
     {label: '否',  value: '否'}
   ]; // 是否状态下拉配置项
+  public institutionManageAddFormModal = this.fbSrv.group(InitFormGroup(new AddInstitutionManageFieldClass())); // 新增表单模型
+  public institutionManageUpdateFormModal = this.fbSrv.group(InitFormGroup({name: '', type: null, updateExplain: ''})); // 修改表单模型
+  public institutionManageAssessFormModal = this.fbSrv.group(InitFormGroup(new InstitutionManageAssessFieldClass())); // 评估表单模型
 
   constructor(
     private institutionSrv: InstitutionService,
     private globalSrv: GlobalService,
     private store: Store<AppState>,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -83,17 +88,50 @@ export class InstitutionManageComponent implements OnInit {
   // 基础操作
   public institutionManageOperate(flag: string, item?: any, obj?: any, obj2?: any) {
     switch (flag) {
+      // 取消操作
+      case 'cancel':
+        this.institutionManageAddModal = false;
+        this.institutionManageUpdateModal = false;
+        this.institutionManageAddFormModal.reset({}, {onlySelf: true, emitEvent: false});
+        this.institutionManageUpdateFormModal.reset({}, {onlySelf: true, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.institutionManageAddModal = true;
         this.institutionManageOperateField = Object.assign({}, new AddInstitutionManageFieldClass());
-        this.institutionManageDropdownPlaceholder = '请选择类型';
         item.clear();
+        break;
+      // 添加保存操作
+      case 'save':
+        this.store.dispatch(new Show());
+        if (this.institutionManageAddFormModal.valid) {
+          const field = new FormData();
+          Object.keys(this.institutionManageAddFormModal.value).forEach(res => {
+            field.append(res, this.institutionManageAddFormModal.value[res]);
+          });
+          if (item.length > 0) {
+            item.forEach(res => {
+              field.append('file', res);
+            });
+            this.institutionManageHttpOperate(this.institutionSrv.institutionManageAdd(field));
+          }
+          else {
+            window.alert('必须上传文件！');
+            this.store.dispatch(new Hidden());
+          }
+        } else {
+          window.alert('请把参数填写完整!');
+          this.store.dispatch(new Hidden());
+        }
         break;
       // 编辑操作初始化
       case 'update':
         obj.clear();
         obj2.clear();
+        const Obj = {};
+        Object.keys(this.institutionManageUpdateFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
         Object.keys(this.institutionManageUpdateField).forEach(res => {
           if (res === 'systemId') {
             this.institutionManageUpdateField[res] = item.id;
@@ -101,72 +139,76 @@ export class InstitutionManageComponent implements OnInit {
             this.institutionManageUpdateField[res] = item[res];
           }
         });
+        this.institutionManageUpdateFormModal.setValue(Obj);
         this.institutionManageUpdateModal = true;
         break;
-      // 添加保存操作
-      case 'save':
-        this.store.dispatch(new Show());
-        const field = new FormData();
-        Object.keys(this.institutionManageOperateField).forEach(res => {
-          field.append(res, this.institutionManageOperateField[res]);
-        });
-        if (item.length > 0) {
-          item.forEach(res => {
-            field.append('file', res);
-          });
-        }
-        this.institutionManageHttpOperate(this.institutionSrv.institutionManageAdd(field));
-        break;
-      // 修改保存操作
+      // 编辑保存操作
       case 'updateSave':
         this.store.dispatch(new Show());
-        const updateField = new FormData();
-        Object.keys(this.institutionManageUpdateField).forEach(res => {
-          updateField.append(res, this.institutionManageUpdateField[res]);
-        });
-        if (item.length > 0) {
-          item.forEach(res => {
-            updateField.append('sysFile', res);
+        if (this.institutionManageUpdateFormModal.valid) {
+          const updateField = new FormData();
+          Object.keys(this.institutionManageUpdateFormModal.value).forEach(res => {
+            updateField.append(res, this.institutionManageUpdateFormModal.value[res]);
           });
-        }
-        if (obj.length > 0) {
-          obj.forEach(res => {
-            updateField.append('updateFile', res);
+          Object.keys(this.institutionManageUpdateField).forEach(res => {
+            if (res === 'systemId') {
+              updateField.append('systemId', this.institutionManageUpdateField[res]);
+            }
+            if (res === 'organizationId') {
+              updateField.append('organizationId', this.institutionManageUpdateField[res]);
+            }
           });
-        }
-        this.institutionManageHttpOperate(this.institutionSrv.institutionManageUpdate(updateField));
-        break;
-      // 删除操作
-      case 'del':
-        if (window.confirm('您确定需要删除吗？')) {
-          this.institutionManageHttpOperate(this.institutionSrv.institutionManageDel({data: [{id: item.id}]}));
+          if (item.length > 0) {
+            item.forEach(res => {
+              updateField.append('sysFile', res);
+            });
+          }
+          if (obj.length > 0) {
+            obj.forEach(res => {
+              updateField.append('updateFile', res);
+            });
+          }
+          this.institutionManageHttpOperate(this.institutionSrv.institutionManageUpdate(updateField));
+        } else {
+          window.alert('请把参数填写完整!');
+          this.store.dispatch(new Hidden());
         }
         break;
       // 评估操作初始化
       case 'assess':
         obj.clear();
-        Object.keys(this.institutionManageAssessField).forEach(res => {
-          if (res === 'systemId') {
-            this.institutionManageAssessField[res] = item.id;
-          } else {
-            this.institutionManageAssessField[res] = item[res];
-          }
+        this.institutionManageAssessFormModal.patchValue({
+          systemId: item.id,
+          organizationId: item.organizationId,
+          name: item.name,
+          type: item.type,
         });
         this.institutionManageAssessModal = true;
         break;
       // 评估保存操作
       case 'assessSave':
         this.store.dispatch(new Show());
-        const assessField = new FormData();
-        Object.keys(this.institutionManageAssessField).forEach(res => {
-          assessField.append(res, this.institutionManageAssessField[res]);
-        });
-        if (item.length > 0) {
-          item.forEach(res => {
-            assessField.append('file', res);
+        if (this.institutionManageAssessFormModal.valid) {
+          const assessField = new FormData();
+          Object.keys(this.institutionManageAssessFormModal.value).forEach(res => {
+            assessField.append(res, this.institutionManageAssessFormModal.value[res]);
           });
+          if (item.length > 0) {
+            item.forEach(res => {
+              assessField.append('file', res);
+            });
+          }
+          this.institutionManageHttpOperate(this.institutionSrv.institutionManageAssess(assessField));
+        } else {
+          window.alert('请把参数填写完整!');
+          this.store.dispatch(new Hidden());
         }
-        this.institutionManageHttpOperate(this.institutionSrv.institutionManageAssess(assessField));
+        break;
+      // 删除操作
+      case 'del':
+        if (window.confirm('您确定需要删除吗？')) {
+          this.institutionManageHttpOperate(this.institutionSrv.institutionManageDel({data: [{id: item.id}]}));
+        }
         break;
       // 批量删除
       case 'multiple':
