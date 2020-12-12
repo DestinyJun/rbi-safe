@@ -3,7 +3,7 @@
       <form [formGroup]="addReport">
         <div class="ui-g ui-fluid ui-md">
           <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>隐患发生单位:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
@@ -11,39 +11,16 @@
             </div>
           </div>
           <div class="ui-g-12 ui-md-12"  style="line-height: 4vh">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>排查时间:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <p-calendar [style]="{width: '100%'}" placeholder="请选择排查时间" [monthNavigator]="true" [yearNavigator]="true"
                           dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate" formControlName="troubleshootingTime"></p-calendar>
             </div>
-<!--            <div class="ui-g-1 ui-md-1"></div>-->
-<!--            <div class="ui-g-1 ui-md-1 right">-->
-<!--              <label><span style="color: #FF8A9A">*</span>整改负责人:</label>-->
-<!--            </div>-->
-<!--            <div class="ui-g-4 ui-md-4 dialog-input">-->
-<!--              <input pInputText type="text" placeholder="请输入整改负责人"/>-->
-<!--            </div>-->
           </div>
-<!--          <div class="ui-g-12 ui-md-12" style="line-height: 3vh">-->
-<!--            <div class="ui-g-1 ui-md-1 right">-->
-<!--              <label><span style="color: #FF8A9A">*</span>整改方案:</label>-->
-<!--            </div>-->
-<!--            <div class="ui-g-2 ui-md-2 dialog-input">-->
-<!--              <p-radioButton name="groupnamep" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifRectificationPlan"></p-radioButton>-->
-<!--              <p-radioButton name="groupnamep" value="无" label="无" formControlName="ifRectificationPlan"></p-radioButton>-->
-<!--            </div>-->
-<!--            <div class="ui-g-1 ui-md-1 right">-->
-<!--              <label><span style="color: #FF8A9A">*</span>控制措施:</label>-->
-<!--            </div>-->
-<!--            <div class="ui-g-2 ui-md-2 dialog-input">-->
-<!--              <p-radioButton name="groupnames" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifControlMeasures"></p-radioButton>-->
-<!--              <p-radioButton name="groupnames" value="无" label="无" formControlName="ifControlMeasures"></p-radioButton>-->
-<!--            </div>-->
-<!--          </div>-->
           <div class="ui-md-12 ui-g-12"  style="line-height: 4vh">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>隐患类型:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input left">
@@ -57,8 +34,7 @@
                 <p-checkbox name="groupname2" value="管理"  label="管理" [formControl]="addReport.controls['hidType']"></p-checkbox>
               </div>
             </div>
-            <div class="ui-g-1 ui-md-1"></div>
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>隐患等级:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input left">
@@ -66,7 +42,7 @@
             </div>
           </div>
           <div class="ui-md-12 ui-g-12">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label ><span style="color: #FF8A9A">*</span>隐患描述:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
@@ -74,7 +50,7 @@
             </div>
           </div>
           <div class="ui-md-12 ui-g-12">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label ><span style="color: #FF8A9A">*</span>隐患现场情况:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
@@ -83,7 +59,7 @@
           </div>
           <div style="width: 100%;height: 2px; background: #F6F6F9"></div>
           <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>是否处理:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input" >
@@ -92,7 +68,7 @@
             </div>
           </div>
           <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>治理资金:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
@@ -100,7 +76,7 @@
             </div>
           </div>
           <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label><span style="color: #FF8A9A">*</span>完成时间:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
@@ -109,7 +85,7 @@
             </div>
           </div>
           <div class="ui-md-12 ui-g-12" *ngIf="isHandle">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label > 完成情况:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
@@ -117,7 +93,7 @@
             </div>
           </div>
           <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label >整改方案:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
@@ -127,8 +103,7 @@
                 <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'plan')">
               </div>
             </div>
-            <div class="ui-g-1 ui-md-1"></div>
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label >验收报告:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
@@ -140,7 +115,7 @@
             </div>
           </div>
           <div class="ui-md-12 ui-g-12" *ngIf="isHandle">
-            <div class="ui-g-1 ui-md-1 right">
+            <div class="ui-g-2 ui-md-2 right">
               <label ><span style="color: #FF8A9A">*</span>排查后隐患现场情况:</label>
             </div>
             <div class="ui-g-10 ui-md-10">

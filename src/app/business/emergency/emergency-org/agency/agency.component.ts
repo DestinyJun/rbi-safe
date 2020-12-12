@@ -3,6 +3,8 @@ import {PageOption, TableHeader} from '../../../../common/public/Api';
 import {Observable} from 'rxjs';
 import {EmergencyService} from '../../../../common/services/emergency.service';
 import {AddEmergencyOrgAgencyFieldClass, AddEmergencyOrgPersonFieldClass, EmergencyOrgAgencyField, EmergencyOrgPersonField, UpdateEmergencyOrgAgencyFieldClass} from '../../emergencyApi';
+import {FormBuilder} from '@angular/forms';
+import {InitFormGroup} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-agency',
@@ -28,8 +30,10 @@ export class AgencyComponent implements OnInit {
   public eoAgencyOperateField: EmergencyOrgAgencyField = new AddEmergencyOrgAgencyFieldClass(); // 操作字段
   public eoAgencyOperateModal: boolean = false; // 模态框
   public eoAgencyPersonal: EmergencyOrgPersonField[] = [];
+  public eoAgencyFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgAgencyFieldClass(), ['mineEmergencyOrganizationPersonnels'])); // 表单模型
   constructor(
     private emergencySrv: EmergencyService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -55,6 +59,10 @@ export class AgencyComponent implements OnInit {
   // 基础操作
   public eoAgencyOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.eoAgencyOperateModal = false;
+        this.eoAgencyFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.eoAgencyPersonal = [];
@@ -64,20 +72,41 @@ export class AgencyComponent implements OnInit {
       // 编辑操作初始化
       case 'update':
         this.eoAgencyOperateField = Object.assign({}, new UpdateEmergencyOrgAgencyFieldClass(), item);
-        this.eoAgencyPersonal = [...this.eoAgencyOperateField.mineEmergencyOrganizationPersonnels];
+        if (this.eoAgencyOperateField.mineEmergencyOrganizationPersonnels) {
+          this.eoAgencyPersonal = [...this.eoAgencyOperateField.mineEmergencyOrganizationPersonnels];
+        } else {
+          this.eoAgencyPersonal = [];
+        }
+        const Obj = {};
+        Object.keys(this.eoAgencyFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.eoAgencyFormModal.setValue(Obj);
         this.eoAgencyOperateModal = true;
         break;
       // 保存操作
       case 'save':
         // 修改保存
         if (this.eoAgencyOperateField.id) {
-          this.eoAgencyOperateField.mineEmergencyOrganizationPersonnels = this.eoAgencyPersonal;
-          this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyUpdate(this.eoAgencyOperateField));
+          this.eoAgencyFormModal.patchValue({
+            mineEmergencyOrganizationPersonnels: this.eoAgencyPersonal
+          });
+          if (this.eoAgencyFormModal.valid) {
+            this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyUpdate({...this.eoAgencyFormModal.value, id: this.eoAgencyOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
+          }
         }
         // 新增保存
         else {
-          this.eoAgencyOperateField.mineEmergencyOrganizationPersonnels = this.eoAgencyPersonal;
-          this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyAdd(this.eoAgencyOperateField));
+          this.eoAgencyFormModal.patchValue({
+            mineEmergencyOrganizationPersonnels: this.eoAgencyPersonal
+          });
+          if (this.eoAgencyFormModal.valid) {
+            this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyAdd(this.eoAgencyFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

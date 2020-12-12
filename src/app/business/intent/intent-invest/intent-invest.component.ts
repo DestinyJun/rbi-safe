@@ -142,7 +142,7 @@ export class IntentInvestComponent implements OnInit {
       // 取消操作
       case 'cancel':
         this.investOperateModal = false;
-        this.investFormModal.reset({}, {onlySelf: true, emitEvent: false});
+        this.investFormModal.reset({}, {onlySelf: false, emitEvent: false});
         break;
       // 删除操作
       case 'del':

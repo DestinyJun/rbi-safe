@@ -20,8 +20,9 @@
         <div class="button mr-2">
           <button pButton type="button" label="阈值修改" class="ui-button-warning ml-3" (click)="setingSpiOperate(setingSpiOperateFlag = 'sillUpdate')"></button>
         </div>
-        <p-inputSwitch name="开关" [(ngModel)]="setingSpiState" (onChange)="setingSpiOperate(setingSpiOperateFlag = 'switch', $event)"></p-inputSwitch>
+        <p-inputSwitch name="开关" [style]="{verticalAlign: 'middle'}" [(ngModel)]="setingSpiState" (onChange)="setingSpiOperate(setingSpiOperateFlag = 'switch', $event)"></p-inputSwitch>
         <span class="ml-2" style="vertical-align: middle">{{setingSpiState?'开': '关'}}</span>
+        <span class="ml-2" style="vertical-align: middle;color: #FF2741;">阈值动态调整开关</span>
       </div>
     </div>
     <div class="button" style="flex: 1;text-align: right">

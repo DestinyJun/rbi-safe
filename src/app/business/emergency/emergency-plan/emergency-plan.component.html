@@ -61,138 +61,142 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="emPlanOperateModal" [style]="{width: '50vw'}"
+      (onHide)="emPlanOperate(emPlanOperateFlag = 'cancel')"
     >
-      <p-header>{{emPlanOperateFlag === 'update' ? '编辑操作' : '添加操作'}}</p-header>
+      <p-header>{{emPlanOperateFlag === 'add' ? '添加操作' : '编辑操作'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
-            <!--编制单位-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>编制单位：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <button
-                  pButton type="button"
-                  style="width: 100%"
-                  [label]="emPlanPlaitTreeSelect.label?emPlanPlaitTreeSelect.label:emPlanPlaitTreeSelectLabel"
-                  class="ui-button-white text-left"
-                  (click)="emPlanOperate(emPlanOperateFlag = 'plaitTree')">
-                </button>
-              </div>
-            </div>
-            <!--主控单位-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>主控单位：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <button
-                  pButton type="button"
-                  style="width: 100%"
-                  [label]="emPlanMasterTreeSelect.label?emPlanMasterTreeSelect.label:emPlanMasterTreeSelectLabel"
-                  class="ui-button-white text-left"
-                  (click)="emPlanOperate(emPlanOperateFlag = 'masterTree')">
-                </button>
-              </div>
-            </div>
-            <!--应急预案名称-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>应急预案名称：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填应急预案名称" [(ngModel)]="emPlanOperateField.emergencyPlanName">
-              </div>
-            </div>
-            <!--预案类别-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>预案类别：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  [placeholder]="emPlanDropdownPlaceholder"
-                  [options]="emPlanDropdownOptions" [(ngModel)]="emPlanDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--备案单位-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>备案单位：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填备案单位" [(ngModel)]="emPlanOperateField.filingOrganization">
-              </div>
-            </div>
-            <!--文件上传-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>文件上传：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <p-fileUpload
-                  #fileUpload
-                  name="filingAttachment"
-                  mode="advanced"
-                  fileLimit="1"
-                  invalidFileLimitMessageDetail="最多只能上传一个文件"
-                  invalidFileLimitMessageSummary="上传文件超出限制！"
-                  chooseLabel="点击上传"
-                  [showCancelButton]="false"
-                  [showUploadButton]="false"
-                >
-                </p-fileUpload>
-              </div>
-            </div>
-            <ng-container *ngIf="emPlanOperateFlag === 'update' || emPlanOperateFlag === 'open'">
-              <!--是否通过评审-->
+          <form [formGroup]="emPlanFormModal">
+            <div class="ui-g">
+              <!--编制单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span>是否通过评审：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="text" disabled pInputText placeholder="是否通过评审" [value]="emPlanOperateField.reviewStatus === '0'?'未通过':'通过'">
-                </div>
-              </div>
-              <!--评审时间-->
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>评审时间：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="text" disabled pInputText placeholder="评审时间" [(ngModel)]="emPlanOperateField.reviewTime">
-                </div>
-              </div>
-              <!--评审单位-->
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>评审单位：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="text" disabled pInputText placeholder="评审单位" [(ngModel)]="emPlanOperateField.reviewOrganization">
-                </div>
-              </div>
-              <!--评审附件-->
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>评审附件：</span>
+                  <span>编制单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
                   <button
                     pButton type="button"
-                    [disabled]="!(emPlanOperateField.reviewAttachmentPath)"
-                    [label]="emPlanOperateField.reviewAttachmentPath?'点击下载文件': '暂无附件'"
-                    class="ui-button-rounded"
-                    (click)="emPlanOperate(emPlanOperateFlag = 'open',emPlanOperateField.reviewAttachmentPath)">
+                    style="width: 100%"
+                    [label]="emPlanPlaitTreeSelect.label?emPlanPlaitTreeSelect.label:emPlanPlaitTreeSelectLabel"
+                    class="ui-button-white text-left"
+                    (click)="emPlanOperate(emPlanOperateFlag = 'plaitTree')">
                   </button>
                 </div>
               </div>
-            </ng-container>
-          </div>
+              <!--主控单位-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>主控单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    style="width: 100%"
+                    [label]="emPlanMasterTreeSelect.label?emPlanMasterTreeSelect.label:emPlanMasterTreeSelectLabel"
+                    class="ui-button-white text-left"
+                    (click)="emPlanOperate(emPlanOperateFlag = 'masterTree')">
+                  </button>
+                </div>
+              </div>
+              <!--应急预案名称-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>应急预案名称：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="emergencyPlanName" pInputText placeholder="请填应急预案名称">
+                </div>
+              </div>
+              <!--预案类别-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>预案类别：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="reservePlanType"
+                    [style]="{width: '100%'}"
+                    placeholder="请选择预案类别"
+                    [options]="emPlanDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--备案单位-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>备案单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="filingOrganization" pInputText placeholder="请填备案单位">
+                </div>
+              </div>
+              <!--文件上传-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>文件上传：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <p-fileUpload
+                    #fileUpload
+                    name="filingAttachment"
+                    mode="advanced"
+                    fileLimit="1"
+                    invalidFileLimitMessageDetail="最多只能上传一个文件"
+                    invalidFileLimitMessageSummary="上传文件超出限制！"
+                    chooseLabel="点击上传"
+                    [showCancelButton]="false"
+                    [showUploadButton]="false"
+                  >
+                  </p-fileUpload>
+                </div>
+              </div>
+            </div>
+          </form>
+          <ng-container *ngIf="emPlanOperateFlag === 'update' || emPlanOperateFlag === 'open' || emPlanOperateFlag === 'plaitTree' || emPlanOperateFlag === 'masterTree'">
+            <!--是否通过评审-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>是否通过评审：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText placeholder="是否通过评审" [value]="emPlanOperateField.reviewStatus === '0'?'未通过':'通过'">
+              </div>
+            </div>
+            <!--评审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>评审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText placeholder="评审时间" [(ngModel)]="emPlanOperateField.reviewTime">
+              </div>
+            </div>
+            <!--评审单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>评审单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" disabled pInputText placeholder="评审单位" [(ngModel)]="emPlanOperateField.reviewOrganization">
+              </div>
+            </div>
+            <!--评审附件-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>评审附件：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button
+                  pButton type="button"
+                  [disabled]="!(emPlanOperateField.reviewAttachmentPath)"
+                  [label]="emPlanOperateField.reviewAttachmentPath?'点击下载文件': '暂无附件'"
+                  class="ui-button-rounded"
+                  (click)="emPlanOperate(emPlanOperateFlag = 'open',emPlanOperateField.reviewAttachmentPath)">
+                </button>
+              </div>
+            </div>
+          </ng-container>
         </p-scrollPanel>
       </div>
       <p-footer>
@@ -205,116 +209,122 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="emPlanHandleModal" [style]="{width: '50vw'}"
+      (onHide)="emPlanOperate(emPlanOperateFlag = 'cancel')"
     >
       <p-header>应急预案处理</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
-            <!--主控单位-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>主控单位：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <button
-                  pButton type="button"
-                  style="width: 100%"
-                  [label]="emPlanMasterTreeSelect.label?emPlanMasterTreeSelect.label:emPlanMasterTreeSelectLabel"
-                  class="ui-button-white text-left"
-                  (click)="emPlanOperate(emPlanOperateFlag = 'masterTree')">
-                </button>
+          <form [formGroup]="emPlanHandleFormModal">
+            <div class="ui-g">
+              <!--主控单位-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>主控单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    style="width: 100%"
+                    [label]="emPlanMasterTreeSelect.label?emPlanMasterTreeSelect.label:emPlanMasterTreeSelectLabel"
+                    class="ui-button-white text-left"
+                    (click)="emPlanOperate(emPlanOperateFlag = 'masterTree')">
+                  </button>
+                </div>
+              </div>
+              <!--应急预案名称-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>应急预案名称：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="emergencyPlanName" pInputText placeholder="请填应急预案名称">
+                </div>
+              </div>
+              <!--评审时间-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评审时间：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-calendar
+                    #calendarDate
+                    formControlName="reviewTime"
+                    placeholder="点击选择时间......"
+                    [locale]="emPlanEs"
+                    dateFormat="yy-mm-dd"
+                    dataType="string"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    [showTime]="false"
+                    yearRange="1930:2030">
+                    <p-footer>
+                      <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+                    </p-footer>
+                  </p-calendar>
+                </div>
+              </div>
+              <!--评审状态-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评审状态：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="reviewStatus"
+                    [style]="{width: '100%'}"
+                    placeholder="请选择评审状态"
+                    [options]="emPlanHandleDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--预案类别-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>预案类别：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="reservePlanType"
+                    [style]="{width: '100%'}"
+                    placeholder="请选择预案类别"
+                    [options]="emPlanDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--评审组织-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>评审组织：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="reviewOrganization" pInputText placeholder="请填评审组织">
+                </div>
+              </div>
+              <!--评审附件-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>评审附件：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <p-fileUpload
+                    #fileUploadHandle
+                    name="img"
+                    mode="advanced"
+                    multiple="multiple"
+                    fileLimit="6"
+                    invalidFileLimitMessageDetail="最多只能6个文件"
+                    invalidFileLimitMessageSummary="上传图片超出限制！"
+                    chooseLabel="点击上传"
+                    [showCancelButton]="false"
+                    [showUploadButton]="false"
+                  >
+                  </p-fileUpload>
+                </div>
               </div>
             </div>
-            <!--应急预案名称-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>应急预案名称：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填应急预案名称" [(ngModel)]="emPlanHandleField.emergencyPlanName">
-              </div>
-            </div>
-            <!--评审时间-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>评审时间：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-calendar
-                  #calendarDate
-                  placeholder="点击选择时间......"
-                  [locale]="emPlanEs" [(ngModel)]="emPlanHandleField.reviewTime"
-                  dateFormat="yy-mm-dd"
-                  dataType="string"
-                  [monthNavigator]="true"
-                  [yearNavigator]="true"
-                  [showTime]="false"
-                  yearRange="1930:2030">
-                  <p-footer>
-                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
-                  </p-footer>
-                </p-calendar>
-              </div>
-            </div>
-            <!--评审状态-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>评审状态：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  [placeholder]="emPlanHandleDropdownPlaceholder"
-                  [options]="emPlanHandleDropdownOptions" [(ngModel)]="emPlanHandleDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--预案类别-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>预案类别：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  [placeholder]="emPlanDropdownPlaceholder"
-                  [options]="emPlanDropdownOptions" [(ngModel)]="emPlanDropdownSelected"
-                  optionLabel="label" dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--评审组织-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>评审组织：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填评审组织" [(ngModel)]="emPlanHandleField.reviewOrganization">
-              </div>
-            </div>
-            <!--评审附件-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>评审附件：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <p-fileUpload
-                  #fileUploadHandle
-                  name="img"
-                  mode="advanced"
-                  multiple="multiple"
-                  fileLimit="6"
-                  invalidFileLimitMessageDetail="最多只能6张图片"
-                  invalidFileLimitMessageSummary="上传图片超出限制！"
-                  chooseLabel="点击上传"
-                  [showCancelButton]="false"
-                  [showUploadButton]="false"
-                >
-                </p-fileUpload>
-              </div>
-            </div>
-          </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>

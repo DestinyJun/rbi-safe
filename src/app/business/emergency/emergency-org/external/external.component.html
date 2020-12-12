@@ -58,40 +58,43 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="eoExternalOperateModal" [style]="{width: '50vw'}"
+      (onHide)="eoExternalOperate(eoExternalOperateFlag = 'cancel')"
     >
       <p-header>{{eoExternalOperateFlag === 'update' ? '编辑' : '添加'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <!--基础参数-->
-          <div class="ui-g">
-            <!--外部应急组织名称-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>外部应急组织名称：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填外部应急组织名称" [(ngModel)]="eoExternalOperateField.organizationName">
+          <form [formGroup]="eoExternalFormModal">
+            <div class="ui-g">
+              <!--外部应急组织名称-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>外部应急组织名称：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="organizationName" pInputText placeholder="请填外部应急组织名称">
+                </div>
+              </div>
+              <!--手机-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span>联系电话：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="ontactNumber" pInputText placeholder="请填联系电话">
+                </div>
+              </div>
+              <!--备注-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span>备注：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+                </div>
               </div>
             </div>
-            <!--手机-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>联系电话：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填联系电话" [(ngModel)]="eoExternalOperateField.ontactNumber">
-              </div>
-            </div>
-            <!--备注-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>备注：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="eoExternalOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
-              </div>
-            </div>
-          </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>

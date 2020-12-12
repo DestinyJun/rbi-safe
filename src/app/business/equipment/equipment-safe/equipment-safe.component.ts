@@ -3,8 +3,9 @@ import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {Observable} from 'rxjs';
 import {AddEquipmentSafeFieldClass, EquipmentSafeField, UpdateEquipmentSafeFieldClass} from '../equipmentApi';
 import {EquipmentService} from '../../../common/services/equipment.service';
-import {orgInitializeTree} from '../../../common/public/contents';
+import {InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-equipment-safe',
@@ -43,11 +44,11 @@ export class EquipmentSafeComponent implements OnInit {
     {value: 1, label: '正常'},
     {value: 2, label: '异常'},
   ]; // 状态下拉配置项
-  public eqSafeDropdownSelected: any; // 状态下拉选择
-  public eqSafeDropdownPlaceholder: any = '请选择运行状况'; //  状态下拉label
+  public eqSafeFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentSafeFieldClass())); // 表单模型
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -79,44 +80,54 @@ export class EquipmentSafeComponent implements OnInit {
   // 基础操作
   public eqSafeOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.eqSafeOperateModal = false;
+        this.eqSafeFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.eqSafeOperateModal = true;
         this.eqSafeOperateField = Object.assign({}, new AddEquipmentSafeFieldClass());
         this.eqSafeOrgTreeSelectLabel = '点击选择单位';
-        this.eqSafeDropdownPlaceholder = '请选择运行状况';
         this.eqSafeOrgTreeSelect = {};
-        this.eqSafeDropdownSelected = null;
         break;
       // 编辑操作初始化
       case 'update':
         this.eqSafeOrgTreeSelectLabel = item.organizationName;
-        this.eqSafeDropdownPlaceholder = item.operationStatus === 1 ? '正常' : '异常';
         this.eqSafeOrgTreeSelect = {};
-        this.eqSafeDropdownSelected = null;
         this.eqSafeOperateField = Object.assign({}, new UpdateEquipmentSafeFieldClass(), item);
+        const Obj = {};
+        Object.keys(this.eqSafeFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.eqSafeFormModal.setValue(Obj);
         this.eqSafeOperateModal = true;
         break;
       // 保存操作
       case 'save':
         // 修改保存
         if (this.eqSafeOperateField.id) {
-          if ('id' in this.eqSafeOrgTreeSelect ) {
-            this.eqSafeOperateField.organizationId = this.eqSafeOrgTreeSelect.id;
+          if ('id' in this.eqSafeOrgTreeSelect) {
+            this.eqSafeFormModal.patchValue({
+              organizationId: this.eqSafeOrgTreeSelect.id
+            });
           }
-          if (this.eqSafeDropdownSelected ) {
-            this.eqSafeOperateField.operationStatus = this.eqSafeDropdownSelected.value;
+          if (this.eqSafeFormModal.valid) {
+            this.eqSafeHttpOperate(this.equipmentSrv.equipmentSafeUpdate({...this.eqSafeFormModal.value, id: this.eqSafeOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
           }
-          delete this.eqSafeOperateField['organizationName'];
-          delete this.eqSafeOperateField['idt'];
-          delete this.eqSafeOperateField['no'];
-          this.eqSafeHttpOperate(this.equipmentSrv.equipmentSafeUpdate(this.eqSafeOperateField));
         }
         // 新增保存
         else {
-          this.eqSafeOperateField.organizationId = this.eqSafeOrgTreeSelect.id;
-          this.eqSafeOperateField.operationStatus = this.eqSafeDropdownSelected.value;
-          this.eqSafeHttpOperate(this.equipmentSrv.equipmentSafeAdd(this.eqSafeOperateField));
+          this.eqSafeFormModal.patchValue({
+            organizationId: this.eqSafeOrgTreeSelect.id
+          });
+          if (this.eqSafeFormModal.valid) {
+            this.eqSafeHttpOperate(this.equipmentSrv.equipmentSafeAdd(this.eqSafeFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

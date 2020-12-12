@@ -41,7 +41,13 @@ export class AddEmergencyOrgAgencyFieldClass implements EmergencyOrgAgencyField{
   mobilePhone: number;
   organizationName: string;
   remarks: string;
-
+  constructor() {
+    this.leadingCadre = '';
+    this.mineEmergencyOrganizationPersonnels = [];
+    this.mobilePhone = null;
+    this.organizationName = '';
+    this.remarks = '';
+  }
 }
 export class UpdateEmergencyOrgAgencyFieldClass implements EmergencyOrgAgencyField {
   id: any;
@@ -84,7 +90,16 @@ export class AddEmergencyOrgTeamFieldClass implements EmergencyOrgTeamField{
   natureOfTheTeam: string;
   numberOfPeople: number;
   teamName: string;
-
+  constructor() {
+    this.affiliatedUnitId = null;
+    this.affiliatedUnit = '';
+    this.mineEmergencyTeamMembers = [];
+    this.mobilePhone = null;
+    this.numberOfPeople = null;
+    this.captain = '';
+    this.natureOfTheTeam = '';
+    this.teamName = '';
+  }
 }
 export class UpdateEmergencyOrgTeamFieldClass implements EmergencyOrgTeamField {
   affiliatedUnitId: any;
@@ -123,6 +138,11 @@ export class AddEmergencyOrgExternalFieldClass implements EmergencyOrgExternalFi
   ontactNumber: number;
   organizationName: string;
   remarks: string;
+  constructor() {
+    this.organizationName = '';
+    this.ontactNumber = null;
+    this.remarks = '';
+  }
 }
 export class UpdateEmergencyOrgExternalFieldClass implements EmergencyOrgExternalField {
   id: any;
@@ -163,6 +183,15 @@ export class AddEmergencyPlanFieldClass implements EmergencyPlanField{
   preparationUnit: string;
   preparationUnitId: any;
   reservePlanType: string;
+  constructor() {
+    this.controlOrganization = '';
+    this.controlOrganizationId = null;
+    this.emergencyPlanName = '';
+    this.filingOrganization = '';
+    this.preparationUnit = '';
+    this.preparationUnitId = null;
+    this.reservePlanType = null;
+  }
 
 }
 export class UpdateEmergencyPlanFieldClass implements EmergencyPlanField {

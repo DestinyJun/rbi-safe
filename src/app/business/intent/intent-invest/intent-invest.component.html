@@ -65,128 +65,6 @@
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <form [formGroup]="investFormModal">
-           <!-- <div class="ui-g">
-              &lt;!&ndash;组织培训单位&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>组织单位：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <button
-                    pButton type="button"
-                    style="width: 100%"
-                    [label]="investOrgTreeSelect.label?investOrgTreeSelect.label:investOrgTreeSelectLabel"
-                    class="ui-button-white text-left"
-                    (click)="investOperate(investOperateFlag = 'tree')">
-                  </button>
-                </div>
-              </div>
-              &lt;!&ndash;日期&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>日期：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <p-calendar
-                    #calendarDate
-                    placeholder="点击选择时间......"
-                    [locale]="investEs" [(ngModel)]="investOperateField.date"
-                    dateFormat="yy-mm-dd"
-                    dataType="string"
-                    [monthNavigator]="true"
-                    [yearNavigator]="true"
-                    [showTime]="false"
-                    yearRange="1930:2030">
-                    <p-footer>
-                      <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
-                    </p-footer>
-                  </p-calendar>
-                </div>
-              </div>
-              &lt;!&ndash;露天矿量&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>露天矿量(单位/吨)：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="number" pInputText placeholder="请填露天矿量" [(ngModel)]="investOperateField.outdoorsAmount">
-                </div>
-              </div>
-              &lt;!&ndash;露天单价&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>露天单价(单位/元)：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="number" pInputText placeholder="请填露天单价" [(ngModel)]="investOperateField.outdoorsPrice">
-                </div>
-              </div>
-              &lt;!&ndash;井下矿量&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>井下矿量(单位/吨)：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="number" pInputText placeholder="请填井下矿量" [(ngModel)]="investOperateField.wellAmount">
-                </div>
-              </div>
-              &lt;!&ndash;井下单价&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>井下单价(单位/元)：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="number" pInputText placeholder="请填井下单价" [(ngModel)]="investOperateField.wellPrice">
-                </div>
-              </div>
-              &lt;!&ndash;提取金额&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>提取金额(单位/元)：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input
-                    type="text" disabled pInputText placeholder="请填提取金额"
-                    [value]="
-                  ((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice))?
-                  ((investOperateField.outdoorsAmount * investOperateField.outdoorsPrice)+(investOperateField.wellAmount*investOperateField.wellPrice)).toFixed(2):'0'">
-                </div>
-              </div>
-              &lt;!&ndash;使用金额&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>使用金额(单位/元)：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <input type="number" pInputText placeholder="请填使用金额" [(ngModel)]="investOperateField.useMoney">
-                </div>
-              </div>
-              &lt;!&ndash;是否共用&ndash;&gt;
-              <div class="ui-g-6 ui-md-6">
-                <label class="ui-g-4 ui-md-4 label">
-                  <span>是否共用：</span>
-                </label>
-                <div class="ui-g-8 ui-md-8 input">
-                  <p-dropdown
-                    [style]="{width: '100%'}"
-                    [placeholder]="investDropdownPlaceholder"
-                    [options]="investDropdownOptions" [(ngModel)]="investDropdownSelected"
-                    optionLabel="label" dropdownIcon="fa fa-caret-down">
-                  </p-dropdown>
-                </div>
-              </div>
-            </div>
-            &lt;!&ndash;备注&ndash;&gt;
-            <div class="ui-g">
-              <div class="ui-g-12 ui-md-12">
-                <label class="ui-g-2 ui-md-2 label">
-                  <span>备注：</span>
-                </label>
-                <div class="ui-g-10 ui-md-10 input">
-                  <textarea [rows]="5" [cols]="30" [(ngModel)]="investOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
-                </div>
-              </div>
-            </div>-->
             <div class="ui-g">
               <!--组织培训单位-->
               <div class="ui-g-6 ui-md-6">
@@ -296,9 +174,7 @@
                   </p-dropdown>
                 </div>
               </div>
-            </div>
-            <!--备注-->
-            <div class="ui-g">
+              <!--备注-->
               <div class="ui-g-12 ui-md-12">
                 <label class="ui-g-2 ui-md-2 label">
                   <span>备注：</span>

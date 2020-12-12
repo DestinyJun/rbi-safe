@@ -3,8 +3,9 @@ import {OrgTree, PageOption, TableHeader} from '../../../../common/public/Api';
 import {EmergencyService} from '../../../../common/services/emergency.service';
 import {Observable} from 'rxjs';
 import {AddEmergencyOrgPersonFieldClass, AddEmergencyOrgTeamFieldClass, EmergencyOrgPersonField, EmergencyOrgTeamField, UpdateEmergencyOrgTeamFieldClass} from '../../emergencyApi';
-import {orgInitializeTree} from '../../../../common/public/contents';
+import {InitFormGroup, orgInitializeTree} from '../../../../common/public/contents';
 import {GlobalService} from '../../../../common/services/global.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-team',
@@ -36,9 +37,11 @@ export class TeamComponent implements OnInit {
   public eoTeamOrgTreeModal: boolean = false; // 组织单位组织树模态框
   public eoTeamOrgTreeSelect: OrgTree = {}; // 组织单位组织树选择
   public eoTeamOrgTreeSelectLabel: any = '点击选择组织单位'; // 组织单位组织树label
+  public eoTeamFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgTeamFieldClass(), ['mineEmergencyTeamMembers'])); // 表单模型
   constructor(
     private emergencySrv: EmergencyService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -70,6 +73,10 @@ export class TeamComponent implements OnInit {
   // 基础操作
   public eoTeamOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.eoTeamOperateModal = false;
+        this.eoTeamFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.eoTeamOrgTreeSelectLabel = '点击选择组织单位';
@@ -83,7 +90,16 @@ export class TeamComponent implements OnInit {
         this.eoTeamOrgTreeSelectLabel = item.affiliatedUnit;
         this.eoTeamOrgTreeSelect = {};
         this.eoTeamOperateField = Object.assign({}, new UpdateEmergencyOrgTeamFieldClass(), item);
-        this.eoTeamPersonal = [...this.eoTeamOperateField.mineEmergencyTeamMembers];
+        if (this.eoTeamOperateField.mineEmergencyTeamMembers) {
+          this.eoTeamPersonal = [...this.eoTeamOperateField.mineEmergencyTeamMembers];
+        } else {
+          this.eoTeamPersonal = [];
+        }
+        const Obj = {};
+        Object.keys(this.eoTeamFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.eoTeamFormModal.setValue(Obj);
         this.eoTeamOperateModal = true;
         break;
       // 保存操作
@@ -91,20 +107,36 @@ export class TeamComponent implements OnInit {
         // 修改保存
         if (this.eoTeamOperateField.id) {
           if ('id' in this.eoTeamOrgTreeSelect ) {
-            this.eoTeamOperateField.affiliatedUnitId = this.eoTeamOrgTreeSelect.id;
-            this.eoTeamOperateField.affiliatedUnit = this.eoTeamOrgTreeSelect.label;
+            this.eoTeamFormModal.patchValue({
+              affiliatedUnitId: this.eoTeamOrgTreeSelect.id,
+              affiliatedUnit: this.eoTeamOrgTreeSelect.label
+            });
           }
-          this.eoTeamOperateField.mineEmergencyTeamMembers = this.eoTeamPersonal;
-          this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamUpdate(this.eoTeamOperateField));
+          this.eoTeamFormModal.patchValue({
+            mineEmergencyTeamMembers: this.eoTeamPersonal
+          });
+          if (this.eoTeamFormModal.valid) {
+            this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamUpdate({...this.eoTeamFormModal.value, id: this.eoTeamOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
+          }
         }
         // 新增保存
         else {
           if ('id' in this.eoTeamOrgTreeSelect ) {
-            this.eoTeamOperateField.affiliatedUnitId = this.eoTeamOrgTreeSelect.id;
-            this.eoTeamOperateField.affiliatedUnit = this.eoTeamOrgTreeSelect.label;
+            this.eoTeamFormModal.patchValue({
+              affiliatedUnitId: this.eoTeamOrgTreeSelect.id,
+              affiliatedUnit: this.eoTeamOrgTreeSelect.label
+            });
           }
-          this.eoTeamOperateField.mineEmergencyTeamMembers = this.eoTeamPersonal;
-          this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamAdd(this.eoTeamOperateField));
+          this.eoTeamFormModal.patchValue({
+            mineEmergencyTeamMembers: this.eoTeamPersonal
+          });
+          if (this.eoTeamFormModal.valid) {
+            this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamAdd(this.eoTeamFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

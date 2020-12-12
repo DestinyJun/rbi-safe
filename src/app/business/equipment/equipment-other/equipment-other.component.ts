@@ -3,8 +3,9 @@ import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {AddEquipmentOtherFieldClass, EquipmentOtherField, UpdateEquipmentOtherFieldClass} from '../equipmentApi';
 import {EquipmentService} from '../../../common/services/equipment.service';
 import {GlobalService} from '../../../common/services/global.service';
-import {orgInitializeTree} from '../../../common/public/contents';
+import {InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-equipment-other',
@@ -33,11 +34,11 @@ export class EquipmentOtherComponent implements OnInit {
   public eqOtherOrgTree: OrgTree[] = []; // 组织树配置项
   public eqOtherOrgTreeSelect: OrgTree = {}; // 组织树选择
   public eqOtherOrgTreeSelectLabel: any = '点击选择单位'; // 组织树label
-  public eqOtherDropdownSelected: any; // 状态下拉选择
-  public eqOtherDropdownPlaceholder: any = '请选择运行状况'; //  状态下拉label
+  public eqOtherFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentOtherFieldClass())); // 表单模型
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -69,40 +70,54 @@ export class EquipmentOtherComponent implements OnInit {
   // 基础操作
   public eqOtherOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.eqOtherOperateModal = false;
+        this.eqOtherFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.eqOtherOperateModal = true;
         this.eqOtherOperateField = Object.assign({}, new AddEquipmentOtherFieldClass());
         this.eqOtherOrgTreeSelectLabel = '点击选择单位';
-        this.eqOtherDropdownPlaceholder = '请选择运行状况';
         this.eqOtherOrgTreeSelect = {};
-        this.eqOtherDropdownSelected = null;
         break;
       // 编辑操作初始化
       case 'update':
         this.eqOtherOrgTreeSelectLabel = item.organizationName;
-        this.eqOtherDropdownPlaceholder = item.operationStatus === 1 ? '正常' : '异常';
         this.eqOtherOrgTreeSelect = {};
-        this.eqOtherDropdownSelected = null;
         this.eqOtherOperateField = Object.assign({}, new UpdateEquipmentOtherFieldClass(), item);
+        const Obj = {};
+        Object.keys(this.eqOtherFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.eqOtherFormModal.setValue(Obj);
         this.eqOtherOperateModal = true;
         break;
       // 保存操作
       case 'save':
         // 修改保存
         if (this.eqOtherOperateField.id) {
-          if ('id' in this.eqOtherOrgTreeSelect ) {
-            this.eqOtherOperateField.organizationId = this.eqOtherOrgTreeSelect.id;
+          if ('id' in this.eqOtherOrgTreeSelect) {
+            this.eqOtherFormModal.patchValue({
+              organizationId: this.eqOtherOrgTreeSelect.id
+            });
           }
-          delete this.eqOtherOperateField['organizationName'];
-          delete this.eqOtherOperateField['idt'];
-          delete this.eqOtherOperateField['no'];
-          this.eqOtherHttpOperate(this.equipmentSrv.equipmentOtherUpdate(this.eqOtherOperateField));
+          if (this.eqOtherFormModal.valid) {
+            this.eqOtherHttpOperate(this.equipmentSrv.equipmentOtherUpdate({...this.eqOtherFormModal.value, id: this.eqOtherOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
+          }
         }
         // 新增保存
         else {
-          this.eqOtherOperateField.organizationId = this.eqOtherOrgTreeSelect.id;
-          this.eqOtherHttpOperate(this.equipmentSrv.equipmentOtherAdd(this.eqOtherOperateField));
+          this.eqOtherFormModal.patchValue({
+            organizationId: this.eqOtherOrgTreeSelect.id
+          });
+          if (this.eqOtherFormModal.valid) {
+            this.eqOtherHttpOperate(this.equipmentSrv.equipmentOtherAdd(this.eqOtherFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

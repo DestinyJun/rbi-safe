@@ -200,11 +200,15 @@ export function setValueToFromValue(list: Array<string>, data: object, formGroup
   });
 }
 
-export function InitFormGroup(obj: any): any  {
+export function InitFormGroup(obj: any, option = []): any  {
   const a = Object.assign(obj);
   for (const keys in a) {
     if (a.hasOwnProperty(keys)) {
-      a[keys] = ['', Validators.required];
+      if (option.includes(keys)) {
+        a[keys] = [''];
+      } else {
+        a[keys] = ['', Validators.required];
+      }
     }
   }
   return a;

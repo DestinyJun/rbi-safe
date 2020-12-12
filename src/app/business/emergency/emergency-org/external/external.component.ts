@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {PageOption, TableHeader} from '../../../../common/public/Api';
 import {EmergencyService} from '../../../../common/services/emergency.service';
 import {Observable} from 'rxjs';
-import {AddEmergencyOrgExternalFieldClass, EmergencyOrgExternalField, UpdateEmergencyOrgExternalFieldClass} from '../../emergencyApi';
+import {AddEmergencyOrgAgencyFieldClass, AddEmergencyOrgExternalFieldClass, EmergencyOrgExternalField, UpdateEmergencyOrgExternalFieldClass} from '../../emergencyApi';
+import {InitFormGroup} from '../../../../common/public/contents';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-external',
@@ -27,8 +29,10 @@ export class ExternalComponent implements OnInit {
   public eoExternalOperateFlag: any ; // 操作标识
   public eoExternalOperateField: EmergencyOrgExternalField = new AddEmergencyOrgExternalFieldClass(); // 操作字段
   public eoExternalOperateModal: boolean = false; // 模态框
+  public eoExternalFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgExternalFieldClass())); // 表单模型
   constructor(
     private emergencySrv: EmergencyService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -54,6 +58,10 @@ export class ExternalComponent implements OnInit {
   // 基础操作
   public eoExternalOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.eoExternalOperateModal = false;
+        this.eoExternalFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.eoExternalOperateModal = true;
@@ -63,16 +71,29 @@ export class ExternalComponent implements OnInit {
       case 'update':
         this.eoExternalOperateField = Object.assign({}, new UpdateEmergencyOrgExternalFieldClass(), item);
         this.eoExternalOperateModal = true;
+        const Obj = {};
+        Object.keys(this.eoExternalFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.eoExternalFormModal.setValue(Obj);
         break;
       // 保存操作
       case 'save':
         // 修改保存
         if (this.eoExternalOperateField.id) {
-          this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalUpdate(this.eoExternalOperateField));
+          if (this.eoExternalFormModal.valid) {
+            this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalUpdate({...this.eoExternalFormModal.value, id: this.eoExternalOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
+          }
         }
         // 新增保存
         else {
-          this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalAdd(this.eoExternalOperateField));
+          if (this.eoExternalFormModal.valid) {
+            this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalAdd(this.eoExternalFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

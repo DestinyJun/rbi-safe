@@ -3,8 +3,9 @@ import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {AddEquipmentSpecialFieldClass, EquipmentSpecialField, UpdateEquipmentSpecialFieldClass} from '../equipmentApi';
 import {EquipmentService} from '../../../common/services/equipment.service';
 import {GlobalService} from '../../../common/services/global.service';
-import {Es, orgInitializeTree} from '../../../common/public/contents';
+import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-equipment-special',
@@ -43,12 +44,12 @@ export class EquipmentSpecialComponent implements OnInit {
     {value: 1, label: '正常'},
     {value: 2, label: '异常'},
   ]; // 状态下拉配置项
-  public eqSpecialDropdownSelected: any; // 状态下拉选择
-  public eqSpecialDropdownPlaceholder: any = '请选择运行状况'; //  状态下拉label
   public eqSpecialEs: any = Es; // 日期选择插件
+  public eqSpecialFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentSpecialFieldClass())); // 表单模型
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -80,22 +81,27 @@ export class EquipmentSpecialComponent implements OnInit {
   // 基础操作
   public eqSpecialOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.eqSpecialOperateModal = false;
+        this.eqSpecialFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.eqSpecialOperateModal = true;
         this.eqSpecialOperateField = Object.assign({}, new AddEquipmentSpecialFieldClass());
         this.eqSpecialOrgTreeSelectLabel = '点击选择单位';
-        this.eqSpecialDropdownPlaceholder = '请选择运行状况';
         this.eqSpecialOrgTreeSelect = {};
-        this.eqSpecialDropdownSelected = null;
         break;
       // 编辑操作初始化
       case 'update':
         this.eqSpecialOrgTreeSelectLabel = item.organizationName;
-        this.eqSpecialDropdownPlaceholder = item.operationStatus === 1 ? '正常' : '异常';
         this.eqSpecialOrgTreeSelect = {};
-        this.eqSpecialDropdownSelected = null;
         this.eqSpecialOperateField = Object.assign({}, new UpdateEquipmentSpecialFieldClass(), item);
+        const Obj = {};
+        Object.keys(this.eqSpecialFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.eqSpecialFormModal.setValue(Obj);
         this.eqSpecialOperateModal = true;
         break;
       // 保存操作
@@ -103,21 +109,26 @@ export class EquipmentSpecialComponent implements OnInit {
         // 修改保存
         if (this.eqSpecialOperateField.id) {
           if ('id' in this.eqSpecialOrgTreeSelect) {
-            this.eqSpecialOperateField.organizationId = this.eqSpecialOrgTreeSelect.id;
+            this.eqSpecialFormModal.patchValue({
+              organizationId: this.eqSpecialOrgTreeSelect.id
+            });
           }
-          if (this.eqSpecialDropdownSelected ) {
-            this.eqSpecialOperateField.operationStatus = this.eqSpecialDropdownSelected.value;
+          if (this.eqSpecialFormModal.valid) {
+            this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialUpdate({...this.eqSpecialFormModal.value, id: this.eqSpecialOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
           }
-          delete this.eqSpecialOperateField['organizationName'];
-          delete this.eqSpecialOperateField['idt'];
-          delete this.eqSpecialOperateField['no'];
-          this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialUpdate(this.eqSpecialOperateField));
         }
         // 新增保存
         else {
-          this.eqSpecialOperateField.organizationId = this.eqSpecialOrgTreeSelect.id;
-          this.eqSpecialOperateField.operationStatus = this.eqSpecialDropdownSelected.value;
-          this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialAdd(this.eqSpecialOperateField));
+          this.eqSpecialFormModal.patchValue({
+            organizationId: this.eqSpecialOrgTreeSelect.id
+          });
+          if (this.eqSpecialFormModal.valid) {
+            this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialAdd(this.eqSpecialFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

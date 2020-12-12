@@ -23,6 +23,17 @@ export class AddEquipmentSafeFieldClass implements EquipmentSafeField{
   remarks: string;
   type: string;
   unit: string;
+  constructor() {
+    this.majorEquipment = '';
+    this.modelAndSpecification = '';
+    this.type = '';
+    this.number = null;
+    this.operationStatus = null;
+    this.organizationId = null;
+    this.position = '';
+    this.remarks = '';
+    this.unit = '';
+  }
 }
 export class UpdateEquipmentSafeFieldClass implements EquipmentSafeField {
   id: number;
@@ -88,7 +99,25 @@ export class AddEquipmentSpecialFieldClass implements EquipmentSpecialField{
   remarks: string;
   reportNo: string;
   specialParameters: string;
-
+  constructor() {
+    this.equipmentCode = '';
+    this.equipmentName = '';
+    this.factoryNumber = '';
+    this.inspectionDate = '';
+    this.inspectionPeriod = '';
+    this.inspectionUnit = '';
+    this.licenseNo = '';
+    this.manufacturer = '';
+    this.nextInspectionDate = '';
+    this.operationTime = '';
+    this.position = '';
+    this.registeredUnit = '';
+    this.reportNo = '';
+    this.specialParameters = '';
+    this.operationStatus = null;
+    this.organizationId = null;
+    this.remarks = '';
+  }
 }
 export class UpdateEquipmentSpecialFieldClass implements EquipmentSpecialField {
   equipmentCode: string;
@@ -146,6 +175,12 @@ export class AddEquipmentOtherFieldClass implements EquipmentOtherField{
   numberOfSets: number;
   organizationId: any;
   remarks: string;
+  constructor() {
+    this.organizationId = null;
+    this.numberOfSets = null;
+    this.intactNumber = null;
+    this.remarks = '';
+  }
 }
 export class UpdateEquipmentOtherFieldClass implements EquipmentOtherField {
   id: any;
@@ -157,7 +192,7 @@ export class UpdateEquipmentOtherFieldClass implements EquipmentOtherField {
     this.id = null;
     this.organizationId = null;
     this.numberOfSets = null;
-    this.organizationId = null;
+    this.intactNumber = null;
     this.remarks = '';
   }
 }
