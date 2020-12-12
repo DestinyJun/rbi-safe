@@ -63,7 +63,7 @@
       [(visible)]="emPlanOperateModal" [style]="{width: '50vw'}"
       (onHide)="emPlanOperate(emPlanOperateFlag = 'cancel')"
     >
-      <p-header>{{emPlanOperateFlag === 'add' ? '添加操作' : '编辑操作'}}</p-header>
+      <p-header>{{emPlanOperateHeaderFlag === 'add' ? '添加操作' : '编辑操作'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <form [formGroup]="emPlanFormModal">
@@ -71,6 +71,7 @@
               <!--编制单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>编制单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -86,6 +87,7 @@
               <!--主控单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>主控单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -101,6 +103,7 @@
               <!--应急预案名称-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>应急预案名称：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -110,6 +113,7 @@
               <!--预案类别-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>预案类别：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -125,6 +129,7 @@
               <!--备案单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>备案单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -134,6 +139,7 @@
               <!--文件上传-->
               <div class="ui-g-12 ui-md-12">
                 <label class="ui-g-2 ui-md-2 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>文件上传：</span>
                 </label>
                 <div class="ui-g-10 ui-md-10 input">
@@ -153,7 +159,7 @@
               </div>
             </div>
           </form>
-          <ng-container *ngIf="emPlanOperateFlag === 'update' || emPlanOperateFlag === 'open' || emPlanOperateFlag === 'plaitTree' || emPlanOperateFlag === 'masterTree'">
+          <ng-container *ngIf="emPlanOperateHeaderFlag === 'update'">
             <!--是否通过评审-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
@@ -219,6 +225,7 @@
               <!--主控单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>主控单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -234,6 +241,7 @@
               <!--应急预案名称-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>应急预案名称：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -243,6 +251,7 @@
               <!--评审时间-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>评审时间：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -266,6 +275,7 @@
               <!--评审状态-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>评审状态：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -281,6 +291,7 @@
               <!--预案类别-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>预案类别：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -296,6 +307,7 @@
               <!--评审组织-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>评审组织：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -305,6 +317,7 @@
               <!--评审附件-->
               <div class="ui-g-12 ui-md-12">
                 <label class="ui-g-2 ui-md-2 label">
+                  <span style="color: #FF8A9A">*</span>
                   <span>评审附件：</span>
                 </label>
                 <div class="ui-g-10 ui-md-10 input">

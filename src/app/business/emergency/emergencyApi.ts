@@ -300,7 +300,25 @@ export class AddEmergencyDrillFieldClass implements EmergencyDrillField{
   projectUndertaker: string;
   projectUndertakerId: any;
   remarks: string;
-
+  constructor() {
+    this.controlOrganization = '';
+    this.controlOrganizationId = null;
+    this.emergencyPlanName = '';
+    this.actualDrillForm = '';
+    this.actualDrillTime = '';
+    this.actualFrequency = null;
+    this.cost = null;
+    this.influence = '';
+    this.numberOfPeople = null;
+    this.place = '';
+    this.planDrillTime = '';
+    this.planFrequency = null;
+    this.plannedDrillForm = '';
+    this.projectUndertaker = '';
+    this.projectUndertakerId = null;
+    this.remarks = '';
+    this.drillLevel = '';
+  }
 
 }
 export class UpdateEmergencyDrillFieldClass implements EmergencyDrillField {

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {AddEmergencyDrillFieldClass, EmergencyDrillField, UpdateEmergencyDrillFieldClass} from '../emergencyApi';
-import {Es, orgInitializeTree} from '../../../common/public/contents';
+import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {EmergencyService} from '../../../common/services/emergency.service';
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
+import {FormBuilder} from '@angular/forms';
+import {Hidden, Show} from '../../../store/loadstatus.actions';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/loadstatus.state';
 
 @Component({
   selector: 'app-emergency-drill',
@@ -60,9 +64,13 @@ export class EmergencyDrillComponent implements OnInit {
   public emDrillImgList: any = []; // 图片文件列表
   public emDrillImgId: any = null; // 图片所属Id
 
+  public emDrillFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyDrillFieldClass())); // 表单模型
+
   constructor(
     private emergencySrv: EmergencyService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
@@ -94,6 +102,11 @@ export class EmergencyDrillComponent implements OnInit {
   // 基础操作
   public emDrillOperate(flag: string, item?: any, obj?: any) {
     switch (flag) {
+      // 取消操作
+      case 'cancel':
+        this.emDrillOperateModal = false;
+        this.emDrillFormModal.reset({});
+        break;
       // 图片删除操作
       case 'imgDel':
         if (window.confirm('您确定需要删除吗？')) {
@@ -133,7 +146,78 @@ export class EmergencyDrillComponent implements OnInit {
             this.emDrillOperateField[keys] = item[keys];
           }
         }
+        const Obj = {};
+        Object.keys(this.emDrillFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.emDrillFormModal.setValue(Obj);
         this.emDrillOperateModal = true;
+        break;
+      // 保存操作
+      case 'save':
+        this.store.dispatch(new Show());
+        // 修改保存
+        if (this.emDrillOperateField.id) {
+          if ('id' in this.emDrillMasterPlaitTreeSelect ) {
+            this.emDrillFormModal.patchValue({
+              controlOrganizationId: this.emDrillMasterPlaitTreeSelect.id,
+              controlOrganization: this.emDrillMasterPlaitTreeSelect.label,
+            });
+          }
+          if ('id' in this.emDrillPlanPlaitTreeSelect ) {
+            this.emDrillFormModal.patchValue({
+              projectUndertakerId: this.emDrillPlanPlaitTreeSelect.id,
+              projectUndertaker: this.emDrillPlanPlaitTreeSelect.label,
+            });
+          }
+          if (this.emDrillFormModal.valid) {
+            const field = new FormData();
+            const eachObjs = {...this.emDrillFormModal.value, id: this.emDrillOperateField.id};
+            Object.keys(eachObjs).forEach(res => {
+              field.append(res, eachObjs[res]);
+            });
+            if (item.length > 0) {
+              item.forEach(res => {
+                field.append('attachment', res);
+              });
+            }
+            this.emDrillHttpOperate(this.emergencySrv.emergencyDrillUpdate(field));
+          } else {
+            window.alert('请把参数填写完整!');
+            this.store.dispatch(new Hidden());
+          }
+
+        }
+        // 新增保存
+        else {
+          if ('id' in this.emDrillMasterPlaitTreeSelect ) {
+            this.emDrillFormModal.patchValue({
+              controlOrganizationId: this.emDrillMasterPlaitTreeSelect.id,
+              controlOrganization: this.emDrillMasterPlaitTreeSelect.label,
+            });
+          }
+          if ('id' in this.emDrillPlanPlaitTreeSelect ) {
+            this.emDrillFormModal.patchValue({
+              projectUndertakerId: this.emDrillPlanPlaitTreeSelect.id,
+              projectUndertaker: this.emDrillPlanPlaitTreeSelect.label,
+            });
+          }
+          if (this.emDrillFormModal.valid) {
+            const field = new FormData();
+            Object.keys(this.emDrillFormModal.value).forEach(res => {
+              field.append(res, this.emDrillFormModal.value[res]);
+            });
+            if (item.length > 0) {
+              item.forEach(res => {
+                field.append('attachment', res);
+              });
+            }
+            this.emDrillHttpOperate(this.emergencySrv.emergencyDrillAdd(field));
+          }else {
+            window.alert('请把参数填写完整!');
+            this.store.dispatch(new Hidden());
+          }
+        }
         break;
       // 删除操作
       case 'del':
@@ -149,51 +233,6 @@ export class EmergencyDrillComponent implements OnInit {
           }
         } else {
           window.alert('请您勾选需要删除的项！');
-        }
-        break;
-      // 保存操作
-      case 'save':
-        // 修改保存
-        if (this.emDrillOperateField.id) {
-          if ('id' in this.emDrillMasterPlaitTreeSelect ) {
-            this.emDrillOperateField.controlOrganizationId = this.emDrillMasterPlaitTreeSelect.id;
-            this.emDrillOperateField.controlOrganization = this.emDrillMasterPlaitTreeSelect.label;
-          }
-          if ('id' in this.emDrillPlanPlaitTreeSelect ) {
-            this.emDrillOperateField.projectUndertakerId = this.emDrillPlanPlaitTreeSelect.id;
-            this.emDrillOperateField.projectUndertaker = this.emDrillPlanPlaitTreeSelect.label;
-          }
-          const field = new FormData();
-          Object.keys(this.emDrillOperateField).forEach(res => {
-            field.append(res, this.emDrillOperateField[res]);
-          });
-          if (item.length > 0) {
-            item.forEach(res => {
-              field.append('attachment', res);
-            });
-          }
-          this.emDrillHttpOperate(this.emergencySrv.emergencyDrillUpdate(field));
-        }
-        // 新增保存
-        else {
-          if ('id' in this.emDrillMasterPlaitTreeSelect ) {
-            this.emDrillOperateField.controlOrganizationId = this.emDrillMasterPlaitTreeSelect.id;
-            this.emDrillOperateField.controlOrganization = this.emDrillMasterPlaitTreeSelect.label;
-          }
-          if ('id' in this.emDrillPlanPlaitTreeSelect ) {
-            this.emDrillOperateField.projectUndertakerId = this.emDrillPlanPlaitTreeSelect.id;
-            this.emDrillOperateField.projectUndertaker = this.emDrillPlanPlaitTreeSelect.label;
-          }
-          const field = new FormData();
-          Object.keys(this.emDrillOperateField).forEach(res => {
-            field.append(res, this.emDrillOperateField[res]);
-          });
-          if (item.length > 0) {
-            item.forEach(res => {
-              field.append('attachment', res);
-            });
-          }
-          this.emDrillHttpOperate(this.emergencySrv.emergencyDrillAdd(field));
         }
         break;
       // 主控单位

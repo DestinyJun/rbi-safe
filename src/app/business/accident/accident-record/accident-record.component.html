@@ -57,126 +57,141 @@
       [modal]="true"
       [blockScroll]="true"
       [(visible)]="acRecordOperateModal" [style]="{width: '50vw'}"
+      (onHide)="acRecordOperate(acRecordOperateFlag = 'cancel')"
     >
       <p-header>{{acRecordOperateFlag === 'update' ? '记录编辑' : '记录添加'}}</p-header>
       <div style="width: 100%;height: 65vh;">
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
-          <div class="ui-g">
-            <!--组织培训单位-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>单位：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <button
-                  pButton type="button"
-                  style="width: 100%"
-                  [label]="acRecordOrgTreeSelect.label?acRecordOrgTreeSelect.label:acRecordOrgTreeSelectLabel"
-                  class="ui-button-white text-left"
-                  (click)="acRecordOperate(acRecordOperateFlag = 'tree')">
-                </button>
+          <form [formGroup]="acRecordFormModal">
+            <div class="ui-g">
+              <!--组织培训单位-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>单位：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <button
+                    pButton type="button"
+                    style="width: 100%"
+                    [label]="acRecordOrgTreeSelect.label?acRecordOrgTreeSelect.label:acRecordOrgTreeSelectLabel"
+                    class="ui-button-white text-left"
+                    (click)="acRecordOperate(acRecordOperateFlag = 'tree')">
+                  </button>
+                </div>
+              </div>
+              <!--事故地点-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>事故地点：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="text" formControlName="accidentPlace" pInputText placeholder="请填事故地点">
+                </div>
+              </div>
+              <!--事故类型-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>事故类型：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-dropdown
+                    formControlName="accidentTypeId"
+                    [style]="{width: '100%'}"
+                    placeholder="请选择事故类型"
+                    [options]="acRecordDropdownOptions"
+                    dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
+                </div>
+              </div>
+              <!--事故数量-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>涉及人员数量：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="accidentAccount" pInputText placeholder="请填涉及人员数量">
+                </div>
+              </div>
+              <!--事故时间-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>事故时间：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <p-calendar
+                    #calendarDate
+                    formControlName="accidentTime"
+                    placeholder="点击选择时间......"
+                    [locale]="acRecordEs"
+                    dateFormat="yy-mm-dd"
+                    dataType="string"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    [showTime]="false"
+                    yearRange="1930:2030">
+                    <p-footer>
+                      <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+                    </p-footer>
+                  </p-calendar>
+                </div>
+              </div>
+              <!--召开警示教育会数-->
+              <div class="ui-g-6 ui-md-6">
+                <label class="ui-g-4 ui-md-4 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>召开警示教育会数：</span>
+                </label>
+                <div class="ui-g-8 ui-md-8 input">
+                  <input type="number" formControlName="educationAccount" pInputText placeholder="请填召开警示教育会数">
+                </div>
+              </div>
+              <!--整改落实情况-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>整改落实情况：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="changeStatus" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+                </div>
+              </div>
+              <!--详细描述-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>详细描述：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="detail" pInputTextarea autoResize="autoResize" placeholder="请填写详细描述"></textarea>
+                </div>
+              </div>
+              <!--原因分析-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>原因分析：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="reasonAnalysis" pInputTextarea autoResize="autoResize" placeholder="请填写原因分析"></textarea>
+                </div>
+              </div>
+              <!--采取措施-->
+              <div class="ui-g-12 ui-md-12">
+                <label class="ui-g-2 ui-md-2 label">
+                  <span style="color: #FF8A9A">*</span>
+                  <span>采取措施：</span>
+                </label>
+                <div class="ui-g-10 ui-md-10 input">
+                  <textarea [rows]="5" [cols]="30" formControlName="measure" pInputTextarea autoResize="autoResize" placeholder="请填写采取措施"></textarea>
+                </div>
               </div>
             </div>
-            <!--事故地点-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>事故地点：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填事故地点" [(ngModel)]="acRecordOperateField.accidentPlace">
-              </div>
-            </div>
-            <!--事故类型-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>事故类型：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-dropdown
-                  [style]="{width: '100%'}"
-                  [placeholder]="acRecordDropdownPlaceholder"
-                  [options]="acRecordDropdownOptions" [(ngModel)]="acRecordDropdownSelected"
-                  optionLabel="typeName" dropdownIcon="fa fa-caret-down">
-                </p-dropdown>
-              </div>
-            </div>
-            <!--事故数量-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>涉及人员数量：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填涉及人员数量" [(ngModel)]="acRecordOperateField.accidentAccount">
-              </div>
-            </div>
-            <!--事故时间-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>事故时间：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <p-calendar
-                  #calendarDate
-                  placeholder="点击选择时间......"
-                  [locale]="acRecordEs" [(ngModel)]="acRecordOperateField.accidentTime"
-                  dateFormat="yy-mm-dd"
-                  dataType="string"
-                  [monthNavigator]="true"
-                  [yearNavigator]="true"
-                  [showTime]="false"
-                  yearRange="1930:2030">
-                  <p-footer>
-                    <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
-                  </p-footer>
-                </p-calendar>
-              </div>
-            </div>
-            <!--召开警示教育会数-->
-            <div class="ui-g-6 ui-md-6">
-              <label class="ui-g-4 ui-md-4 label">
-                <span>召开警示教育会数：</span>
-              </label>
-              <div class="ui-g-8 ui-md-8 input">
-                <input type="number" pInputText placeholder="请填召开警示教育会数" [(ngModel)]="acRecordOperateField.educationAccount">
-              </div>
-            </div>
-            <!--整改落实情况-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>整改落实情况：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="acRecordOperateField.changeStatus" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
-              </div>
-            </div>
-            <!--详细描述-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>详细描述：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="acRecordOperateField.detail" pInputTextarea autoResize="autoResize" placeholder="请填写详细描述"></textarea>
-              </div>
-            </div>
-            <!--原因分析-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>原因分析：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="acRecordOperateField.reasonAnalysis" pInputTextarea autoResize="autoResize" placeholder="请填写原因分析"></textarea>
-              </div>
-            </div>
-            <!--采取措施-->
-            <div class="ui-g-12 ui-md-12">
-              <label class="ui-g-2 ui-md-2 label">
-                <span>采取措施：</span>
-              </label>
-              <div class="ui-g-10 ui-md-10 input">
-                <textarea [rows]="5" [cols]="30" [(ngModel)]="acRecordOperateField.measure" pInputTextarea autoResize="autoResize" placeholder="请填写采取措施"></textarea>
-              </div>
-            </div>
-          </div>
+          </form>
         </p-scrollPanel>
       </div>
       <p-footer>

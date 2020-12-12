@@ -122,8 +122,9 @@ export class IntentCultureComponent implements OnInit {
           }
           if (this.cultureFormModal.valid) {
             const field = new FormData();
-            Object.keys({...this.cultureFormModal.value, id: this.cultureOperateField.id }).forEach(res => {
-              field.append(res, this.cultureOperateField[res]);
+            const eachObjs = {...this.cultureFormModal.value, id: this.cultureOperateField.id};
+            Object.keys(eachObjs).forEach(res => {
+              field.append(res, eachObjs[res]);
             });
             if (item.length > 0) {
               item.forEach(res => {
@@ -166,7 +167,6 @@ export class IntentCultureComponent implements OnInit {
         this.cultureOperateModal = false;
         this.cultureFormModal.reset({}, {onlySelf: true, emitEvent: false});
         break;
-      // 删除操作
       // 删除操作
       case 'del':
         if (window.confirm('您确定需要删除吗？')) {

@@ -33,6 +33,7 @@ export class EmergencyPlanComponent implements OnInit {
   public emPlanTableSelect: any = []; // 表格选择数据
   public emPlanNowPage: number = 1; // 当前页
   public emPlanOperateFlag: any ; // 操作标识
+  public emPlanOperateHeaderFlag: string = 'add' ; // 头部操作标识
   public emPlanOperateField: EmergencyPlanField = new AddEmergencyPlanFieldClass(); // 操作字段
   public emPlanOperateModal: boolean = false; // 模态框
   public emPlanOrgTree: OrgTree[] = []; // 组织树配置项
@@ -106,6 +107,7 @@ export class EmergencyPlanComponent implements OnInit {
       // 添加操作初始化
       case 'add':
         this.emPlanOperateModal = true;
+        this.emPlanOperateHeaderFlag = 'add';
         this.emPlanOperateField = Object.assign({}, new AddEmergencyPlanFieldClass());
         this.emPlanPlaitTreeSelectLabel = '点击选择编制单位';
         this.emPlanMasterTreeSelectLabel = '点击选择主控单位';
@@ -115,6 +117,7 @@ export class EmergencyPlanComponent implements OnInit {
         break;
       // 编辑操作初始化
       case 'update':
+        this.emPlanOperateHeaderFlag = 'update';
         obj.clear();
         this.emPlanPlaitTreeSelectLabel = item.preparationUnit;
         this.emPlanMasterTreeSelectLabel = item.controlOrganization;

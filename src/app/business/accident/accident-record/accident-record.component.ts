@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {GlobalService} from '../../../common/services/global.service';
-import {Es, orgInitializeTree} from '../../../common/public/contents';
+import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
 import {AccidentRecordField, AddAccidentRecordFieldClass, UpdateAccidentRecordFieldClass} from '../accidentApi';
 import {AccidentService} from '../../../common/services/accident.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-accident-record',
@@ -36,12 +37,12 @@ export class AccidentRecordComponent implements OnInit {
   public acRecordOrgTreeSelect: OrgTree = {}; // 组织树选择
   public acRecordOrgTreeSelectLabel: any = '点击选择单位'; // 组织树label
   public acRecordDropdownOptions: any = []; // 状态下拉配置项
-  public acRecordDropdownSelected: any; // 状态下拉选择
-  public acRecordDropdownPlaceholder: any = '请选择事故类型'; //  状态下拉label
   public acRecordEs: any = Es; // 日期选择插件
+  public acRecordFormModal = this.fbSrv.group(InitFormGroup(new AddAccidentRecordFieldClass())); // 表单模型
   constructor(
     private accidentSrv: AccidentService,
     private globalSrv: GlobalService,
+    private fbSrv: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -56,7 +57,7 @@ export class AccidentRecordComponent implements OnInit {
     // 初始化下拉菜单
     this.globalSrv.publicGetAccidentTypeList({}).subscribe(
       (res) => {
-        this.acRecordDropdownOptions = res.data;
+        this.acRecordDropdownOptions = res.data.map((item) => ({label: item.typeName, value: item.id}));
       }
     );
   }
@@ -80,25 +81,26 @@ export class AccidentRecordComponent implements OnInit {
   // 基础操作
   public acRecordOperate(flag: string, item?: any) {
     switch (flag) {
+      case 'cancel':
+        this.acRecordOperateModal = false;
+        this.acRecordFormModal.reset({}, {onlySelf: false, emitEvent: false});
+        break;
       // 添加操作初始化
       case 'add':
         this.acRecordOperateModal = true;
-        this.acRecordDropdownSelected = null;
-        this.acRecordDropdownPlaceholder = '请选择运行状况';
         this.acRecordOperateField = Object.assign({}, new AddAccidentRecordFieldClass());
         this.acRecordOrgTreeSelect = {id: this.acRecordOrgTree[0].id, label: this.acRecordOrgTree[0].label};
         break;
       // 编辑操作初始化
       case 'update':
         this.acRecordOrgTreeSelect = {};
-        this.acRecordDropdownSelected = null;
         this.acRecordOrgTreeSelectLabel = item.organizationName;
-        if (item.accidentName) {
-          this.acRecordDropdownPlaceholder = item.accidentName;
-        } else {
-          this.acRecordDropdownPlaceholder = '请选择运行状况';
-        }
         this.acRecordOperateField = Object.assign({}, new UpdateAccidentRecordFieldClass(), item);
+        const Obj = {};
+        Object.keys(this.acRecordFormModal.value).forEach((keys) => {
+          Obj[keys] = item[keys];
+        });
+        this.acRecordFormModal.setValue(Obj);
         this.acRecordOperateModal = true;
         break;
       // 保存操作
@@ -106,23 +108,26 @@ export class AccidentRecordComponent implements OnInit {
         // 修改保存
         if (this.acRecordOperateField.id) {
           if ('id' in this.acRecordOrgTreeSelect ) {
-            this.acRecordOperateField.organizationId = this.acRecordOrgTreeSelect.id;
+            this.acRecordFormModal.patchValue({
+              organizationId: this.acRecordOrgTreeSelect.id
+            });
           }
-          if ( this.acRecordDropdownSelected ) {
-            this.acRecordOperateField.accidentTypeId = this.acRecordDropdownSelected.id;
+          if (this.acRecordFormModal.valid) {
+            this.acRecordHttpOperate(this.accidentSrv.accidentRecordUpdate({...this.acRecordFormModal.value, id: this.acRecordOperateField.id}));
+          } else {
+            window.alert('请把参数填写完整！');
           }
-          delete this.acRecordOperateField['organizationName'];
-          delete this.acRecordOperateField['operatingStaff'];
-          delete this.acRecordOperateField['accidentName'];
-          delete this.acRecordOperateField['idt'];
-          delete this.acRecordOperateField['udt'];
-          this.acRecordHttpOperate(this.accidentSrv.accidentRecordUpdate(this.acRecordOperateField));
         }
         // 新增保存
         else {
-          this.acRecordOperateField.organizationId = this.acRecordOrgTreeSelect.id;
-          this.acRecordOperateField.accidentTypeId = this.acRecordDropdownSelected.id;
-          this.acRecordHttpOperate(this.accidentSrv.accidentRecordAdd(this.acRecordOperateField));
+          this.acRecordFormModal.patchValue({
+            organizationId: this.acRecordOrgTreeSelect.id
+          });
+          if (this.acRecordFormModal.valid) {
+            this.acRecordHttpOperate(this.accidentSrv.accidentRecordAdd(this.acRecordFormModal.value));
+          }else {
+            window.alert('请把参数填写完整！');
+          }
         }
         break;
       // 删除操作

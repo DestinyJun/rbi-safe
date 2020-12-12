@@ -25,7 +25,18 @@ export class AddAccidentRecordFieldClass implements AccidentRecordField{
   measure: any;
   organizationId: any;
   reasonAnalysis: any;
-
+  constructor() {
+    this.organizationId = null;
+    this.accidentAccount = null;
+    this.accidentPlace = '';
+    this.accidentTime = '';
+    this.accidentTypeId = null;
+    this.changeStatus = null;
+    this.detail = null;
+    this.educationAccount = null;
+    this.measure = null;
+    this.reasonAnalysis = null;
+  }
 }
 export class UpdateAccidentRecordFieldClass implements AccidentRecordField {
   accidentTime: string;
