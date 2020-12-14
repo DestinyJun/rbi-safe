@@ -252,11 +252,8 @@ export class EmergencyPlanComponent implements OnInit {
             item.forEach(res => {
               handleField.append('reviewAttachment', res);
             });
-            this.emPlanHttpOperate(this.emergencySrv.emergencyPlanHandle(handleField));
-          } else {
-            window.alert('评审附件必须上传!');
-            this.store.dispatch(new Hidden());
           }
+          this.emPlanHttpOperate(this.emergencySrv.emergencyPlanHandle(handleField));
         } else {
           window.alert('请把参数填写完整!');
           this.store.dispatch(new Hidden());

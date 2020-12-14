@@ -94,7 +94,7 @@ export class AgencyComponent implements OnInit {
           if (this.eoAgencyFormModal.valid) {
             this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyUpdate({...this.eoAgencyFormModal.value, id: this.eoAgencyOperateField.id}));
           } else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         // 新增保存
@@ -105,7 +105,7 @@ export class AgencyComponent implements OnInit {
           if (this.eoAgencyFormModal.valid) {
             this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyAdd(this.eoAgencyFormModal.value));
           }else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         break;
@@ -122,7 +122,7 @@ export class AgencyComponent implements OnInit {
             this.eoAgencyHttpOperate(this.emergencySrv.emergencyOrgAgencyDel({ids: this.eoAgencyTableSelect.map((val) => val.id)}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 人员添加

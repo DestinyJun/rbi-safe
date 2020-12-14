@@ -86,11 +86,11 @@ export class AccidentSituationComponent implements OnInit {
               this.acSituationPie = res.data;
             });
           } else {
-            window.alert('结束时间必须大于开始时间！');
+            window.confirm('结束时间必须大于开始时间！');
           }
           break;
         } else {
-          window.alert('必须选择日期区间！');
+          window.confirm('必须选择日期区间！');
           break;
         }
     }

@@ -81,7 +81,7 @@ export class InstitutionRecordComponent implements OnInit {
             this.institutionRecordHttpOperate(this.institutionSrv.institutionRecordDel({data: this.institutionRecordTableSelect.map((val) => ({id: val.id}))}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
     }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PageOption, TableHeader} from '../../../../common/public/Api';
 import {EmergencyService} from '../../../../common/services/emergency.service';
 import {Observable} from 'rxjs';
-import {AddEmergencyOrgAgencyFieldClass, AddEmergencyOrgExternalFieldClass, EmergencyOrgExternalField, UpdateEmergencyOrgExternalFieldClass} from '../../emergencyApi';
+import {AddEmergencyOrgExternalFieldClass, EmergencyOrgExternalField, UpdateEmergencyOrgExternalFieldClass} from '../../emergencyApi';
 import {InitFormGroup} from '../../../../common/public/contents';
 import {FormBuilder} from '@angular/forms';
 
@@ -84,7 +84,7 @@ export class ExternalComponent implements OnInit {
           if (this.eoExternalFormModal.valid) {
             this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalUpdate({...this.eoExternalFormModal.value, id: this.eoExternalOperateField.id}));
           } else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         // 新增保存
@@ -92,7 +92,7 @@ export class ExternalComponent implements OnInit {
           if (this.eoExternalFormModal.valid) {
             this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalAdd(this.eoExternalFormModal.value));
           }else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         break;
@@ -109,7 +109,7 @@ export class ExternalComponent implements OnInit {
             this.eoExternalHttpOperate(this.emergencySrv.emergencyOrgExternalDel({ids: this.eoExternalTableSelect.map((val) => val.id)}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
     }

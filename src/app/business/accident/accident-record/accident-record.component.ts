@@ -115,7 +115,7 @@ export class AccidentRecordComponent implements OnInit {
           if (this.acRecordFormModal.valid) {
             this.acRecordHttpOperate(this.accidentSrv.accidentRecordUpdate({...this.acRecordFormModal.value, id: this.acRecordOperateField.id}));
           } else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         // 新增保存
@@ -126,7 +126,7 @@ export class AccidentRecordComponent implements OnInit {
           if (this.acRecordFormModal.valid) {
             this.acRecordHttpOperate(this.accidentSrv.accidentRecordAdd(this.acRecordFormModal.value));
           }else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         break;
@@ -143,7 +143,7 @@ export class AccidentRecordComponent implements OnInit {
             this.acRecordHttpOperate(this.accidentSrv.accidentRecordDel({ids: this.acRecordTableSelect.map((val) => val.id).join(',')}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 树操作

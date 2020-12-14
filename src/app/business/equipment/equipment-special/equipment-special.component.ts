@@ -116,7 +116,7 @@ export class EquipmentSpecialComponent implements OnInit {
           if (this.eqSpecialFormModal.valid) {
             this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialUpdate({...this.eqSpecialFormModal.value, id: this.eqSpecialOperateField.id}));
           } else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         // 新增保存
@@ -127,7 +127,7 @@ export class EquipmentSpecialComponent implements OnInit {
           if (this.eqSpecialFormModal.valid) {
             this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialAdd(this.eqSpecialFormModal.value));
           }else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         break;
@@ -144,7 +144,7 @@ export class EquipmentSpecialComponent implements OnInit {
             this.eqSpecialHttpOperate(this.equipmentSrv.equipmentSpecialDel({ids: this.eqSpecialTableSelect.map((val) => val.id)}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 树操作

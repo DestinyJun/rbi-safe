@@ -116,11 +116,11 @@ export class InstitutionManageComponent implements OnInit {
             this.institutionManageHttpOperate(this.institutionSrv.institutionManageAdd(field));
           }
           else {
-            window.alert('必须上传文件！');
+            window.confirm('必须上传文件！');
             this.store.dispatch(new Hidden());
           }
         } else {
-          window.alert('请把参数填写完整!');
+          window.confirm('请把参数填写完整!');
           this.store.dispatch(new Hidden());
         }
         break;
@@ -170,7 +170,7 @@ export class InstitutionManageComponent implements OnInit {
           }
           this.institutionManageHttpOperate(this.institutionSrv.institutionManageUpdate(updateField));
         } else {
-          window.alert('请把参数填写完整!');
+          window.confirm('请把参数填写完整!');
           this.store.dispatch(new Hidden());
         }
         break;
@@ -200,7 +200,7 @@ export class InstitutionManageComponent implements OnInit {
           }
           this.institutionManageHttpOperate(this.institutionSrv.institutionManageAssess(assessField));
         } else {
-          window.alert('请把参数填写完整!');
+          window.confirm('请把参数填写完整!');
           this.store.dispatch(new Hidden());
         }
         break;
@@ -217,7 +217,7 @@ export class InstitutionManageComponent implements OnInit {
             this.institutionManageHttpOperate(this.institutionSrv.institutionManageDel({data: this.institutionManageTableSelect.map((val) => ({id: val.id}))}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 文件下载

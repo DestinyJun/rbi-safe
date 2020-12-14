@@ -183,7 +183,7 @@ export class EmergencyDrillComponent implements OnInit {
             }
             this.emDrillHttpOperate(this.emergencySrv.emergencyDrillUpdate(field));
           } else {
-            window.alert('请把参数填写完整!');
+            window.confirm('请把参数填写完整!');
             this.store.dispatch(new Hidden());
           }
 
@@ -214,7 +214,7 @@ export class EmergencyDrillComponent implements OnInit {
             }
             this.emDrillHttpOperate(this.emergencySrv.emergencyDrillAdd(field));
           }else {
-            window.alert('请把参数填写完整!');
+            window.confirm('请把参数填写完整!');
             this.store.dispatch(new Hidden());
           }
         }
@@ -232,7 +232,7 @@ export class EmergencyDrillComponent implements OnInit {
             this.emDrillHttpOperate(this.emergencySrv.emergencyDrillDel({ids: this.emDrillTableSelect.map((val) => val.id)}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 主控单位

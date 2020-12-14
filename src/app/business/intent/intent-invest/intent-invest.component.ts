@@ -123,7 +123,7 @@ export class IntentInvestComponent implements OnInit {
           if (this.investFormModal.valid) {
             this.investHttpOperate(this.intentSrv.intentInvestUpdate({...this.investFormModal.value, id: this.investOperateField.id}));
           } else {
-            window.alert('请把参数填写完整!');
+            window.confirm('请把参数填写完整!');
           }
         }
         // 新增保存
@@ -135,7 +135,7 @@ export class IntentInvestComponent implements OnInit {
             this.investHttpOperate(this.intentSrv.intentInvestAdd(this.investFormModal.value));
           }
           else {
-            window.alert('请把参数填写完整!');
+            window.confirm('请把参数填写完整!');
           }
         }
         break;
@@ -157,7 +157,7 @@ export class IntentInvestComponent implements OnInit {
             this.investHttpOperate(this.intentSrv.intentInvestDel({data: this.investTableSelect.map((val) => ({id: val.id}))}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 树操作

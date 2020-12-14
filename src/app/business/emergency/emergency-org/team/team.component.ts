@@ -118,7 +118,7 @@ export class TeamComponent implements OnInit {
           if (this.eoTeamFormModal.valid) {
             this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamUpdate({...this.eoTeamFormModal.value, id: this.eoTeamOperateField.id}));
           } else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         // 新增保存
@@ -135,7 +135,7 @@ export class TeamComponent implements OnInit {
           if (this.eoTeamFormModal.valid) {
             this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamAdd(this.eoTeamFormModal.value));
           }else {
-            window.alert('请把参数填写完整！');
+            window.confirm('请把参数填写完整！');
           }
         }
         break;
@@ -152,7 +152,7 @@ export class TeamComponent implements OnInit {
             this.eoTeamHttpOperate(this.emergencySrv.emergencyOrgTeamDel({ids: this.eoTeamTableSelect.map((val) => val.id)}));
           }
         } else {
-          window.alert('请您勾选需要删除的项！');
+          window.confirm('请您勾选需要删除的项！');
         }
         break;
       // 组织单位
