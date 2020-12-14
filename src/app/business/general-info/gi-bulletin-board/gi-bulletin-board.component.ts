@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
 import {GeneralInfoService} from '../../../common/services/general-info.service';
 import {PageOption} from '../../../common/public/Api';
@@ -36,7 +35,7 @@ export class GiBulletinBoardComponent implements OnInit {
   }
   public  initBulletinData(): void {
     this.builletinSrv.getBulletinBoradPageData({pageNo: this.bulletionPageNo, pageSize: 10}).subscribe((res) => {
-      console.log(res);
+      this.itemData = [];
       res.data.contents.forEach(val => {
         this.itemData.push({
           num: val.id,
@@ -56,8 +55,6 @@ export class GiBulletinBoardComponent implements OnInit {
   }
   // 打开文件
   public  detailClick(item): void {
-    console.log(item);
-
     this.showDetailDialog = true;
     for (let key in this.detailData){
       this.detailData[key] = item[key];
@@ -95,17 +92,14 @@ export class GiBulletinBoardComponent implements OnInit {
     this.selectedItems = [];
     this.selectedItems.push(...this.itemData);
     this.selectedItems.forEach(item => {item.checked = ['1']; });
-    console.log(this.selectedItems);
   }
   public selectItem(state, item: any): void {
-    console.log(state);
     const i = this.selectedItems.indexOf(item);
     if (state.checked) {
       this.selectedItems.push(item);
     } else {
       this.selectedItems.splice(i, 1);
     }
-    console.log(this.selectedItems);
   }
 
 }
