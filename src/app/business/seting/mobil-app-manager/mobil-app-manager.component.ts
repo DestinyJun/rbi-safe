@@ -3,6 +3,9 @@ import {SetingService} from "../../../common/services/seting.service";
 import {PublicMethodService} from "../../../common/public/public-method.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {GeneralInfoService} from "../../../common/services/general-info.service";
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store/loadstatus.state';
+import {Show} from '../../../store/loadstatus.actions';
 
 @Component({
   selector: 'app-mobil-app-manager',
@@ -19,7 +22,8 @@ export class MobilAppManagerComponent implements OnInit {
     private fb: FormBuilder,
     private resealeSrv: GeneralInfoService,
     private toolSrv: PublicMethodService,
-    private setSrv: SetingService
+    private setSrv: SetingService,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
@@ -29,6 +33,7 @@ export class MobilAppManagerComponent implements OnInit {
       file: new FormControl('', Validators.required),
     });
     this.setSrv.findNewAppMessage(null).subscribe(res => {
+      console.log(res);
       this.appInfo = res.data;
     });
   }
@@ -41,16 +46,17 @@ export class MobilAppManagerComponent implements OnInit {
   public  submitClick(): void {
     if (this.addInfo.valid){
       this.toolSrv.setConfirmation('发布', '发布', () => {
+        this.store.dispatch(new Show());
         const formData = new FormData();
         formData.append('version', this.addInfo.value.version);
         formData.append('updateContent', this.addInfo.value.updateContent);
         formData.append('file', this.file);
-        console.log(formData);
         this.setSrv.sendNewApp(formData).subscribe(res => {
           this.toolSrv.setToast('info', '提示', res.message);
           this.ngOnInit();
           this.addInfo.reset();
           this.file = '';
+          this.showDialog = false;
         });
       });
     }else {
