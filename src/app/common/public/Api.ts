@@ -814,7 +814,7 @@ export interface SpecialDay {
 }
 export class SpecialDayClass implements SpecialDay{
   id: any = null;
-  values: number = null;
+  values: number = 0;
 }
 
 // 提交错题集

@@ -71,6 +71,13 @@ export class HeaderComponent implements OnInit {
         this.noticeItem.push({message: res.data, router: '/home/strain/demand'});
       }
     });
+    await this.generalInfoService.equipmentPageSpecial({pageSize: 1, currentPage: 1}).toPromise().then(res => {
+      if (res.data.datas.length > 0) {
+        if (res.data.datas[0].status === 1) {
+          this.noticeItem.push({message: '特种设备待检测', router: '/home/equipment/special'});
+        }
+      }
+    });
     return new Promise(((resolve, reject) => {
       resolve('finish');
       reject('finish');

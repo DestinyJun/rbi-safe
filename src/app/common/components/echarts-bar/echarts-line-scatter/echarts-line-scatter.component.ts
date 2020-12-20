@@ -179,14 +179,14 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         top: '15%',
         left: '3%',
         right: '3%',
-        bottom: '2%',
+        bottom: '10%',
         show: false,
         containLabel: false
       },
       legend: [
         {
           show: true,
-          right: '10%',
+          right: '3%',
           top: '3%',
           textStyle: {
             color: '#AAAAAA'
@@ -197,7 +197,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         },
         {
           show: true,
-          right: '20%',
+          right: '10%',
           top: '3%',
           textStyle: {
             color: '#AAAAAA'
@@ -211,7 +211,7 @@ export class EchartsLineScatterComponent implements OnInit, OnChanges {
         type: 'category',
         boundaryGap: false,
         axisLabel: {
-          margin: 30,
+          margin: 10,
           color: '#B8B8B8'
         },
         splitArea: {

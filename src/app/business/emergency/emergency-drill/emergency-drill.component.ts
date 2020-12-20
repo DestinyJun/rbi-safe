@@ -64,7 +64,7 @@ export class EmergencyDrillComponent implements OnInit {
   public emDrillImgList: any = []; // 图片文件列表
   public emDrillImgId: any = null; // 图片所属Id
 
-  public emDrillFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyDrillFieldClass())); // 表单模型
+  public emDrillFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyDrillFieldClass(), ['remarks'])); // 表单模型
 
   constructor(
     private emergencySrv: EmergencyService,

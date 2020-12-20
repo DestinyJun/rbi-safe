@@ -20,6 +20,21 @@ export class EquipmentService {
 
   /** ********************* 安全设备管理 ********************* */
   /**
+   * 安全设备分页导出
+   */
+  public equipmentSafeExport(): Observable<any> {
+    return this.http.post(`/equipment/exportSafe`, {});
+  }
+
+  /**
+   * 安全设备导入
+   * @param params
+   */
+  public equipmentSafeImport(params: any): Observable<any> {
+    return this.http.post(`/equipment/importSafe`, params);
+  }
+
+  /**
    * 安全设备分页查看
    * @param params
    */
@@ -53,6 +68,21 @@ export class EquipmentService {
 
   /** ********************** 特种设备管理 ********************* */
   /**
+   * 安全设备分页导出
+   */
+  public equipmentSpecialExport(): Observable<any> {
+    return this.http.post(`/equipment/exportSpecial`, {});
+  }
+
+  /**
+   * 安全设备导入
+   * @param params
+   */
+  public equipmentSpecialImport(params: any): Observable<any> {
+    return this.http.post(`/equipment/importSpecial`, params);
+  }
+
+  /**
    * 分页查看特种设备
    * @param params
    */
@@ -84,7 +114,35 @@ export class EquipmentService {
     return this.http.post(`/equipment/updateSpecial`, params);
   }
 
+  /**
+   * 特种设备提前通知时间
+   */
+  public equipmentSpecialRemindList(): Observable<any> {
+    return this.http.post(`/getSpecialEquipmentDaySet`, {});
+  }
+
+  /**
+   * 特种设备提前通知时间修改
+   * @param params
+   */
+  public equipmentSpecialRemindUpdate(params: any): Observable<any> {
+    return this.http.post(`/updateSpecialDaySet`, params);
+  }
   /** ********************** 其他设备管理 ********************* */
+  /**
+   * 安全设备分页导出
+   */
+  public equipmentOtherExport(): Observable<any> {
+    return this.http.post(`/equipment/exportOther`, {});
+  }
+
+  /**
+   * 安全设备导入
+   * @param params
+   */
+  public equipmentOtherImport(params: any): Observable<any> {
+    return this.http.post(`/equipment/importOther`, params);
+  }
   /**
    * 分页查看其他设备
    * @param params

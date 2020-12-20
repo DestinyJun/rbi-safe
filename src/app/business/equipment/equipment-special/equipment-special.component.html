@@ -2,14 +2,20 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">特种设备管理</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
+      <button
+        pButton
+        label="{{'提前【'+eqSpecialDay?.values+'】天提醒（点击可修改）'}}"
+        class="ui-button-danger"
+        (click)="eqSpecialDayModal=true"
+      ></button>
       <!--      <input type="text" pInputText placeholder="搜索"/>-->
       <!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
     </div>
     <div class="button">
       <button pButton type="button" label="新增设备" class="ui-button-rounded" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'add')"></button>
       <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'multiple')"></button>
-      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
-      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="eqSpecialImportFieldModal=true"></button>
+      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'export')"></button>
     </div>
   </div>
   <div class="content">
@@ -32,7 +38,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center">
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" style="text-align: center" [ngStyle]="{color: rowData['status'] === 1?'red': ''}">
           <td>
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
@@ -64,11 +70,11 @@
         <p-scrollPanel [style]="{width: '100%', height: '65vh'}" styleClass="role-scroll">
           <form [formGroup]="eqSpecialFormModal">
             <div class="ui-g">
-              <!--组织培训单位-->
+              <!--所属车间-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
                   <span style="color: #FF8A9A">*</span>
-                  <span>单位：</span>
+                  <span>所属车间：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
                   <button
@@ -83,7 +89,6 @@
               <!--投用时间-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>投用时间：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -162,10 +167,9 @@
                   <input type="text" formControlName="equipmentName" pInputText placeholder="请填设备名称">
                 </div>
               </div>
-              <!--特种参数-->
+              <!--主要设备设施-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>主要设备设施：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -175,7 +179,6 @@
               <!--出厂编号-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>出厂编号：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -195,7 +198,6 @@
               <!--使用证号-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>使用证号：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -215,7 +217,6 @@
               <!--注册单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>注册单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -225,7 +226,6 @@
               <!--制造单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>制造单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -235,7 +235,6 @@
               <!--检验单位-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>检验单位：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -245,7 +244,6 @@
               <!--设备代码-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>设备代码：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -255,7 +253,6 @@
               <!--报告编号-->
               <div class="ui-g-6 ui-md-6">
                 <label class="ui-g-4 ui-md-4 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>报告编号：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
@@ -281,7 +278,6 @@
               <!--备注-->
               <div class="ui-g-12 ui-md-12">
                 <label class="ui-g-2 ui-md-2 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>备注：</span>
                 </label>
                 <div class="ui-g-10 ui-md-10 input">
@@ -313,6 +309,71 @@
       </p-scrollPanel>
       <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="eqSpecialOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+    <!-- 提前通知修改模态框 -->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="eqSpecialDayModal" [style]="{width: '50vw'}"
+    >
+      <p-header>修改提前通知时间</p-header>
+      <div class="ui-g">
+        <!--身份证-->
+        <div class="ui-g-12 ui-md-12">
+          <label class="ui-g-4 ui-md-4 label">
+            <span>请输入时间(<span class="text-danger">只能是正整数</span>)：</span>
+          </label>
+          <div class="ui-g-8 ui-md-8 input">
+            <input
+              type="number" pInputText placeholder="请输入正整数"
+              [(ngModel)]="eqSpecialDay.values"
+            >
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <button pButton label="确定" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'remind')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eqSpecialDayModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--文件导入弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="eqSpecialImportFieldModal" [style]="{width: '50vw'}"
+    >
+      <p-header>导入特种设备管理</p-header>
+      <div style="width: 100%;height: 30vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--选择文件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>请选择文件（<span class="text-danger">只能是excel文档）</span>：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-fileUpload
+                  chooseLabel="点击选择上传文件" cancelLabel="清空" accept=".xlsx,.xls"
+                  [showUploadButton]="false" mode="advanced" name="file" #fileUpload
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+            <!--模板下载-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>模板下载：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button pButton label="点击下载" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'download')"></button>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="eqSpecialOperate(eqSpecialOperateFlag = 'import',fileUpload)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eqSpecialImportFieldModal = false"></button>
       </p-footer>
     </p-dialog>
   </div>

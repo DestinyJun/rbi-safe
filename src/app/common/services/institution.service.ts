@@ -11,6 +11,14 @@ export class InstitutionService {
 
   /** ********************** 制度管理 **********************  */
   /**
+   * 制度管理搜索分页查看
+   * @param params
+   */
+  public institutionManageSearch(params: any): Observable<any> {
+    return this.http.post(`/systemManage/findSystemByName`, params);
+  }
+
+  /**
    * 制度管理分页查看
    * @param params
    */
@@ -51,6 +59,14 @@ export class InstitutionService {
   }
 
   /** ********************** 制度评估历史记录 **********************  */
+  /**
+   * 制度评估历史记录分页查看
+   * @param params
+   */
+  public institutionRecordSearch(params: any): Observable<any> {
+    return this.http.post(`/systemManage/findSystemRecordByName`, params);
+  }
+
   /**
    * 制度评估历史记录分页查看
    * @param params

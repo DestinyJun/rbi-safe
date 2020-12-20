@@ -64,4 +64,9 @@ export class GeneralInfoService {
     return this.http.post('http://10.40.1.121:8000/complain/production/findAll', params);
   }
 
+  // 生产运营日报
+  public equipmentPageSpecial(params: any): Observable<any> {
+    return this.http.post('/equipment/pageSpecial', params);
+  }
+
 }

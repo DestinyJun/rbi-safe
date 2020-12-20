@@ -3,7 +3,9 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">应急预案</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
-      <!--<input type="text" pInputText placeholder="搜索"/>-->
+      <input type="text" pInputText placeholder="请输入关键字" [(ngModel)]="emPlanSearchField">
+      <button pButton label="搜索" (click)="emPlanOperate(emPlanOperateFlag = 'search')"></button>
+      <button pButton label="重置" class="ui-button-pink" (click)="emPlanOperate(emPlanOperateFlag = 'reset')"></button>
     </div>
     <div class="button">
       <button pButton type="button" label="新增" class="ui-button-rounded" (click)="emPlanOperate(emPlanOperateFlag = 'add', fileUpload)"></button>

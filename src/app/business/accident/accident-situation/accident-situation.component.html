@@ -8,17 +8,31 @@
   </div>
   <div class="content">
     <div class="ui-g" style="height: 100%;padding: 1vh 2vw;border-radius: 15px;box-shadow: 0 0 20px #C4C4C4;background: #FFFFFF;">
-      <!--组织培训单位-->
+      <!--事故走势-->
       <div class="ui-g-7 ui-md-7" style="height: 80%;">
-        <app-echarts-bar-risk
+        <!--<app-echarts-bar-risk
           [echartData]="acSituationBar"
           [showAxisLabel]="true"
           [showSplitLine]="true"
           [barColor]="'#226AD5'"
           (chartClick)="acSituationOperate(acSituationOperateFlag = 'chart',$event)"
           [title]="'事故走势'">
-        </app-echarts-bar-risk>
+        </app-echarts-bar-risk>-->
+        <app-echarts-bar-line
+          yAxisSplitLineType="dashed"
+          [isShowLegend]="false"
+          [isShowLineTooltip]="false"
+          [isShowDotted]="false"
+          [showSplitLine]="true"
+          [showAxisLabel]="true"
+          [echartData]="acSituationBar"
+          [barColor]="['#4261df']"
+          [lineColor]="['#D08AEE']"
+          (chartClick)="acSituationOperate(acSituationOperateFlag = 'chart',$event)"
+          title="事故走势">
+        </app-echarts-bar-line>
       </div>
+      <!--事故占比-->
       <div class="ui-g-5 ui-md-5" style="height: 80%">
         <h4 style="padding-top: 10px;color: #4D4F5C"></h4>
         <p-calendar

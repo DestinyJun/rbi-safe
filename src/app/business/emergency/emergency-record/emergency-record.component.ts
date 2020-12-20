@@ -27,17 +27,18 @@ export class EmergencyRecordComponent implements OnInit {
   public emRecordOperateFlag: any ; // 操作标识
   public emRecordOperateField: EmergencyRecordField = new UpdateEmergencyRecordFieldClass(); // 操作字段
   public emRecordOperateModal: boolean = false; // 模态框
+  public emRecordSearchField: string = ''; // 搜索操作字段
 
   constructor(
     private emergencySrv: EmergencyService,
   ) { }
 
   ngOnInit() {
-    this.emRecordDataInit(this.emRecordNowPage, this.emRecordPageOption.pageSize);
+    this.emRecordDataInit(this.emRecordNowPage, this.emRecordPageOption.pageSize, '');
   }
   // 数据初始化
-  private emRecordDataInit(currentPage, pageSize) {
-    this.emergencySrv.emergencyRecordList({currentPage, pageSize}).subscribe((res) => {
+  private emRecordDataInit(currentPage, pageSize, condition) {
+    this.emergencySrv.emergencyRecordList({currentPage, pageSize, condition}).subscribe((res) => {
       this.emRecordTableData = res.data.datas;
       this.emRecordPageOption.totalRecord = res.data.totalRecord;
     });
@@ -60,13 +61,32 @@ export class EmergencyRecordComponent implements OnInit {
       case 'open':
         window.open(item);
         break;
+      // 搜索操作
+      case 'search':
+        this.emRecordNowPage = 1;
+        if (this.emRecordSearchField) {
+          this.emRecordDataInit(this.emRecordNowPage, this.emRecordPageOption.pageSize, this.emRecordSearchField);
+        } else {
+          window.confirm('请输入搜索关键字');
+        }
+        break;
+      // 搜索重置
+      case 'reset':
+        this.emRecordNowPage = 1;
+        this.emRecordDataInit(this.emRecordNowPage, this.emRecordPageOption.pageSize, '');
+        this.emRecordSearchField = '';
+        break;
     }
   }
 
   // 分页操作
   public emRecordPageEvent(page) {
     this.emRecordNowPage = page;
-    this.emRecordDataInit(page, this.emRecordPageOption.pageSize);
+    if (this.emRecordSearchField) {
+      this.emRecordDataInit(page, this.emRecordPageOption.pageSize, this.emRecordSearchField);
+    } else {
+      this.emRecordDataInit(page, this.emRecordPageOption.pageSize, '');
+    }
   }
 
 }

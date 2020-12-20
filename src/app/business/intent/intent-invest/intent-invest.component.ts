@@ -42,7 +42,7 @@ export class IntentInvestComponent implements OnInit {
   public investEs: any = Es; // 日期选择插件
   public investTotalPlanMoney: any = ''; // 总计提金额
   public investTotalInputMoney: any = ''; // 	总支出金额
-  public investFormModal = this.fbSrv.group(InitFormGroup(new AddIntentInvestField())); // 表单模型
+  public investFormModal = this.fbSrv.group(InitFormGroup(new AddIntentInvestField(), ['remarks'])); // 表单模型
   constructor(
     private intentSrv: IntentService,
     private globalSrv: GlobalService,

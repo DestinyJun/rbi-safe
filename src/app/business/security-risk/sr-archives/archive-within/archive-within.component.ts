@@ -316,6 +316,13 @@ export class ArchiveWithinComponent implements OnInit {
     this.fileDialog = true;
   }
 
+
+  public openExport(): void  {
+    this.secRiskSrv.riskExcelExportInside().subscribe(val => {
+      window.open(val.data.path);
+    });
+  }
+
   // 删除
   public  archiveDelClick(item): void {
     if (window.confirm('您确定需要删除吗？')) {

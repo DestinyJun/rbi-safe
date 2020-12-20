@@ -44,7 +44,10 @@ export class EquipmentSafeComponent implements OnInit {
     {value: 1, label: '正常'},
     {value: 2, label: '异常'},
   ]; // 状态下拉配置项
-  public eqSafeFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentSafeFieldClass())); // 表单模型
+  public eqSafeFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentSafeFieldClass(), ['remarks'])); // 表单模型
+  public eqSafeImportFieldModal: boolean = false; // 导入模态框
+  public eqSafeExcelTemplate: string = ''; // 导入模板地址
+  public eqSafeImportField: FormData = new FormData(); // 导入操作字段
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
@@ -59,6 +62,10 @@ export class EquipmentSafeComponent implements OnInit {
         this.eqSafeOrgTree = orgInitializeTree(res.data);
       }
     );
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.eqSafeExcelTemplate = res.data[18].path;
+    });
   }
   // 数据初始化
   private eqSafeDataInit(currentPage, pageSize) {
@@ -80,6 +87,26 @@ export class EquipmentSafeComponent implements OnInit {
   // 基础操作
   public eqSafeOperate(flag: string, item?: any) {
     switch (flag) {
+      // 模板文件下载
+      case 'download':
+        window.open(this.eqSafeExcelTemplate);
+        break;
+      // 文件导出操作
+      case 'export':
+        this.equipmentSrv.equipmentSafeExport().subscribe((res) => {
+          window.open(res.token);
+        });
+        break;
+      // 文件导入操作
+      case 'import':
+        this.eqSafeImportField.append('multipartFile', item.files[0]);
+        this.equipmentSrv.equipmentSafeImport(this.eqSafeImportField).subscribe((res) => {
+          this.eqSafeImportFieldModal = false;
+          window.confirm('导入成功');
+          this.eqSafeDataInit(this.eqSafeNowPage, this.eqSafePageOption.pageSize);
+        });
+        break;
+      // 取消操作
       case 'cancel':
         this.eqSafeOperateModal = false;
         this.eqSafeFormModal.reset({}, {onlySelf: false, emitEvent: false});

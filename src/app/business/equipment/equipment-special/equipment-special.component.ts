@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
+import {OrgTree, PageOption, SpecialDay, SpecialDayClass, TableHeader} from '../../../common/public/Api';
 import {AddEquipmentSpecialFieldClass, EquipmentSpecialField, UpdateEquipmentSpecialFieldClass} from '../equipmentApi';
 import {EquipmentService} from '../../../common/services/equipment.service';
 import {GlobalService} from '../../../common/services/global.service';
-import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
+import {Es, InitFormGroup, objectCopy, orgInitializeTree} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
 import {FormBuilder} from '@angular/forms';
 
@@ -45,7 +45,15 @@ export class EquipmentSpecialComponent implements OnInit {
     {value: 2, label: '异常'},
   ]; // 状态下拉配置项
   public eqSpecialEs: any = Es; // 日期选择插件
-  public eqSpecialFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentSpecialFieldClass())); // 表单模型
+  public eqSpecialFormModal = this.fbSrv.group(InitFormGroup(
+    new AddEquipmentSpecialFieldClass(),
+    ['operationTime', 'specialParameters', 'factoryNumber', 'licenseNo', 'registeredUnit', 'manufacturer', 'inspectionUnit', 'equipmentCode', 'reportNo', 'remarks']
+  )); // 表单模型
+  public eqSpecialDay: SpecialDay = new SpecialDayClass(); // 提前通知时间
+  public eqSpecialDayModal: boolean = false; // 提前通知修改模态框
+  public eqSpecialImportFieldModal: boolean = false; // 导入模态框
+  public eqSpecialExcelTemplate: string = ''; // 导入模板地址
+  public eqSpecialImportField: FormData = new FormData(); // 导入操作字段
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
@@ -60,6 +68,14 @@ export class EquipmentSpecialComponent implements OnInit {
         this.eqSpecialOrgTree = orgInitializeTree(res.data);
       }
     );
+    // 初始化提前通知时间
+    this.equipmentSrv.equipmentSpecialRemindList().subscribe((res) => {
+      this.eqSpecialDay = objectCopy(new SpecialDayClass(), res.data);
+    });
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.eqSpecialExcelTemplate = res.data[17].path;
+    });
   }
   // 数据初始化
   private eqSpecialDataInit(currentPage, pageSize) {
@@ -81,6 +97,26 @@ export class EquipmentSpecialComponent implements OnInit {
   // 基础操作
   public eqSpecialOperate(flag: string, item?: any) {
     switch (flag) {
+      // 模板文件下载
+      case 'download':
+        window.open(this.eqSpecialExcelTemplate);
+        break;
+      // 文件导出操作
+      case 'export':
+        this.equipmentSrv.equipmentSpecialExport().subscribe((res) => {
+          window.open(res.token);
+        });
+        break;
+      // 文件导入操作
+      case 'import':
+        this.eqSpecialImportField.append('multipartFile', item.files[0]);
+        this.equipmentSrv.equipmentSpecialImport(this.eqSpecialImportField).subscribe((res) => {
+          this.eqSpecialImportFieldModal = false;
+          window.confirm('导入成功');
+          this.eqSpecialDataInit(this.eqSpecialNowPage, this.eqSpecialPageOption.pageSize);
+        });
+        break;
+      // 取消操作
       case 'cancel':
         this.eqSpecialOperateModal = false;
         this.eqSpecialFormModal.reset({}, {onlySelf: false, emitEvent: false});
@@ -154,6 +190,12 @@ export class EquipmentSpecialComponent implements OnInit {
       // 树选择确定
       case 'select':
         this.eqSpecialOrgTreeModal = false;
+        break;
+      // 提前通知时间修改
+      case 'remind':
+        this.equipmentSrv.equipmentSpecialRemindUpdate(this.eqSpecialDay).subscribe((res) => {
+          this.eqSpecialDayModal = false;
+        });
         break;
     }
   }

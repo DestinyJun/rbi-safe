@@ -34,7 +34,10 @@ export class EquipmentOtherComponent implements OnInit {
   public eqOtherOrgTree: OrgTree[] = []; // 组织树配置项
   public eqOtherOrgTreeSelect: OrgTree = {}; // 组织树选择
   public eqOtherOrgTreeSelectLabel: any = '点击选择单位'; // 组织树label
-  public eqOtherFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentOtherFieldClass())); // 表单模型
+  public eqOtherFormModal = this.fbSrv.group(InitFormGroup(new AddEquipmentOtherFieldClass(), ['remarks'])); // 表单模型
+  public eqOtherImportFieldModal: boolean = false; // 导入模态框
+  public eqOtherExcelTemplate: string = ''; // 导入模板地址
+  public eqOtherImportField: FormData = new FormData(); // 导入操作字段
   constructor(
     private equipmentSrv: EquipmentService,
     private globalSrv: GlobalService,
@@ -49,6 +52,10 @@ export class EquipmentOtherComponent implements OnInit {
         this.eqOtherOrgTree = orgInitializeTree(res.data);
       }
     );
+    // 模板下载初始化
+    this.globalSrv.publicGetExcelTemplate().subscribe((res) => {
+      this.eqOtherExcelTemplate = res.data[19].path;
+    });
   }
   // 数据初始化
   private eqOtherDataInit(currentPage, pageSize) {
@@ -70,6 +77,26 @@ export class EquipmentOtherComponent implements OnInit {
   // 基础操作
   public eqOtherOperate(flag: string, item?: any) {
     switch (flag) {
+      // 模板文件下载
+      case 'download':
+        window.open(this.eqOtherExcelTemplate);
+        break;
+      // 文件导出操作
+      case 'export':
+        this.equipmentSrv.equipmentOtherExport().subscribe((res) => {
+          window.open(res.token);
+        });
+        break;
+      // 文件导入操作
+      case 'import':
+        this.eqOtherImportField.append('multipartFile', item.files[0]);
+        this.equipmentSrv.equipmentOtherImport(this.eqOtherImportField).subscribe((res) => {
+          this.eqOtherImportFieldModal = false;
+          window.confirm('导入成功');
+          this.eqOtherDataInit(this.eqOtherNowPage, this.eqOtherPageOption.pageSize);
+        });
+        break;
+      // 取消操作
       case 'cancel':
         this.eqOtherOperateModal = false;
         this.eqOtherFormModal.reset({}, {onlySelf: false, emitEvent: false});

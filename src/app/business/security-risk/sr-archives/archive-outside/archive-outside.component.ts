@@ -318,7 +318,11 @@ export class ArchiveOutsideComponent implements OnInit {
   public openImport(): void  {
     this.fileDialog = true;
   }
-
+  public openExport(): void  {
+    this.secRiskSrv.riskExcelExportOutside().subscribe(val => {
+      window.open(val.data.path);
+    });
+  }
 
   public  selectFile(e): void {
     this.fileName = e.files[0].name;

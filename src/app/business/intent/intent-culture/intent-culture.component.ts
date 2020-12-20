@@ -45,7 +45,7 @@ export class IntentCultureComponent implements OnInit {
   ]; // 状态下拉配置项
   public cultureEs: any = Es; // 日期选择插件
   public cultureImgList: any = []; // 图片文件列表
-  public cultureFormModal = this.fbSrv.group(InitFormGroup(new AddIntentCultureField())); // 表单模型
+  public cultureFormModal = this.fbSrv.group(InitFormGroup(new AddIntentCultureField(), ['remarks'])); // 表单模型
   constructor(
     private intentSrv: IntentService,
     private globalSrv: GlobalService,

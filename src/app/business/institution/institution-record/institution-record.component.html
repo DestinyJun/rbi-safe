@@ -3,8 +3,9 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">制度评估历史记录</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
-      <!--<input type="text" pInputText placeholder="搜索"/>-->
-      <!--<button pButton type="button" class="ui-button-warning" [label]="'矿业公司当前总计提金额: '+ institutionRecordTotalPlanMoney"></button>-->
+      <input type="text" pInputText placeholder="请输入关键字" [(ngModel)]="institutionRecordSearchField">
+      <button pButton label="搜索" (click)="institutionRecordOperate(institutionRecordOperateFlag = 'search')"></button>
+      <button pButton label="重置" class="ui-button-pink" (click)="institutionRecordOperate(institutionRecordOperateFlag = 'reset')"></button>
     </div>
     <div class="button">
 <!--      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="institutionRecordOperate(institutionRecordOperateFlag = 'add', fileUpload)"></button>-->

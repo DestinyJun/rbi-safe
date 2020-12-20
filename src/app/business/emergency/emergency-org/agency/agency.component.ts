@@ -30,7 +30,7 @@ export class AgencyComponent implements OnInit {
   public eoAgencyOperateField: EmergencyOrgAgencyField = new AddEmergencyOrgAgencyFieldClass(); // 操作字段
   public eoAgencyOperateModal: boolean = false; // 模态框
   public eoAgencyPersonal: EmergencyOrgPersonField[] = [];
-  public eoAgencyFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgAgencyFieldClass(), ['mineEmergencyOrganizationPersonnels'])); // 表单模型
+  public eoAgencyFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgAgencyFieldClass(), ['mineEmergencyOrganizationPersonnels', 'remarks'])); // 表单模型
   constructor(
     private emergencySrv: EmergencyService,
     private fbSrv: FormBuilder

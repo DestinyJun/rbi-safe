@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {PageOption, TableHeader} from '../../../common/public/Api';
+import { PageOption, TableHeader} from '../../../common/public/Api';
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
 import {InstitutionService} from '../../../common/services/institution.service';
-import {AddInstitutionManageFieldClass, InstitutionManageAssessField, InstitutionManageAssessFieldClass, InstitutionManageField, InstitutionManageUpdateField, UpdateInstitutionManageFieldClass} from '../institutionApi';
+import {AddInstitutionManageFieldClass, InstitutionManageAssessFieldClass, InstitutionManageField, InstitutionManageUpdateField, UpdateInstitutionManageFieldClass} from '../institutionApi';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/loadstatus.state';
 import {Hidden, Show} from '../../../store/loadstatus.actions';
@@ -35,7 +35,6 @@ export class InstitutionManageComponent implements OnInit {
   public institutionManageOperateFlag: any ; // 操作标识
   public institutionManageOperateField: InstitutionManageField = new AddInstitutionManageFieldClass(); // 添加操作字段
   public institutionManageUpdateField: InstitutionManageUpdateField =  new UpdateInstitutionManageFieldClass(); // 修改操作字段
-  public institutionManageAssessField: InstitutionManageAssessField =  new InstitutionManageAssessFieldClass(); // 评估操作字段
   public institutionManageAddModal: boolean = false; // 模态框
   public institutionManageUpdateModal: boolean = false; // 更新模态框
   public institutionManageAssessModal: boolean = false; // 评估模态框
@@ -49,7 +48,7 @@ export class InstitutionManageComponent implements OnInit {
   public institutionManageAddFormModal = this.fbSrv.group(InitFormGroup(new AddInstitutionManageFieldClass())); // 新增表单模型
   public institutionManageUpdateFormModal = this.fbSrv.group(InitFormGroup({name: '', type: null, updateExplain: ''})); // 修改表单模型
   public institutionManageAssessFormModal = this.fbSrv.group(InitFormGroup(new InstitutionManageAssessFieldClass())); // 评估表单模型
-
+  public institutionManageSearchField: string = ''; // 搜索操作字段
   constructor(
     private institutionSrv: InstitutionService,
     private globalSrv: GlobalService,
@@ -82,6 +81,14 @@ export class InstitutionManageComponent implements OnInit {
       this.institutionManageUpdateModal = false;
       this.institutionManageAssessModal = false;
       this.institutionManageDataInit(this.institutionManageNowPage, this.institutionManagePageOption.pageSize);
+    });
+  }
+
+  // 搜索代理请求
+  private institutionManageSearchOperate(pageNo, pageSize, name) {
+    this.institutionSrv.institutionManageSearch({pageNo, pageSize, name}).subscribe((res) => {
+      this.institutionManageTableData = res.data.contents;
+      this.institutionManagePageOption.totalRecord = res.data.totalRecord;
     });
   }
 
@@ -224,13 +231,34 @@ export class InstitutionManageComponent implements OnInit {
       case 'open':
         window.open(item);
         break;
+      // 搜索操作
+      case 'search':
+        this.institutionManageNowPage = 1;
+        if (this.institutionManageSearchField) {
+          this.institutionManageSearchOperate(this.institutionManageNowPage, this.institutionManagePageOption.pageSize, this.institutionManageSearchField);
+        } else {
+          window.confirm('请输入搜索关键字');
+        }
+        break;
+      // 搜索重置
+      case 'reset':
+        this.institutionManageNowPage = 1;
+        this.institutionManageDataInit(this.institutionManageNowPage, this.institutionManagePageOption.pageSize);
+        this.institutionManageSearchField = '';
+        break;
     }
   }
 
   // 分页操作
   public institutionManagePageEvent(page) {
     this.institutionManageNowPage = page;
-    this.institutionManageDataInit(page, this.institutionManagePageOption.pageSize);
+    if (this.institutionManageSearchField) {
+      // 搜索分页
+      this.institutionManageSearchOperate(this.institutionManageNowPage, this.institutionManagePageOption.pageSize, this.institutionManageSearchField);
+    } else {
+      // 普通分页
+      this.institutionManageDataInit(page, this.institutionManagePageOption.pageSize);
+    }
   }
 
 }

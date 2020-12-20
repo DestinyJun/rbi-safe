@@ -35,6 +35,13 @@ export class AccidentService {
   }
 
   /**
+   *  生产安全事故导出
+   */
+  public accidentRecordExport(): Observable<any> {
+    return this.http.post(`/accident/excelwrite`, {});
+  }
+
+  /**
    * 生产安全事故更新
    * @param params
    */

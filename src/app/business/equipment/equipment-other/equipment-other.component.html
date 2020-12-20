@@ -8,8 +8,8 @@
     <div class="button">
       <button pButton type="button" label="新增设备" class="ui-button-rounded" (click)="eqOtherOperate(eqOtherOperateFlag = 'add')"></button>
       <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-danger ml-2" (click)="eqOtherOperate(eqOtherOperateFlag = 'multiple')"></button>
-      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>-->
-      <!--      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>-->
+      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="eqOtherImportFieldModal=true"></button>
+      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="eqOtherOperate(eqOtherOperateFlag = 'export')"></button>
     </div>
   </div>
   <div class="content">
@@ -103,7 +103,6 @@
               <!--备注-->
               <div class="ui-g-12 ui-md-12">
                 <label class="ui-g-2 ui-md-2 label">
-                  <span style="color: #FF8A9A">*</span>
                   <span>备注：</span>
                 </label>
                 <div class="ui-g-10 ui-md-10 input">
@@ -135,6 +134,45 @@
       </p-scrollPanel>
       <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="eqOtherOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+    <!--文件导入弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="eqOtherImportFieldModal" [style]="{width: '50vw'}"
+    >
+      <p-header>导入其他设备管理</p-header>
+      <div style="width: 100%;height: 30vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--选择文件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>请选择文件（<span class="text-danger">只能是excel文档）</span>：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-fileUpload
+                  chooseLabel="点击选择上传文件" cancelLabel="清空" accept=".xlsx,.xls"
+                  [showUploadButton]="false" mode="advanced" name="file" #fileUpload
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+            <!--模板下载-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>模板下载：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <button pButton label="点击下载" (click)="eqOtherOperate(eqOtherOperateFlag = 'download')"></button>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="eqOtherOperate(eqOtherOperateFlag = 'import',fileUpload)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="eqOtherImportFieldModal = false"></button>
       </p-footer>
     </p-dialog>
   </div>

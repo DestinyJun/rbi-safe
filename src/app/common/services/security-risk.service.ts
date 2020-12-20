@@ -151,7 +151,13 @@ export class SecurityRiskService {
   public riskExcelImportInside(params): Observable<any> {
     return this.http.post('/risk/excelImport_inside', params);
   }
+  public riskExcelExportInside(): Observable<any> {
+    return this.http.post('/risk/excelWrite_inside', {});
+  }
   public riskExcelImportOutside(params): Observable<any> {
     return this.http.post('/risk/excelImport_outside', params);
+  }
+  public riskExcelExportOutside(): Observable<any> {
+    return this.http.post('/risk/excelWrite_outside', {});
   }
 }

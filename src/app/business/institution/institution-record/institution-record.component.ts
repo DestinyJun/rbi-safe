@@ -31,6 +31,7 @@ export class InstitutionRecordComponent implements OnInit {
   public institutionRecordOperateFlag: any ; // 操作标识
   public institutionRecordOperateField: InstitutionRecordUpdateField = new UpdateInstitutionRecordFieldClass(); // 添加操作字段
   public institutionRecordDetailModal: boolean = false; // 模态框
+  public institutionRecordSearchField: string = ''; // 搜索操作字段
   constructor(
     private institutionSrv: InstitutionService,
   ) { }
@@ -51,6 +52,15 @@ export class InstitutionRecordComponent implements OnInit {
     test.subscribe(() => {
       // 操作成功后重新初始化数据列表
       this.institutionRecordDataInit(this.institutionRecordNowPage, this.institutionRecordPageOption.pageSize);
+    });
+  }
+
+
+  // 搜索代理请求
+  private institutionRecordSearchOperate(pageNo, pageSize, name) {
+    this.institutionSrv.institutionRecordSearch({pageNo, pageSize, name}).subscribe((res) => {
+      this.institutionRecordTableData = res.data.contents;
+      this.institutionRecordPageOption.totalRecord = res.data.totalRecord;
     });
   }
 
@@ -84,12 +94,33 @@ export class InstitutionRecordComponent implements OnInit {
           window.confirm('请您勾选需要删除的项！');
         }
         break;
+      // 搜索操作
+      case 'search':
+        this.institutionRecordNowPage = 1;
+        if (this.institutionRecordSearchField) {
+          this.institutionRecordSearchOperate(this.institutionRecordNowPage, this.institutionRecordPageOption.pageSize, this.institutionRecordSearchField);
+        } else {
+          window.confirm('请输入搜索关键字');
+        }
+        break;
+      // 搜索重置
+      case 'reset':
+        this.institutionRecordNowPage = 1;
+        this.institutionRecordDataInit(this.institutionRecordNowPage, this.institutionRecordPageOption.pageSize);
+        this.institutionRecordSearchField = '';
+        break;
     }
   }
 
   // 分页操作
   public institutionRecordPageEvent(page) {
     this.institutionRecordNowPage = page;
-    this.institutionRecordDataInit(page, this.institutionRecordPageOption.pageSize);
+    if (this.institutionRecordSearchField) {
+      // 搜索分页
+      this.institutionRecordSearchOperate(this.institutionRecordNowPage, this.institutionRecordPageOption.pageSize, this.institutionRecordSearchField);
+    } else {
+      // 普通分页
+      this.institutionRecordDataInit(page, this.institutionRecordPageOption.pageSize);
+    }
   }
 }

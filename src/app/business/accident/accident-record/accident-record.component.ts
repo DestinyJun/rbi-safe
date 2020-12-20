@@ -154,6 +154,13 @@ export class AccidentRecordComponent implements OnInit {
       case 'select':
         this.acRecordOrgTreeModal = false;
         break;
+      // 导出
+      case 'export':
+        this.accidentSrv.accidentRecordExport().subscribe((res) => {
+          console.log(res);
+          window.open(res.data.path);
+        });
+        break;
     }
   }
 

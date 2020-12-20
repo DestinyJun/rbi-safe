@@ -11,6 +11,8 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
   @Input() public isShowDotted: boolean = false; // 是否开启虚线
   @Input() public title: string = ''; // 统计图标题
   @Input() public showSplitLine: boolean = false; // 是否显示Y轴线
+  @Input() public isShowLegend: boolean = true; // 是否显示legend
+  @Input() public isShowLineTooltip: boolean = true; // 是否显示线的Tooltip
   @Input() public showAxisLabel: boolean = false; // 是否显示刻度值
   @Input() public yAxisSplitLineType: string = 'solid'; // y坐标轴在 grid 区域中的分隔线的类型
   @Input() public axisLabelRotate: number = 0; // 横坐标类目文字偏转角度
@@ -56,6 +58,9 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
       const seriesLine = this.echartData.lineData.map((item, index) => {
         return {
           name: item.name,
+          tooltip: {
+            show: this.isShowLineTooltip
+          },
           type: 'line',
           symbol: 'circle',
           color: this.lineColor[index],
@@ -104,8 +109,9 @@ export class EchartsBarLineComponent implements OnInit, OnChanges {
       },
       legend: [
         {
+          show: this.isShowLegend,
           right: '10%',
-          top: '3%',
+          top: '5%',
           textStyle: {
             color: '#AAAAAA'
           }

@@ -4,7 +4,7 @@ import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/conte
 import {GlobalService} from '../../../common/services/global.service';
 import {Observable} from 'rxjs';
 import {EmergencyService} from '../../../common/services/emergency.service';
-import {AddEmergencyOrgAgencyFieldClass, AddEmergencyPlanFieldClass, EmergencyPlanField, EmergencyPlanHandleField, UpdateEmergencyPlanFieldClass, UpdateEmergencyPlanHandleFieldClass} from '../emergencyApi';
+import {AddEmergencyPlanFieldClass, EmergencyPlanField, EmergencyPlanHandleField, UpdateEmergencyPlanFieldClass, UpdateEmergencyPlanHandleFieldClass} from '../emergencyApi';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/loadstatus.state';
 import {Hidden, Show} from '../../../store/loadstatus.actions';
@@ -62,6 +62,7 @@ export class EmergencyPlanComponent implements OnInit {
   ]; // 状态下拉配置项
   public emPlanFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyPlanFieldClass())); // 表单模型
   public emPlanHandleFormModal = this.fbSrv.group(InitFormGroup(new UpdateEmergencyPlanHandleFieldClass())); // 处理表单模型
+  public emPlanSearchField: string = ''; // 搜索操作字段
   constructor(
     private emergencySrv: EmergencyService,
     private globalSrv: GlobalService,
@@ -70,7 +71,7 @@ export class EmergencyPlanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize);
+    this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize, '');
     // 初始化组织树
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
@@ -79,8 +80,8 @@ export class EmergencyPlanComponent implements OnInit {
     );
   }
   // 数据初始化
-  private emPlanDataInit(currentPage, pageSize) {
-    this.emergencySrv.emergencyPlanList({currentPage, pageSize}).subscribe((res) => {
+  private emPlanDataInit(currentPage, pageSize, condition) {
+    this.emergencySrv.emergencyPlanList({currentPage, pageSize, condition}).subscribe((res) => {
       this.emPlanTableData = res.data.datas;
       this.emPlanPageOption.totalRecord = res.data.totalRecord;
     });
@@ -92,7 +93,7 @@ export class EmergencyPlanComponent implements OnInit {
       // 操作成功后重新初始化数据列表
       this.emPlanOperateModal = false;
       this.emPlanHandleModal = false;
-      this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize);
+      this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize, '');
     });
   }
 
@@ -277,12 +278,31 @@ export class EmergencyPlanComponent implements OnInit {
           window.alert('请您勾选需要删除的项！');
         }
         break;
+      // 搜索操作
+      case 'search':
+        this.emPlanNowPage = 1;
+        if (this.emPlanSearchField) {
+          this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize, this.emPlanSearchField);
+        } else {
+          window.confirm('请输入搜索关键字');
+        }
+        break;
+      // 搜索重置
+      case 'reset':
+        this.emPlanNowPage = 1;
+        this.emPlanDataInit(this.emPlanNowPage, this.emPlanPageOption.pageSize, '');
+        this.emPlanSearchField = '';
+        break;
     }
   }
 
   // 分页操作
   public emPlanPageEvent(page) {
     this.emPlanNowPage = page;
-    this.emPlanDataInit(page, this.emPlanPageOption.pageSize);
+    if (this.emPlanSearchField) {
+      this.emPlanDataInit(page, this.emPlanPageOption.pageSize, this.emPlanSearchField);
+    } else {
+      this.emPlanDataInit(page, this.emPlanPageOption.pageSize, '');
+    }
   }
 }

@@ -44,7 +44,15 @@ export class AccidentSituationComponent implements OnInit {
   // 柱状图数据获取
   private acSituationBarHttp(organizationId, year) {
     this.accidentSrv.accidentSituationBar({organizationId, year}).subscribe((res) => {
-      this.acSituationBar = res.data;
+      const xdata = res.data.xdata;
+      const barData = [
+        {name: '', value: res.data.ydata},
+      ];
+      const lineData = [
+        {name: '', value: res.data.ydata},
+      ];
+      this.acSituationBar = {xdata, barData, lineData};
+      // this.acSituationBar = res.data;
     });
   }
 
@@ -58,7 +66,7 @@ export class AccidentSituationComponent implements OnInit {
   // 基础操作
   public acSituationOperate(flag: string, item?: any) {
     switch (flag) {
-      // 树操作
+      // 柱状图交互
       case 'chart':
         this.acSituationPieHttp(34, this.acSituationYear, item.dataIndex + 1);
         break;

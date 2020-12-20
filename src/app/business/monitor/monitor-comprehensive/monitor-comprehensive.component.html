@@ -16,18 +16,28 @@
   <div class="content">
     <div class="ui-g" style="height: 100%">
       <!-- 面积图 -->
-      <div class="ui-g-12 ui-md-12 mb-2" style="height: 50%;background: #fff;border-radius: 15px; box-shadow: 0 0 20px #C4C4C4;">
+      <div class="ui-g-12 ui-md-12 mb-2" style="height: 50%;background: #fff;border-radius: 15px; box-shadow: 0 0 20px #C4C4C4;position:relative;">
+        <span style="position:absolute;top: 17px;right: 20%;">
+          <span style="color: #ff6c6a;font-weight: bolder">红：危险 </span>
+          <span style="color: #fea96d;font-weight: bolder;margin-left: 5px">橙：警告 </span>
+          <span style="color: #fefe9f;font-weight: bolder;margin-left: 5px">黄：注意 </span>
+          <span style="color: #97b9fc;font-weight: bolder;margin-left: 5px">蓝：安全 </span>
+        </span>
         <app-echarts-line-scatter
-          [title]="'综合监测预警值'"
+          [title]="'综合监测预警指数图'"
           [color]="['#00FF00','#9F0099','#5B9BD5','#FFC000','#ff6c6a']"
           [echartData]="monitorBottomChart" (chartClick)="monitorOperate(monitorOperateFlag = 'chart', $event)">
         </app-echarts-line-scatter>
       </div>
       <!-- 圆柱体图 -->
-      <div class="ui-g-12 ui-md-12 mt-2" style="height: 50%;background: #fff;border-radius: 15px; box-shadow: 0 0 20px #C4C4C4;">
+      <div class="ui-g-12 ui-md-12 mt-2" style="height: 50%;background: #fff;border-radius: 15px; box-shadow: 0 0 20px #C4C4C4;position:relative;">
+         <span style="position:absolute;top: 17px;right: 5.5%;">
+          <span style="font-weight: bolder;color: #3E8DFE;">正值：不利于安全生产 </span>
+          <span style="font-weight: bolder;color: #3E8DFE;margin-left: 30px">负值：有利于安全生产</span>
+        </span>
         <app-echarts-bar-dimensional
           [echartData]="monitorTopChart"
-          [title]="'综合监测预警指标分类占比'">
+          [title]="'综合监测预警指标分类分值'">
         </app-echarts-bar-dimensional>
       </div>
     </div>

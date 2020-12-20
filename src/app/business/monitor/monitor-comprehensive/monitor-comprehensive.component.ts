@@ -27,6 +27,7 @@ export class MonitorComprehensiveComponent implements OnInit {
   ngOnInit() {
     this.monitorSrv.monitorComprehensiveArea({}).subscribe((res) => {
       if (res.data) {
+        console.log(res.data);
         const xData = res.data.abscissa;
         const data = [
           {name: 'SPI实际值', value: res.data.value, isShowDotted: false},

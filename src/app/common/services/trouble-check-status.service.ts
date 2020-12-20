@@ -16,9 +16,13 @@ export class TroubleCheckStatusService {
   public findByMonth(): Observable<any> {
     return this.http.post('/hid/findByMonth', '');
   }
-  // 隐患等级
+  // 柱状图获取
   public troubleCheckChar(params): Observable<any> {
     return this.http.post('/hid/findByYear', params);
+  }
+  // 饼状图获取
+  public troubleCheckBar(params): Observable<any> {
+    return this.http.post('/hid/findByType', params);
   }
   // 隐患类型
   public findByType(): Observable<any> {

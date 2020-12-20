@@ -29,7 +29,7 @@ export class ExternalComponent implements OnInit {
   public eoExternalOperateFlag: any ; // 操作标识
   public eoExternalOperateField: EmergencyOrgExternalField = new AddEmergencyOrgExternalFieldClass(); // 操作字段
   public eoExternalOperateModal: boolean = false; // 模态框
-  public eoExternalFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgExternalFieldClass())); // 表单模型
+  public eoExternalFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgExternalFieldClass(), ['remarks'])); // 表单模型
   constructor(
     private emergencySrv: EmergencyService,
     private fbSrv: FormBuilder

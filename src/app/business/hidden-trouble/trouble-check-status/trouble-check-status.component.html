@@ -9,7 +9,7 @@
   <div class="content">
     <div class="ui-g" style="height: 100%">
       <!--隐患整改率-->
-      <div class="ui-g-12 ui-md-12" style="height: 80%">
+      <div class="ui-g-7 ui-md-7" style="height: 80%">
         <app-echarts-bar-line
           yAxisSplitLineType="dashed"
           [isShowDotted]="false"
@@ -18,8 +18,49 @@
           [echartData]="troubleCheckChart"
           [barColor]="['#4261df', '#58c1f9', '#63dcaf', '#ffd800', '#ff7800']"
           [lineColor]="['#B2A0FE', '#FF9AA7']"
+          (chartClick)="troubleCheckOperate(troubleCheckOperateFlag = 'chart',$event)"
           title="隐患等级/隐患整改率">
         </app-echarts-bar-line>
+      </div>
+      <!--隐患占比-->
+      <div class="ui-g-5 ui-md-5" style="height: 80%">
+        <h4 style="padding-top: 10px;color: #4D4F5C"></h4>
+        <p-calendar
+          #calendarDate
+          placeholder="点击选择开始日期"
+          [locale]="troubleCheckEs" [(ngModel)]="troubleCheckStartTime"
+          dateFormat="yy-mm-dd"
+          dataType="string"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [showTime]="false"
+          yearRange="1930:2030">
+          <p-footer>
+            <button pButton type="button" label="关闭" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+          </p-footer>
+        </p-calendar>
+        <p-calendar
+          styleClass="ml-3"
+          #calendarDate
+          placeholder="点击选择结束日期"
+          [locale]="troubleCheckEs" [(ngModel)]="troubleCheckEndTime"
+          dateFormat="yy-mm-dd"
+          dataType="string"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [showTime]="false"
+          yearRange="1930:2030">
+          <p-footer>
+            <button pButton type="button" label="关闭" class="ui-button-warning" (click)="calendarDate.hideOverlay()"></button>
+          </p-footer>
+        </p-calendar>
+        <button pButton type="button" label="查询" class="ui-button-danger ml-3" (click)="troubleCheckOperate(troubleCheckOperateFlag = 'changeChart')"></button>
+        <app-echarts-pie-trouble
+          [title]="'隐患占比'"
+          unit="起"
+          [color]="['#58C1F9', '#63DCAF','#FFC06A']"
+          [echartData]="troubleCheckPie">
+        </app-echarts-pie-trouble>
       </div>
     </div>
   </div>
