@@ -16,6 +16,8 @@ export class EmergencyRecordComponent implements OnInit {
   }; // 分页组件配置
   public emRecordTableHeader: TableHeader[] = [
     {field: 'emergencyPlanName', header: '应急预案名称'},
+    {field: 'reviewOrganization', header: '评审组织'},
+    {field: 'preparationUnit', header: '主控单位'},
     {field: 'reservePlanType', header: '预案类别'},
     {field: 'reviewStatus', header: '评审状态'},
     {field: 'reviewAttachmentName', header: '评审附件名称'},
