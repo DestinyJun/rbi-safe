@@ -12,7 +12,9 @@ import {Es, orgInitializeTree} from '../../../common/public/contents';
 export class TroubleCheckStatusComponent implements OnInit {
   public troubleCheckChart: any = null ; // 柱状图数据
   public troubleCheckPie: any = null ; // 饼状图数据
+  public troubleCheckId: any = null ; // 当前组织id
   public troubleCheckYear: any = new Date().getFullYear() ; // 当前年
+  public troubleCheckMonth: any = (new Date().getMonth()) + 1 ; // 当前月
   public troubleCheckOperateFlag: any ; // 操作标识
   public troubleCheckOrgTreeModal: boolean = false; // 组织树模态框
   public troubleCheckOrgTree: OrgTree[] = []; // 组织树配置项
@@ -31,8 +33,9 @@ export class TroubleCheckStatusComponent implements OnInit {
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
         this.troubleCheckOrgTreeSelectLabel = res.data[0].organizationName;
+        this.troubleCheckId = res.data[0].id;
         this.troubleCheckBarHttp(res.data[0].id, this.troubleCheckYear);
-        this.troubleCheckPieHttp('2020-11-24', '2020-12-24');
+        this.troubleCheckPieHttp(res.data[0].id, this.troubleCheckYear, this.troubleCheckMonth);
         this.troubleCheckOrgTree = orgInitializeTree(res.data);
       }
     );
@@ -57,8 +60,10 @@ export class TroubleCheckStatusComponent implements OnInit {
   }
 
   // 饼状图数据获取
-  private troubleCheckPieHttp(startTime, endTime) {
-    this.troubleSrv.troubleCheckBar({startTime, endTime}).subscribe((res) => {
+  private troubleCheckPieHttp(organizationId, year, month) {
+    this.troubleCheckStartTime = '';
+    this.troubleCheckEndTime = '';
+    this.troubleSrv.troubleCheckBarInit({organizationId, year, month}).subscribe((res) => {
       this.troubleCheckPie = Object.keys(res.data).map((key) => ({name: key, value: res.data[key]}));
     });
   }
@@ -68,7 +73,7 @@ export class TroubleCheckStatusComponent implements OnInit {
     switch (flag) {
       // 柱状图交互
       case 'chart':
-        this.troubleCheckPieHttp(item.dataIndex + 1, item.dataIndex + 1);
+        this.troubleCheckPieHttp(this.troubleCheckId, this.troubleCheckYear, item.dataIndex + 1);
         break;
       // 树操作
       case 'tree':
@@ -78,13 +83,16 @@ export class TroubleCheckStatusComponent implements OnInit {
       case 'select':
         this.troubleCheckOrgTreeModal = false;
         this.troubleCheckOrgTreeSelectLabel = this.troubleCheckOrgTreeSelect.label;
+        this.troubleCheckId = this.troubleCheckOrgTreeSelect.id;
         this.troubleCheckBarHttp(this.troubleCheckOrgTreeSelect.id, this.troubleCheckYear);
+        this.troubleCheckPieHttp(this.troubleCheckOrgTreeSelect.id, this.troubleCheckYear, this.troubleCheckMonth);
         break;
       // 饼状图日期区间查询
       case 'changeChart':
         if (this.troubleCheckEndTime && this.troubleCheckStartTime) {
           if (new Date(this.troubleCheckEndTime) > new Date(this.troubleCheckStartTime)) {
             this.troubleSrv.troubleCheckBar({
+              organizationId: this.troubleCheckId,
               startTime: this.troubleCheckStartTime,
               endTime: this.troubleCheckEndTime,
             }).subscribe((res) => {

@@ -17,16 +17,16 @@
     <p-table [columns]="rkArchiveTitle" [value]="rkArchiveContent" scrollHeight="40vh" [scrollable]="true">
       <ng-template pTemplate="header" let-columns>
         <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
-          <th rowspan="2" *ngFor="let col of columns.slice(0, 16)">
+          <th rowspan="2" *ngFor="let col of columns.slice(0, 17)">
             {{col.header}}
           </th>
           <th colspan="4">风险等级分析</th>
-          <th rowspan="2" *ngFor="let col of columns.slice(20, columns.length)">
+          <th rowspan="2" *ngFor="let col of columns.slice(21, columns.length)">
             {{col.header}}
           </th>
         </tr>
         <tr>
-          <th *ngFor="let col of columns.slice(16, 20)">
+          <th *ngFor="let col of columns.slice(17, 21)">
             {{col.header}}
           </th>
         </tr>

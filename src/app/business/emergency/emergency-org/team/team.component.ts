@@ -38,6 +38,11 @@ export class TeamComponent implements OnInit {
   public eoTeamOrgTreeSelect: OrgTree = {}; // 组织单位组织树选择
   public eoTeamOrgTreeSelectLabel: any = '点击选择组织单位'; // 组织单位组织树label
   public eoTeamFormModal = this.fbSrv.group(InitFormGroup(new AddEmergencyOrgTeamFieldClass(), ['mineEmergencyTeamMembers'])); // 表单模型
+  public eoTeamDropdownOptions: any = [
+    {value: '专职', label: '专职'},
+    {value: '签订协议专职', label: '签订协议专职'},
+    {value: '兼职', label: '兼职'},
+  ]; // 状态下拉配置项
   constructor(
     private emergencySrv: EmergencyService,
     private globalSrv: GlobalService,

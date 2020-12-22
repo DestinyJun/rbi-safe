@@ -99,7 +99,12 @@
                   <span>队伍性质：</span>
                 </label>
                 <div class="ui-g-8 ui-md-8 input">
-                  <input type="text" formControlName="natureOfTheTeam" pInputText placeholder="请填队伍性质">
+                  <p-dropdown
+                    formControlName="natureOfTheTeam"
+                    [style]="{width: '100%'}"
+                    placeholder="请填先择性质"
+                    [options]="eoTeamDropdownOptions" dropdownIcon="fa fa-caret-down">
+                  </p-dropdown>
                 </div>
               </div>
               <!--队长-->

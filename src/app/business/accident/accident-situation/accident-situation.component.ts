@@ -58,6 +58,8 @@ export class AccidentSituationComponent implements OnInit {
 
   // 饼状图数据获取
   private acSituationPieHttp(organizationId, year, month) {
+    this.acSituationStartTime = '';
+    this.acSituationEndTime = '';
     this.accidentSrv.accidentSituationPie({organizationId, year, month}).subscribe((res) => {
       this.acSituationPie = res.data;
     });
@@ -68,7 +70,7 @@ export class AccidentSituationComponent implements OnInit {
     switch (flag) {
       // 柱状图交互
       case 'chart':
-        this.acSituationPieHttp(34, this.acSituationYear, item.dataIndex + 1);
+        this.acSituationPieHttp(this.acSituationId, this.acSituationYear, item.dataIndex + 1);
         break;
       // 树操作
       case 'tree':

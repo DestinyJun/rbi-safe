@@ -20,6 +20,7 @@ export class MonitorComprehensiveComponent implements OnInit {
     {value: 97, label: ' 麦坝铝矿'},
   ]; // 状态下拉配置项
   public monitorDropdownSelected: any = null; // 状态下拉选择
+  public monitorIds: any = []; // 状态下拉选择
   constructor(
     private monitorSrv: MonitorService,
   ) { }
@@ -27,7 +28,7 @@ export class MonitorComprehensiveComponent implements OnInit {
   ngOnInit() {
     this.monitorSrv.monitorComprehensiveArea({}).subscribe((res) => {
       if (res.data) {
-        console.log(res.data);
+        this.monitorIds = [...res.data.id];
         const xData = res.data.abscissa;
         const data = [
           {name: 'SPI实际值', value: res.data.value, isShowDotted: false},
@@ -41,7 +42,7 @@ export class MonitorComprehensiveComponent implements OnInit {
           data: data
         };
         this.monitorDropdownSelected = res.data.organizationId;
-        this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
+        this.monitorChartBarHttp({warningId: this.monitorIds[this.monitorIds.length - 1]});
       }
       else {
         this.monitorTopChart = {
@@ -56,6 +57,7 @@ export class MonitorComprehensiveComponent implements OnInit {
   private monitorChartLinerHttp(organizationId){
     this.monitorSrv.monitorComprehensiveArea({organizationId}).subscribe((res) => {
       if (res.data) {
+        this.monitorIds = [...res.data.id];
         const xData = res.data.abscissa;
         const data = [
           {name: 'SPI实际值', value: res.data.value, isShowDotted: false},
@@ -69,7 +71,7 @@ export class MonitorComprehensiveComponent implements OnInit {
           data: data
         };
         this.monitorDropdownSelected = res.data.organizationId;
-        this.monitorChartBarHttp({organizationId: res.data.organizationId, time: res.data.time});
+        this.monitorChartBarHttp({warningId: this.monitorIds[this.monitorIds.length - 1]});
       }
       else {
         this.monitorBottomChart = {
@@ -101,7 +103,9 @@ export class MonitorComprehensiveComponent implements OnInit {
         this.monitorChartLinerHttp(item.value);
         break;
       case 'chart':
-        this.monitorChartBarHttp({organizationId: this.monitorDropdownSelected, time: item.name});
+        if (this.monitorIds[item.dataIndex]) {
+          this.monitorChartBarHttp({warningId: this.monitorIds[item.dataIndex]});
+        }
         break;
     }
   }

@@ -20,7 +20,11 @@ export class TroubleCheckStatusService {
   public troubleCheckChar(params): Observable<any> {
     return this.http.post('/hid/findByYear', params);
   }
-  // 饼状图获取
+  // 饼状图初始化获取
+  public troubleCheckBarInit(params): Observable<any> {
+    return this.http.post('/hid/findTypeByMonth', params);
+  }
+  // 饼状图区间获取
   public troubleCheckBar(params): Observable<any> {
     return this.http.post('/hid/findByType', params);
   }
