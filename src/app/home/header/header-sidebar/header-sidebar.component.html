@@ -1,12 +1,12 @@
 <div class="header-sidebar">
   <div class="user pt-4 pb-4 ac-border">
     <div class="avatar">
-      <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 52px;color: #226AD5"></i>
+      <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 52px;color: #23344E"></i>
     </div>
     <div class="usrinfo pl-3">
       <p class="h5">{{hdPersonInfo.name}}</p>
       <p class="mt-2">
-        <i class="fa fa-user-md text-primary" aria-hidden="true"></i>
+        <i class="fa fa-user-md" aria-hidden="true" style="color: #23344E"></i>
         <span class="ml-1 mr-2">{{hdPersonInfo.position}}</span>
         <span class="text-gray">{{hdPersonInfo.employeeNumber}}</span>
       </p>
@@ -65,7 +65,7 @@
     </div>
   </div>
   <div class="button p-3 text-center" (click)="loginOut()">
-    <button pButton class="ui-button-rounded" label="退出账号"></button>
+    <button pButton class="ui-button-rounded" style="background: #23344E;border-color: #23344E" label="退出账号"></button>
   </div>
   <div class="job">
     <p-sidebar
@@ -88,7 +88,7 @@
           </p>
         </div>
         <div class="button p-3 text-center" (click)="hdSideBarShow = false">
-          <button pButton class="ui-button-rounded" label="返回个人信息"></button>
+          <button pButton class="ui-button-rounded" style="background: #23344E;border-color: #23344E" label="返回个人信息"></button>
         </div>
       </div>
     </p-sidebar>
