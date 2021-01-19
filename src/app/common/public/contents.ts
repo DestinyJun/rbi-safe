@@ -1,6 +1,50 @@
 import {OrgTree, TreeOption} from './Api';
 import {FormGroup, Validators} from '@angular/forms';
 
+export const SAFE_TREE = [
+  {
+    label: '人的不安全行为',
+    children: [
+      {label: '操作错误、忽视安全、忽视警告', children: []},
+      {label: '造成安全装置失效', children: []},
+      {label: '使用不安全设备', children: []},
+      {label: '用手代替工具操作', children: []},
+      {label: '物体（指成品、半成品、材料、工具、切屑和生产用品等）存放不当', children: []},
+      {label: '冒险进入危险场所', children: []},
+      {label: '攀、坐不安全位置（如平台护栏、汽车挡板、吊车吊钩）', children: []},
+      {label: '在起吊物下作业、停留', children: []},
+      {label: '机器运转时加油、修理、检查、调整、焊接、清扫等工作', children: []},
+      {label: '有分散注意力行为', children: []},
+      {label: '在必须使用个人防护用品用具的作业或场合中，忽视其使用', children: []},
+      {label: '使用不安全装束', children: []},
+      {label: '对易燃、易爆等危险物品处理错误', children: []},
+      {label: '其他', children: []},
+    ]
+  },
+  {
+    label: '物的不安全状态',
+    children: [
+      {label: '防护、保险、信号等 装置缺乏或有缺陷', children: []},
+      {label: '设备、设施、工具、附件有缺陷', children: []},
+      {label: '安全帽、安全鞋等缺少或有缺陷', children: []},
+      {label: '生产（施工）场地环境不良', children: []},
+      {label: '其他', children: []},
+    ]
+  },
+  {
+    label: '管理方面存在问题',
+    children: [
+      {label: '上锁挂牌', children: []},
+      {label: '物理隔离', children: []},
+      {label: '教育培训', children: []},
+      {label: '风险识别', children: []},
+      {label: '危险作业分级审批', children: []},
+      {label: '承包商七步法', children: []},
+      {label: '其他管理因素', children: []},
+    ]
+  }
+];
+
 // p-calendar语言本地化
 export const Es = {
   firstDayOfWeek: 1,

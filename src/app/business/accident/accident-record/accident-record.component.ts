@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OrgTree, PageOption, TableHeader} from '../../../common/public/Api';
 import {GlobalService} from '../../../common/services/global.service';
-import {Es, InitFormGroup, orgInitializeTree} from '../../../common/public/contents';
+import {Es, InitFormGroup, orgInitializeTree, SAFE_TREE} from '../../../common/public/contents';
 import {Observable} from 'rxjs';
 import {AccidentRecordField, AddAccidentRecordFieldClass, UpdateAccidentRecordFieldClass} from '../accidentApi';
 import {AccidentService} from '../../../common/services/accident.service';
@@ -39,6 +39,9 @@ export class AccidentRecordComponent implements OnInit {
   public acRecordDropdownOptions: any = []; // 状态下拉配置项
   public acRecordEs: any = Es; // 日期选择插件
   public acRecordFormModal = this.fbSrv.group(InitFormGroup(new AddAccidentRecordFieldClass())); // 表单模型
+  public acRecordSafeTree: OrgTree[] = SAFE_TREE; // 安全原因分析树
+  public acRecordSafeTreeModel: boolean = false; // 安全原因树模态
+  public acRecordSafeTreeSelect: OrgTree[] = []; // 安全原因树选择
   constructor(
     private accidentSrv: AccidentService,
     private globalSrv: GlobalService,
@@ -153,6 +156,23 @@ export class AccidentRecordComponent implements OnInit {
       // 树选择确定
       case 'select':
         this.acRecordOrgTreeModal = false;
+        break;
+      // 安全树操作
+      case 'safeTree':
+        this.acRecordSafeTreeModel = true;
+        break;
+      // 安全树选择确定
+      case 'safeTreeSelect':
+        this.acRecordSafeTreeModel = false;
+        let str = '';
+        this.acRecordSafeTreeSelect.forEach((val) => {
+          str += val.label + '，';
+        });
+        str = str.substr(0, str.length - 1);
+        str = str + '。';
+        this.acRecordFormModal.patchValue({
+          reasonAnalysis: str
+        });
         break;
       // 导出
       case 'export':

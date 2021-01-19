@@ -177,7 +177,14 @@
                   <span>原因分析：</span>
                 </label>
                 <div class="ui-g-10 ui-md-10 input">
-                  <textarea [rows]="5" [cols]="30" formControlName="reasonAnalysis" pInputTextarea autoResize="autoResize" placeholder="请填写原因分析"></textarea>
+                  <button
+                    pButton type="button"
+                    style="width: 100%"
+                    label="点击选择原因分析"
+                    class="ui-button-white text-left mb-1"
+                    (click)="acRecordOperate(acRecordOperateFlag = 'safeTree')">
+                  </button>
+                  <textarea disabled [rows]="5" [cols]="30" formControlName="reasonAnalysis" pInputTextarea autoResize="autoResize" placeholder="请填写原因分析"></textarea>
                 </div>
               </div>
               <!--采取措施-->
@@ -215,6 +222,24 @@
       </p-scrollPanel>
       <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="acRecordOperate('select')" label="确定"></button>
+      </p-footer>
+    </p-dialog>
+    <!--安全树弹窗-->
+    <p-dialog
+      [modal]="true"
+      [(visible)]="acRecordSafeTreeModel" [blockScroll]="true"
+      [contentStyle]="{width: '50vw',height: '50vh'}">
+      <p-header>请选择原因分析（选择时压住CTRL键可实现多选）</p-header>
+      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+        <p-tree
+          [style]="{width: '100%'}"
+          [value]="acRecordSafeTree"
+          [(selection)]="acRecordSafeTreeSelect"
+          selectionMode="multiple">
+        </p-tree>
+      </p-scrollPanel>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="acRecordOperate('safeTreeSelect')" label="确定"></button>
       </p-footer>
     </p-dialog>
   </div>
