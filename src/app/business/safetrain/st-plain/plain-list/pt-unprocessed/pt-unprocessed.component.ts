@@ -35,6 +35,20 @@ export class PtUnprocessedComponent implements OnInit {
       this.unprocessedPageOption.totalRecord = res.data.totalRecord;
     });
   }
+  // 计划导出
+  public unprocessedExport(id) {
+    this.safeSrv.exportProgramList({id}).subscribe((res) => {
+      window.open(res.data);
+    });
+  }
+  // 计划删除
+  public unprocessedDel(id) {
+    if (window.confirm('您确定需要删除吗？')) {
+      this.safeSrv.delProgramList({id}).subscribe(() => {
+        this.unprocessedDataInit(this.unprocessedNowPage, this.unprocessedPageOption.pageSize);
+      });
+    }
+  }
   // 分页操作
   public unprocessedPageEvent(page) {
     this.unprocessedNowPage = page;

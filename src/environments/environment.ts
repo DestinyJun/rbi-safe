@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  url_safe: 'http://139.9.153.27:8091/security-mine',
-  // url_safe: 'http://192.168.28.33:8091/security-mine',
+  // url_safe: 'http://139.9.153.27:8091/security-mine',
+  url_safe: 'http://192.168.28.30:8091/security-mine',
   // url_safe: 'http://192.168.28.197:8091/security-mine',
 };
 

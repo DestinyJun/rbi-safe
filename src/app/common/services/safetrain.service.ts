@@ -296,11 +296,27 @@ export class SafetrainService {
   }
 
   /**
-   * 教育培训计划列表获取
+   * 获取教育培训计划列表
    * @param params
    */
   public getProgramList(params: any): Observable<any> {
     return this.http.post(`/pagingSafeDemandReport`, params);
+  }
+
+  /**
+   * 导出教育培训计划列表
+   * @param params
+   */
+  public exportProgramList(params: any): Observable<any> {
+    return this.http.post(`/exportTrainingPlan`, params);
+  }
+
+  /**
+   * 删除教育培训计划列表
+   * @param params
+   */
+  public delProgramList(params: any): Observable<any> {
+    return this.http.post(`/deleteTrainingPlan`, params);
   }
 
   //                                    培训题库

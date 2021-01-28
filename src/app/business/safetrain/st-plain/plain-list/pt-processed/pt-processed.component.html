@@ -16,7 +16,7 @@
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
-          <th>操作</th>
+          <th style="width: 20%">操作</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
@@ -25,10 +25,20 @@
           <td *ngFor="let col of columns">
             {{rowData[col.field] == '2'?'已处理':rowData[col.field] == '3'?'已拒绝': rowData[col.field] == '1'?'申请中':rowData[col.field]}}
           </td>
-          <td class="text-center">
+          <td class="text-center" style="width: 20%">
             <button
               pButton label="查看详情" class="ui-button-rounded ui-button-pink"
               (click)="processedOperate(processedOperateFlag = 'detail', rowData)">
+            </button>
+            <button
+              pButton label="导出" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"
+              (click)="processedExport(rowData.id)"
+            >
+            </button>
+            <button
+              pButton label="删除" class="ui-button-rounded ui-button-danger"
+              (click)="processedDel(rowData.id)"
+            >
             </button>
           </td>
         </tr>

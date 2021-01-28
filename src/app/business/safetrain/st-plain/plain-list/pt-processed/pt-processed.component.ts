@@ -39,6 +39,21 @@ export class PtProcessedComponent implements OnInit {
     });
   }
 
+  // 计划导出
+  public processedExport(id) {
+    this.safeSrv.exportProgramList({id}).subscribe((res) => {
+      window.open(res.data);
+    });
+  }
+  // 计划删除
+  public processedDel(id) {
+    if (window.confirm('您确定需要删除吗？')) {
+      this.safeSrv.delProgramList({id}).subscribe(() => {
+        this.processedDataInit(this.processedNowPage, this.processedPageOption.pageSize);
+      });
+    }
+  }
+
   // 特殊台账操作操作
   public processedOperate(flag: string, item?: any) {
     switch (flag) {
