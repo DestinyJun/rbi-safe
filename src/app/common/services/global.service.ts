@@ -14,6 +14,10 @@ export class GlobalService {
   public getOrgazitionTreeData(params?: {}): Observable<any> {
     return this.http.post(`/getOrganizationTree`, params);
   }
+  // 获取组织树
+  public getOrgazitionAllTreeData(params?: {}): Observable<any> {
+    return this.http.post(`/getAllOrganizationTree`, params);
+  }
 
   // 获取角色列表
   public getRolesInfo(pamars): Observable<any> {
