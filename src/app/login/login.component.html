@@ -1,7 +1,8 @@
-<div class="login" [ngStyle]="{background: (!bgcUrl)?'#23344E': null, backgroundImage: bgcUrl?'url('+ bgcUrl +')':null}">
-  <!--<div class="left-img">
+<!--
+<div class="login" [ngStyle]="{background: '#23344E'}">
+  &lt;!&ndash;<div class="left-img">
     <img src="assets/image/ic_login_logo.png" alt="" style="height: 100%;width: 100%">
-  </div>-->
+  </div>&ndash;&gt;
   <div class="right">
     <div class="right-form">
       <div class="form-title">
@@ -29,10 +30,10 @@
         </div>
         <div class="form-checks">
           <div>
-<!--            <p-checkbox name="groupname" label="记住我">记住我</p-checkbox>-->
+&lt;!&ndash;            <p-checkbox name="groupname" label="记住我">记住我</p-checkbox>&ndash;&gt;
           </div>
           <div>
-<!--            <span>忘记密码</span>-->
+&lt;!&ndash;            <span>忘记密码</span>&ndash;&gt;
           </div>
         </div>
       </div>
@@ -42,7 +43,51 @@
     </div>
     <div class="right-bottom text-center">
       系统技术支持——贵州省劳动保护科学技术研究院 <br>
-<!--      红鸟智能技术服务有限公司-->
+&lt;!&ndash;      红鸟智能技术服务有限公司&ndash;&gt;
+    </div>
+  </div>
+  <p-toast position="top-center" key="toast"></p-toast>
+  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>
+
+</div>
+-->
+<div class="login">
+  <div class="left-img">
+    <img src="assets/image/ic_login_logo.png" alt="">
+  </div>
+  <div class="right">
+    <div class="right-form">
+      <div class="form-title">
+        <h1>企业安全生产管理</h1>
+        <div class="form-small-title">
+          <span>您好！请登录</span>
+        </div>
+      </div>
+      <div class="form-input">
+        <div class="form-user">
+          <i class="iconfont iconbaseline-perm_identity-24px"></i>
+          <input type="text" placeholder="账户" [(ngModel)]="username">
+        </div>
+        <div class="form-pass">
+          <i class="iconfont iconoutline-lock-24px"></i>
+          <input type="password" placeholder="密码" [(ngModel)]="password">
+        </div>
+        <div class="form-checks">
+          <div>
+            <!--            <p-checkbox name="groupname" label="记住我">记住我</p-checkbox>-->
+          </div>
+          <div>
+            <!--            <span>忘记密码</span>-->
+          </div>
+        </div>
+      </div>
+      <div class="form-btn">
+        <button (click)="loginClick()">登   录</button>
+      </div>
+    </div>
+    <div class="right-bottom text-center">
+      <!--系统技术支持——贵州省劳动保护科学技术研究院 <br>-->
+      <!--      红鸟智能技术服务有限公司-->
     </div>
   </div>
   <p-toast position="top-center" key="toast"></p-toast>
