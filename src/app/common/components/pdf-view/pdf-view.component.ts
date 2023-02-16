@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {GeneralInfoService} from '../../services/general-info.service';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Location} from '@angular/common';
+// @ts-ignore
 import {PDFSource} from 'pdfjs-dist';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
